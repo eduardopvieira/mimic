@@ -19,8 +19,9 @@ public class Raca {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 50)
-    private String nome;
+    private String nome; // Ex: "Elfo", "Anão"
 
+    // ... todos os outros campos (deslocamento, tamanho, etc.) permanecem iguais ...
     @Column(nullable = false)
     private Integer deslocamento;
 
@@ -36,24 +37,21 @@ public class Raca {
     @ElementCollection
     @CollectionTable(name = "raca_idiomas", joinColumns = @JoinColumn(name = "raca_id"))
     @Column(name = "idioma", nullable = false)
-    private Set<String> idiomas; // Ex: "Comum", "Anão"
+    private Set<String> idiomas;
 
     @ElementCollection
     @CollectionTable(name = "raca_proficiencias", joinColumns = @JoinColumn(name = "raca_id"))
     @Column(name = "proficiencia")
     private Set<String> proficienciasIniciais;
+
+    // Este campo de características continua o mesmo
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "raca_caracteristicas",
+            name = "raca_tracos",
             joinColumns = @JoinColumn(name = "raca_id"),
-            inverseJoinColumns = @JoinColumn(name = "caracteristica_id"))
-    private List<CaracteristicaRacial> caracteristicasRaciais;
+            inverseJoinColumns = @JoinColumn(name = "traco_id"))
+    private List<Traco> tracosRaciais; // Supondo que você renomeou para Traço
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "raca_pai_id")
-    private Raca racaPai; // Se for uma sub-raça, aponta para a raça principal (ex: Alto Elfo -> Elfo)
-
-    @OneToMany(mappedBy = "racaPai")
-    private List<Raca> subracas; // Lista de sub-raças (ex: Elfo -> [Alto Elfo, Elfo da Floresta])
-
+    @OneToMany(mappedBy = "racaPrincipal", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subraca> subracas;
 }
