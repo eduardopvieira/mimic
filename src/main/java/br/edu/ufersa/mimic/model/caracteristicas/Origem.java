@@ -8,10 +8,10 @@ import lombok.Setter;
 import java.util.Set;
 
 @Entity
-@Table(name = "antecedentes")
+@Table(name = "origens")
 @Getter
 @Setter
-public class Antecedente {
+public class Origem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,30 +23,29 @@ public class Antecedente {
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
-    // Os três atributos que o antecedente permite aumentar [cite: 1381]
+    // 3 atributos que a origem permite aumentar
     @ElementCollection
-    @CollectionTable(name = "antecedente_aumento_atributos", joinColumns = @JoinColumn(name = "antecedente_id"))
+    @CollectionTable(name = "origem_atributos_aumentados", joinColumns = @JoinColumn(name = "origem_id"))
     @Column(name = "atributo")
     private Set<String> aumentoAtributos;
 
-    // O Talento de Origem que este antecedente concede [cite: 550, 1381]
+    // talento de origem que essa origem concede
     @ManyToOne
     @JoinColumn(name = "talento_id", nullable = false)
     private Talento talentoDeOrigem;
 
-    // As duas proficiências em perícias concedidas [cite: 550, 1381]
+    // 2 proficiencias em pericia concedida
     @ElementCollection
     @CollectionTable(name = "antecedente_proficiencias_pericias", joinColumns = @JoinColumn(name = "antecedente_id"))
     @Column(name = "pericia")
     private Set<String> proficienciasPericias;
 
-    // A proficiência com ferramenta concedida [cite: 550, 1381]
+    // proficiencia com ferramenta concedida
     @Column(name = "proficiencia_ferramenta", length = 100)
     private String proficienciaFerramenta;
 
-    // As opções de equipamento inicial [cite: 553, 1381]
+    // equipamento inicial
     @Column(name = "equipamento_inicial", columnDefinition = "TEXT")
     private String equipamentoInicial;
 
-    // Getters e Setters...
 }

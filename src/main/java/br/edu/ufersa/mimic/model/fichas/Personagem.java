@@ -44,7 +44,7 @@ public class Personagem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "antecedente_id")
-    private Antecedente antecedente;
+    private Origem origem;
 
     // --- ATRIBUTOS PRINCIPAIS ---
     private Integer forca;
