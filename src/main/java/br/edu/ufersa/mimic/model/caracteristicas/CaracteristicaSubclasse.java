@@ -2,12 +2,14 @@ package br.edu.ufersa.mimic.model.caracteristicas;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "caracteristicas_subclasse")
 @Getter
 @Setter
+@NoArgsConstructor
 public class CaracteristicaSubclasse {
 
     @Id
@@ -26,4 +28,5 @@ public class CaracteristicaSubclasse {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subclasse_id", nullable = false)
     private Subclasse subclasse;
+
 }

@@ -1,17 +1,18 @@
 package br.edu.ufersa.mimic.config;
 
+import br.edu.ufersa.mimic.model.enums.NomeClasse;
+import br.edu.ufersa.mimic.model.enums.Tamanho;
 import br.edu.ufersa.mimic.repository.caracteristicas.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import br.edu.ufersa.mimic.model.caracteristicas.*;
-import br.edu.ufersa.mimic.model.enums.*;
-import br.edu.ufersa.mimic.repository.*;
+
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
+
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -62,13 +63,13 @@ public class DataInitializer implements CommandLineRunner {
             Raca elfo = new Raca();
             elfo.setNome("Elfo");
             elfo.setDeslocamento(9);
-            elfo.setTamanho("Médio");
-            elfo.setTracosRaciais(Arrays.asList(visaoNoEscuro, ancestralidadeFeerica));
-            Raca elfoSalvo = racaRepository.save(elfo); // Salva a raça principal primeiro!
+            elfo.setTamanho(Tamanho.MEDIO);
+            elfo.setTracos(Arrays.asList(visaoNoEscuro, ancestralidadeFeerica));
+            Raca elfoSalvo = racaRepository.save(elfo);
 
             Subraca altoElfo = new Subraca();
             altoElfo.setNome("Alto Elfo");
-            altoElfo.setRacaPrincipal(elfoSalvo); // Associa à raça principal
+            altoElfo.setRacaPrincipal(elfoSalvo);
             subracaRepository.save(altoElfo);
 
             Subraca elfoDaFloresta = new Subraca();
@@ -79,7 +80,7 @@ public class DataInitializer implements CommandLineRunner {
 
             // --- 3. CRIAR CLASSE E SUBCLASSES (Exemplo com Bárbaro) ---
             Classe barbaro = new Classe();
-            barbaro.setNome(EnumNomeClasse.BARBARO);
+            barbaro.setNome(NomeClasse.BARBARO);
             barbaro.setDadoDeVida(12);
             barbaro.setProficienciasArmas(new HashSet<>(Arrays.asList("Armas Simples", "Armas Marciais")));
             barbaro.setProficienciasTestesDeResistencia(new HashSet<>(Arrays.asList("FORÇA", "CONSTITUIÇÃO")));

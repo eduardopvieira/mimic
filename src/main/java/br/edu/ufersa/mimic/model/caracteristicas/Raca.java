@@ -26,9 +26,6 @@ public class Raca {
     @Column(nullable = false, length = 20)
     private Tamanho tamanho;
 
-    // Este é o campo mais importante. Ele conterá todas as habilidades
-    // especiais, como "Visão no Escuro", "Ancestralidade Feérica", etc.
-    // As antigas "sub-raças" são modeladas como escolhas dentro de um traço aqui.
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "raca_tracos",

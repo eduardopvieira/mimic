@@ -1,5 +1,6 @@
 package br.edu.ufersa.mimic.model.habilidades;
 
+import br.edu.ufersa.mimic.dto.TalentoDTO;
 import br.edu.ufersa.mimic.model.enums.CategoriaTalento;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,5 +31,16 @@ public class Talento {
 
     @Column(nullable = false)
     private boolean isRepetivel; // talento pode ser adquirido mais de 1 vez
+
+    public Talento(TalentoDTO talentoDTO) {
+        this.id = talentoDTO.getId();
+        this.nome = talentoDTO.getNome();
+        this.categoria = talentoDTO.getCategoria();
+        this.preRequisito = talentoDTO.getPreRequisito();
+        this.descricao = talentoDTO.getDescricao();
+        this.isRepetivel = talentoDTO.getIsRepetivel();
+    }
+
+    public Talento() {}
 
 }

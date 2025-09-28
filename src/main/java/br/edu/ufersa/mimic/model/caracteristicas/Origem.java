@@ -1,9 +1,11 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
+import br.edu.ufersa.mimic.dto.OrigemDTO;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
 import jakarta.persistence.*;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ import java.util.Set;
 @Table(name = "origens")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Origem {
 
     @Id
@@ -44,6 +47,20 @@ public class Origem {
     @Column(name = "equipamento_opcao_a", columnDefinition = "TEXT")
     private String equipamentoOpcaoA; // Ex: "Suprimentos de Calígrafo, Livro (orações)..."
 
-    @Column(name = "equipamento_opcao_b_po")
-    private Integer equipamentoOpcaoB_PO; // Ex: 50
+    @Column(name = "equipamento_opcao_b")
+    private Integer equipamentoOpcaoB; // Ex: 50
+
+    public Origem(OrigemDTO origemDTO) {
+        this.nome = origemDTO.getNome();
+        this.descricao = origemDTO.getDescricao();
+        this.atributosSugeridos = origemDTO.getAtributosSugeridos();
+        this.proficienciasPericia = origemDTO.getProficienciasPericia();
+        this.proficienciaFerramenta = origemDTO.getProficienciaFerramenta();
+        this.equipamentoOpcaoA = origemDTO.getEquipamentoOpcaoA();
+        this.equipamentoOpcaoB = origemDTO.getEquipamentoOpcaoB();
+        if (origemDTO.getTalentoInicialId() != null) {
+            this.talentoInicial = new Talento();
+            this.talentoInicial.setId(origemDTO.getTalentoInicialId());
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package br.edu.ufersa.mimic.model.habilidades;
 
+import br.edu.ufersa.mimic.dto.MagiaDTO;
 import br.edu.ufersa.mimic.model.enums.EscolaDeMagia;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -41,6 +42,20 @@ public class Magia {
 
     @Column
     private String duracao; //instantanea, concentração, 1 minuto, 2 minutos...
+
+    public Magia() {}
+
+    public Magia(MagiaDTO magiaDTO) {
+        this.id = magiaDTO.getId();
+        this.nome = magiaDTO.getNome();
+        this.descricao = magiaDTO.getDescricao();
+        this.circulo = magiaDTO.getCirculo();
+        this.escolaDeMagia = magiaDTO.getEscolaDeMagia();
+        this.tempoConjuracao = magiaDTO.getTempoConjuracao();
+        this.alcance = magiaDTO.getAlcance();
+        this.componentes = magiaDTO.getComponentes();
+        this.duracao = magiaDTO.getDuracao();
+    }
 
 
 }
