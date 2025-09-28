@@ -29,4 +29,6 @@ public class CaracteristicaDeClasse {
     @JoinColumn(name = "traco_id", nullable = false)
     private Traco traco;
 
+
+
 }

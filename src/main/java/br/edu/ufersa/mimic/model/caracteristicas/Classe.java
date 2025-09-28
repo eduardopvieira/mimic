@@ -4,12 +4,17 @@ import br.edu.ufersa.mimic.model.enums.NomeClasse;
 import br.edu.ufersa.mimic.model.enums.Atributo;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "classes")
+@Getter
+@Setter
 public class Classe {
 
     @Id

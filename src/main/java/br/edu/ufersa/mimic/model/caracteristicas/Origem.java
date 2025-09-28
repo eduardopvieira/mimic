@@ -2,9 +2,9 @@ package br.edu.ufersa.mimic.model.caracteristicas;
 
 import br.edu.ufersa.mimic.model.habilidades.Talento;
 import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Set;
 
 @Entity
@@ -17,35 +17,33 @@ public class Origem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
-    private String nome; // Ex: "Acólito", "Artesão"
+    @Column(nullable = false, unique = true)
+    private String nome;
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
-    // 3 atributos que a origem permite aumentar
     @ElementCollection
-    @CollectionTable(name = "origem_atributos_aumentados", joinColumns = @JoinColumn(name = "origem_id"))
+    @CollectionTable(name = "origem_atributos_sugeridos", joinColumns = @JoinColumn(name = "origem_id"))
     @Column(name = "atributo")
-    private Set<String> aumentoAtributos;
+    private Set<String> atributosSugeridos;
 
-    // talento de origem que essa origem concede
     @ManyToOne
     @JoinColumn(name = "talento_id", nullable = false)
-    private Talento talentoDeOrigem;
+    private Talento talentoInicial;
 
-    // 2 proficiencias em pericia concedida
     @ElementCollection
-    @CollectionTable(name = "antecedente_proficiencias_pericias", joinColumns = @JoinColumn(name = "antecedente_id"))
+    @CollectionTable(name = "origem_proficiencias_pericia", joinColumns = @JoinColumn(name = "origem_id"))
     @Column(name = "pericia")
-    private Set<String> proficienciasPericias;
+    private Set<String> proficienciasPericia;
 
-    // proficiencia com ferramenta concedida
-    @Column(name = "proficiencia_ferramenta", length = 100)
+    // cada origem concede proficiência em 1 ferramenta
+    @Column(name = "proficiencia_ferramenta")
     private String proficienciaFerramenta;
 
-    // equipamento inicial
-    @Column(name = "equipamento_inicial", columnDefinition = "TEXT")
-    private String equipamentoInicial;
+    @Column(name = "equipamento_opcao_a", columnDefinition = "TEXT")
+    private String equipamentoOpcaoA; // Ex: "Suprimentos de Calígrafo, Livro (orações)..."
 
+    @Column(name = "equipamento_opcao_b_po")
+    private Integer equipamentoOpcaoB_PO; // Ex: 50
 }
