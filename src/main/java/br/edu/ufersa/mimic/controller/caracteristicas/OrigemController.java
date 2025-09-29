@@ -1,7 +1,7 @@
-package br.edu.ufersa.mimic.controller;
+package br.edu.ufersa.mimic.controller.caracteristicas;
 
 import br.edu.ufersa.mimic.model.caracteristicas.Origem;
-import br.edu.ufersa.mimic.service.OrigemService;
+import br.edu.ufersa.mimic.service.caracteristicas.OrigemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

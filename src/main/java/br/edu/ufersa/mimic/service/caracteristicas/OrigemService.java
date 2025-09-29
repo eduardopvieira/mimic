@@ -1,4 +1,4 @@
-package br.edu.ufersa.mimic.service;
+package br.edu.ufersa.mimic.service.caracteristicas;
 
 import br.edu.ufersa.mimic.model.caracteristicas.Origem;
 import br.edu.ufersa.mimic.repository.caracteristicas.OrigemRepository;
@@ -41,7 +41,7 @@ public class OrigemService {
         origemExistente.setProficienciasPericia(origemAtualizada.getProficienciasPericia());
         origemExistente.setProficienciaFerramenta(origemAtualizada.getProficienciaFerramenta());
         origemExistente.setEquipamentoOpcaoA(origemAtualizada.getEquipamentoOpcaoA());
-        origemExistente.setEquipamentoOpcaoB_PO(origemAtualizada.getEquipamentoOpcaoB_PO());
+        origemExistente.setEquipamentoOpcaoB(origemAtualizada.getEquipamentoOpcaoB());
 
         return origemRepository.save(origemExistente);
     }

@@ -12,25 +12,41 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CaracteristicaDeClasseDTO {
 
-    @NotNull(message = "O nível adquirido é obrigatório.")
-    @Positive(message = "O nível deve ser maior que zero.")
+    private Long id;
+
+    @NotNull
+    @Positive
     private Integer nivelAdquirido;
 
-    // apenas um dos dois deve ser preenchido
     private Long classeId;
+
     private Long subclasseId;
 
-    @NotNull(message = "O ID do traço é obrigatório.")
+    @NotNull
     private Long tracoId;
 
-    CaracteristicaDeClasseDTO(CaracteristicaDeClasse caracteristicaDeClasse) {
-        this.nivelAdquirido = caracteristicaDeClasse.getNivelAdquirido();
-        if (caracteristicaDeClasse.getClasse() != null) {
-            this.classeId = caracteristicaDeClasse.getClasse().getId();
+    private String nomeTraco;
+    private String nomeClasse;
+    private String nomeSubclasse;
+
+
+    public CaracteristicaDeClasseDTO(CaracteristicaDeClasse entity) {
+        this.id = entity.getId();
+        this.nivelAdquirido = entity.getNivelAdquirido();
+
+        if (entity.getClasse() != null) {
+            this.classeId = entity.getClasse().getId();
+            this.nomeClasse = entity.getClasse().getNome().toString();
         }
-        if (caracteristicaDeClasse.getSubclasse() != null) {
-            this.subclasseId = caracteristicaDeClasse.getSubclasse().getId();
+
+        if (entity.getSubclasse() != null) {
+            this.subclasseId = entity.getSubclasse().getId();
+            this.nomeSubclasse = entity.getSubclasse().getNome();
         }
-        this.tracoId = caracteristicaDeClasse.getTraco().getId();
+
+        if (entity.getTraco() != null) {
+            this.tracoId = entity.getTraco().getId();
+            this.nomeTraco = entity.getTraco().getNome();
+        }
     }
 }

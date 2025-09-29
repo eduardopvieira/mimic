@@ -1,7 +1,7 @@
-package br.edu.ufersa.mimic.controller;
+package br.edu.ufersa.mimic.controller.habilidades;
 
 import br.edu.ufersa.mimic.model.habilidades.Magia;
-import br.edu.ufersa.mimic.service.MagiaService;
+import br.edu.ufersa.mimic.service.habilidades.MagiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

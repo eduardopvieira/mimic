@@ -1,6 +1,5 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.TracoDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,9 +22,12 @@ public class Traco {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String descricao;
 
-    public Traco(TracoDTO tracoDTO) {
-        this.nome = tracoDTO.getNome();
-        this.descricao = tracoDTO.getDescricao();
-    }
+    // --- COMPONENTES (COMPOSIÇÃO) ---
 
+    // Se o traço oferecer uma escolha, este relacionamento será preenchido.
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "mecanica_escolha_id", referencedColumnName = "id")
+    private MecanicaDeEscolha escolha;
+
+    // Outros componentes (ativável, concede magia, etc.) podem ser adicionados aqui.
 }

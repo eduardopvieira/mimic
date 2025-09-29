@@ -1,4 +1,4 @@
-package br.edu.ufersa.mimic.service;
+package br.edu.ufersa.mimic.service.caracteristicas;
 
 import br.edu.ufersa.mimic.dto.ClasseDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.Classe;
@@ -30,9 +30,9 @@ public class ClasseService {
 
     @Transactional(readOnly = true)
     public ClasseDTO buscarPorId(Long id) {
-        return classeRepository.findById(id)
-                .map(ClasseDTO::new)
+        Classe classe = classeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada com o id: " + id));
+        return new ClasseDTO(classe);
     }
 
     @Transactional
@@ -42,16 +42,7 @@ public class ClasseService {
         });
 
         Classe classe = new Classe();
-        classe.setNome(dto.getNome());
-        classe.setDescricao(dto.getDescricao());
-        classe.setDadoDeVida(dto.getDadoDeVida());
-        classe.setProficienciasArmaduras(dto.getProficienciasArmaduras());
-        classe.setProficienciasArmas(dto.getProficienciasArmas());
-        classe.setProficienciasTestesDeResistencia(dto.getProficienciasTestesDeResistencia());
-        classe.setOpcoesDePericias(dto.getOpcoesDePericias());
-        classe.setQuantidadeEscolhaPericias(dto.getQuantidadeEscolhaPericias());
-        classe.setConjurador(dto.isConjurador());
-        classe.setAtributoDeConjuracao(dto.getAtributoDeConjuracao());
+        mapearDtoParaEntidade(dto, classe);
 
         Classe classeSalva = classeRepository.save(classe);
         return new ClasseDTO(classeSalva);
@@ -62,16 +53,7 @@ public class ClasseService {
         Classe classeExistente = classeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada com o id: " + id));
 
-        classeExistente.setNome(dto.getNome());
-        classeExistente.setDescricao(dto.getDescricao());
-        classeExistente.setDadoDeVida(dto.getDadoDeVida());
-        classeExistente.setProficienciasArmaduras(dto.getProficienciasArmaduras());
-        classeExistente.setProficienciasArmas(dto.getProficienciasArmas());
-        classeExistente.setProficienciasTestesDeResistencia(dto.getProficienciasTestesDeResistencia());
-        classeExistente.setOpcoesDePericias(dto.getOpcoesDePericias());
-        classeExistente.setQuantidadeEscolhaPericias(dto.getQuantidadeEscolhaPericias());
-        classeExistente.setConjurador(dto.isConjurador());
-        classeExistente.setAtributoDeConjuracao(dto.getAtributoDeConjuracao());
+        mapearDtoParaEntidade(dto, classeExistente);
 
         Classe classeAtualizada = classeRepository.save(classeExistente);
         return new ClasseDTO(classeAtualizada);
@@ -83,5 +65,18 @@ public class ClasseService {
             throw new EntityNotFoundException("Classe não encontrada com o id: " + id);
         }
         classeRepository.deleteById(id);
+    }
+
+    private void mapearDtoParaEntidade(ClasseDTO dto, Classe classe) {
+        classe.setNome(dto.getNome());
+        classe.setDescricao(dto.getDescricao());
+        classe.setDadoDeVida(dto.getDadoDeVida());
+        classe.setProficienciasArmaduras(dto.getProficienciasArmaduras());
+        classe.setProficienciasArmas(dto.getProficienciasArmas());
+        classe.setProficienciasTestesDeResistencia(dto.getProficienciasTestesDeResistencia());
+        classe.setOpcoesDePericias(dto.getOpcoesDePericias());
+        classe.setQuantidadeEscolhaPericias(dto.getQuantidadeEscolhaPericias());
+        classe.setConjurador(dto.isConjurador());
+        classe.setAtributoDeConjuracao(dto.getAtributoDeConjuracao());
     }
 }

@@ -1,4 +1,4 @@
-package br.edu.ufersa.mimic.service;
+package br.edu.ufersa.mimic.service.habilidades;
 
 
 import br.edu.ufersa.mimic.model.habilidades.Magia;
