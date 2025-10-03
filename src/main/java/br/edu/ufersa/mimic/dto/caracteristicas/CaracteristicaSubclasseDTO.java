@@ -1,4 +1,4 @@
-package br.edu.ufersa.mimic.dto;
+package br.edu.ufersa.mimic.dto.caracteristicas;
 
 import br.edu.ufersa.mimic.model.caracteristicas.CaracteristicaSubclasse;
 import jakarta.validation.constraints.NotBlank;

@@ -1,6 +1,5 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.CaracteristicaDeClasseDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,20 +29,6 @@ public class CaracteristicaDeClasse {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "traco_id", nullable = false)
-    private Traco traco;
-
-    CaracteristicaDeClasse(CaracteristicaDeClasseDTO caracteristicaDeClasseDTO) {
-        this.nivelAdquirido = caracteristicaDeClasseDTO.getNivelAdquirido();
-        this.traco = new Traco();
-        this.traco.setId(caracteristicaDeClasseDTO.getTracoId());
-        if (caracteristicaDeClasseDTO.getClasseId() != null) {
-            this.classe = new Classe();
-            this.classe.setId(caracteristicaDeClasseDTO.getClasseId());
-        }
-        if (caracteristicaDeClasseDTO.getSubclasseId() != null) {
-            this.subclasse = new Subclasse();
-            this.subclasse.setId(caracteristicaDeClasseDTO.getSubclasseId());
-        }
-    }
+    private TracoRacial traco;
 
 }

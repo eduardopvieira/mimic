@@ -1,10 +1,10 @@
-package br.edu.ufersa.mimic.service;
+package br.edu.ufersa.mimic.service.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.RacaDTO;
+import br.edu.ufersa.mimic.dto.caracteristicas.RacaDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.Raca;
-import br.edu.ufersa.mimic.model.caracteristicas.Traco;
+import br.edu.ufersa.mimic.model.caracteristicas.TracoRacial;
 import br.edu.ufersa.mimic.repository.caracteristicas.RacaRepository;
-import br.edu.ufersa.mimic.repository.caracteristicas.TracoRepository;
+import br.edu.ufersa.mimic.repository.caracteristicas.TracoRacialRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 public class RacaService {
 
     private final RacaRepository racaRepository;
-    private final TracoRepository tracoRepository;
+    private final TracoRacialRepository tracoRacialRepository;
 
     @Autowired
-    public RacaService(RacaRepository racaRepository, TracoRepository tracoRepository) {
+    public RacaService(RacaRepository racaRepository, TracoRacialRepository tracoRacialRepository) {
         this.racaRepository = racaRepository;
-        this.tracoRepository = tracoRepository;
+        this.tracoRacialRepository = tracoRacialRepository;
     }
 
     @Transactional
@@ -72,19 +72,4 @@ public class RacaService {
         racaRepository.deleteById(id);
     }
 
-    private void mapearDtoParaEntidade(RacaDTO dto, Raca raca) {
-        raca.setNome(dto.getNome());
-        raca.setDeslocamento(dto.getDeslocamento());
-        raca.setTamanho(dto.getTamanho());
-
-        if (dto.getTracosIds() != null && !dto.getTracosIds().isEmpty()) {
-            List<Traco> tracos = tracoRepository.findAllById(dto.getTracosIds());
-            if(tracos.size() != dto.getTracosIds().size()){
-                throw new EntityNotFoundException("Um ou mais traços não foram encontrados.");
-            }
-            raca.setTracos(tracos);
-        } else {
-            raca.setTracos(Collections.emptyList());
-        }
-    }
 }

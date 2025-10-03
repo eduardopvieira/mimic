@@ -1,14 +1,14 @@
 package br.edu.ufersa.mimic.service.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.CaracteristicaDeClasseDTO;
+import br.edu.ufersa.mimic.dto.caracteristicas.CaracteristicaDeClasseDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.CaracteristicaDeClasse;
 import br.edu.ufersa.mimic.model.caracteristicas.Classe;
 import br.edu.ufersa.mimic.model.caracteristicas.Subclasse;
-import br.edu.ufersa.mimic.model.caracteristicas.Traco;
+import br.edu.ufersa.mimic.model.caracteristicas.TracoRacial;
 import br.edu.ufersa.mimic.repository.caracteristicas.CaracteristicasDeClasseRepository;
 import br.edu.ufersa.mimic.repository.caracteristicas.ClasseRepository;
 import br.edu.ufersa.mimic.repository.caracteristicas.SubclasseRepository;
-import br.edu.ufersa.mimic.repository.caracteristicas.TracoRepository;
+import br.edu.ufersa.mimic.repository.caracteristicas.TracoRacialRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,19 +23,19 @@ public class CaracteristicaDeClasseService {
     private final CaracteristicasDeClasseRepository caracteristicaRepository;
     private final ClasseRepository classeRepository;
     private final SubclasseRepository subclasseRepository;
-    private final TracoRepository tracoRepository;
+    private final TracoRacialRepository tracoRacialRepository;
 
     @Autowired
     public CaracteristicaDeClasseService(
             CaracteristicasDeClasseRepository caracteristicaRepository,
             ClasseRepository classeRepository,
             SubclasseRepository subclasseRepository,
-            TracoRepository tracoRepository
+            TracoRacialRepository tracoRacialRepository
     ) {
         this.caracteristicaRepository = caracteristicaRepository;
         this.classeRepository = classeRepository;
         this.subclasseRepository = subclasseRepository;
-        this.tracoRepository = tracoRepository;
+        this.tracoRacialRepository = tracoRacialRepository;
     }
 
     @Transactional(readOnly = true)
@@ -67,12 +67,11 @@ public class CaracteristicaDeClasseService {
     public CaracteristicaDeClasseDTO salvar(CaracteristicaDeClasseDTO dto) {
         validarRelacionamento(dto);
 
-        Traco traco = tracoRepository.findById(dto.getTracoId())
+        TracoRacial tracoRacial = tracoRacialRepository.findById(dto.getTracoId())
                 .orElseThrow(() -> new EntityNotFoundException("Traço não encontrado com o id: " + dto.getTracoId()));
 
         CaracteristicaDeClasse novaCaracteristica = new CaracteristicaDeClasse();
         novaCaracteristica.setNivelAdquirido(dto.getNivelAdquirido());
-        novaCaracteristica.setTraco(traco);
 
         if (dto.getClasseId() != null) {
             Classe classe = classeRepository.findById(dto.getClasseId())
@@ -95,22 +94,21 @@ public class CaracteristicaDeClasseService {
         CaracteristicaDeClasse caracteristicaExistente = caracteristicaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Característica não encontrada com o id: " + id));
 
-        Traco traco = tracoRepository.findById(dto.getTracoId())
+        TracoRacial tracoRacial = tracoRacialRepository.findById(dto.getTracoId())
                 .orElseThrow(() -> new EntityNotFoundException("Traço não encontrado com o id: " + dto.getTracoId()));
 
         caracteristicaExistente.setNivelAdquirido(dto.getNivelAdquirido());
-        caracteristicaExistente.setTraco(traco);
 
         if (dto.getClasseId() != null) {
             Classe classe = classeRepository.findById(dto.getClasseId())
                     .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada com o id: " + dto.getClasseId()));
             caracteristicaExistente.setClasse(classe);
-            caracteristicaExistente.setSubclasse(null); // Garante a exclusividade
+            caracteristicaExistente.setSubclasse(null);
         } else {
             Subclasse subclasse = subclasseRepository.findById(dto.getSubclasseId())
                     .orElseThrow(() -> new EntityNotFoundException("Subclasse não encontrada com o id: " + dto.getSubclasseId()));
             caracteristicaExistente.setSubclasse(subclasse);
-            caracteristicaExistente.setClasse(null); // Garante a exclusividade
+            caracteristicaExistente.setClasse(null);
         }
 
         CaracteristicaDeClasse caracteristicaAtualizada = caracteristicaRepository.save(caracteristicaExistente);

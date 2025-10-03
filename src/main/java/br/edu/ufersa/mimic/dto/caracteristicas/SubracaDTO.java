@@ -1,4 +1,4 @@
-package br.edu.ufersa.mimic.dto;
+package br.edu.ufersa.mimic.dto.caracteristicas;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

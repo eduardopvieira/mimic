@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.service.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.SubclasseDTO;
+import br.edu.ufersa.mimic.dto.caracteristicas.SubclasseDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.Classe;
 import br.edu.ufersa.mimic.model.caracteristicas.Subclasse;
 import br.edu.ufersa.mimic.repository.caracteristicas.ClasseRepository;

@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.habilidades;
 
-import br.edu.ufersa.mimic.dto.TalentoDTO;
+import br.edu.ufersa.mimic.dto.habilidades.TalentoDTO;
 import br.edu.ufersa.mimic.model.enums.CategoriaTalento;
 import jakarta.persistence.*;
 import lombok.Getter;

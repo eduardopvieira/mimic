@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.OrigemDTO;
+import br.edu.ufersa.mimic.dto.caracteristicas.OrigemDTO;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
 import jakarta.persistence.*;
 

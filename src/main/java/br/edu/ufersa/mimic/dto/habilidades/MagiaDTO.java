@@ -1,4 +1,4 @@
-package br.edu.ufersa.mimic.dto;
+package br.edu.ufersa.mimic.dto.habilidades;
 
 import br.edu.ufersa.mimic.model.enums.EscolaDeMagia;
 import br.edu.ufersa.mimic.model.habilidades.Magia;

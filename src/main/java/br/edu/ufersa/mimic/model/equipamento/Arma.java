@@ -1,10 +1,12 @@
 package br.edu.ufersa.mimic.model.equipamento;
 
+import br.edu.ufersa.mimic.dto.equipamento.ArmaDTO;
 import br.edu.ufersa.mimic.model.enums.equipamento.arma.CategoriaArma;
 import br.edu.ufersa.mimic.model.enums.equipamento.arma.TipoArma;
 import br.edu.ufersa.mimic.model.enums.equipamento.arma.TipoDeDano;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
@@ -13,6 +15,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "armas")
+@NoArgsConstructor
 public class Arma {
 
     @Id
@@ -49,4 +52,18 @@ public class Arma {
 
     @Column
     private String maestria; //drenar, trespassar
+
+    public Arma(ArmaDTO armaDTO) {
+        this.id = armaDTO.getId();
+        this.nome = armaDTO.getNome();
+        this.descricao = armaDTO.getDescricao();
+        this.categoriaArma = armaDTO.getCategoriaArma();
+        this.tipo = armaDTO.getTipo();
+        this.tipoDeDano = armaDTO.getTipoDeDano();
+        this.dano = armaDTO.getDano();
+        this.peso = armaDTO.getPeso();
+        this.custo = armaDTO.getCusto();
+        this.propriedades = armaDTO.getPropriedades();
+        this.maestria = armaDTO.getMaestria();
+    }
 }

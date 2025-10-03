@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.controller.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.CaracteristicaDeClasseDTO;
+import br.edu.ufersa.mimic.dto.caracteristicas.CaracteristicaDeClasseDTO;
 import br.edu.ufersa.mimic.service.caracteristicas.CaracteristicaDeClasseService; // Supondo que o Service exista
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

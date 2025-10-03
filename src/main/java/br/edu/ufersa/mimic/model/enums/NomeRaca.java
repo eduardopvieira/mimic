@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.enums;
 
-public enum NomeEspecie {
+public enum NomeRaca {
     AASIMAR("Aasimar"),
     ANAO("Anão"),
     DRACONATO("Draconato"),
@@ -12,13 +12,13 @@ public enum NomeEspecie {
     PEQUENINO("Pequenino"),
     TIFERINO("Tiferino");
 
-    private final String nomeEspecie;
+    private final String nomeRaca;
 
-    NomeEspecie(String nomeEspecie) {
-        this.nomeEspecie = nomeEspecie;
+    NomeRaca(String nomeRaca) {
+        this.nomeRaca = nomeRaca;
     }
 
-    public String getNomeEspecie() {
-        return nomeEspecie;
+    public String getNomeRaca() {
+        return nomeRaca;
     }
 }

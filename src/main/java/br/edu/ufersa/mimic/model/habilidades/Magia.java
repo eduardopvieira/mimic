@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.habilidades;
 
-import br.edu.ufersa.mimic.dto.MagiaDTO;
+import br.edu.ufersa.mimic.dto.habilidades.MagiaDTO;
 import br.edu.ufersa.mimic.model.enums.EscolaDeMagia;
 import jakarta.persistence.*;
 import lombok.Getter;

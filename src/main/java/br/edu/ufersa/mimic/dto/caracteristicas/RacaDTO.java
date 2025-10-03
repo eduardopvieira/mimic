@@ -1,4 +1,4 @@
-package br.edu.ufersa.mimic.dto;
+package br.edu.ufersa.mimic.dto.caracteristicas;
 
 import br.edu.ufersa.mimic.model.caracteristicas.Raca;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
@@ -34,8 +34,8 @@ public class RacaDTO {
         this.nome = raca.getNome();
         this.deslocamento = raca.getDeslocamento();
         this.tamanho = raca.getTamanho();
-        if (raca.getTracos() != null) {
-            this.tracosIds = raca.getTracos().stream().map(traco -> traco.getId()).toList();
+        if (raca.getTracoRacials() != null) {
+            this.tracosIds = raca.getTracoRacials().stream().map(traco -> traco.getId()).toList();
         }
     }
 
