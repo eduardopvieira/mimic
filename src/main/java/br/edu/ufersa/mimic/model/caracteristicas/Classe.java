@@ -1,5 +1,6 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
+import br.edu.ufersa.mimic.dto.caracteristicas.ClasseDTO;
 import br.edu.ufersa.mimic.model.enums.NomeClasse;
 import br.edu.ufersa.mimic.model.enums.Atributo;
 
@@ -66,5 +67,7 @@ public class Classe {
     @Enumerated(EnumType.STRING)
     @Column(name = "atributo_conjuracao")
     private Atributo atributoDeConjuracao;
+
+    public Classe(ClasseDTO nome) {}
 
 }
