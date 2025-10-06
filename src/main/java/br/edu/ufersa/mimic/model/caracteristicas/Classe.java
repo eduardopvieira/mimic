@@ -69,8 +69,6 @@ public class Classe {
     @Column(name = "atributo_conjuracao")
     private Atributo atributoDeConjuracao;
 
-    public Classe(ClasseDTO nome) {}
-
     public Classe (ClasseDTO classeDTO) {
         this.id = classeDTO.getId();
         this.nome = classeDTO.getNome();
