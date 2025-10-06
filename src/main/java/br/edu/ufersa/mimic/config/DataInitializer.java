@@ -2,8 +2,6 @@ package br.edu.ufersa.mimic.config;
 
 import br.edu.ufersa.mimic.model.caracteristicas.*;
 import br.edu.ufersa.mimic.model.enums.Atributo;
-import br.edu.ufersa.mimic.model.enums.NomeClasse;
-import br.edu.ufersa.mimic.model.enums.NomeRaca;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
 import br.edu.ufersa.mimic.repository.caracteristicas.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +76,7 @@ public class DataInitializer implements CommandLineRunner {
 
         // Elfo (sem sub-raças)
         Raca elfo = new Raca();
-        elfo.setNome(NomeRaca.ELFO);
+        elfo.setNome("Elfo");
         elfo.setDeslocamento(9);
         elfo.setTamanho(Tamanho.MEDIO);
         elfo.setTracosRaciais(Arrays.asList(visaoNoEscuro18m, ancestralidadeFeerica, transe));
@@ -86,7 +84,7 @@ public class DataInitializer implements CommandLineRunner {
 
         // Anão
         Raca anao = new Raca();
-        anao.setNome(NomeRaca.ANAO);
+        anao.setNome("Anão");
         anao.setDeslocamento(9);
         anao.setTamanho(Tamanho.MEDIO);
         anao.setTracosRaciais(Arrays.asList(visaoNoEscuro36m, resistenciaToxinas, tenacidadeAna, conhecimentoPedras));
@@ -94,7 +92,7 @@ public class DataInitializer implements CommandLineRunner {
 
         // Draconato
         Raca draconato = new Raca();
-        draconato.setNome(NomeRaca.DRACONATO);
+        draconato.setNome("Draconato");
         draconato.setDeslocamento(9);
         draconato.setTamanho(Tamanho.MEDIO);
         draconato.setTracosRaciais(Arrays.asList(herancaDraconica, ataqueDeSopro, resistenciaDanoDraconico, vooDraconico, visaoNoEscuro18m));
@@ -105,7 +103,7 @@ public class DataInitializer implements CommandLineRunner {
 
         // Bárbaro
         Classe barbaro = new Classe();
-        barbaro.setNome(NomeClasse.BARBARO);
+        barbaro.setNome("Bárbaro");
         barbaro.setDescricao("Um combatente feroz da fúria primitiva.");
         barbaro.setDadoDeVida(12);
         barbaro.setProficienciasArmas(new HashSet<>(Arrays.asList("Armas Simples", "Armas Marciais")));
@@ -124,7 +122,7 @@ public class DataInitializer implements CommandLineRunner {
 
         // Mago
         Classe mago = new Classe();
-        mago.setNome(NomeClasse.MAGO);
+        mago.setNome("Mago");
         mago.setDescricao("Um estudioso usuário de magia arcana.");
         mago.setDadoDeVida(6);
         mago.setProficienciasArmas(new HashSet<>(Collections.singletonList("Armas Simples")));

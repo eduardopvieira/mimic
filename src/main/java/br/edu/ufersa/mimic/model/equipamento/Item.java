@@ -1,10 +1,13 @@
 package br.edu.ufersa.mimic.model.equipamento;
 
 import br.edu.ufersa.mimic.dto.equipamento.ItemDTO;
+import br.edu.ufersa.mimic.model.fichas.Personagem;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "itens")
@@ -28,6 +31,9 @@ public class Item {
 
     @Column
     private String custo;
+
+    @ManyToMany(mappedBy = "inventario")
+    private List<Personagem> personagens;
 
     public Item (ItemDTO itemDTO) {
         this.id = itemDTO.getId();

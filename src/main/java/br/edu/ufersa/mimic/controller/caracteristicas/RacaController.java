@@ -1,7 +1,7 @@
 package br.edu.ufersa.mimic.controller.caracteristicas;
 
 import br.edu.ufersa.mimic.dto.caracteristicas.RacaDTO;
-import br.edu.ufersa.mimic.service.RacaService;
+import br.edu.ufersa.mimic.service.caracteristicas.RacaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

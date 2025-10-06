@@ -1,7 +1,6 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
 import br.edu.ufersa.mimic.dto.caracteristicas.RacaDTO;
-import br.edu.ufersa.mimic.model.enums.NomeRaca;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,7 +21,7 @@ public class Raca {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private NomeRaca nome;
+    private String nome;
 
     @Column(nullable = false)
     private Integer deslocamento;
@@ -39,7 +38,7 @@ public class Raca {
 
     public Raca(RacaDTO racaDTO) {
         this.id = racaDTO.getId();
-        this.nome = NomeRaca.valueOf(racaDTO.getNome());
+        this.nome = racaDTO.getNome();
         this.deslocamento = racaDTO.getDeslocamento();
         this.tamanho = racaDTO.getTamanho();
     }

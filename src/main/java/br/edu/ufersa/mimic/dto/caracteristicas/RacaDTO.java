@@ -27,15 +27,15 @@ public class RacaDTO {
     @NotNull(message = "O tamanho da raça é obrigatório.")
     private Tamanho tamanho;
 
-    private List<Long> tracosIds;
+    private List<Long> tracosRaciaisIds;
 
     public RacaDTO(Raca raca) {
         this.id = raca.getId();
         this.nome = raca.getNome();
         this.deslocamento = raca.getDeslocamento();
         this.tamanho = raca.getTamanho();
-        if (raca.getTracoRacials() != null) {
-            this.tracosIds = raca.getTracoRacials().stream().map(traco -> traco.getId()).toList();
+        if (raca.getTracosRaciais() != null) {
+            this.tracosRaciaisIds = raca.getTracosRaciais().stream().map(traco -> traco.getId()).toList();
         }
     }
 

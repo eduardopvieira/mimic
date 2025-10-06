@@ -41,8 +41,7 @@ public class ClasseService {
             throw new IllegalArgumentException("Uma classe com o nome '" + dto.getNome() + "' já existe.");
         });
 
-        Classe classe = new Classe();
-        mapearDtoParaEntidade(dto, classe);
+        Classe classe = new Classe(dto);
 
         Classe classeSalva = classeRepository.save(classe);
         return new ClasseDTO(classeSalva);
@@ -50,12 +49,12 @@ public class ClasseService {
 
     @Transactional
     public ClasseDTO atualizar(Long id, ClasseDTO dto) {
-        Classe classeExistente = classeRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada com o id: " + id));
-
-        mapearDtoParaEntidade(dto, classeExistente);
-
-        Classe classeAtualizada = classeRepository.save(classeExistente);
+        if (!classeRepository.existsById(id)) {
+            throw new EntityNotFoundException("Classe não encontrada com o id: " + id);
+        }
+        dto.setId(id);
+        Classe classeParaAtualizar = new Classe(dto);
+        Classe classeAtualizada = classeRepository.save(classeParaAtualizar);
         return new ClasseDTO(classeAtualizada);
     }
 
@@ -67,16 +66,4 @@ public class ClasseService {
         classeRepository.deleteById(id);
     }
 
-    private void mapearDtoParaEntidade(ClasseDTO dto, Classe classe) {
-        classe.setNome(dto.getNome());
-        classe.setDescricao(dto.getDescricao());
-        classe.setDadoDeVida(dto.getDadoDeVida());
-        classe.setProficienciasArmaduras(dto.getProficienciasArmaduras());
-        classe.setProficienciasArmas(dto.getProficienciasArmas());
-        classe.setProficienciasTestesDeResistencia(dto.getProficienciasTestesDeResistencia());
-        classe.setOpcoesDePericias(dto.getOpcoesDePericias());
-        classe.setQuantidadeEscolhaPericias(dto.getQuantidadeEscolhaPericias());
-        classe.setConjurador(dto.isConjurador());
-        classe.setAtributoDeConjuracao(dto.getAtributoDeConjuracao());
-    }
 }

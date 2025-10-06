@@ -2,7 +2,6 @@ package br.edu.ufersa.mimic.service.caracteristicas;
 
 import br.edu.ufersa.mimic.dto.caracteristicas.RacaDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.Raca;
-import br.edu.ufersa.mimic.model.caracteristicas.TracoRacial;
 import br.edu.ufersa.mimic.repository.caracteristicas.RacaRepository;
 import br.edu.ufersa.mimic.repository.caracteristicas.TracoRacialRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,13 +26,23 @@ public class RacaService {
     }
 
     @Transactional
+    public RacaDTO atualizar(Long id, RacaDTO dto) {
+        if (!racaRepository.existsById(id)) {
+            throw new EntityNotFoundException("Raça não encontrada com o id: " + id);
+        }
+        dto.setId(id);
+        Raca racaParaAtualizar = new Raca(dto);
+        Raca racaAtualizada = racaRepository.save(racaParaAtualizar);
+        return new RacaDTO(racaAtualizada);
+    }
+
+    @Transactional
     public RacaDTO salvar(RacaDTO dto) {
         racaRepository.findByNome(dto.getNome()).ifPresent(r -> {
             throw new IllegalArgumentException("Uma raça com o nome '" + dto.getNome() + "' já existe.");
         });
 
-        Raca raca = new Raca();
-        mapearDtoParaEntidade(dto, raca);
+        Raca raca = new Raca(dto);
 
         Raca racaSalva = racaRepository.save(raca);
         return new RacaDTO(racaSalva);
@@ -51,17 +60,6 @@ public class RacaService {
         return racaRepository.findAll().stream()
                 .map(RacaDTO::new)
                 .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public RacaDTO atualizar(Long id, RacaDTO dto) {
-        Raca racaExistente = racaRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Raça não encontrada com id: " + id));
-
-        mapearDtoParaEntidade(dto, racaExistente);
-
-        Raca racaAtualizada = racaRepository.save(racaExistente);
-        return new RacaDTO(racaAtualizada);
     }
 
     @Transactional

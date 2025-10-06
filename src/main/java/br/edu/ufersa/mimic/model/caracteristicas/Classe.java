@@ -1,11 +1,12 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
 import br.edu.ufersa.mimic.dto.caracteristicas.ClasseDTO;
-import br.edu.ufersa.mimic.model.enums.NomeClasse;
+import br.edu.ufersa.mimic.dto.caracteristicas.ClasseDTO;
 import br.edu.ufersa.mimic.model.enums.Atributo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -16,15 +17,15 @@ import java.util.Set;
 @Table(name = "classes")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Classe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true, length = 50)
-    private NomeClasse nome;
+    private String nome;
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
@@ -70,4 +71,19 @@ public class Classe {
 
     public Classe(ClasseDTO nome) {}
 
+    public Classe (ClasseDTO classeDTO) {
+        this.id = classeDTO.getId();
+        this.nome = classeDTO.getNome();
+        this.descricao = classeDTO.getDescricao();
+        this.dadoDeVida = classeDTO.getDadoDeVida();
+        this.proficienciasArmaduras = classeDTO.getProficienciasArmaduras();
+        this.proficienciasArmas = classeDTO.getProficienciasArmas();
+        this.proficienciasTestesDeResistencia = classeDTO.getProficienciasTestesDeResistencia();
+        this.opcoesDePericias = classeDTO.getOpcoesDePericias();
+        this.quantidadeEscolhaPericias = classeDTO.getQuantidadeEscolhaPericias();
+        this.isConjurador = classeDTO.isConjurador();
+        if (classeDTO.getAtributoDeConjuracao() != null) {
+            this.atributoDeConjuracao =classeDTO.getAtributoDeConjuracao();
+        }
+    }
 }

@@ -4,7 +4,6 @@ import br.edu.ufersa.mimic.model.caracteristicas.CaracteristicaDeClasse;
 import br.edu.ufersa.mimic.model.caracteristicas.Classe;
 import br.edu.ufersa.mimic.model.caracteristicas.Subclasse;
 import br.edu.ufersa.mimic.model.enums.Atributo;
-import br.edu.ufersa.mimic.model.enums.NomeClasse;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
@@ -23,7 +22,7 @@ public class ClasseDTO {
     private Long id;
 
     @NotNull(message = "O nome da classe é obrigatório.")
-    private NomeClasse nome;
+    private String nome;
 
     private String descricao;
 

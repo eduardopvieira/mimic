@@ -79,8 +79,12 @@ public class Personagem {
     @Column(name = "teste_resistencia")
     private Set<String> proficienciasTestesDeResistencia;
 
-    // --- INVENTÁRIO E RIQUEZA ---
-    @OneToMany(mappedBy = "personagem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany
+    @JoinTable(
+            name = "personagem_inventario",
+            joinColumns = @JoinColumn(name = "personagem_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
     private List<Item> inventario;
 
     private Integer pc; // Peças de Cobre
