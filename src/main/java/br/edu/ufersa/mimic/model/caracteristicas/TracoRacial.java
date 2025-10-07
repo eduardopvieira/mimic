@@ -24,19 +24,20 @@ public class TracoRacial {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String descricao;
 
-    /**
-     * Se este traço conceder uma magia/truque, este campo será preenchido.
-     * É opcional (nullable).
-     */
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "magia_concedida_id")
     private Magia magiaConcedida;
 
-    // Construtor e método de atualização para o padrão que estamos usando
     public TracoRacial(TracoRacialDTO dto) {
         this.nome = dto.getNome();
         this.descricao = dto.getDescricao();
-        // A associação com Magia será feita no Service
+    }
+
+    public TracoRacial(String nome, String descricao, Magia magiaConcedida) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.magiaConcedida = magiaConcedida;
     }
 
     public void updateFromDTO(TracoRacialDTO dto) {

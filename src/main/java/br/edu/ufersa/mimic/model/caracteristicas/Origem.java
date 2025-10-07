@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -62,5 +64,20 @@ public class Origem {
             this.talentoInicial = new Talento();
             this.talentoInicial.setId(origemDTO.getTalentoInicialId());
         }
+    }
+
+    public <E> Origem(String nome, String s, HashSet<E> es, Talento talentoArtifice, HashSet<E> es1, String s1) {
+        this.nome = nome;
+        this.descricao = s;
+        this.atributosSugeridos = new HashSet<>();
+        for (E e : es) {
+            this.atributosSugeridos.add(e.toString());
+        }
+        this.talentoInicial = talentoArtifice;
+        this.proficienciasPericia = new HashSet<>();
+        for (E e : es1) {
+            this.proficienciasPericia.add(e.toString());
+        }
+        this.proficienciaFerramenta = s1;
     }
 }

@@ -42,4 +42,11 @@ public class Raca {
         this.deslocamento = racaDTO.getDeslocamento();
         this.tamanho = racaDTO.getTamanho();
     }
+
+    public <T> Raca(String nome, int deslocamento, Tamanho tamanho, List<T> tracosRaciais) {
+        this.nome = nome;
+        this.deslocamento = deslocamento;
+        this.tamanho = tamanho;
+        this.tracosRaciais = (List<TracoRacial>) tracosRaciais;
+    }
 }

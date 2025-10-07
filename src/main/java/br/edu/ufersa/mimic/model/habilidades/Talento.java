@@ -3,13 +3,16 @@ package br.edu.ufersa.mimic.model.habilidades;
 import br.edu.ufersa.mimic.dto.habilidades.TalentoDTO;
 import br.edu.ufersa.mimic.model.enums.CategoriaTalento;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "talentos")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Talento {
 
     @Id
@@ -41,6 +44,12 @@ public class Talento {
         this.isRepetivel = talentoDTO.getIsRepetivel();
     }
 
-    public Talento() {}
+    public Talento(String nome, CategoriaTalento categoria, String preRequisito, String descricao, boolean isRepetivel) {
+        this.nome = nome;
+        this.categoria = categoria;
+        this.preRequisito = preRequisito;
+        this.descricao = descricao;
+        this.isRepetivel = isRepetivel;
+    }
 
 }

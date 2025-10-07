@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -65,5 +66,17 @@ public class Arma {
         this.custo = armaDTO.getCusto();
         this.propriedades = armaDTO.getPropriedades();
         this.maestria = armaDTO.getMaestria();
+    }
+
+    public <E> Arma(String nome, CategoriaArma categoriaArma, TipoArma tipoArma, String descricao, TipoDeDano tipoDeDano, double peso, String custo, HashSet<E> propriedades, String maestria) {
+        this.nome = nome;
+        this.categoriaArma = categoriaArma;
+        this.tipo = tipoArma;
+        this.descricao = descricao;
+        this.tipoDeDano = tipoDeDano;
+        this.peso = peso;
+        this.custo = custo;
+        this.propriedades = (Set<String>) propriedades;
+        this.maestria = maestria;
     }
 }

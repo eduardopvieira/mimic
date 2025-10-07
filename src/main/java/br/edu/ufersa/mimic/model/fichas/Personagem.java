@@ -8,6 +8,7 @@ import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Table(name = "personagens")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Personagem {
 
     @Id
