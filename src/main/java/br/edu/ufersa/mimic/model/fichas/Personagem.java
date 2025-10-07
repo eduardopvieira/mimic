@@ -1,6 +1,8 @@
 package br.edu.ufersa.mimic.model.fichas;
 
+import br.edu.ufersa.mimic.dto.PersonagemDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.*;
+import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
@@ -27,7 +29,9 @@ public class Personagem {
 
     private Integer nivel;
     private Integer pontosDeExperiencia;
-    private String alinhamento;
+
+    @Enumerated(EnumType.STRING)
+    private Alinhamento alinhamento;
 
     // --- RELACIONAMENTOS DE ORIGEM E CLASSE ---
     @ManyToOne(fetch = FetchType.LAZY)
@@ -109,4 +113,44 @@ public class Personagem {
     )
     private Set<Magia> magiasPreparadas;
 
+    public Personagem(PersonagemDTO dto) {
+        // Informações Básicas
+        this.id = dto.getId();
+        this.nomePersonagem = dto.getNomePersonagem();
+        this.nivel = dto.getNivel();
+        this.pontosDeExperiencia = dto.getPontosDeExperiencia();
+        this.alinhamento = dto.getAlinhamento();
+
+        // Atributos
+        this.forca = dto.getForca();
+        this.destreza = dto.getDestreza();
+        this.constituicao = dto.getConstituicao();
+        this.inteligencia = dto.getInteligencia();
+        this.sabedoria = dto.getSabedoria();
+        this.carisma = dto.getCarisma();
+
+        // Status de Combate
+        this.pontosDeVidaMaximos = dto.getPontosDeVidaMaximos();
+        this.pontosDeVidaAtuais = dto.getPontosDeVidaAtuais();
+        this.pontosDeVidaTemporarios = dto.getPontosDeVidaTemporarios();
+        this.classeDeArmadura = dto.getClasseDeArmadura();
+        this.iniciativa = dto.getIniciativa();
+        this.deslocamento = dto.getDeslocamento();
+        this.percepcaoPassiva = dto.getPercepcaoPassiva();
+
+        // Recursos
+        this.dadosDeVidaTotais = dto.getDadosDeVidaTotais();
+        this.dadosDeVidaGastos = dto.getDadosDeVidaGastos();
+        this.inspiracaoHeroica = dto.isInspiracaoHeroica();
+
+        // Proficiências
+        this.proficienciasPericias = dto.getProficienciasPericias();
+        this.proficienciasTestesDeResistencia = dto.getProficienciasTestesDeResistencia();
+
+        // Inventário (dinheiro)
+        this.pc = dto.getPc();
+        this.pp = dto.getPp();
+        this.po = dto.getPo();
+        this.pl = dto.getPl();
+    }
 }

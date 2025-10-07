@@ -1,7 +1,6 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
 import br.edu.ufersa.mimic.dto.caracteristicas.ClasseDTO;
-import br.edu.ufersa.mimic.dto.caracteristicas.ClasseDTO;
 import br.edu.ufersa.mimic.model.enums.Atributo;
 
 import jakarta.persistence.*;

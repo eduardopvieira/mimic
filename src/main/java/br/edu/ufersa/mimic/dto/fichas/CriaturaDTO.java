@@ -1,5 +1,6 @@
 package br.edu.ufersa.mimic.dto.fichas;
 
+import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.fichas.Criatura;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
 import jakarta.validation.constraints.NotBlank;
@@ -18,7 +19,7 @@ public class CriaturaDTO {
     @NotBlank private String nome;
     private Tamanho tamanho;
     private String tipo;
-    private String alinhamento;
+    private Alinhamento alinhamento;
     private Integer classeDeArmadura;
     private Integer pontosDeVida;
     private String dadosDeVida;

@@ -1,6 +1,7 @@
 package br.edu.ufersa.mimic.model.fichas;
 
 import br.edu.ufersa.mimic.dto.fichas.CriaturaDTO;
+import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class Criatura {
     private String tipo; // Ex: "Humanoide", "Fera", "Monstruosidade"
 
     @Enumerated(EnumType.STRING)
-    private String alinhamento;
+    private Alinhamento alinhamento;
 
     @Column(name = "classe_de_armadura")
     private Integer classeDeArmadura;
