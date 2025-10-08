@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -74,51 +75,69 @@ public class PersonagemService {
     }
 
     private void mapearDtoParaEntidade(PersonagemDTO dto, Personagem personagem) {
-        // Mapeia campos simples usando o construtor
-        Personagem dadosSimples = new Personagem(dto);
-        // (Aqui você copiaria os campos de dadosSimples para personagem, ou faria o set individualmente)
         personagem.setNomePersonagem(dto.getNomePersonagem());
         personagem.setNivel(dto.getNivel());
-        // ... copia todos os outros campos simples
+        personagem.setPontosDeExperiencia(dto.getPontosDeExperiencia());
+        personagem.setAlinhamento(dto.getAlinhamento());
+        personagem.setForca(dto.getForca());
+        personagem.setDestreza(dto.getDestreza());
+        personagem.setConstituicao(dto.getConstituicao());
+        personagem.setInteligencia(dto.getInteligencia());
+        personagem.setSabedoria(dto.getSabedoria());
+        personagem.setCarisma(dto.getCarisma());
+        personagem.setPontosDeVidaMaximos(dto.getPontosDeVidaMaximos());
+        personagem.setPontosDeVidaAtuais(dto.getPontosDeVidaAtuais());
+        personagem.setPontosDeVidaTemporarios(dto.getPontosDeVidaTemporarios());
+        personagem.setClasseDeArmadura(dto.getClasseDeArmadura());
+        personagem.setIniciativa(dto.getIniciativa());
+        personagem.setDeslocamento(dto.getDeslocamento());
+        personagem.setPercepcaoPassiva(dto.getPercepcaoPassiva());
+        personagem.setDadosDeVidaTotais(dto.getDadosDeVidaTotais());
+        personagem.setDadosDeVidaGastos(dto.getDadosDeVidaGastos());
+        personagem.setInspiracaoHeroica(dto.isInspiracaoHeroica());
+        personagem.setProficienciasPericias(dto.getProficienciasPericias());
+        personagem.setProficienciasTestesDeResistencia(dto.getProficienciasTestesDeResistencia());
+        personagem.setPc(dto.getPc());
+        personagem.setPp(dto.getPp());
+        personagem.setPo(dto.getPo());
+        personagem.setPl(dto.getPl());
 
-        // Mapeia relacionamentos buscando no banco
         Classe classe = classeRepository.findById(dto.getClasseId())
-                .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada: " + dto.getClasseId()));
+                .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada com id: " + dto.getClasseId()));
         personagem.setClasse(classe);
 
         Raca especie = racaRepository.findById(dto.getEspecieId())
-                .orElseThrow(() -> new EntityNotFoundException("Espécie não encontrada: " + dto.getEspecieId()));
+                .orElseThrow(() -> new EntityNotFoundException("Espécie (Raça) não encontrada com id: " + dto.getEspecieId()));
         personagem.setEspecie(especie);
 
         Origem origem = origemRepository.findById(dto.getAntecedenteId())
-                .orElseThrow(() -> new EntityNotFoundException("Origem não encontrada: " + dto.getAntecedenteId()));
+                .orElseThrow(() -> new EntityNotFoundException("Origem (Antecedente) não encontrada com id: " + dto.getAntecedenteId()));
         personagem.setOrigem(origem);
 
         if (dto.getSubclasseId() != null) {
             Subclasse subclasse = subclasseRepository.findById(dto.getSubclasseId())
-                    .orElseThrow(() -> new EntityNotFoundException("Subclasse não encontrada: " + dto.getSubclasseId()));
+                    .orElseThrow(() -> new EntityNotFoundException("Subclasse não encontrada com id: " + dto.getSubclasseId()));
             personagem.setSubclasse(subclasse);
         } else {
             personagem.setSubclasse(null);
         }
 
-        // Mapeia listas de relacionamentos
-        if (dto.getInventarioIds() != null && !dto.getInventarioIds().isEmpty()) {
+        if (dto.getInventarioIds() != null) {
             List<Item> inventario = itemRepository.findAllById(dto.getInventarioIds());
             personagem.setInventario(inventario);
         } else {
             personagem.setInventario(Collections.emptyList());
         }
 
-        if (dto.getTalentosIds() != null && !dto.getTalentosIds().isEmpty()) {
-            Set<Talento> talentos = talentoRepository.findAllById(dto.getTalentosIds()).stream().collect(Collectors.toSet());
+        if (dto.getTalentosIds() != null) {
+            Set<Talento> talentos = new HashSet<>(talentoRepository.findAllById(dto.getTalentosIds()));
             personagem.setTalentos(talentos);
         } else {
             personagem.setTalentos(Collections.emptySet());
         }
 
-        if (dto.getMagiasPreparadasIds() != null && !dto.getMagiasPreparadasIds().isEmpty()) {
-            Set<Magia> magias = magiaRepository.findAllById(dto.getMagiasPreparadasIds()).stream().collect(Collectors.toSet());
+        if (dto.getMagiasPreparadasIds() != null) {
+            Set<Magia> magias = new HashSet<>(magiaRepository.findAllById(dto.getMagiasPreparadasIds()));
             personagem.setMagiasPreparadas(magias);
         } else {
             personagem.setMagiasPreparadas(Collections.emptySet());

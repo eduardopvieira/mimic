@@ -1,5 +1,6 @@
 package br.edu.ufersa.mimic.config;
 
+import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.caracteristicas.*;
 import br.edu.ufersa.mimic.model.enums.*;
 import br.edu.ufersa.mimic.model.enums.equipamento.armadura.CategoriaArmadura;
@@ -11,6 +12,7 @@ import br.edu.ufersa.mimic.model.equipamento.Armadura;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
+import br.edu.ufersa.mimic.repository.auth.UsuarioRepository;
 import br.edu.ufersa.mimic.repository.caracteristicas.*;
 import br.edu.ufersa.mimic.repository.equipamento.ArmaRepository;
 import br.edu.ufersa.mimic.repository.equipamento.ArmaduraRepository;
@@ -19,6 +21,7 @@ import br.edu.ufersa.mimic.repository.habilidades.MagiaRepository;
 import br.edu.ufersa.mimic.repository.habilidades.TalentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,8 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired private SubclasseRepository subclasseRepository;
     @Autowired private CaracteristicasDeClasseRepository caracteristicaDeClasseRepository;
     @Autowired private TracoRacialRepository tracoRacialRepository;
+    @Autowired private UsuarioRepository usuarioRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -49,6 +54,7 @@ public class DataInitializer implements CommandLineRunner {
 
         System.out.println("Banco de dados vazio - populando com dados iniciais...");
 
+        criarUsuarioPadrao();
         criarArmas();
         criarArmaduras();
         criarItens();
@@ -328,4 +334,16 @@ public class DataInitializer implements CommandLineRunner {
         caracteristica.setNivelAdquirido(nivel);
         caracteristicaDeClasseRepository.save(caracteristica);
     }
+
+    private void criarUsuarioPadrao() {
+        System.out.println("Criando usuário de teste...");
+        if (usuarioRepository.findByEmail("admin@admin.com").isEmpty()) {
+            Usuario admin = new Usuario();
+            admin.setEmail("admin@mimic.com");
+            admin.setSenha(passwordEncoder.encode("123456"));
+            usuarioRepository.save(admin);
+            System.out.println("Usuário 'admin@mimic.com' criado com senha '123456'.");
+        }
+    }
+
 }

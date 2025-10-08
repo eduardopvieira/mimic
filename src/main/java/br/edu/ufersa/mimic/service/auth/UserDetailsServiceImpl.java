@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario currentUser = repository.findByEmail(email);
+        Usuario currentUser = repository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário com o e-mail '" + email + "' não encontrado!"));
         if (currentUser != null) {
             UserDetails user = new org.springframework.security.core.userdetails.User(email, currentUser.getSenha(),
                     true, true, true, true,
