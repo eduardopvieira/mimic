@@ -42,10 +42,10 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/v1/login", "/api/v1/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/login", "/api/usuarios").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new LoginFilter("/api/v1/login", authenticationManager),
+                .addFilterBefore(new LoginFilter("/api/login", authenticationManager),
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authenticationManager(authenticationManager);

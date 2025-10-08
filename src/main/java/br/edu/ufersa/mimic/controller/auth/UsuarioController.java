@@ -1,7 +1,7 @@
-package br.edu.ufersa.mimic.controller; // ou onde seus controllers ficarem
+package br.edu.ufersa.mimic.controller.auth;
 
 import br.edu.ufersa.mimic.model.auth.Usuario;
-import br.edu.ufersa.mimic.service.auth.UsuarioService; // Vamos criar este serviço
+import br.edu.ufersa.mimic.service.auth.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
