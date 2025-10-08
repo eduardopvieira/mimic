@@ -1,7 +1,16 @@
 package br.edu.ufersa.mimic.dto;
 
+import br.edu.ufersa.mimic.model.caracteristicas.Classe;
+import br.edu.ufersa.mimic.model.caracteristicas.Origem;
+import br.edu.ufersa.mimic.model.caracteristicas.Raca;
+import br.edu.ufersa.mimic.model.caracteristicas.Subclasse;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
+import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.fichas.Personagem;
+import br.edu.ufersa.mimic.model.habilidades.Magia;
+import br.edu.ufersa.mimic.model.habilidades.Talento;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,19 +26,24 @@ public class PersonagemDTO {
 
     private Long id;
 
-    // --- INFORMAÇÕES BÁSICAS ---
+    // --- Informações Básicas ---
+    @NotBlank
     private String nomePersonagem;
+    @NotNull
     private Integer nivel;
     private Integer pontosDeExperiencia;
     private Alinhamento alinhamento;
 
-    // --- RELACIONAMENTOS (simplificados para DTO) ---
-    private String nomeClasse;
-    private String nomeSubclasse;
-    private String nomeEspecie;
-    private String nomeOrigem;
+    // --- Relacionamentos (IDs) ---
+    @NotNull
+    private Long classeId;
+    private Long subclasseId;
+    @NotNull
+    private Long especieId;
+    @NotNull
+    private Long antecedenteId;
 
-    // --- ATRIBUTOS PRINCIPAIS ---
+    // --- Atributos ---
     private Integer forca;
     private Integer destreza;
     private Integer constituicao;
@@ -37,7 +51,7 @@ public class PersonagemDTO {
     private Integer sabedoria;
     private Integer carisma;
 
-    // --- STATUS DE COMBATE ---
+    // --- Status de Combate ---
     private Integer pontosDeVidaMaximos;
     private Integer pontosDeVidaAtuais;
     private Integer pontosDeVidaTemporarios;
@@ -46,61 +60,46 @@ public class PersonagemDTO {
     private Integer deslocamento;
     private Integer percepcaoPassiva;
 
-    // --- RECURSOS ---
+    // --- Recursos ---
     private String dadosDeVidaTotais;
     private Integer dadosDeVidaGastos;
     private boolean inspiracaoHeroica;
 
-    // --- PROFICIÊNCIAS ---
+    // --- Proficiências ---
     private Set<String> proficienciasPericias;
     private Set<String> proficienciasTestesDeResistencia;
 
-    // --- INVENTÁRIO (simplificado) ---
-    private List<String> inventario;
-    private Integer pc; // Peças de Cobre
-    private Integer pp; // Peças de Prata
-    private Integer po; // Peças de Ouro
-    private Integer pl; // Peças de Platina
+    // --- Listas de IDs para Relacionamentos ManyToMany ---
+    private List<Long> inventarioIds;
+    private Set<Long> talentosIds;
+    private Set<Long> magiasPreparadasIds;
 
-    // --- TALENTOS E MAGIAS (simplificados) ---
-    private Set<String> talentos;
-    private Set<String> magiasPreparadas;
+    // --- Dinheiro ---
+    private Integer pc;
+    private Integer pp;
+    private Integer po;
+    private Integer pl;
 
-    /**
-     * Construtor para converter a entidade Personagem em PersonagemDTO.
-     * @param personagem A entidade a ser convertida.
-     */
+    // Construtor de conversão (Entidade -> DTO)
     public PersonagemDTO(Personagem personagem) {
-        // Informações Básicas
         this.id = personagem.getId();
         this.nomePersonagem = personagem.getNomePersonagem();
         this.nivel = personagem.getNivel();
         this.pontosDeExperiencia = personagem.getPontosDeExperiencia();
         this.alinhamento = personagem.getAlinhamento();
 
-        // Relacionamentos (pegando apenas os nomes para simplificar)
-        if (personagem.getClasse() != null) {
-            this.nomeClasse = personagem.getClasse().getNome();
-        }
-        if (personagem.getSubclasse() != null) {
-            this.nomeSubclasse = personagem.getSubclasse().getNome();
-        }
-        if (personagem.getEspecie() != null) {
-            this.nomeEspecie = personagem.getEspecie().getNome();
-        }
-        if (personagem.getOrigem() != null) {
-            this.nomeOrigem = personagem.getOrigem().getNome();
-        }
+        // Mapeia entidades para seus IDs
+        if (personagem.getClasse() != null) this.classeId = personagem.getClasse().getId();
+        if (personagem.getSubclasse() != null) this.subclasseId = personagem.getSubclasse().getId();
+        if (personagem.getEspecie() != null) this.especieId = personagem.getEspecie().getId();
+        if (personagem.getOrigem() != null) this.antecedenteId = personagem.getOrigem().getId();
 
-        // Atributos
         this.forca = personagem.getForca();
         this.destreza = personagem.getDestreza();
         this.constituicao = personagem.getConstituicao();
         this.inteligencia = personagem.getInteligencia();
         this.sabedoria = personagem.getSabedoria();
         this.carisma = personagem.getCarisma();
-
-        // Status de Combate
         this.pontosDeVidaMaximos = personagem.getPontosDeVidaMaximos();
         this.pontosDeVidaAtuais = personagem.getPontosDeVidaAtuais();
         this.pontosDeVidaTemporarios = personagem.getPontosDeVidaTemporarios();
@@ -108,31 +107,25 @@ public class PersonagemDTO {
         this.iniciativa = personagem.getIniciativa();
         this.deslocamento = personagem.getDeslocamento();
         this.percepcaoPassiva = personagem.getPercepcaoPassiva();
-
-        // Recursos
         this.dadosDeVidaTotais = personagem.getDadosDeVidaTotais();
         this.dadosDeVidaGastos = personagem.getDadosDeVidaGastos();
         this.inspiracaoHeroica = personagem.isInspiracaoHeroica();
-
-        // Proficiências
         this.proficienciasPericias = personagem.getProficienciasPericias();
         this.proficienciasTestesDeResistencia = personagem.getProficienciasTestesDeResistencia();
-
-        // Inventário
-        this.inventario = personagem.getInventario().stream()
-                .map(item -> item.getNome()) // Supondo que Item tem um método getNome()
-                .collect(Collectors.toList());
         this.pc = personagem.getPc();
         this.pp = personagem.getPp();
         this.po = personagem.getPo();
         this.pl = personagem.getPl();
 
-        // Talentos e Magias
-        this.talentos = personagem.getTalentos().stream()
-                .map(talento -> talento.getNome()) // Supondo que Talento tem um método getNome()
-                .collect(Collectors.toSet());
-        this.magiasPreparadas = personagem.getMagiasPreparadas().stream()
-                .map(magia -> magia.getNome()) // Supondo que Magia tem um método getNome()
-                .collect(Collectors.toSet());
+        // Mapeia listas de entidades para listas de IDs
+        if (personagem.getInventario() != null) {
+            this.inventarioIds = personagem.getInventario().stream().map(Item::getId).collect(Collectors.toList());
+        }
+        if (personagem.getTalentos() != null) {
+            this.talentosIds = personagem.getTalentos().stream().map(Talento::getId).collect(Collectors.toSet());
+        }
+        if (personagem.getMagiasPreparadas() != null) {
+            this.magiasPreparadasIds = personagem.getMagiasPreparadas().stream().map(Magia::getId).collect(Collectors.toSet());
+        }
     }
 }

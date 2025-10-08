@@ -1,8 +1,8 @@
 package br.edu.ufersa.mimic.dto.fichas;
 
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
-import br.edu.ufersa.mimic.model.fichas.Criatura;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
+import br.edu.ufersa.mimic.model.fichas.Criatura;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class CriaturaDTO {
+
     private Long id;
     @NotBlank private String nome;
     private Tamanho tamanho;

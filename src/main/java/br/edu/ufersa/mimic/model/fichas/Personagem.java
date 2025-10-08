@@ -154,5 +154,6 @@ public class Personagem {
         this.pp = dto.getPp();
         this.po = dto.getPo();
         this.pl = dto.getPl();
+
     }
 }
