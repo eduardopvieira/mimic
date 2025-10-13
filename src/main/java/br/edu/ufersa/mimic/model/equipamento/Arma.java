@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.equipamento;
 
-import br.edu.ufersa.mimic.dto.equipamento.ArmaDTO;
+import br.edu.ufersa.mimic.api.dto.equipamento.ArmaDTO;
 import br.edu.ufersa.mimic.model.enums.equipamento.arma.CategoriaArma;
 import br.edu.ufersa.mimic.model.enums.equipamento.arma.TipoArma;
 import br.edu.ufersa.mimic.model.enums.equipamento.arma.TipoDeDano;

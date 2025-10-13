@@ -1,9 +1,8 @@
 package br.edu.ufersa.mimic.model.habilidades;
 
-import br.edu.ufersa.mimic.dto.habilidades.TalentoDTO;
+import br.edu.ufersa.mimic.api.dto.habilidades.TalentoDTO;
 import br.edu.ufersa.mimic.model.enums.CategoriaTalento;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

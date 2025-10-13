@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.service.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.caracteristicas.OrigemDTO; // Importe seu DTO
+import br.edu.ufersa.mimic.api.dto.caracteristicas.OrigemDTO; // Importe seu DTO
 import br.edu.ufersa.mimic.model.caracteristicas.Origem;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
 import br.edu.ufersa.mimic.repository.caracteristicas.OrigemRepository;

@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.caracteristicas.RacaDTO;
+import br.edu.ufersa.mimic.api.dto.caracteristicas.RacaDTO;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
 import jakarta.persistence.*;
 import lombok.Getter;

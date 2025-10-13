@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.service.fichas;
 
-import br.edu.ufersa.mimic.dto.fichas.CriaturaDTO;
+import br.edu.ufersa.mimic.api.dto.fichas.CriaturaDTO;
 import br.edu.ufersa.mimic.model.fichas.Criatura;
 import br.edu.ufersa.mimic.repository.fichas.CriaturaRepository;
 import jakarta.persistence.EntityNotFoundException;

@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.service.equipamento;
 
-import br.edu.ufersa.mimic.dto.equipamento.ItemDTO;
+import br.edu.ufersa.mimic.api.dto.equipamento.ItemDTO;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.repository.equipamento.ItemRepository;
 import jakarta.persistence.EntityNotFoundException;

@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.service.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.caracteristicas.RacaDTO;
+import br.edu.ufersa.mimic.api.dto.caracteristicas.RacaDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.Raca;
 import br.edu.ufersa.mimic.repository.caracteristicas.RacaRepository;
 import br.edu.ufersa.mimic.repository.caracteristicas.TracoRacialRepository;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

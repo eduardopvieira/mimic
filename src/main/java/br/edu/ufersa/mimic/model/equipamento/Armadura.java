@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.equipamento;
 
-import br.edu.ufersa.mimic.dto.equipamento.ArmaduraDTO;
+import br.edu.ufersa.mimic.api.dto.equipamento.ArmaduraDTO;
 import br.edu.ufersa.mimic.model.enums.equipamento.armadura.CategoriaArmadura;
 import jakarta.persistence.*;
 import lombok.Getter;

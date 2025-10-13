@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.service.habilidades;
 
-import br.edu.ufersa.mimic.dto.habilidades.TalentoDTO;
+import br.edu.ufersa.mimic.api.dto.habilidades.TalentoDTO;
 import br.edu.ufersa.mimic.model.enums.CategoriaTalento;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
 import br.edu.ufersa.mimic.repository.habilidades.TalentoRepository;

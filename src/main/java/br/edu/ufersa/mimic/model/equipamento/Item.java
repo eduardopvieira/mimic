@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.equipamento;
 
-import br.edu.ufersa.mimic.dto.equipamento.ItemDTO;
+import br.edu.ufersa.mimic.api.dto.equipamento.ItemDTO;
 import br.edu.ufersa.mimic.model.fichas.Personagem;
 import jakarta.persistence.*;
 import lombok.Getter;

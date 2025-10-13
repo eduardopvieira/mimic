@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
-import br.edu.ufersa.mimic.dto.caracteristicas.TracoRacialDTO;
+import br.edu.ufersa.mimic.api.dto.caracteristicas.TracoRacialDTO;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import jakarta.persistence.*;
 import lombok.Getter;

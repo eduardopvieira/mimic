@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.fichas;
 
-import br.edu.ufersa.mimic.dto.PersonagemDTO;
+import br.edu.ufersa.mimic.api.dto.fichas.PersonagemDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.*;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.equipamento.Item;

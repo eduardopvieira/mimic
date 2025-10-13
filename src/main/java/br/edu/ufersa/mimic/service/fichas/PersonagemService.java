@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.service.fichas;
 
-import br.edu.ufersa.mimic.dto.PersonagemDTO;
+import br.edu.ufersa.mimic.api.dto.fichas.PersonagemDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.Classe;
 import br.edu.ufersa.mimic.model.caracteristicas.Origem;
 import br.edu.ufersa.mimic.model.caracteristicas.Raca;
