@@ -1,6 +1,3 @@
-FROM mysql:latest
+FROM mysql:8.0
 
-ENV MYSQL_DATABASE=mimic_database
 ENV MYSQL_ROOT_PASSWORD=root
-
-EXPOSE 3306
