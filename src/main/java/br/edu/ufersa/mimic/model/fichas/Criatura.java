@@ -29,7 +29,7 @@ public class Criatura {
     private Tamanho tamanho;
 
     @Column(name = "tipo_criatura")
-    private String tipo; // Ex: "Humanoide", "Fera", "Monstruosidade"
+    private String tipo;
 
     @Enumerated(EnumType.STRING)
     private Alinhamento alinhamento;
@@ -41,12 +41,12 @@ public class Criatura {
     private Integer pontosDeVida;
 
     @Column(name = "dados_de_vida")
-    private String dadosDeVida; // Ex: "3d8 + 6"
+    private String dadosDeVida;
 
     @Column
-    private String deslocamento; // Ex: "9m, voo 12m"
+    private String deslocamento;
 
-    // Atributos
+    // atributos
     private int forca = 10;
     private int destreza = 10;
     private int constituicao = 10;
@@ -54,7 +54,7 @@ public class Criatura {
     private int sabedoria = 10;
     private int carisma = 10;
 
-    // Perícias (Ex: "Percepção": 3, "Furtividade": 5)
+    // pericias
     @ElementCollection
     @CollectionTable(name = "criatura_pericias", joinColumns = @JoinColumn(name = "criatura_id"))
     @MapKeyColumn(name = "pericia_nome")
@@ -77,19 +77,19 @@ public class Criatura {
     private Set<String> vulnerabilidadesDano;
 
     @Column
-    private String sentidos; // Ex: "Visão no escuro 18m, Percepção passiva 13"
+    private String sentidos; // ex: "Visão no escuro 18m, Percepção passiva 13"
 
     @Column
     private String idiomas;
 
     @Column(name = "nivel_de_desafio")
-    private String nivelDeDesafio; // String para "1/2", "1/4", etc.
+    private String nivelDeDesafio; // "1/2", "1/4"
 
     @Column(columnDefinition = "TEXT")
-    private String tracosEspeciais; // Para habilidades passivas como "Resistência à Magia"
+    private String tracosEspeciais; // habilidades passivas como "resistência a magia"
 
     @Column(columnDefinition = "TEXT")
-    private String acoes; // Para Ações como "Ataques Múltiplos", "Mordida"
+    private String acoes; // ataques multiplos, mordida
 
     @Column(columnDefinition = "TEXT")
     private String acoesBonus;

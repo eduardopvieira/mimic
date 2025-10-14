@@ -50,4 +50,21 @@ public class UsuarioController {
         usuarioService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
+        Usuario usuarioExistente = usuarioService.findById(id);
+        if (usuarioExistente == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        usuarioExistente.setEmail(usuarioAtualizado.getEmail());
+        if (usuarioAtualizado.getSenha() != null && !usuarioAtualizado.getSenha().isEmpty()) {
+            String senhaCriptografada = passwordEncoder.encode(usuarioAtualizado.getSenha());
+            usuarioExistente.setSenha(senhaCriptografada);
+        }
+
+        Usuario usuarioSalvo = usuarioService.salvar(usuarioExistente);
+        return ResponseEntity.ok(usuarioSalvo);
+    }
 }

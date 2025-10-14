@@ -43,12 +43,38 @@ public class CriaturaService {
 
     @Transactional
     public CriaturaDTO atualizar(Long id, CriaturaDTO dto) {
-        if (!criaturaRepository.existsById(id)) {
-            throw new EntityNotFoundException("Criatura não encontrada com id: " + id);
-        }
-        dto.setId(id);
-        Criatura criaturaParaAtualizar = new Criatura(dto);
-        return new CriaturaDTO(criaturaRepository.save(criaturaParaAtualizar));
+        Criatura criaturaExistente = criaturaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Criatura não encontrada com id: " + id));
+
+        criaturaExistente.setNome(dto.getNome());
+        criaturaExistente.setTamanho(dto.getTamanho());
+        criaturaExistente.setTipo(dto.getTipo());
+        criaturaExistente.setAlinhamento(dto.getAlinhamento());
+        criaturaExistente.setClasseDeArmadura(dto.getClasseDeArmadura());
+        criaturaExistente.setPontosDeVida(dto.getPontosDeVida());
+        criaturaExistente.setDadosDeVida(dto.getDadosDeVida());
+        criaturaExistente.setDeslocamento(dto.getDeslocamento());
+        criaturaExistente.setForca(dto.getForca());
+        criaturaExistente.setDestreza(dto.getDestreza());
+        criaturaExistente.setConstituicao(dto.getConstituicao());
+        criaturaExistente.setInteligencia(dto.getInteligencia());
+        criaturaExistente.setSabedoria(dto.getSabedoria());
+        criaturaExistente.setCarisma(dto.getCarisma());
+        criaturaExistente.setPericias(dto.getPericias());
+        criaturaExistente.setImunidadesDano(dto.getImunidadesDano());
+        criaturaExistente.setResistenciasDano(dto.getResistenciasDano());
+        criaturaExistente.setVulnerabilidadesDano(dto.getVulnerabilidadesDano());
+        criaturaExistente.setSentidos(dto.getSentidos());
+        criaturaExistente.setIdiomas(dto.getIdiomas());
+        criaturaExistente.setNivelDeDesafio(dto.getNivelDeDesafio());
+        criaturaExistente.setTracosEspeciais(dto.getTracosEspeciais());
+        criaturaExistente.setAcoes(dto.getAcoes());
+        criaturaExistente.setAcoesBonus(dto.getAcoesBonus());
+        criaturaExistente.setReacoes(dto.getReacoes());
+
+        Criatura criaturaAtualizada = criaturaRepository.save(criaturaExistente);
+
+        return new CriaturaDTO(criaturaAtualizada);
     }
 
     @Transactional
