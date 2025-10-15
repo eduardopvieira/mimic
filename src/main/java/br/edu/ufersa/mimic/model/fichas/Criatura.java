@@ -77,19 +77,19 @@ public class Criatura {
     private Set<String> vulnerabilidadesDano;
 
     @Column
-    private String sentidos; // ex: "Visão no escuro 18m, Percepção passiva 13"
+    private String sentidos; // ex: visao no escuro"
 
     @Column
     private String idiomas;
 
     @Column(name = "nivel_de_desafio")
-    private String nivelDeDesafio; // "1/2", "1/4"
+    private String nivelDeDesafio; // formato "1/2", "1/4"
 
     @Column(columnDefinition = "TEXT")
     private String tracosEspeciais; // habilidades passivas como "resistência a magia"
 
     @Column(columnDefinition = "TEXT")
-    private String acoes; // ataques multiplos, mordida
+    private String acoes; // ataques multiplos, mordida, etc
 
     @Column(columnDefinition = "TEXT")
     private String acoesBonus;

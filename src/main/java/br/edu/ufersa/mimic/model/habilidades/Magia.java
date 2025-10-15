@@ -25,7 +25,7 @@ public class Magia {
     private String descricao;
 
     @Column(nullable = false)
-    private Integer circulo; //0 para truques, 1-9 para magias
+    private Integer circulo; //0 p truques, 1-9 p magias
 
     @Column
     private EscolaDeMagia escolaDeMagia;

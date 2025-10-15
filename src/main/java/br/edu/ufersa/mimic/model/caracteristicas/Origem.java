@@ -42,15 +42,14 @@ public class Origem {
     @Column(name = "pericia")
     private Set<String> proficienciasPericia;
 
-    // cada origem concede proficiência em 1 ferramenta
     @Column(name = "proficiencia_ferramenta")
     private String proficienciaFerramenta;
 
     @Column(name = "equipamento_opcao_a", columnDefinition = "TEXT")
-    private String equipamentoOpcaoA; // Ex: "Suprimentos de Calígrafo, Livro (orações)..."
+    private String equipamentoOpcaoA; // o equipamento q nao é dinheiro"
 
     @Column(name = "equipamento_opcao_b")
-    private Integer equipamentoOpcaoB; // Ex: 50
+    private Integer equipamentoOpcaoB; // o equipamento q é só dinheiro
 
     public Origem(OrigemDTO origemDTO) {
         this.nome = origemDTO.getNome();

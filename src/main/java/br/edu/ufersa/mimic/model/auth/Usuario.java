@@ -18,7 +18,7 @@ public class Usuario {
     @Column(unique = true)
     String email;
 
-    @Column
+    @Column(nullable = false)
     String senha;
 
     public Usuario(Usuario usuario) {
