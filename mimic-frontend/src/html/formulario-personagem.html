@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimic - Criação</title>
+    <!-- Link para o seu arquivo CSS compilado -->
+    <link href="../output.css" rel="stylesheet">
+    <!-- 
+      O bloco <style> que estava aqui foi removido 
+      e movido para /src/css/styles.css
+    -->
+</head>
+<body class="bg-[#1A1A1A] text-gray-200 min-h-screen font-sans">
+
+    <header class="bg-[#444444] p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold text-white">Criador de Personagem</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8">
+
+        <div class="max-w-4xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl">
+            
+            <!-- Stepper de 6 Etapas -->
+            <div class="flex items-center mb-8">
+                <!-- Etapa 1 -->
+                <div class="flex items-center text-white relative">
+                    <div id="stepper-circle-1" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-700 font-bold ring-4 ring-red-500">
+                        1
+                    </div>
+                    <div id="stepper-text-1" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-white">Dados Básicos</div>
+                </div>
+                <div id="stepper-line-1" class="flex-auto border-t-2 border-gray-600"></div>
+
+                <!-- Etapa 2 -->
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-2" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        2
+                    </div>
+                    <div id="stepper-text-2" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Talentos</div>
+                </div>
+                <div id="stepper-line-2" class="flex-auto border-t-2 border-gray-600"></div>
+
+                <!-- Etapa 3 -->
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-3" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        3
+                    </div>
+                    <div id="stepper-text-3" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Truques</div>
+                </div>
+                <div id="stepper-line-3" class="flex-auto border-t-2 border-gray-600"></div>
+
+                <!-- Etapa 4 -->
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-4" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        4
+                    </div>
+                    <div id="stepper-text-4" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Magias</div>
+                </div>
+
+                <!-- Linha 4 -->
+                <div id="stepper-line-4" class="flex-auto border-t-2 border-gray-600"></div>
+                
+                <!-- Etapa 5 -->
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-5" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        5
+                    </div>
+                    <div id="stepper-text-5" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Perícias</div>
+                </div>
+
+                <!-- Linha 5 -->
+                <div id="stepper-line-5" class="flex-auto border-t-2 border-gray-600"></div>
+
+                <!-- Etapa 6 -->
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-6" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        6
+                    </div>
+                    <div id="stepper-text-6" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Modificadores</div>
+                </div>
+            </div>
+
+            <form action="#" method="POST">
+                
+                <!-- Etapa 1 (Visível por padrão) -->
+                <div id="etapa-1">
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 1: Dados Básicos</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="md:col-span-2">
+                            <label for="nome" class="block text-lg font-medium text-gray-300 mb-1">Nome</label>
+                            <input type="text" id="nome" name="nome" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+                        <div>
+                            <label for="tamanho" class="block text-lg font-medium text-gray-300 mb-1">Tamanho</label>
+                            <select id="tamanho" name="tamanho" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                                <option class="bg-[#2D2D2D]" value="miudo">Miúdo</option>
+                                <option class="bg-[#2D2D2D]" value="pequeno">Pequeno</option>
+                                <option class="bg-[#2D2D2D]" value="medio">Médio</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="alinhamento" class="block text-lg font-medium text-gray-300 mb-1">Alinhamento</label>
+                            <select id="alinhamento" name="alinhamento" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                                <option class="bg-[#2D2D2D]" value="lb">Leal e Bom</option>
+                                <option class="bg-[#2D2D2D]" value="nb">Neutro e Bom</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="raca" class="block text-lg font-medium text-gray-300 mb-1">Raça</label>
+                            <select id="raca" name="raca" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                                <option class="bg-[#2D2D2D]" value="humano">Humano</option>
+                                <option class="bg-[#2D2D2D]" value="anao">Anão</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="subraca" class="block text-lg font-medium text-gray-300 mb-1">Sub-Raça</label>
+                            <select id="subraca" name="subraca" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="classe" class="block text-lg font-medium text-gray-300 mb-1">Classe</label>
+                            <select id="classe" name="classe" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                                <option class="bg-[#2D2D2D]" value="guerreiro">Guerreiro</option>
+                                <option class="bg-[#2D2D2D]" value="mago">Mago</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="subclasse" class="block text-lg font-medium text-gray-300 mb-1">Sub-Classe</label>
+                            <select id="subclasse" name="subclasse" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="origem" class="block text-lg font-medium text-gray-300 mb-1">Origem (Background)</label>
+                            <input type="text" id="origem" name="origem" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" placeholder="Ex: Acólito, Criminoso, Sábio...">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 flex justify-end">
+                        <button type="button" id="btn-proximo-1" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            Próximo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Etapa 2 (Oculta) -->
+                <div id="etapa-2" class="hidden">
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="talento-nome" class="block text-lg font-medium text-gray-300 mb-1">Nome do Talento</label>
+                            <select id="talento-nome" name="talento-nome" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione um talento...</option>
+                                <option class="bg-[#2D2D2D]" value="sortudo">Sortudo</option>
+                                <option class="bg-[#2D2D2D]" value="curandeiro">Curandeiro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="talento-desc" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
+                            <textarea id="talento-desc" name="talento-desc" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed">
+A descrição do talento selecionado aparecerá aqui...
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-2" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">Voltar</button>
+                        <button type="button" id="btn-proximo-2" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">Próximo</button>
+                    </div>
+                </div>
+
+                <!-- Etapa 3 (Oculta) -->
+                <div id="etapa-3" class="hidden">
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 3: Truques</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="truque-nome" class="block text-lg font-medium text-gray-300 mb-1">Nome do Truque</label>
+                            <select id="truque-nome" name="truque-nome" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione um truque...</option>
+                                <option class="bg-[#2D2D2D]" value="sortudo">Truque 1</option>
+                                <option class="bg-[#2D2D2D]" value="curandeiro">Truque 2</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="truque-desc" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
+                            <textarea id="truque-desc" name="truque-desc" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed">
+A descrição do truque selecionado aparecerá aqui...
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-3" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">Voltar</button>
+                        <button type="button" id="btn-proximo-3" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">Próximo</button>
+                    </div>
+                </div>
+
+                <!-- Etapa 4 (Oculta) -->
+                <div id="etapa-4" class="hidden">
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 4: Magias</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="magia-nome" class="block text-lg font-medium text-gray-300 mb-1">Nome da Magia</label>
+                            <select id="magia-nome" name="magia-nome" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione uma magia...</option>
+                                <option class="bg-[#2D2D2D]" value="sortudo">Magia 1</option>
+                                <option class="bg-[#2D2D2D]" value="curandeiro">Magia 2</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="magia-desc" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
+                            <textarea id="magia-desc" name="magia-desc" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed">
+A descrição da magia selecionada aparecerá aqui...
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-4" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">Voltar</button>
+                        <button type="button" id="btn-proximo-4" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">Próximo</button>
+                    </div>
+                </div>
+
+                <!-- Etapa 5 (Oculta) -->
+                <div id="etapa-5" class="hidden">
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 5: Perícias</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="pericia-nome" class="block text-lg font-medium text-gray-300 mb-1">Nome da Perícia</label> 
+                            <select id="pericia-nome" name="pericia-nome" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione uma perícia...</option>
+                                <option class="bg-[#2D2D2D]" value="sortudo">Perícia 1</option>
+                                <option class="bg-[#2D2D2D]" value="curandeiro">Perícia 2</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="pericia-desc" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
+                            <textarea id="pericia-desc" name="pericia-desc" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed">
+A descrição da perícia selecionada aparecerá aqui...
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-5" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">Voltar</button>
+                        <button type="button" id="btn-proximo-5" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">Próximo</button>
+                    </div>
+                </div>
+
+                <!-- Etapa 6 (Oculta) -->
+                <div id="etapa-6" class="hidden"> 
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 6: Modificadores</h2>
+                    
+                    <hr class="border-t-2 border-red-600 mb-8">
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        
+                        <!-- Box 1: Força -->
+                        <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
+                            <span class="text-xl font-bold">Força</span>
+                            <div>
+                                <input type="number" value="9" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-100 rounded-full px-4 py-1 text-xl font-bold inline-block mx-auto mt-2">
+                                <span>-1</span>
+                            </div>
+                        </div>
+
+                        <!-- Box 2: Destreza -->
+                        <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
+                            <span class="text-xl font-bold">Destreza</span>
+                            <div>
+                                <input type="number" value="16" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-100 rounded-full px-4 py-1 text-xl font-bold inline-block mx-auto mt-2">
+                                <span>+3</span>
+                            </div>
+                        </div>
+
+                        <!-- Box 3: Constituição -->
+                        <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
+                            <span class="text-xl font-bold">Constituição</span>
+                            <div>
+                                <input type="number" value="13" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-100 rounded-full px-4 py-1 text-xl font-bold inline-block mx-auto mt-2">
+                                <span>+1</span>
+                            </div>
+                        </div>
+
+                        <!-- Box 4: Inteligência -->
+                        <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
+                            <span class="text-xl font-bold">Inteligência</span>
+                            <div>
+                                <input type="number" value="11" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-100 rounded-full px-4 py-1 text-xl font-bold inline-block mx-auto mt-2">
+                                <span>+0</span>
+                            </div>
+                        </div>
+
+                        <!-- Box 5: Sabedoria -->
+                        <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
+                            <span class="text-xl font-bold">Sabedoria</span>
+                            <div>
+                                <input type="number" value="14" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-100 rounded-full px-4 py-1 text-xl font-bold inline-block mx-auto mt-2">
+                                <span>+2</span>
+                            </div>
+                        </div>
+
+                        <!-- Box 6: Carisma -->
+                        <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
+                            <span class="text-xl font-bold">Carisma</span>
+                            <div>
+                                <input type="number" value="15" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-100 rounded-full px-4 py-1 text-xl font-bold inline-block mx-auto mt-2">
+                                <span>+2</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-6" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
+                            Voltar
+                        </button>
+                        <button type="submit" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
+                            Finalizar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="../js/script.js"></script>
+</body>
+</html>
+
