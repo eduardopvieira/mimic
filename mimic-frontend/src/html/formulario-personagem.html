@@ -128,8 +128,12 @@
                         </div>
                         
                         <div class="md:col-span-2">
-                            <label for="origem" class="block text-lg font-medium text-gray-300 mb-1">Origem (Background)</label>
-                            <input type="text" id="origem" name="origem" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" placeholder="Ex: Acólito, Criminoso, Sábio...">
+                            <label for="origem" class="block text-lg font-medium text-gray-300 mb-1">Origem</label>
+                            <select id="origem" name="origem" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                                <option class="bg-[#2D2D2D]" value="acolito">Acólito</option>
+                                <option class="bg-[#2D2D2D]" value="mercante">Mercante</option>
+                            </select>
                         </div>
                     </div>
 
@@ -141,13 +145,15 @@
                 </div>
 
                 <div id="etapa-2" class="hidden">
-                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
 
-                    <div class="mb-6">
-                        <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                            <span class="ml-2">Adicionar Talento</span>
-                        </button>
+                        <div class="mb-6 mt-8">
+                            <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                <span class="ml-2">Adicionar Talento</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div id="talentos-container" class="space-y-6">
@@ -181,13 +187,15 @@ A descrição do talento selecionado aparecerá aqui...
                 </div>
 
                 <div id="etapa-3" class="hidden">
-                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 3: Truques</h2>
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
 
-                    <div class="mb-6">
-                        <button type="button" id="add-truque" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                            <span class="ml-2">Adicionar Truque</span>
-                        </button>
+                        <div class="mb-6 mt-8">
+                            <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                <span class="ml-2">Adicionar Talento</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div id="truques-container" class="space-y-6">
@@ -221,13 +229,15 @@ A descrição do truque selecionado aparecerá aqui...
                 </div>
 
                 <div id="etapa-4" class="hidden">
-                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 4: Magias</h2>
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
 
-                    <div class="mb-6">
-                        <button type="button" id="add-magia" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                            <span class="ml-2">Adicionar Magia</span>
-                        </button>
+                        <div class="mb-6 mt-8">
+                            <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                <span class="ml-2">Adicionar Talento</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div id="magias-container" class="space-y-6">
@@ -261,13 +271,15 @@ A descrição da magia selecionada aparecerá aqui...
                 </div>
 
                 <div id="etapa-5" class="hidden">
-                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 5: Perícias</h2>
-                    
-                    <div class="mb-6">
-                        <button type="button" id="add-pericia" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                            <span class="ml-2">Adicionar Perícia</span>
-                        </button>
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
+
+                        <div class="mb-6 mt-8">
+                            <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                <span class="ml-2">Adicionar Talento</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div id="pericias-container" class="space-y-6">
@@ -310,60 +322,60 @@ A descrição da perícia selecionada aparecerá aqui...
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Força</span>
                             <div>
-                                <input type="number" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
 
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Destreza</span>
                             <div>
-                                <input type="number" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
 
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Constituição</span>
                             <div>
-                                <input type="number" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
 
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Inteligência</span>
                             <div>
-                                <input type="number" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
 
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Sabedoria</span>
                             <div>
-                                <input type="number" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
 
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Carisma</span>
                             <div>
-                                <input type="number" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
                         
