@@ -136,8 +136,12 @@
                         </div>
                         
                         <div class="md:col-span-2">
-                            <label for="origem" class="block text-lg font-medium text-gray-300 mb-1">Origem (Background)</label>
-                            <input type="text" id="origem" name="origem" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" placeholder="Ex: Acólito, Criminoso, Sábio...">
+                            <label for="origem" class="block text-lg font-medium text-gray-300 mb-1">Origem</label>
+                            <select id="origem" name="origem" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                                <option class="bg-[#2D2D2D]" value="acolito">Acólito</option>
+                                <option class="bg-[#2D2D2D]" value="mercante">Mercante</option>
+                            </select>
                         </div>
                     </div>
 
@@ -304,55 +308,55 @@ A descrição da perícia selecionada aparecerá aqui...
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Força</span>
                             <div>
-                                <input type="number" value="9" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" value="-1" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="0" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Destreza</span>
                             <div>
-                                <input type="number" value="16" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" value="+3" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="0" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Constituição</span>
                             <div>
-                                <input type="number" value="13" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" value="+1" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="0" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Inteligência</span>
                             <div>
-                                <input type="number" value="11" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" value="+0" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="0" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Sabedoria</span>
                             <div>
-                                <input type="number" value="14" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" value="+2" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="0" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Carisma</span>
                             <div>
-                                <input type="number" value="15" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="text" value="+2" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="0" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
                     </div>
