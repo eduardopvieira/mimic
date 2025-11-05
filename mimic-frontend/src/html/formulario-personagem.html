@@ -10,10 +10,13 @@
 
     <header class="bg-[#444444] p-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto flex items-center space-x-4">
-            <div class="h-16 w-16 rounded-full bg-white">
+            
+            <div class="h-16 w-16 rounded-full bg-white p-1">
                 <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
             </div>
+            
             <h1 class="text-3xl font-bold text-white">Mimic</h1>
+        
         </div>
     </header>
 
@@ -63,9 +66,14 @@
                     </div>
                     <div id="stepper-text-6" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Mods</div>
                 </div>
-            </div>
-
-            <form action="#" method="POST">
+                <div id="stepper-line-6" class="flex-auto border-t-2 border-gray-600"></div>
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-7" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        7
+                    </div>
+                    <div id="stepper-text-7" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Equipamento</div>
+                </div>
+            </div> <form action="#" method="POST">
                 
                 <div id="etapa-1">
                     <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 1: Dados Básicos</h2>
@@ -128,12 +136,8 @@
                         </div>
                         
                         <div class="md:col-span-2">
-                            <label for="origem" class="block text-lg font-medium text-gray-300 mb-1">Origem</label>
-                            <select id="origem" name="origem" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
-                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
-                                <option class="bg-[#2D2D2D]" value="acolito">Acólito</option>
-                                <option class="bg-[#2D2D2D]" value="mercante">Mercante</option>
-                            </select>
+                            <label for="origem" class="block text-lg font-medium text-gray-300 mb-1">Origem (Background)</label>
+                            <input type="text" id="origem" name="origem" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" placeholder="Ex: Acólito, Criminoso, Sábio...">
                         </div>
                     </div>
 
@@ -145,19 +149,16 @@
                 </div>
 
                 <div id="etapa-2" class="hidden">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
-
-                        <div class="mb-6 mt-8">
-                            <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                                <span class="ml-2">Adicionar Talento</span>
-                            </button>
-                        </div>
+                    
+                    <div class="flex justify-between items-center pt-8 mb-6">
+                        <h2 class="text-3xl font-semibold text-white">Etapa 2: Talentos</h2>
+                        <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            <span class="ml-2">Adicionar Talento</span>
+                        </button>
                     </div>
 
                     <div id="talentos-container" class="space-y-6">
-                        
                         <div class="talento-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <div>
                                 <label for="talento-nome-1" class="block text-lg font-medium text-gray-300 mb-1">Nome do Talento</label>
@@ -167,15 +168,13 @@
                                     <option class="bg-[#2D2D2D]" value="curandeiro">Curandeiro</option>
                                 </select>
                             </div>
-                            
                             <div>
                                 <label for="talento-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
                                 <textarea id="talento-desc-1" name="talento-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed talento-desc">
 A descrição do talento selecionado aparecerá aqui...
                                 </textarea>
                             </div>
-                            </div>
-                        
+                        </div>
                     </div> <div class="mt-10 flex justify-between">
                         <button type="button" id="btn-voltar-2" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
                             Voltar
@@ -187,19 +186,16 @@ A descrição do talento selecionado aparecerá aqui...
                 </div>
 
                 <div id="etapa-3" class="hidden">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
-
-                        <div class="mb-6 mt-8">
-                            <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                                <span class="ml-2">Adicionar Talento</span>
-                            </button>
-                        </div>
+                    
+                    <div class="flex justify-between items-center pt-8 mb-6">
+                        <h2 class="text-3xl font-semibold text-white">Etapa 3: Truques</h2>
+                        <button type="button" id="add-truque" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            <span class="ml-2">Adicionar Truque</span>
+                        </button>
                     </div>
 
                     <div id="truques-container" class="space-y-6">
-                        
                         <div class="truque-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <div>
                                 <label for="truque-nome-1" class="block text-lg font-medium text-gray-300 mb-1">Nome do Truque</label>
@@ -209,7 +205,6 @@ A descrição do talento selecionado aparecerá aqui...
                                     <option class="bg-[#2D2D2D]" value="truque2">Truque 2</option>
                                 </select>
                             </div>
-                            
                             <div>
                                 <label for="truque-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
                                 <textarea id="truque-desc-1" name="truque-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed truque-desc">
@@ -217,7 +212,6 @@ A descrição do truque selecionado aparecerá aqui...
                                 </textarea>
                             </div>
                         </div>
-                        
                     </div> <div class="mt-10 flex justify-between">
                         <button type="button" id="btn-voltar-3" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
                             Voltar
@@ -229,19 +223,16 @@ A descrição do truque selecionado aparecerá aqui...
                 </div>
 
                 <div id="etapa-4" class="hidden">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
-
-                        <div class="mb-6 mt-8">
-                            <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                                <span class="ml-2">Adicionar Talento</span>
-                            </button>
-                        </div>
+                    
+                    <div class="flex justify-between items-center pt-8 mb-6">
+                        <h2 class="text-3xl font-semibold text-white">Etapa 4: Magias</h2>
+                        <button type="button" id="add-magia" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            <span class="ml-2">Adicionar Magia</span>
+                        </button>
                     </div>
 
                     <div id="magias-container" class="space-y-6">
-                        
                         <div class="magia-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <div>
                                 <label for="magia-nome-1" class="block text-lg font-medium text-gray-300 mb-1">Nome da Magia</label>
@@ -251,7 +242,6 @@ A descrição do truque selecionado aparecerá aqui...
                                     <option class="bg-[#2D2D2D]" value="magia2">Magia 2</option>
                                 </select>
                             </div>
-                            
                             <div>
                                 <label for="magia-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
                                 <textarea id="magia-desc-1" name="magia-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed magia-desc">
@@ -259,7 +249,6 @@ A descrição da magia selecionada aparecerá aqui...
                                 </textarea>
                             </div>
                         </div>
-                        
                     </div> <div class="mt-10 flex justify-between">
                         <button type="button" id="btn-voltar-4" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
                             Voltar
@@ -271,19 +260,16 @@ A descrição da magia selecionada aparecerá aqui...
                 </div>
 
                 <div id="etapa-5" class="hidden">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Talentos</h2>
-
-                        <div class="mb-6 mt-8">
-                            <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                                <span class="ml-2">Adicionar Talento</span>
-                            </button>
-                        </div>
+                    
+                    <div class="flex justify-between items-center pt-8 mb-6">
+                        <h2 class="text-3xl font-semibold text-white">Etapa 5: Perícias</h2>
+                        <button type="button" id="add-pericia" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            <span class="ml-2">Adicionar Perícia</span>
+                        </button>
                     </div>
 
                     <div id="pericias-container" class="space-y-6">
-                        
                         <div class="pericia-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <div>
                                 <label for="pericia-nome-1" class="block text-lg font-medium text-gray-300 mb-1">Nome da Perícia</label> 
@@ -293,7 +279,6 @@ A descrição da magia selecionada aparecerá aqui...
                                     <option class="bg-[#2D2D2D]" value="pericia2">Perícia 2</option>
                                 </select>
                             </div>
-                            
                             <div>
                                 <label for="pericia-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
                                 <textarea id="pericia-desc-1" name="pericia-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed pericia-desc">
@@ -301,7 +286,6 @@ A descrição da perícia selecionada aparecerá aqui...
                                 </textarea>
                             </div>
                         </div>
-                        
                     </div> <div class="mt-10 flex justify-between">
                         <button type="button" id="btn-voltar-5" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
                             Voltar
@@ -314,75 +298,119 @@ A descrição da perícia selecionada aparecerá aqui...
                 
                 <div id="etapa-6" class="hidden"> 
                     <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 6: Modificadores</h2>
-                    
                     <hr class="border-t-2 border-red-600 mb-8">
 
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Força</span>
                             <div>
-                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="9" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="-1" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
-
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Destreza</span>
                             <div>
-                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="16" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="+3" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
-
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Constituição</span>
                             <div>
-                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="13" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="+1" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
-
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Inteligência</span>
                             <div>
-                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="11" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="+0" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
-
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Sabedoria</span>
                             <div>
-                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="14" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="+2" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
-
                         <div class="bg-gray-200 text-gray-900 p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <span class="text-xl font-bold">Carisma</span>
                             <div>
-                                <input type="number" value="0" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
+                                <input type="number" value="15" class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-6xl font-bold appearance-none">
                             </div>
                             <div class="bg-gray-100 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-black">
-                                <input type="number" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
+                                <input type="text" value="+2" class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-gray-900">
                             </div>
                         </div>
-                        
                     </div>
                     
                     <div class="mt-10 flex justify-between">
                         <button type="button" id="btn-voltar-6" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
+                            Voltar
+                        </button>
+                        <button type="button" id="btn-proximo-6" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            Próximo
+                        </button>
+                    </div>
+                </div>
+
+                <div id="etapa-7" class="hidden"> 
+                    <h2 class="text-3xl font-semibold text-white mb-2 pt-8">Equipamento Inicial</h2>
+                    <hr class="border-t-2 border-red-600 mb-8">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div>
+                            <input type="radio" id="equipamento-a" name="equipamento_inicial" value="A" class="sr-only peer" required>
+                            <label for="equipamento-a" 
+                                   class="block cursor-pointer bg-[#444444] rounded-lg p-6 min-h-[350px] text-gray-300
+                                          transition-all duration-200
+                                          peer-checked:ring-4 peer-checked:ring-red-500 peer-checked:text-white">
+                                
+                                <h3 class="text-2xl font-bold text-white mb-4">Equipamento A</h3>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li>Armadura de Couro;</li>
+                                    <li>2 Adagas</li>
+                                    <li>Espada Curta</li>
+                                    <li>Arco Curto</li>
+                                    <li>20 Flechas</li>
+                                    <li>Aljava</li>
+                                    <li>Ferramenta de Ladrão</li>
+                                    <li>Kit Assaltante</li>
+                                    <li>8 PO</li>
+                                </ul>
+                            </label>
+                        </div>
+
+                        <div>
+                            <input type="radio" id="equipamento-b" name="equipamento_inicial" value="B" class="sr-only peer">
+                            <label for="equipamento-b" 
+                                   class="block cursor-pointer bg-[#444444] rounded-lg p-6 min-h-[350px] text-gray-300
+                                          transition-all duration-200
+                                          peer-checked:ring-4 peer-checked:ring-red-500 peer-checked:text-white">
+                                
+                                <h3 class="text-2xl font-bold text-white mb-4">Equipamento B</h3>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li>100 PO</li>
+                                </ul>
+                            </label>
+                        </div>
+
+                    </div> <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-7" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
                             Voltar
                         </button>
                         <button type="submit" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
@@ -390,7 +418,7 @@ A descrição da perícia selecionada aparecerá aqui...
                         </button>
                     </div>
                 </div>
-            </form>
+                </form>
         </div>
     </main>
 
