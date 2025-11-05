@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimic - Criar Origem</title>
+    <link href="../output.css" rel="stylesheet">
+</head>
+<body class="bg-[#1A1A1A] text-gray-200 min-h-screen font-sans">
+
+    <header class="bg-[#444444] p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex items-center space-x-4">
+            
+            <div class="h-16 w-16 rounded-full bg-white p-1">
+                <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
+            </div>
+            
+            <h1 class="text-3xl font-bold text-white">Criador de Personagem</h1>
+        
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8">
+
+        <div class="max-w-4xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl">
+            
+            <h2 class="text-3xl font-semibold text-white mb-2">Criar Origem</h2>
+            <hr class="border-t-2 border-red-600 mb-8">
+
+            <form action="#" method="POST">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12">
+    
+                    <div class="grid grid-cols-[auto_1fr] gap-6 items-center">
+                        
+                        <label for="origem-nome" class="text-lg font-medium text-gray-300">Nome</label>
+                        <input type="text" id="origem-nome" name="origem-nome" 
+                               class="p-2 rounded bg-gray-200 text-gray-900 placeholder-gray-500 
+                                      focus:outline-none focus:ring-2 focus:ring-red-500">
+
+                        <label for="origem-mod1" class="text-lg font-medium text-gray-300">Modificador 1</label>
+                        <select id="origem-mod1" name="origem-mod1"
+                                class="p-2 rounded bg-gray-200 text-gray-900 
+                                       focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option value="">Selecione...</option>
+                            <option value="forca">+1 em Força</option>
+                            <option value="destreza">+1 em Destreza</option>
+                            </select>
+                    </div>
+
+                    <div class="grid grid-cols-[auto_1fr] gap-6 items-center">
+
+                        <label for="origem-pericia" class="text-lg font-medium text-gray-300">Perícia</label>
+                        <select id="origem-pericia" name="origem-pericia"
+                                class="p-2 rounded bg-gray-200 text-gray-900 
+                                       focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option value="">Selecione...</option>
+                            <option value="intimidacao">Intimidação</option>
+                            <option value="furtividade">Furtividade</option>
+                            </select>
+
+                        <label for="origem-mod2" class="text-lg font-medium text-gray-300">Modificador 2</label>
+                        <select id="origem-mod2" name="origem-mod2"
+                                class="p-2 rounded bg-gray-200 text-gray-900 
+                                       focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option value="">Selecione...</option>
+                            <option value="sabedoria">+1 em Sabedoria</option>
+                            <option value="carisma">+1 em Carisma</option>
+                            </select>
+
+                    </div>
+
+                </div> <div class="mt-6">
+                    <label for="origem-historia" class="block text-lg font-medium text-gray-300 mb-2">História</label>
+                    <textarea id="origem-historia" name="origem-historia" rows="10" 
+                              class="w-full p-2 rounded bg-gray-200 text-gray-900 placeholder-gray-500 
+                                     focus:outline-none focus:ring-2 focus:ring-red-500"
+                              placeholder="Conte o background desta origem..."></textarea>
+                </div>
+
+                <div class="mt-10 flex justify-end">
+                    <button type="submit" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
+                        Salvar Origem
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </main>
+
+</body>
+</html>
