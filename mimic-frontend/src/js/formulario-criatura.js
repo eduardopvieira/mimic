@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
 
-    // --- LÓGICA DE NAVEGAÇÃO DO STEPPER (Idêntica ao seu exemplo) ---
+    // --- LÓGICA DE NAVEGAÇÃO DO STEPPER ---
 
     btnProximo1.addEventListener('click', function() {
         etapa1.classList.add('hidden');
@@ -261,8 +261,6 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[6].classList.remove('text-white');
     });
 
-    // --- (NOVO) LÓGICA DOS MODIFICADORES DE HABILIDADE (Etapa 3) ---
-
     function calcularModificador(valor) {
         return Math.floor((valor - 10) / 2);
     }
@@ -279,30 +277,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const atributos = ['for', 'des', 'con', 'int', 'sab', 'car'];
     atributos.forEach(sigla => {
         const input = document.getElementById(`atr-${sigla}`);
-        // O <span> é o próximo elemento irmão do <input>
         const span = input ? input.nextElementSibling : null; 
         
         if (input && span) {
-            // Atualiza no 'input' (enquanto digita)
             input.addEventListener('input', () => {
                 atualizarModificadorUI(input, span);
             });
-            // Atualiza caso mude o valor com as setas e saia do campo
             input.addEventListener('change', () => {
                 atualizarModificadorUI(input, span);
             });
-            // Atualiza o valor inicial ao carregar a página
             atualizarModificadorUI(input, span);
         }
     });
 
-    // --- (ADAPTADO) LÓGICA DO REPETIDOR (Etapas 5 e 6) ---
+    // --- LÓGICA DO REPETIDOR ---
 
-    /**
-     * Inicializa um repetidor de campos (para Habilidades e Ações).
-     * Esta versão é adaptada para clonar campos de input/textarea e 
-     * usar o botão de remover que JÁ EXISTE no HTML.
-     */
     function inicializarRepetidorCriatura(addBtnId, containerId, entryClass, prefix) {
         
         const addBtn = document.getElementById(addBtnId);
@@ -331,23 +320,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             entryCounter++;
 
-            // Encontra os elementos dentro do NOVO clone
             const newNameInput = newEntry.querySelector('input[type="text"]');
             const newDescTextarea = newEntry.querySelector('textarea');
             const newNameLabel = newEntry.querySelector(`label[for^="${prefix}-nome"]`);
             const newDescLabel = newEntry.querySelector(`label[for^="${prefix}-desc"]`);
 
-            // Atualiza IDs e 'for' para manter a acessibilidade
             if (newNameInput) newNameInput.id = `${prefix}-nome-${entryCounter}`;
             if (newDescTextarea) newDescTextarea.id = `${prefix}-desc-${entryCounter}`;
             if (newNameLabel) newNameLabel.setAttribute('for', `${prefix}-nome-${entryCounter}`);
             if (newDescLabel) newDescLabel.setAttribute('for', `${prefix}-desc-${entryCounter}`);
 
-            // Limpa os valores do clone
             if (newNameInput) newNameInput.value = '';
             if (newDescTextarea) newDescTextarea.value = '';
 
-            // Encontra o botão de remover DENTRO do clone e adiciona o evento
             const removeBtn = newEntry.querySelector('.remover-btn');
             if (removeBtn) {
                 removeBtn.addEventListener('click', function() {
@@ -358,15 +343,12 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(newEntry);
         });
 
-        // Adiciona evento ao primeiro botão de remover (o do molde)
         const firstRemoveBtn = container.querySelector(`.${entryClass} .remover-btn`);
         if (firstRemoveBtn) {
             firstRemoveBtn.addEventListener('click', function() {
-                // Impede de remover o último item, ou simplesmente deixa remover
                 if (container.getElementsByClassName(entryClass).length > 1) {
                     firstRemoveBtn.closest(`.${entryClass}`).remove();
                 } else {
-                    // Opcional: limpar os campos se for o último
                     const firstInput = container.querySelector(`.${entryClass} input[type="text"]`);
                     const firstTextarea = container.querySelector(`.${entryClass} textarea`);
                     if(firstInput) firstInput.value = '';
