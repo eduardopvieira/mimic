@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimic - Criar Magia</title>
+    <link href="../output.css" rel="stylesheet">
+</head>
+
+<body class="bg-[#1A1A1A] text-gray-200 min-h-screen font-sans">
+
+    <header class="bg-[#444444] p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex items-center space-x-4">
+
+            <div class="h-16 w-16 rounded-full bg-white">
+                <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
+            </div>
+
+            <h1 class="text-3xl font-bold text-white">Mimic</h1>
+
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8">
+
+        <div class="max-w-4xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl">
+
+            <h2 class="text-3xl font-semibold text-white mb-2">Criar Magia</h2>
+            <hr class="border-t-2 border-red-600 mb-8">
+
+            <form action="#" method="POST">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12">
+
+                    <div class="grid grid-cols-[auto_1fr] gap-6 items-center">
+
+                        <label for="magia-nome" class="text-lg font-medium text-gray-300">Nome</label>
+                        <input type="text" id="magia-nome" name="magia-nome"
+                               class="p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg">
+
+                        <label for="magia-alcance" class="text-lg font-medium text-gray-300">Alcance</label>
+                        <input type="text" id="magia-alcance" name="magia-alcance"
+                               class="p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg">
+
+                        <label for="magia-conjuracao" class="text-lg font-medium text-gray-300">Conjuração</label>
+                        <input type="text" id="magia-conjuracao" name="magia-conjuracao"
+                               class="p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg">
+                    </div>
+
+                    <div class="grid grid-cols-[auto_1fr] gap-6 items-center">
+
+                        <label for="magia-nivel" class="text-lg font-medium text-gray-300">Nível</label>
+                        <input type="number" id="magia-nivel" name="magia-nivel" min="0" max="9"
+                               class="p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg">
+
+                        <label for="magia-duracao" class="text-lg font-medium text-gray-300">Duração</label>
+                        <input type="text" id="magia-duracao" name="magia-duracao"
+                               class="p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg">
+
+                        <label class="text-lg font-medium text-gray-300">Componentes</label>
+                        <div class="flex items-center space-x-6">
+                            <div class="flex items-center">
+                                <input id="comp-v" name="componentes[]" type="checkbox" value="V"
+                                       class="h-5 w-5 rounded bg-[#444444] text-red-600 border-gray-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-[#2D2D2D]">
+                                <label for="comp-v" class="ml-2 text-lg text-gray-200">V</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="comp-s" name="componentes[]" type="checkbox" value="S"
+                                       class="h-5 w-5 rounded bg-[#444444] text-red-600 border-gray-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-[#2D2D2D]">
+                                <label for="comp-s" class="ml-2 text-lg text-gray-200">S</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="comp-m" name="componentes[]" type="checkbox" value="M"
+                                       class="h-5 w-5 rounded bg-[#444444] text-red-600 border-gray-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-[#2D2D2D]">
+                                <label for="comp-m" class="ml-2 text-lg text-gray-200">M</label>
+                            </div>
+                        </div>
+
+                        <label class="text-lg font-medium text-gray-300">Tags</label>
+                        <div class="flex items-center space-x-6">
+                            <div class="flex items-center">
+                                <input id="magia-ritual" name="magia-ritual" type="checkbox"
+                                       class="h-5 w-5 rounded bg-[#444444] text-red-600 border-gray-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-[#2D2D2D]">
+                                <label for="magia-ritual" class="ml-2 text-lg text-gray-200">Ritual</LAbel>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="magia-concentracao" name="magia-concentracao" type="checkbox"
+                                       class="h-5 w-5 rounded bg-[#444444] text-red-600 border-gray-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-[#2D2D2D]">
+                                <label for="magia-concentracao" class="ml-2 text-lg text-gray-200">Concentração</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <div id="material-container" class="mt-6" style="display: none;">
+                    <label for="magia-material-descricao" class="block text-lg font-medium text-gray-300 mb-2">
+                        Descrição do Componente Material (ex: "pó de diamante no valor de 50 PO")
+                    </label>
+                    <input type="text" id="magia-material-descricao" name="magia-material-descricao"
+                           class="w-full p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg">
+                </div>
+
+                <div class="mt-6">
+                    <label for="magia-descricao" class="block text-lg font-medium text-gray-300 mb-2">Descrição da
+                        Magia</label>
+                    <textarea id="magia-descricao" name="magia-descricao" rows="8"
+                              class="w-full p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
+                              placeholder="Inclua o efeito da magia aqui. A Duração será combinada com este texto no PDF."></textarea>
+                </div>
+
+                <div class="mt-10 flex justify-between">
+                    <button type="button"
+                            class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                            class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
+                        Salvar Magia
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </main>
+    
+    <script src="criar-magia.js"></script>
+</body>
+
+</html>

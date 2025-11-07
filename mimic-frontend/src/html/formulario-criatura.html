@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimic - Criar Criatura</title>
+    <link href="../output.css" rel="stylesheet">
+</head>
+<body class="bg-[#1A1A1A] text-gray-200 min-h-screen font-sans">
+
+    <header class="bg-[#444444] p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex items-center space-x-4">
+            
+            <div class="h-16 w-16 rounded-full bg-white p-1">
+                <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
+            </div>
+            
+            <h1 class="text-3xl font-bold text-white">Mimic</h1>
+        
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8">
+
+        <div class="max-w-4xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl">
+            
+            <div class="flex items-center mb-8">
+                <div class="flex items-center text-white relative">
+                    <div id="stepper-circle-1" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-700 font-bold ring-4 ring-red-500">
+                        1
+                    </div>
+                    <div id="stepper-text-1" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-white">Dados Básicos</div>
+                </div>
+                <div id="stepper-line-1" class="flex-auto border-t-2 border-gray-600"></div>
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-2" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        2
+                    </div>
+                    <div id="stepper-text-2" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Combate</div>
+                </div>
+                <div id="stepper-line-2" class="flex-auto border-t-2 border-gray-600"></div>
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-3" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        3
+                    </div>
+                    <div id="stepper-text-3" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Habilidades</div>
+                </div>
+                <div id="stepper-line-3" class="flex-auto border-t-2 border-gray-600"></div>
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-4" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        4
+                    </div>
+                    <div id="stepper-text-4" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Proficiências</div>
+                </div>
+                <div id="stepper-line-4" class="flex-auto border-t-2 border-gray-600"></div>
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-5" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        5
+                    </div>
+                    <div id="stepper-text-5" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Habilidades Especiais</div>
+                </div>
+                <div id="stepper-line-5" class="flex-auto border-t-2 border-gray-600"></div>
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-6" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        6
+                    </div>
+                    <div id="stepper-text-6" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Ações</div>
+                </div>
+                <div id="stepper-line-6" class="flex-auto border-t-2 border-gray-600"></div>
+                <div class="flex items-center text-gray-500 relative">
+                    <div id="stepper-circle-7" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-800 text-gray-400 font-bold">
+                        7
+                    </div>
+                    <div id="stepper-text-7" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Lendárias</div>
+                </div>
+            </div>
+            
+            <form action="#" method="POST">
+                
+                <div id="etapa-1">
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 1: Dados Básicos</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <div class="md:col-span-2">
+                            <label for="nome" class="block text-lg font-medium text-gray-300 mb-1">Nome da Criatura</label>
+                            <input type="text" id="nome" name="nome" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="tamanho" class="block text-lg font-medium text-gray-300 mb-1">Tamanho</label>
+                            <select id="tamanho" name="tamanho" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                                <option class="bg-[#2D2D2D]" value="miudo">Miúdo</option>
+                                <option class="bg-[#2D2D2D]" value="pequeno">Pequeno</option>
+                                <option class="bg-[#2D2D2D]" value="medio">Médio</option>
+                                <option class="bg-[#2D2D2D]" value="grande">Grande</option>
+                                <option class="bg-[#2D2D2D]" value="enorme">Enorme</option>
+                                <option class="bg-[#2D2D2D]" value="imenso">Imenso</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="tipo" class="block text-lg font-medium text-gray-300 mb-1">Tipo</label>
+                            <input type="text" id="tipo" name="tipo" placeholder="Ex: Humanoide, Besta, Monstruosidade" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="tag" class="block text-lg font-medium text-gray-300 mb-1">Tag (Opcional)</label>
+                            <input type="text" id="tag" name="tag" placeholder="Ex: Orc, Goblinoid, Titã" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="alinhamento" class="block text-lg font-medium text-gray-300 mb-1">Alinhamento</label>
+                            <select id="alinhamento" name="alinhamento" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                                <option class="bg-[#2D2D2D]" value="">Selecione...</option>
+                                <option class="bg-[#2D2D2D]" value="lb">Leal e Bom</option>
+                                <option class="bg-[#2D2D2D]" value="nb">Neutro e Bom</option>
+                                <option class="bg-[#2D2D2D]" value="cb">Caótico e Bom</option>
+                                <option class="bg-[#2D2D2D]" value="ln">Leal e Neutro</option>
+                                <option class="bg-[#2D2D2D]" value="n">Neutro</option>
+                                <option class="bg-[#2D2D2D]" value="cn">Caótico e Neutro</option>
+                                <option class="bg-[#2D2D2D]" value="lm">Leal e Mau</option>
+                                <option class="bg-[#2D2D2D]" value="nm">Neutro e Mau</option>
+                                <option class="bg-[#2D2D2D]" value="cm">Caótico e Mau</option>
+                                <option class="bg-[#2D2D2D]" value="sem">Sem alinhamento</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 flex justify-end">
+                        <button type="button" id="btn-proximo-1" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            Próximo
+                        </button>
+                    </div>
+                </div>
+
+                <div id="etapa-2" class="hidden">
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 2: Atributos de Combate</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <div>
+                            <label for="ca" class="block text-lg font-medium text-gray-300 mb-1">Classe de Armadura (CA)</label>
+                            <input type="text" id="ca" name="ca" placeholder="Ex: 17 (Armadura Natural)" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="pv" class="block text-lg font-medium text-gray-300 mb-1">Pontos de Vida (PV)</label>
+                            <input type="text" id="pv" name="pv" placeholder="Ex: 136 (16d10 + 48)" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div class="md:col-span-2">
+                           <label class="block text-lg font-medium text-gray-300 mb-1">Deslocamentos</label>
+                           <div class="grid grid-cols-3 gap-4">
+                                <div>
+                                    <input type="text" id="desl-base" name="desl-base" placeholder="Base (ex: 9m)" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                                </div>
+                                <div>
+                                    <input type="text" id="desl-voo" name="desl-voo" placeholder="Voo (Opcional)" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                                </div>
+                                <div>
+                                    <input type="text" id="desl-natacao" name="desl-natacao" placeholder="Natação (Opcional)" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-2" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
+                            Voltar
+                        </button>
+                        <button type="button" id="btn-proximo-2" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            Próximo
+                        </button>
+                    </div>
+                </div>
+
+                <div id="etapa-3" class="hidden"> 
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 3: Habilidades (Atributos)</h2>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                            <label for="atr-for" class="text-xl font-bold text-white">Força</label>
+                            <input type="number" id="atr-for" value="10" 
+                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
+                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span> </div>
+                        
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                            <label for="atr-des" class="text-xl font-bold text-white">Destreza</label>
+                            <input type="number" id="atr-des" value="10" 
+                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
+                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                        </div>
+                        
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                            <label for="atr-con" class="text-xl font-bold text-white">Constituição</label>
+                            <input type="number" id="atr-con" value="10" 
+                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
+                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                        </div>
+                        
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                            <label for="atr-int" class="text-xl font-bold text-white">Inteligência</label>
+                            <input type="number" id="atr-int" value="10" 
+                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
+                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                        </div>
+                        
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                            <label for="atr-sab" class="text-xl font-bold text-white">Sabedoria</label>
+                            <input type="number" id="atr-sab" value="10" 
+                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
+                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                        </div>
+                        
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                            <label for="atr-car" class="text-xl font-bold text-white">Carisma</label>
+                            <input type="number" id="atr-car" value="10" 
+                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
+                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-3" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
+                            Voltar
+                        </button>
+                        <button type="button" id="btn-proximo-3" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            Próximo
+                        </button>
+                    </div>
+                </div>
+
+                <div id="etapa-4" class="hidden">
+                    <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 4: Proficiências e Sentidos</h2>
+                    <div class="space-y-6">
+                        
+                        <div>
+                            <label for="testes-resistencia" class="block text-lg font-medium text-gray-300 mb-1">Testes de Resistência</label>
+                            <input type="text" id="testes-resistencia" name="testes-resistencia" placeholder="Ex: For +4, Con +5, Sab +3" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="pericias" class="block text-lg font-medium text-gray-300 mb-1">Perícias</label>
+                            <input type="text" id="pericias" name="pericias" placeholder="Ex: Furtividade +6, Percepção +5" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="resist-dano" class="block text-lg font-medium text-gray-300 mb-1">Resistências a Dano</label>
+                            <input type="text" id="resist-dano" name="resist-dano" placeholder="Ex: Fogo, Veneno; Contundente de armas não-mágicas" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="imunid-dano" class="block text-lg font-medium text-gray-300 mb-1">Imunidades a Dano</LAbel>
+                            <input type="text" id="imunid-dano" name="imunid-dano" placeholder="Ex: Fogo, Veneno" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="imunid-condicao" class="block text-lg font-medium text-gray-300 mb-1">Imunidades a Condição</LAbel>
+                            <input type="text" id="imunid-condicao" name="imunid-condicao" placeholder="Ex: Assustado, Enfeitiçado" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+                        
+                        <div>
+                            <label for="sentidos" class="block text-lg font-medium text-gray-300 mb-1">Sentidos</label>
+                            <input type="text" id="sentidos" name="sentidos" placeholder="Ex: Visão no escuro 18m, Percepção passiva 15" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="idiomas" class="block text-lg font-medium text-gray-300 mb-1">Idiomas</label>
+                            <input type="text" id="idiomas" name="idiomas" placeholder="Ex: Comum, Dracônico, entende Infernal mas não fala" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+
+                        <div>
+                            <label for="nd" class="block text-lg font-medium text-gray-300 mb-1">Nível de Desafio (ND)</label>
+                            <input type="text" id="nd" name="nd" placeholder="Ex: 5 (1.800 XP)" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-4" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
+                            Voltar
+                        </button>
+                        <button type="button" id="btn-proximo-4" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            Próximo
+                        </button>
+                    </div>
+                </div>
+
+                <div id="etapa-5" class="hidden">
+                    
+                    <div class="flex justify-between items-center pt-8 mb-6">
+                        <h2 class="text-3xl font-semibold text-white">Etapa 5: Habilidades Especiais</h2>
+                        <button type="button" id="add-habilidade" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            <span class="ml-2">Adicionar Habilidade</span>
+                        </button>
+                    </div>
+
+                    <div id="habilidades-container" class="space-y-6">
+                        <div class="habilidade-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
+                            <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 remover-btn">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                            <div>
+                                <label for="habilidade-nome-1" class="block text-lg font-medium text-gray-300 mb-1">Nome da Habilidade</label>
+                                <input type="text" id="habilidade-nome-1" name="habilidade-nome[]" placeholder="Ex: Faro Aguçado, Sensibilidade à Luz Solar" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                            </div>
+                            <div>
+                                <label for="habilidade-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
+                                <textarea id="habilidade-desc-1" name="habilidade-desc[]" rows="4" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" placeholder="O goblin tem vantagem em testes de Sabedoria (Percepção) relacionados ao olfato."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-5" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
+                            Voltar
+                        </button>
+                        <button type="button" id="btn-proximo-5" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            Próximo
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="etapa-6" class="hidden"> 
+                    <div class="flex justify-between items-center pt-8 mb-6">
+                        <h2 class="text-3xl font-semibold text-white">Etapa 6: Ações</h2>
+                        <button type="button" id="add-acao" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            <span class="ml-2">Adicionar Ação</span>
+                        </button>
+                    </div>
+
+                    <div id="acoes-container" class="space-y-6">
+                        <div class="acao-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
+                            <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 remover-btn">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                            <div>
+                                <label for="acao-nome-1" class="block text-lg font-medium text-gray-300 mb-1">Nome da Ação</label>
+                                <input type="text" id="acao-nome-1" name="acao-nome[]" placeholder="Ex: Multiataque, Mordida, Espada Longa" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                            </div>
+                            <div>
+                                <label for="acao-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
+                                <textarea id="acao-desc-1" name="acao-desc[]" rows="5" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" placeholder="Ataque Corpo-a-Corpo com Arma: +5 para acertar, alcance 1,5m, um alvo. Acerto: 7 (1d8 + 3) de dano perfurante."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-6" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
+                            Voltar
+                        </button>
+                        <button type="button" id="btn-proximo-6" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                            Próximo
+                        </button>
+                    </div>
+                </div>
+
+                <div id="etapa-7" class="hidden"> 
+                    <h2 class="text-3xl font-semibold text-white mb-2 pt-8">Etapa 7: Ações Lendárias e de Covil</h2>
+                    <hr class="border-t-2 border-red-600 mb-8">
+
+                    <div class="space-y-6">
+                        
+                        <div>
+                            <label for="acoes-lendarias" class="block text-lg font-medium text-gray-300 mb-1">Ações Lendárias (Opcional)</label>
+                            <textarea id="acoes-lendarias" name="acoes-lendarias" rows="6" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" placeholder="O dragão pode realizar 3 ações lendárias..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <label for="acoes-covil" class="block text-lg font-medium text-gray-300 mb-1">Ações de Covil (Opcional)</label>
+                            <textarea id="acoes-covil" name="acoes-covil" rows="6" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" placeholder="Na contagem de iniciativa 20 (perdendo empates)..."></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-7" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
+                            Voltar
+                        </button>
+                        <button type="submit" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
+                            Salvar Criatura
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="../js/formulario-criatura.js"></script> 
+</body>
+</html>
