@@ -32,10 +32,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12">
     
                     <div class="grid grid-cols-1 gap-6 items-center">
-                        <label for="origem-nome" class="text-lg font-medium text-gray-300">Nome da Origem</label>
+                        <label for="origem-nome" class="text-lg font-medium text-gray-300">Nome da Origem *</label>
                         <input type="text" id="origem-nome" name="origem-nome" 
                                placeholder="Ex: Acólito, Criminoso, Sábio..."
-                               class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400">
+                               class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400"
+                               required>
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 items-center">
@@ -172,9 +173,9 @@
                     <button type="button" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
                         Cancelar
                     </button>
-                    <button type="submit" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
-                        Salvar Origem
-                    </button>
+                    <a href="tela-principal.html" type="button" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
+                        Finalizar
+                    </a>
                 </div>
 
             </form>
