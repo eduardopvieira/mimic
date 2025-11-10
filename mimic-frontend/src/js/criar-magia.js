@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- Sua lógica original para o componente Material ---
+    // --- Lógica do Componente Material (Sua lógica original) ---
     const checkboxM = document.getElementById('comp-m');
     const container = document.getElementById('material-container');
     
@@ -19,56 +19,82 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Nova Lógica de Validação ---
+    // --- Nova Lógica de Validação com Destaque ---
+    
     const form = document.getElementById('magia-form');
+    const errorMsg = document.getElementById('magia-error-message');
+    // Classes de destaque do Tailwind
+    const errorHighlightClasses = ['border-red-500', 'ring-2', 'ring-red-500'];
+
+    // Função para limpar os destaques de erro
+    function clearErrorStyles() {
+        if (errorMsg) errorMsg.classList.add('hidden');
+        
+        form.querySelectorAll('input, select, textarea, label').forEach(el => {
+            el.classList.remove(...errorHighlightClasses);
+        });
+    }
+
+    // Função para adicionar destaque de erro
+    function addErrorHighlight(element) {
+        if (element) {
+            element.classList.add(...errorHighlightClasses);
+        }
+    }
 
     if (form) {
         form.addEventListener('submit', function(event) {
-            // Impede o envio padrão do formulário para validarmos primeiro
+            // Impede o envio padrão do formulário
             event.preventDefault(); 
-
-            let errors = []; // Array para armazenar mensagens de erro
-
-            // 1. Campos de texto simples
-            const nome = document.getElementById('magia-nome').value.trim();
-            const alcance = document.getElementById('magia-alcance').value.trim();
-            const conjuracao = document.getElementById('magia-conjuracao').value.trim();
-            const duracao = document.getElementById('magia-duracao').value.trim();
-            const descricao = document.getElementById('magia-descricao').value.trim();
+            // Limpa erros antigos
+            clearErrorStyles();
             
-            if (nome === '') errors.push('O campo "Nome" é obrigatório.');
-            if (alcance === '') errors.push('O campo "Alcance" é obrigatório.');
-            if (conjuracao === '') errors.push('O campo "Conjuração" é obrigatório.');
-            if (duracao === '') errors.push('O campo "Duração" é obrigatório.');
-            if (descricao === '') errors.push('O campo "Descrição da Magia" é obrigatório.');
+            let errorsFound = false;
 
-            // 2. Campo de Nível (Number)
-            const nivel = document.getElementById('magia-nivel').value;
-            if (nivel === '') { // Input number retorna string vazia se não preenchido
-                errors.push('O campo "Nível" é obrigatório.');
+            // --- CAMPOS OBRIGATÓRIOS ---
+
+            // 1. Campos de texto
+            const camposTexto = ['magia-nome', 'magia-alcance', 'magia-conjuracao', 'magia-duracao', 'magia-descricao'];
+            camposTexto.forEach(id => {
+                const input = document.getElementById(id);
+                if (input.value.trim() === '') {
+                    addErrorHighlight(input);
+                    errorsFound = true;
+                }
+            });
+
+            const nivel = document.getElementById('magia-nivel');
+            if (nivel.value === '') { // Input number retorna string vazia se não preenchido
+                addErrorHighlight(nivel);
+                errorsFound = true;
             }
 
             // 3. Componentes (Pelo menos um)
             const componentesMarcados = document.querySelectorAll('input[name="componentes[]"]:checked').length;
             if (componentesMarcados === 0) {
-                errors.push('A magia deve ter pelo menos um componente (V, S ou M).');
+                // Destaca a label "Componentes" que adicionamos o ID
+                const componentesLabel = document.getElementById('componentes-label');
+                addErrorHighlight(componentesLabel);
+                errorsFound = true;
             }
 
-            // 4. Componente Material (Condicional)
             const compM_estaMarcado = document.getElementById('comp-m').checked;
-            const materialDesc = document.getElementById('magia-material-descricao').value.trim();
-
-            if (compM_estaMarcado && materialDesc === '') {
-                errors.push('A "Descrição do Componente Material" é obrigatória pois "M" está marcado.');
+            const materialDescInput = document.getElementById('magia-material-descricao');
+            
+            if (compM_estaMarcado && materialDescInput.value.trim() === '') {
+                addErrorHighlight(materialDescInput);
+                errorsFound = true;
             }
 
-            // --- Checagem Final ---
-            if (errors.length > 0) {
-                // Se houver erros, mostra um alerta com todos eles
-                alert("Por favor, corrija os seguintes erros:\n\n" + errors.join("\n"));
+            // --- CHECAGEM FINAL ---
+            if (errorsFound) {
+                // Se houver erros, mostra a mensagem de erro genérica
+                if (errorMsg) errorMsg.classList.remove('hidden');
             } else {
-                console.log("Formulário válido. Enviando...");
-                window.location.href = '../html/tela-principal.html'; 
+                // Se não houver erros, envia o formulário (ou redireciona)
+                console.log("Formulário de magia válido. Enviando...");
+                // Redireciona para a tela principal
+                window.location.href = 'tela-principal.html'; 
             }
         });
     }

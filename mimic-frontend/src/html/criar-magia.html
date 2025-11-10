@@ -31,7 +31,8 @@
             <h2 class="text-3xl font-semibold text-white mb-2">Criar Magia</h2>
             <hr class="border-t-2 border-red-600 mb-8">
 
-            <form action="#" method="POST" id="magia-form">
+            <!-- 1. ID e Method atualizados -->
+            <form action="#" method="GET" id="magia-form">
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12">
 
@@ -65,7 +66,7 @@
                             class="p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
                             placeholder="Ex: Instantânea / 1 Hora / Concentração">
 
-                        <label class="text-lg font-medium text-gray-300">Componentes</label>
+                        <label id="componentes-label" class="text-lg font-medium text-gray-300">Componentes</label>
                         <div class="flex items-center space-x-6">
                             <div class="flex items-center">
                                 <input id="comp-v" name="componentes[]" type="checkbox" value="V"
@@ -106,7 +107,7 @@
                     </label>
                     <input type="text" id="magia-material-descricao" name="magia-material-descricao"
                         class="w-full p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
-                        **placeholder="Ex: um galho de visco / pó de diamante (50 PO)"**>
+                        placeholder="Ex: um galho de visco / pó de diamante (50 PO)">
                 </div>
 
                 <div class="mt-6">
@@ -118,11 +119,19 @@
                     </textarea>
                 </div>
 
+                <!-- 3. Mensagem de Erro Adicionada -->
+                <div id="magia-error-message" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
+                    Por favor, preencha todos os campos obrigatórios.
+                </div>
+
                 <div class="mt-10 flex justify-between">
+                    <!-- Botão Cancelar agora redireciona para a tela principal -->
                     <button type="button"
-                        class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                        class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg"
+                        onclick="window.location.href='tela-principal.html'">
                         Cancelar
                     </button>
+                    <!-- 4. Botão Finalizar atualizado para 'submit' -->
                     <button type="submit" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
                         Finalizar
                     </button>

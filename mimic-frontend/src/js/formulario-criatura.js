@@ -28,6 +28,39 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- FORMULÁRIO ---
     const form = document.getElementById('criatura-form');
 
+    // --- MENSAGENS DE ERRO ---
+    const errorEtapa1 = document.getElementById('error-etapa-1');
+    const errorEtapa2 = document.getElementById('error-etapa-2');
+    const errorEtapa3 = document.getElementById('error-etapa-3');
+    const errorEtapa4 = document.getElementById('error-etapa-4');
+    const errorEtapa5 = document.getElementById('error-etapa-5');
+    const errorEtapa6 = document.getElementById('error-etapa-6');
+    const errorFinal = document.getElementById('error-final');
+    
+    // Classes de destaque do Tailwind
+    const errorHighlightClasses = ['border-red-500', 'ring-2', 'ring-red-500'];
+
+    // Função para limpar os destaques de erro (dentro de um container)
+    function clearErrorStyles(containerElement) {
+        if (!containerElement) return;
+        
+        // Esconde mensagens de erro específicas da etapa
+        const errorMsg = containerElement.querySelector('.bg-red-800'); // Encontra a msg de erro na etapa
+        if (errorMsg && !errorMsg.id.includes('final')) errorMsg.classList.add('hidden'); // Esconde se não for a final
+        if (errorFinal) errorFinal.classList.add('hidden'); // Sempre esconde a final
+        
+        containerElement.querySelectorAll('input, select, textarea').forEach(el => {
+            el.classList.remove(...errorHighlightClasses);
+        });
+    }
+
+    // Função para adicionar destaque de erro
+    function addErrorHighlight(element) {
+        if (element) {
+            element.classList.add(...errorHighlightClasses);
+        }
+    }
+
     // --- OBJETOS DO STEPPER ---
     const stepper = {
         circles: [
@@ -62,10 +95,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- ETAPA 1 -> 2 -----
     btnProximo1.addEventListener('click', function() {
-        // Validação da Etapa 1
-        const errors = validarEtapa1();
-        if (errors.length > 0) {
-            alert("Corrija os seguintes erros na Etapa 1:\n\n" + errors.join("\n"));
+        clearErrorStyles(etapa1);
+        const isValid = validarEtapa1();
+        if (!isValid) {
+            if (errorEtapa1) errorEtapa1.classList.remove('hidden');
             return;
         }
 
@@ -104,10 +137,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- ETAPA 2 -> 3 -----
     btnProximo2.addEventListener('click', function() {
-        // Validação da Etapa 2
-        const errors = validarEtapa2();
-        if (errors.length > 0) {
-            alert("Corrija os seguintes erros na Etapa 2:\n\n" + errors.join("\n"));
+        clearErrorStyles(etapa2);
+        const isValid = validarEtapa2();
+        if (!isValid) {
+            if (errorEtapa2) errorEtapa2.classList.remove('hidden');
             return;
         }
 
@@ -146,10 +179,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- ETAPA 3 -> 4 -----
     btnProximo3.addEventListener('click', function() {
-        // Validação da Etapa 3
-        const errors = validarEtapa3();
-        if (errors.length > 0) {
-            alert("Corrija os seguintes erros na Etapa 3:\n\n" + errors.join("\n"));
+        clearErrorStyles(etapa3);
+        const isValid = validarEtapa3();
+        if (!isValid) {
+            if (errorEtapa3) errorEtapa3.classList.remove('hidden');
             return;
         }
 
@@ -188,10 +221,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- ETAPA 4 -> 5 -----
     btnProximo4.addEventListener('click', function() {
-        // Validação da Etapa 4
-        const errors = validarEtapa4();
-        if (errors.length > 0) {
-            alert("Corrija os seguintes erros na Etapa 4:\n\n" + errors.join("\n"));
+        clearErrorStyles(etapa4);
+        const isValid = validarEtapa4();
+        if (!isValid) {
+            if (errorEtapa4) errorEtapa4.classList.remove('hidden');
             return;
         }
 
@@ -230,10 +263,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- ETAPA 5 -> 6 -----
     btnProximo5.addEventListener('click', function() {
-        // Validação da Etapa 5
-        const errors = validarEtapa5();
-        if (errors.length > 0) {
-            alert("Corrija os seguintes erros na Etapa 5:\n\n" + errors.join("\n"));
+        clearErrorStyles(etapa5);
+        const isValid = validarEtapa5();
+        if (!isValid) {
+            if (errorEtapa5) errorEtapa5.classList.remove('hidden');
             return;
         }
 
@@ -272,10 +305,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ----- ETAPA 6 -> 7 -----
     btnProximo6.addEventListener('click', function() {
-        // Validação da Etapa 6
-        const errors = validarEtapa6();
-        if (errors.length > 0) {
-            alert("Corrija os seguintes erros na Etapa 6:\n\n" + errors.join("\n"));
+        clearErrorStyles(etapa6);
+        const isValid = validarEtapa6();
+        if (!isValid) {
+            if (errorEtapa6) errorEtapa6.classList.remove('hidden');
             return;
         }
 
@@ -312,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[6].classList.remove('text-white');
     });
 
-    // --- CÁLCULO DE MODIFICADOR --- (Sua lógica original)
+    // --- CÁLCULO DE MODIFICADOR ---
     function calcularModificador(valor) {
         return Math.floor((valor - 10) / 2);
     }
@@ -342,8 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- LÓGICA DO REPETIDOR --- (Sua lógica original)
-
+    // --- LÓGICA DO REPETIDOR ---
     function inicializarRepetidorCriatura(addBtnId, containerId, entryClass, prefix) {
         
         const addBtn = document.getElementById(addBtnId);
@@ -415,105 +447,159 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- FUNÇÕES DE VALIDAÇÃO (NOVAS) ---
     
     function validarEtapa1() {
-        let errors = [];
-        if (document.getElementById('nome').value.trim() === '') errors.push('O campo "Nome da Criatura" é obrigatório.');
-        if (document.getElementById('tamanho').value === '') errors.push('O campo "Tamanho" é obrigatório.');
-        if (document.getElementById('tipo').value.trim() === '') errors.push('O campo "Tipo" é obrigatório.');
-        if (document.getElementById('alinhamento').value === '') errors.push('O campo "Alinhamento" é obrigatório.');
-        return errors;
+        let isValid = true;
+        const nome = document.getElementById('nome');
+        const tamanho = document.getElementById('tamanho');
+        const tipo = document.getElementById('tipo');
+        const alinhamento = document.getElementById('alinhamento');
+
+        if (nome.value.trim() === '') { addErrorHighlight(nome); isValid = false; }
+        if (tamanho.value === '') { addErrorHighlight(tamanho); isValid = false; }
+        if (tipo.value.trim() === '') { addErrorHighlight(tipo); isValid = false; }
+        if (alinhamento.value === '') { addErrorHighlight(alinhamento); isValid = false; }
+        
+        return isValid;
     }
 
     function validarEtapa2() {
-        let errors = [];
-        if (document.getElementById('ca').value.trim() === '') errors.push('O campo "Classe de Armadura (CA)" é obrigatório.');
-        if (document.getElementById('pv').value.trim() === '') errors.push('O campo "Pontos de Vida (PV)" é obrigatório.');
-        if (document.getElementById('desl-base').value.trim() === '') errors.push('O campo "Deslocamento Base" é obrigatório.');
-        return errors;
+        let isValid = true;
+        const ca = document.getElementById('ca');
+        const pv = document.getElementById('pv');
+        const deslBase = document.getElementById('desl-base');
+
+        if (ca.value.trim() === '') { addErrorHighlight(ca); isValid = false; }
+        if (pv.value.trim() === '') { addErrorHighlight(pv); isValid = false; }
+        if (deslBase.value.trim() === '') { addErrorHighlight(deslBase); isValid = false; }
+
+        return isValid;
     }
 
     function validarEtapa3() {
-        let errors = [];
+        let isValid = true;
         const atributos = ['for', 'des', 'con', 'int', 'sab', 'car'];
         for (const atr of atributos) {
-            if (document.getElementById(`atr-${atr}`).value.trim() === '') {
-                errors.push(`O atributo "${atr.toUpperCase()}" não pode estar vazio.`);
+            const input = document.getElementById(`atr-${atr}`);
+            if (input.value.trim() === '') {
+                addErrorHighlight(input);
+                isValid = false;
             }
         }
-        return errors;
+        return isValid;
     }
 
     function validarEtapa4() {
-        let errors = [];
-        if (document.getElementById('sentidos').value.trim() === '') errors.push('O campo "Sentidos" é obrigatório (ex: Percepção passiva 10).');
-        if (document.getElementById('idiomas').value.trim() === '') errors.push('O campo "Idiomas" é obrigatório (use "—" se for o caso).');
-        if (document.getElementById('nd').value.trim() === '') errors.push('O campo "Nível de Desafio (ND)" é obrigatório.');
-        return errors;
+        let isValid = true;
+        const sentidos = document.getElementById('sentidos');
+        const idiomas = document.getElementById('idiomas');
+        const nd = document.getElementById('nd');
+
+        if (sentidos.value.trim() === '') { addErrorHighlight(sentidos); isValid = false; }
+        if (idiomas.value.trim() === '') { addErrorHighlight(idiomas); isValid = false; }
+        if (nd.value.trim() === '') { addErrorHighlight(nd); isValid = false; }
+        
+        return isValid;
     }
 
     function validarEtapa5() {
-        let errors = [];
+        let isValid = true;
         const habilidades = document.querySelectorAll('.habilidade-entry');
-        habilidades.forEach((habilidade, index) => {
-            const nome = habilidade.querySelector('input[name="habilidade-nome[]"]').value.trim();
-            const desc = habilidade.querySelector('textarea[name="habilidade-desc[]"]').value.trim();
+        
+        habilidades.forEach((habilidade) => {
+            const nomeInput = habilidade.querySelector('input[name="habilidade-nome[]"]');
+            const descInput = habilidade.querySelector('textarea[name="habilidade-desc[]"]');
+            const nome = nomeInput.value.trim();
+            const desc = descInput.value.trim();
             
-            if (nome !== '' && desc === '') {
-                errors.push(`A Habilidade "${nome}" está sem descrição.`);
-            } else if (nome === '' && desc !== '') {
-                errors.push(`A Habilidade #${index + 1} tem uma descrição mas está sem nome.`);
+            // Validação condicional: Se um for preenchido, o outro também deve ser
+            if ((nome !== '' && desc === '') || (nome === '' && desc !== '')) {
+                addErrorHighlight(nomeInput);
+                addErrorHighlight(descInput);
+                isValid = false;
             }
         });
-        return errors;
+        return isValid;
     }
 
     function validarEtapa6() {
-        let errors = [];
+        let isValid = true;
         const acoes = document.querySelectorAll('.acao-entry');
         
-        let acoesPreenchidas = 0;
-        acoes.forEach((acao, index) => {
-            const nome = acao.querySelector('input[name="acao-nome[]"]').value.trim();
-            const desc = acao.querySelector('textarea[name="acao-desc[]"]').value.trim();
-            
-            if (nome !== '' && desc === '') {
-                errors.push(`A Ação "${nome}" está sem descrição.`);
-            } else if (nome === '' && desc !== '') {
-                errors.push(`A Ação #${index + 1} tem uma descrição mas está sem nome.`);
+        let filledActions = 0; // Contador para ações válidas
+        
+        acoes.forEach((acao) => {
+            const nomeInput = acao.querySelector('input[name="acao-nome[]"]');
+            const descInput = acao.querySelector('textarea[name="acao-desc[]"]');
+            const nome = nomeInput.value.trim();
+            const desc = descInput.value.trim();
+
+            if (nome === '' && desc === '') {
+                // Bloco completamente vazio
+            } else if ((nome !== '' && desc === '') || (nome === '' && desc !== '')) {
+                // Bloco parcialmente preenchido (erro)
+                addErrorHighlight(nomeInput);
+                addErrorHighlight(descInput);
+                isValid = false;
             } else if (nome !== '' && desc !== '') {
-                acoesPreenchidas++;
+                // Bloco válido e preenchido
+                filledActions++;
             }
         });
 
-        if (acoesPreenchidas === 0) {
-            errors.push('A criatura deve ter pelo menos uma Ação (Nome e Descrição) preenchida.');
+        // Esta etapa é obrigatória. Deve haver pelo menos UMA ação preenchida.
+        if (filledActions === 0) {
+            isValid = false;
+            // Destaca o primeiro bloco de ação (que provavelmente está vazio)
+            if (acoes.length > 0) {
+                addErrorHighlight(acoes[0].querySelector('input[name="acao-nome[]"]'));
+                addErrorHighlight(acoes[0].querySelector('textarea[name="acao-desc[]"]'));
+            }
         }
-        return errors;
+        
+        return isValid;
     }
 
-    // --- VALIDAÇÃO FINAL (SUBMIT) ---
+    // --- VALIDAÇÃO FINAL (AO CLICAR EM "FINALIZAR") ---
+    
     if (form) {
         form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio
+            event.preventDefault(); // Sempre impede o envio padrão
+            
+            // Limpa todos os erros de todas as etapas
+            clearErrorStyles(etapa1);
+            clearErrorStyles(etapa2);
+            clearErrorStyles(etapa3);
+            clearErrorStyles(etapa4);
+            clearErrorStyles(etapa5);
+            clearErrorStyles(etapa6);
+            clearErrorStyles(etapa7); // Limpa o erro final também
 
-            // Roda todas as validações de todas as etapas
-            let allErrors = [
-                ...validarEtapa1(),
-                ...validarEtapa2(),
-                ...validarEtapa3(),
-                ...validarEtapa4(),
-                ...validarEtapa5(),
-                ...validarEtapa6()
-                // Etapa 7 é totalmente opcional, não precisa validar.
-            ];
+            // Roda todas as validações
+            const v1 = validarEtapa1();
+            const v2 = validarEtapa2();
+            const v3 = validarEtapa3();
+            const v4 = validarEtapa4();
+            const v5 = validarEtapa5();
+            const v6 = validarEtapa6();
+            // Etapa 7 é opcional, sem validação
 
-            if (allErrors.length > 0) {
-                alert("Erro ao finalizar! O formulário está incompleto. Verifique os erros:\n\n" + allErrors.join("\n"));
-            } else {
-                // Se tudo estiver OK
+            // Se TODAS forem válidas
+            if (v1 && v2 && v3 && v4 && v5 && v6) {
                 console.log("Formulário de criatura válido. Enviando...");
                 // Redireciona para a tela principal
                 window.location.href = 'tela-principal.html';
+            } else {
+                // Se qualquer uma falhar, mostra a mensagem de erro final
+                if (errorFinal) errorFinal.classList.remove('hidden');
+                
+                // (Opcional) Re-destaca os campos errados para o usuário ver
+                if (!v1) validarEtapa1();
+                if (!v2) validarEtapa2();
+                if (!v3) validarEtapa3();
+                if (!v4) validarEtapa4();
+                if (!v5) validarEtapa5();
+                if (!v6) validarEtapa6();
             }
         });
     }
+
 });
