@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mimic - Login</title>
+    <title>Mimic - Cadastro</title>
     <link href="../output.css" rel="stylesheet"> 
 </head>
 <body class="bg-[#1A1A1A] text-gray-200 min-h-screen font-sans flex items-center justify-center p-4">
@@ -14,10 +14,10 @@
             <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
         </div>
 
-        <h2 class="text-3xl font-bold text-white text-center mb-2">Login</h2>
+        <h2 class="text-3xl font-bold text-white text-center mb-2">Cadastrar</h2>
         <hr class="border-t-2 border-red-600 mb-8">
 
-        <form id="login-form">
+        <form id="cadastro-form">
             <div class="space-y-6">
                 <div>
                     <label for="email" class="block text-lg font-medium text-gray-300 mb-2">Email</label>
@@ -32,21 +32,28 @@
                            class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
                            placeholder="********" required>
                 </div>
+
+                <div>
+                    <label for="confirmar-senha" class="block text-lg font-medium text-gray-300 mb-2">Confirmar Senha</label>
+                    <input type="password" id="confirmar-senha" name="confirmar-senha"
+                           class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
+                           placeholder="********" required>
+                </div>
             </div>
 
-            <p id="login-error" class="text-red-400 text-center mt-4 hidden">Email ou senha inválidos.</p>
+            <p id="cadastro-message" class="text-center mt-4 hidden"></p>
 
             <div class="mt-8">
                 <button type="submit"
                         class="w-full p-3 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                    Entrar
+                    Finalizar Cadastro
                 </button>
             </div>
         </form>
 
         <div class="mt-6 text-center">
-            <a href="cadastro.html" class="text-gray-400 hover:text-red-500 hover:underline transition-colors">
-                Não tem uma conta? Cadastre-se
+            <a href="index.html" class="text-gray-400 hover:text-red-500 hover:underline transition-colors">
+                Já tem uma conta? Faça o login
             </a>
         </div>
     </div>

@@ -9,14 +9,13 @@
 <body class="bg-[#1A1A1A] text-gray-200 min-h-screen font-sans">
 
     <header class="bg-[#444444] p-4 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto flex items-center space-x-4">
-            
-            <div class="h-16 w-16 rounded-full bg-white p-1">
-                <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
-            </div>
-            
-            <h1 class="text-3xl font-bold text-white">Mimic</h1>
-        
+        <div class="container mx-auto">
+            <a href="tela-principal.html" class="flex items-center space-x-4 w-max">
+                <div class="h-16 w-16 rounded-full bg-white p-1">
+                    <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
+                </div>
+                <h1 class="text-3xl font-bold text-white">Mimic</h1>
+            </a>
         </div>
     </header>
 
@@ -73,7 +72,9 @@
                     </div>
                     <div id="stepper-text-7" class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Equipamento</div>
                 </div>
-            </div> <form action="#" method="POST">
+            </div> 
+            
+            <form id="character-form" method="POST" novalidate>
                 
                 <div id="etapa-1">
                     <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 1: Dados Básicos</h2>
@@ -81,12 +82,12 @@
                         
                         <div class="md:col-span-2">
                             <label for="nome" class="block text-lg font-medium text-gray-300 mb-1">Nome</label>
-                            <input type="text" id="nome" name="nome" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
+                            <input type="text" id="nome" name="nome" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" required>
                         </div>
 
                         <div>
                             <label for="tamanho" class="block text-lg font-medium text-gray-300 mb-1">Tamanho</label>
-                            <select id="tamanho" name="tamanho" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                            <select id="tamanho" name="tamanho" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none" required>
                                 <option class="bg-[#2D2D2D]" value="">Selecione...</option>
                                 <option class="bg-[#2D2D2D]" value="miudo">Miúdo</option>
                                 <option class="bg-[#2D2D2D]" value="pequeno">Pequeno</option>
@@ -96,7 +97,7 @@
 
                         <div>
                             <label for="alinhamento" class="block text-lg font-medium text-gray-300 mb-1">Alinhamento</label>
-                            <select id="alinhamento" name="alinhamento" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                            <select id="alinhamento" name="alinhamento" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none" required>
                                 <option class="bg-[#2D2D2D]" value="">Selecione...</option>
                                 <option class="bg-[#2D2D2D]" value="lb">Leal e Bom</option>
                                 <option class="bg-[#2D2D2D]" value="nb">Neutro e Bom</option>
@@ -105,7 +106,7 @@
 
                         <div>
                             <label for="raca" class="block text-lg font-medium text-gray-300 mb-1">Raça</label>
-                            <select id="raca" name="raca" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                            <select id="raca" name="raca" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none" required>
                                 <option class="bg-[#2D2D2D]" value="">Selecione...</option>
                                 <option class="bg-[#2D2D2D]" value="humano">Humano</option>
                                 <option class="bg-[#2D2D2D]" value="anao">Anão</option>
@@ -113,7 +114,7 @@
                         </div>
 
                         <div>
-                            <label for="subraca" class="block text-lg font-medium text-gray-300 mb-1">Sub-Raça</label>
+                            <label for="subraca" class="block text-lg font-medium text-gray-300 mb-1">Sub-Raça (Opcional)</label>
                             <select id="subraca" name="subraca" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
                                 <option class="bg-[#2D2D2D]" value="">Selecione...</option>
                             </select>
@@ -121,7 +122,7 @@
 
                         <div>
                             <label for="classe" class="block text-lg font-medium text-gray-300 mb-1">Classe</label>
-                            <select id="classe" name="classe" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                            <select id="classe" name="classe" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none" required>
                                 <option class="bg-[#2D2D2D]" value="">Selecione...</option>
                                 <option class="bg-[#2D2D2D]" value="guerreiro">Guerreiro</option>
                                 <option class="bg-[#2D2D2D]" value="mago">Mago</option>
@@ -129,21 +130,33 @@
                         </div>
                         
                         <div>
-                            <label for="subclasse" class="block text-lg font-medium text-gray-300 mb-1">Sub-Classe</label>
+                            <label for="subclasse" class="block text-lg font-medium text-gray-300 mb-1">Sub-Classe (Opcional)</label>
                             <select id="subclasse" name="subclasse" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
                                 <option class="bg-[#2D2D2D]" value="">Selecione...</option>
                             </select>
                         </div>
                         
-                        <div class="md:col-span-2">
+                        <div>
                             <label for="origem" class="block text-lg font-medium text-gray-300 mb-1">Origem</label>
-                            <select id="origem" name="origem" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
+                            <select id="origem" name="origem" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none" required>
                                 <option class="bg-[#2D2D2D]" value="">Selecione...</option>
                                 <option class="bg-[#2D2D2D]" value="acolito">Acólito</option>
                                 <option class="bg-[#2D2D2D]" value="mercante">Mercante</option>
                             </select>
                         </div>
+
+                        <div>
+                            <label for="foto-personagem" class="block text-lg font-medium text-gray-300 mb-1">Foto do Personagem (Opcional)</label>
+                            <input type="file" id="foto-personagem" name="foto-personagem" accept="image/*"
+                                   class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg
+                                          file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0
+                                          file:bg-red-600 file:text-white file:font-semibold
+                                          hover:file:bg-red-500">
+                        </div>
+
                     </div>
+
+                    <p id="error-etapa-1" class="text-red-400 text-center mt-6 hidden">Por favor, preencha todos os campos obrigatórios.</p>
 
                     <div class="mt-10 flex justify-end">
                         <button type="button" id="btn-proximo-1" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
@@ -153,7 +166,6 @@
                 </div>
 
                 <div id="etapa-2" class="hidden">
-                    
                     <div class="flex justify-between items-center pt-8 mb-6">
                         <h2 class="text-3xl font-semibold text-white">Etapa 2: Talentos</h2>
                         <button type="button" id="add-talento" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
@@ -161,7 +173,6 @@
                             <span class="ml-2">Adicionar Talento</span>
                         </button>
                     </div>
-
                     <div id="talentos-container" class="space-y-6">
                         <div class="talento-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <div>
@@ -174,23 +185,17 @@
                             </div>
                             <div>
                                 <label for="talento-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
-                                <textarea id="talento-desc-1" name="talento-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed talento-desc">
-A descrição do talento selecionado aparecerá aqui...
-                                </textarea>
+                                <textarea id="talento-desc-1" name="talento-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed talento-desc">A descrição do talento selecionado aparecerá aqui...</textarea>
                             </div>
                         </div>
-                    </div> <div class="mt-10 flex justify-between">
-                        <button type="button" id="btn-voltar-2" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
-                            Voltar
-                        </button>
-                        <button type="button" id="btn-proximo-2" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                            Próximo
-                        </button>
+                    </div> 
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-2" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">Voltar</button>
+                        <button type="button" id="btn-proximo-2" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">Próximo</button>
                     </div>
                 </div>
 
                 <div id="etapa-3" class="hidden">
-                    
                     <div class="flex justify-between items-center pt-8 mb-6">
                         <h2 class="text-3xl font-semibold text-white">Etapa 3: Truques</h2>
                         <button type="button" id="add-truque" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
@@ -198,7 +203,6 @@ A descrição do talento selecionado aparecerá aqui...
                             <span class="ml-2">Adicionar Truque</span>
                         </button>
                     </div>
-
                     <div id="truques-container" class="space-y-6">
                         <div class="truque-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <div>
@@ -206,28 +210,21 @@ A descrição do talento selecionado aparecerá aqui...
                                 <select id="truque-nome-1" name="truque-nome[]" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none truque-select">
                                     <option class="bg-[#2D2D2D]" value="">Selecione um truque...</option>
                                     <option class="bg-[#2D2D2D]" value="truque1">Truque 1</option>
-                                    <option class="bg-[#2D2D2D]" value="truque2">Truque 2</option>
                                 </select>
                             </div>
                             <div>
                                 <label for="truque-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
-                                <textarea id="truque-desc-1" name="truque-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed truque-desc">
-A descrição do truque selecionado aparecerá aqui...
-                                </textarea>
+                                <textarea id="truque-desc-1" name="truque-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed truque-desc">A descrição do truque selecionado aparecerá aqui...</textarea>
                             </div>
                         </div>
-                    </div> <div class="mt-10 flex justify-between">
-                        <button type="button" id="btn-voltar-3" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
-                            Voltar
-                        </button>
-                        <button type="button" id="btn-proximo-3" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                            Próximo
-                        </button>
+                    </div> 
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-3" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">Voltar</button>
+                        <button type="button" id="btn-proximo-3" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">Próximo</button>
                     </div>
                 </div>
 
                 <div id="etapa-4" class="hidden">
-                    
                     <div class="flex justify-between items-center pt-8 mb-6">
                         <h2 class="text-3xl font-semibold text-white">Etapa 4: Magias</h2>
                         <button type="button" id="add-magia" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
@@ -235,7 +232,6 @@ A descrição do truque selecionado aparecerá aqui...
                             <span class="ml-2">Adicionar Magia</span>
                         </button>
                     </div>
-
                     <div id="magias-container" class="space-y-6">
                         <div class="magia-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <div>
@@ -243,28 +239,21 @@ A descrição do truque selecionado aparecerá aqui...
                                 <select id="magia-nome-1" name="magia-nome[]" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none magia-select">
                                     <option class="bg-[#2D2D2D]" value="">Selecione uma magia...</option>
                                     <option class="bg-[#2D2D2D]" value="magia1">Magia 1</option>
-                                    <option class="bg-[#2D2D2D]" value="magia2">Magia 2</option>
                                 </select>
                             </div>
                             <div>
                                 <label for="magia-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
-                                <textarea id="magia-desc-1" name="magia-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed magia-desc">
-A descrição da magia selecionada aparecerá aqui...
-                                </textarea>
+                                <textarea id="magia-desc-1" name="magia-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed magia-desc">A descrição da magia selecionada aparecerá aqui...</textarea>
                             </div>
                         </div>
-                    </div> <div class="mt-10 flex justify-between">
-                        <button type="button" id="btn-voltar-4" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
-                            Voltar
-                        </button>
-                        <button type="button" id="btn-proximo-4" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                            Próximo
-                        </button>
+                    </div> 
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-4" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">Voltar</button>
+                        <button type="button" id="btn-proximo-4" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">Próximo</button>
                     </div>
                 </div>
 
                 <div id="etapa-5" class="hidden">
-                    
                     <div class="flex justify-between items-center pt-8 mb-6">
                         <h2 class="text-3xl font-semibold text-white">Etapa 5: Perícias</h2>
                         <button type="button" id="add-pericia" class="flex items-center justify-center px-4 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
@@ -272,31 +261,24 @@ A descrição da magia selecionada aparecerá aqui...
                             <span class="ml-2">Adicionar Perícia</span>
                         </button>
                     </div>
-
                     <div id="pericias-container" class="space-y-6">
                         <div class="pericia-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
-                            <div>
+                           <div>
                                 <label for="pericia-nome-1" class="block text-lg font-medium text-gray-300 mb-1">Nome da Perícia</label> 
                                 <select id="pericia-nome-1" name="pericia-nome[]" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none pericia-select">
                                     <option class="bg-[#2D2D2D]" value="">Selecione uma perícia...</option>
                                     <option class="bg-[#2D2D2D]" value="pericia1">Perícia 1</option>
-                                    <option class="bg-[#2D2D2D]" value="pericia2">Perícia 2</option>
                                 </select>
                             </div>
                             <div>
                                 <label for="pericia-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
-                                <textarea id="pericia-desc-1" name="pericia-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed pericia-desc">
-A descrição da perícia selecionada aparecerá aqui...
-                                </textarea>
+                                <textarea id="pericia-desc-1" name="pericia-desc[]" rows="5" readonly class="w-full p-3 rounded bg-[#333333] border border-gray-600 text-gray-300 text-lg placeholder-gray-500 cursor-not-allowed pericia-desc">A descrição da perícia selecionada aparecerá aqui...</textarea>
                             </div>
                         </div>
-                    </div> <div class="mt-10 flex justify-between">
-                        <button type="button" id="btn-voltar-5" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
-                            Voltar
-                        </button>
-                        <button type="button" id="btn-proximo-5" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
-                            Próximo
-                        </button>
+                    </div> 
+                    <div class="mt-10 flex justify-between">
+                        <button type="button" id="btn-voltar-5" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">Voltar</button>
+                        <button type="button" id="btn-proximo-5" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">Próximo</button>
                     </div>
                 </div>
                 
@@ -360,7 +342,6 @@ A descrição da perícia selecionada aparecerá aqui...
                             </div>
                         </div>
                     </div>
-                    
                     <div class="mt-10 flex justify-between">
                         <button type="button" id="btn-voltar-6" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
                             Voltar
@@ -370,11 +351,9 @@ A descrição da perícia selecionada aparecerá aqui...
                         </button>
                     </div>
                 </div>
-
                 <div id="etapa-7" class="hidden"> 
                     <h2 class="text-3xl font-semibold text-white mb-2 pt-8">Equipamento Inicial</h2>
                     <hr class="border-t-2 border-red-600 mb-8">
-
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         <div>
@@ -400,7 +379,7 @@ A descrição da perícia selecionada aparecerá aqui...
                         </div>
 
                         <div>
-                            <input type="radio" id="equipamento-b" name="equipamento_inicial" value="B" class="sr-only peer">
+                            <input type="radio" id="equipamento-b" name="equipamento_inicial" value="B" class="sr-only peer" required>
                             <label for="equipamento-b" 
                                    class="block cursor-pointer bg-[#444444] rounded-lg p-6 min-h-[350px] text-gray-300
                                           transition-all duration-200
@@ -413,16 +392,20 @@ A descrição da perícia selecionada aparecerá aqui...
                             </label>
                         </div>
 
-                    </div> <div class="mt-10 flex justify-between">
+                    </div> 
+                    
+                    <p id="error-etapa-7" class="text-red-400 text-center mt-6 hidden">Por favor, escolha um kit de equipamento inicial.</p>
+
+                    <div class="mt-10 flex justify-between">
                         <button type="button" id="btn-voltar-7" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
                             Voltar
                         </button>
-                        <a href="tela-principal.html" type="button" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
+                        <button type="submit" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
                             Finalizar
-                        </a>
+                        </button>
                     </div>
-                </div>
-                </form>
+                </div>                
+            </form>
         </div>
     </main>
 
