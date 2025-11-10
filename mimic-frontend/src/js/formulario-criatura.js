@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnVoltar6 = document.getElementById('btn-voltar-6');
     const btnVoltar7 = document.getElementById('btn-voltar-7');
 
+    // --- FORMULÁRIO ---
+    const form = document.getElementById('criatura-form');
+
     // --- OBJETOS DO STEPPER ---
     const stepper = {
         circles: [
@@ -55,9 +58,17 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
 
-    // --- LÓGICA DE NAVEGAÇÃO DO STEPPER ---
+    // --- LÓGICA DE NAVEGAÇÃO DO STEPPER (COM VALIDAÇÃO) ---
 
+    // ----- ETAPA 1 -> 2 -----
     btnProximo1.addEventListener('click', function() {
+        // Validação da Etapa 1
+        const errors = validarEtapa1();
+        if (errors.length > 0) {
+            alert("Corrija os seguintes erros na Etapa 1:\n\n" + errors.join("\n"));
+            return;
+        }
+
         etapa1.classList.add('hidden');
         etapa2.classList.remove('hidden');
         
@@ -91,7 +102,15 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[1].classList.remove('text-white');
     });
 
+    // ----- ETAPA 2 -> 3 -----
     btnProximo2.addEventListener('click', function() {
+        // Validação da Etapa 2
+        const errors = validarEtapa2();
+        if (errors.length > 0) {
+            alert("Corrija os seguintes erros na Etapa 2:\n\n" + errors.join("\n"));
+            return;
+        }
+
         etapa2.classList.add('hidden');
         etapa3.classList.remove('hidden');
 
@@ -125,7 +144,15 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[2].classList.remove('text-white');
     });
 
+    // ----- ETAPA 3 -> 4 -----
     btnProximo3.addEventListener('click', function() {
+        // Validação da Etapa 3
+        const errors = validarEtapa3();
+        if (errors.length > 0) {
+            alert("Corrija os seguintes erros na Etapa 3:\n\n" + errors.join("\n"));
+            return;
+        }
+
         etapa3.classList.add('hidden');
         etapa4.classList.remove('hidden');
         
@@ -159,7 +186,15 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[3].classList.remove('text-white');
     });
 
+    // ----- ETAPA 4 -> 5 -----
     btnProximo4.addEventListener('click', function() {
+        // Validação da Etapa 4
+        const errors = validarEtapa4();
+        if (errors.length > 0) {
+            alert("Corrija os seguintes erros na Etapa 4:\n\n" + errors.join("\n"));
+            return;
+        }
+
         etapa4.classList.add('hidden');
         etapa5.classList.remove('hidden');
         
@@ -193,7 +228,15 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[4].classList.remove('text-white');
     });
 
+    // ----- ETAPA 5 -> 6 -----
     btnProximo5.addEventListener('click', function() {
+        // Validação da Etapa 5
+        const errors = validarEtapa5();
+        if (errors.length > 0) {
+            alert("Corrija os seguintes erros na Etapa 5:\n\n" + errors.join("\n"));
+            return;
+        }
+
         etapa5.classList.add('hidden');
         etapa6.classList.remove('hidden');
         
@@ -227,7 +270,15 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[5].classList.remove('text-white');
     });
     
+    // ----- ETAPA 6 -> 7 -----
     btnProximo6.addEventListener('click', function() {
+        // Validação da Etapa 6
+        const errors = validarEtapa6();
+        if (errors.length > 0) {
+            alert("Corrija os seguintes erros na Etapa 6:\n\n" + errors.join("\n"));
+            return;
+        }
+
         etapa6.classList.add('hidden');
         etapa7.classList.remove('hidden');
         
@@ -261,6 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[6].classList.remove('text-white');
     });
 
+    // --- CÁLCULO DE MODIFICADOR --- (Sua lógica original)
     function calcularModificador(valor) {
         return Math.floor((valor - 10) / 2);
     }
@@ -290,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- LÓGICA DO REPETIDOR ---
+    // --- LÓGICA DO REPETIDOR --- (Sua lógica original)
 
     function inicializarRepetidorCriatura(addBtnId, containerId, entryClass, prefix) {
         
@@ -315,9 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Clona o nó
             const newEntry = entryMolde.cloneNode(true);
-
             entryCounter++;
 
             const newNameInput = newEntry.querySelector('input[type="text"]');
@@ -358,8 +408,112 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- INICIALIZA OS REPETIDORES ---
     inicializarRepetidorCriatura('add-habilidade', 'habilidades-container', 'habilidade-entry', 'habilidade');
     inicializarRepetidorCriatura('add-acao', 'acoes-container', 'acao-entry', 'acao');
 
+
+    // --- FUNÇÕES DE VALIDAÇÃO (NOVAS) ---
+    
+    function validarEtapa1() {
+        let errors = [];
+        if (document.getElementById('nome').value.trim() === '') errors.push('O campo "Nome da Criatura" é obrigatório.');
+        if (document.getElementById('tamanho').value === '') errors.push('O campo "Tamanho" é obrigatório.');
+        if (document.getElementById('tipo').value.trim() === '') errors.push('O campo "Tipo" é obrigatório.');
+        if (document.getElementById('alinhamento').value === '') errors.push('O campo "Alinhamento" é obrigatório.');
+        return errors;
+    }
+
+    function validarEtapa2() {
+        let errors = [];
+        if (document.getElementById('ca').value.trim() === '') errors.push('O campo "Classe de Armadura (CA)" é obrigatório.');
+        if (document.getElementById('pv').value.trim() === '') errors.push('O campo "Pontos de Vida (PV)" é obrigatório.');
+        if (document.getElementById('desl-base').value.trim() === '') errors.push('O campo "Deslocamento Base" é obrigatório.');
+        return errors;
+    }
+
+    function validarEtapa3() {
+        let errors = [];
+        const atributos = ['for', 'des', 'con', 'int', 'sab', 'car'];
+        for (const atr of atributos) {
+            if (document.getElementById(`atr-${atr}`).value.trim() === '') {
+                errors.push(`O atributo "${atr.toUpperCase()}" não pode estar vazio.`);
+            }
+        }
+        return errors;
+    }
+
+    function validarEtapa4() {
+        let errors = [];
+        if (document.getElementById('sentidos').value.trim() === '') errors.push('O campo "Sentidos" é obrigatório (ex: Percepção passiva 10).');
+        if (document.getElementById('idiomas').value.trim() === '') errors.push('O campo "Idiomas" é obrigatório (use "—" se for o caso).');
+        if (document.getElementById('nd').value.trim() === '') errors.push('O campo "Nível de Desafio (ND)" é obrigatório.');
+        return errors;
+    }
+
+    function validarEtapa5() {
+        let errors = [];
+        const habilidades = document.querySelectorAll('.habilidade-entry');
+        habilidades.forEach((habilidade, index) => {
+            const nome = habilidade.querySelector('input[name="habilidade-nome[]"]').value.trim();
+            const desc = habilidade.querySelector('textarea[name="habilidade-desc[]"]').value.trim();
+            
+            if (nome !== '' && desc === '') {
+                errors.push(`A Habilidade "${nome}" está sem descrição.`);
+            } else if (nome === '' && desc !== '') {
+                errors.push(`A Habilidade #${index + 1} tem uma descrição mas está sem nome.`);
+            }
+        });
+        return errors;
+    }
+
+    function validarEtapa6() {
+        let errors = [];
+        const acoes = document.querySelectorAll('.acao-entry');
+        
+        let acoesPreenchidas = 0;
+        acoes.forEach((acao, index) => {
+            const nome = acao.querySelector('input[name="acao-nome[]"]').value.trim();
+            const desc = acao.querySelector('textarea[name="acao-desc[]"]').value.trim();
+            
+            if (nome !== '' && desc === '') {
+                errors.push(`A Ação "${nome}" está sem descrição.`);
+            } else if (nome === '' && desc !== '') {
+                errors.push(`A Ação #${index + 1} tem uma descrição mas está sem nome.`);
+            } else if (nome !== '' && desc !== '') {
+                acoesPreenchidas++;
+            }
+        });
+
+        if (acoesPreenchidas === 0) {
+            errors.push('A criatura deve ter pelo menos uma Ação (Nome e Descrição) preenchida.');
+        }
+        return errors;
+    }
+
+    // --- VALIDAÇÃO FINAL (SUBMIT) ---
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio
+
+            // Roda todas as validações de todas as etapas
+            let allErrors = [
+                ...validarEtapa1(),
+                ...validarEtapa2(),
+                ...validarEtapa3(),
+                ...validarEtapa4(),
+                ...validarEtapa5(),
+                ...validarEtapa6()
+                // Etapa 7 é totalmente opcional, não precisa validar.
+            ];
+
+            if (allErrors.length > 0) {
+                alert("Erro ao finalizar! O formulário está incompleto. Verifique os erros:\n\n" + allErrors.join("\n"));
+            } else {
+                // Se tudo estiver OK
+                console.log("Formulário de criatura válido. Enviando...");
+                // Redireciona para a tela principal
+                window.location.href = 'tela-principal.html';
+            }
+        });
+    }
 });
