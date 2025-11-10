@@ -12,7 +12,10 @@
         <div class="container mx-auto flex items-center space-x-4">
             
             <div class="h-16 w-16 rounded-full bg-white">
-                <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
+                <!-- Adicionado link para a tela principal -->
+                <a href="tela-principal.html">
+                    <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
+                </a>
             </div>
             
             <h1 class="text-3xl font-bold text-white">Mimic</h1>
@@ -27,33 +30,37 @@
             <h2 class="text-3xl font-semibold text-white mb-2">Criar Origem</h2>
             <hr class="border-t-2 border-red-600 mb-8">
 
-            <form action="#" method="POST">
+            <!-- 
+                - Alterado method="POST" para "GET" para evitar o erro 405
+                - Adicionado id="origem-form" para o JavaScript
+            -->
+            <form action="#" method="GET" id="origem-form">
             
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12">
     
                     <div class="grid grid-cols-1 gap-6 items-center">
+                        <!-- Adicionado 'required' para validação do navegador, mas o JS fará a principal -->
                         <label for="origem-nome" class="text-lg font-medium text-gray-300">Nome da Origem *</label>
                         <input type="text" id="origem-nome" name="origem-nome" 
-                               placeholder="Ex: Acólito, Criminoso, Sábio..."
-                               class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400"
-                               required>
+                                placeholder="Ex: Acólito, Criminoso, Sábio..."
+                                class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400">
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 items-center">
                         <label for="origem-moedas" class="text-lg font-medium text-gray-300">Dinheiro Inicial (PO)</label>
                         <input type="text" id="origem-moedas" name="origem-moedas" 
-                               placeholder="Ex: 15"
-                               class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400">
+                                placeholder="Ex: 15"
+                                class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400">
                     </div>
 
                 </div> 
 
                 <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="origem-pericia-1" class="block text-lg font-medium text-gray-300 mb-2">Proficiência em Perícia 1</label>
+                        <label for="origem-pericia-1" class="block text-lg font-medium text-gray-300 mb-2">Proficiência em Perícia 1 *</label>
                         <select id="origem-pericia-1" name="origem-pericia-1" 
                                 class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
-                            <option value="">Nenhuma</option>
+                            <option value="">Selecione a primeira perícia...</option>
                             <option value="acrobacia">Acrobacia (Des)</option>
                             <option value="arcanismo">Arcanismo (Int)</option>
                             <option value="atletismo">Atletismo (For)</option>
@@ -75,10 +82,10 @@
                         </select>
                     </div>
                     <div>
-                        <label for="origem-pericia-2" class="block text-lg font-medium text-gray-300 mb-2">Proficiência em Perícia 2</label>
+                        <label for="origem-pericia-2" class="block text-lg font-medium text-gray-300 mb-2">Proficiência em Perícia 2 *</label>
                         <select id="origem-pericia-2" name="origem-pericia-2" 
                                 class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg appearance-none">
-                            <option value="">Nenhuma</option>
+                            <option value="">Selecione a segunda perícia...</option>
                             <option value="acrobacia">Acrobacia (Des)</option>
                             <option value="arcanismo">Arcanismo (Int)</option>
                             <option value="atletismo">Atletismo (For)</option>
@@ -145,37 +152,40 @@
                 </div>
 
                 <div class="mt-6">
-                    <label for="origem-equipamento" class="block text-lg font-medium text-gray-300 mb-2">Equipamento Inicial</label>
+                    <label for="origem-equipamento" class="block text-lg font-medium text-gray-300 mb-2">Equipamento Inicial *</label>
                     <textarea id="origem-equipamento" name="origem-equipamento" rows="3" 
-                              class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400"
-                              placeholder="Liste os itens. Ex: Um símbolo sagrado, um livro de preces, 5 bastões de incenso..."></textarea>
+                            class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400"
+                            placeholder="Liste os itens. Ex: Um símbolo sagrado, um livro de preces, 5 bastões de incenso..."></textarea>
                 </div>
 
                 <hr class="border-t-2 border-gray-700 my-8">
                 
-                <h3 class="text-2xl font-semibold text-white mb-4">Característica da Origem</h3>
+                <h3 class="text-2xl font-semibold text-white mb-4">Característica da Origem (Opcional)</h3>
                 
                 <div class="mb-6">
                     <label for="origem-feature-nome" class="block text-lg font-medium text-gray-300 mb-2">Nome da Característica</label>
                     <input type="text" id="origem-feature-nome" name="origem-feature-nome" 
-                           placeholder="Ex: Refúgio do Fiel"
-                           class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400">
+                            placeholder="Ex: Refúgio do Fiel"
+                            class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400">
                 </div>
 
                 <div>
-                    <label for="origem-feature-descricao" class="block text-lg font-medium text-gray-300 mb-2">Descrição da Característica</D</label>
+                    <label for="origem-feature-descricao" class="block text-lg font-medium text-gray-300 mb-2">Descrição da Característica</label>
                     <textarea id="origem-feature-descricao" name="origem-feature-descricao" rows="5" 
-                              class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400"
-                              placeholder="Descreva o que a característica da origem faz..."></textarea>
+                            class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg placeholder-gray-400"
+                            placeholder="Descreva o que a característica da origem faz..."></textarea>
                 </div>
 
                 <div class="mt-10 flex justify-between">
-                    <button type="button" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg">
+                    <!-- Botão cancelar agora redireciona -->
+                    <button type="button" class="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg"
+                            onclick="window.location.href='tela-principal.html'">
                         Cancelar
                     </button>
-                    <a href="tela-principal.html" type="button" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
+                    <!-- "Finalizar" agora é um botão de submit -->
+                    <button type="submit" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
                         Finalizar
-                    </a>
+                    </button>
                 </div>
 
             </form>
@@ -183,5 +193,7 @@
         </div>
     </main>
 
+    <!-- Adicionado o novo script de validação -->
+    <script src="../js/criar-origem.js"></script>
 </body>
 </html>
