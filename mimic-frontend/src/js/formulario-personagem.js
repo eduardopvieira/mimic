@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-
-    // --- ELEMENTOS ---
     const form = document.getElementById('character-form');
     
-    // MUDANÇA: Declarando etapas individualmente
     const etapa1 = document.getElementById('etapa-1');
     const etapa2 = document.getElementById('etapa-2');
     const etapa3 = document.getElementById('etapa-3');
@@ -12,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const etapa6 = document.getElementById('etapa-6');
     const etapa7 = document.getElementById('etapa-7');
     
-    // Botões
     const btnProximo1 = document.getElementById('btn-proximo-1');
     const btnProximo2 = document.getElementById('btn-proximo-2');
     const btnProximo3 = document.getElementById('btn-proximo-3');
@@ -27,11 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnVoltar6 = document.getElementById('btn-voltar-6');
     const btnVoltar7 = document.getElementById('btn-voltar-7');
 
-    // Mensagens de Erro
     const errorEtapa1 = document.getElementById('error-etapa-1');
     const errorEtapa7 = document.getElementById('error-etapa-7');
 
-    // Campos de Validação
     const nome = document.getElementById('nome');
     const tamanho = document.getElementById('tamanho');
     const alinhamento = document.getElementById('alinhamento');
@@ -41,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const equipA = document.getElementById('equipamento-a');
     const equipB = document.getElementById('equipamento-b');
 
-    // Stepper (como no seu original)
     const stepper = {
         circles: [
             document.getElementById('stepper-circle-1'),
@@ -71,30 +64,27 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
 
-    // --- FUNÇÕES DE VALIDAÇÃO ---
 
     function validateEtapa1() {
-        // Limpa os estilos de erro anteriores (útil para selects)
         const inputs = [nome, tamanho, alinhamento, raca, classe, origem];
         inputs.forEach(input => {
             if (input.value === '') {
-                input.classList.add('border-red-500', 'ring-red-500'); // Adiciona borda vermelha
+                input.classList.add('border-red-500', 'ring-red-500');
             } else {
-                input.classList.remove('border-red-500', 'ring-red-500'); // Remove borda vermelha
+                input.classList.remove('border-red-500', 'ring-red-500');
             }
         });
 
-        // Verifica se algum campo 'required' da Etapa 1 está vazio
         if (nome.value === '' || tamanho.value === '' || alinhamento.value === '' || 
             raca.value === '' || classe.value === '' || origem.value === '') {
             
             errorEtapa1.textContent = 'Por favor, preencha todos os campos obrigatórios.';
             errorEtapa1.classList.remove('hidden');
-            return false; // Falha na validação
+            return false;
         }
         
         errorEtapa1.classList.add('hidden');
-        return true; // Sucesso na validação
+        return true;
     }
 
     function validateEtapa7() {
@@ -108,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- NAVEGAÇÃO DO STEPPER (COM VALIDAÇÃO) ---
 
     btnProximo1.addEventListener('click', function() {
         if (validateEtapa1()) {
@@ -317,7 +306,6 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[6].classList.remove('text-white');
     });
 
-    // --- LÓGICA DE SUBMISSÃO E VALIDAÇÃO FINAL ---
     form.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -328,11 +316,9 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Personagem criado com sucesso!');
             window.location.href = 'tela-principal.html';
         } else if (!etapa1Valida) {
-            // Se a Etapa 1 for inválida, força o retorno para ela
             etapa7.classList.add('hidden');
             etapa1.classList.remove('hidden');
             
-            // (Reseta o stepper visual)
             stepper.circles[0].classList.add('bg-gray-700', 'ring-4', 'ring-red-500');
             stepper.circles[0].classList.remove('bg-red-600');
             stepper.texts[0].classList.add('text-white');
@@ -350,14 +336,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // --- LÓGICA DO REPETIDOR (Opcional, sem validação) ---
     function inicializarRepetidor(addBtnId, containerId, entryClass, prefix) {
     
     const addBtn = document.getElementById(addBtnId);
     const container = document.getElementById(containerId);
     
     if (!addBtn || !container) {
-            // Não loga erro, pois as etapas são opcionais de carregar
       return;
     }
 

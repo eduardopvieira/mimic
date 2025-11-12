@@ -1,11 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('origem-form');
-    // Pega a nova mensagem de erro
     const errorMsg = document.getElementById('origem-error-message');
-    // Classes de destaque do Tailwind
     const errorHighlightClasses = ['border-red-500', 'ring-2', 'ring-red-500'];
 
-    // Função para limpar os destaques de erro
     function clearErrorStyles() {
         if (errorMsg) errorMsg.classList.add('hidden');
         
@@ -14,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Função para adicionar destaque de erro
     function addErrorHighlight(element) {
         if (element) {
             element.classList.add(...errorHighlightClasses);
@@ -23,24 +19,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (form) {
         form.addEventListener('submit', function(event) {
-            // Impede o envio padrão do formulário
             event.preventDefault(); 
-            // Limpa erros antigos
             clearErrorStyles();
             
-            let isValid = true; // Assume que é válido até provar o contrário
+            let isValid = true;
             let errorsFound = false;
 
-            // --- CAMPOS OBRIGATÓRIOS ---
-
-            // 1. Nome da Origem
             const nome = document.getElementById('origem-nome');
             if (nome.value.trim() === '') {
                 addErrorHighlight(nome);
                 errorsFound = true;
             }
 
-            // 2. Perícias (devem ser selecionadas)
             const pericia1 = document.getElementById('origem-pericia-1');
             const pericia2 = document.getElementById('origem-pericia-2');
 
@@ -53,25 +43,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 errorsFound = true;
             }
 
-            // 2.1. Validação extra: Perícias não podem ser iguais
             if (pericia1.value !== '' && pericia1.value === pericia2.value) {
                 addErrorHighlight(pericia1);
                 addErrorHighlight(pericia2);
                 errorsFound = true; 
-                // Nota: A mensagem genérica não dirá "são iguais",
-                // mas o destaque em ambos ajuda o usuário.
             }
 
-            // 3. Equipamento Inicial
             const equipamento = document.getElementById('origem-equipamento');
             if (equipamento.value.trim() === '') {
                 addErrorHighlight(equipamento);
                 errorsFound = true;
             }
 
-            // --- BLOCO OPCIONAL (validação condicional) ---
-
-            // 4. Característica da Origem (Opcional, mas deve ser preenchida em bloco)
             const featureNome = document.getElementById('origem-feature-nome');
             const featureDesc = document.getElementById('origem-feature-descricao');
 
@@ -84,14 +67,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 errorsFound = true;
             }
 
-            // --- CHECAGEM FINAL ---
             if (errorsFound) {
-                // Se houver erros, mostra a mensagem de erro genérica
                 if (errorMsg) errorMsg.classList.remove('hidden');
                 isValid = false;
             }
 
-            // Se tudo estiver OK, redireciona
             if (isValid) {
                 console.log("Formulário de origem válido. Enviando...");
                 window.location.href = 'tela-principal.html';

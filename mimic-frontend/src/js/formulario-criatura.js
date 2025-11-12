@@ -1,6 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
-    // --- VARIÁVEIS DAS ETAPAS ---
     const etapa1 = document.getElementById('etapa-1');
     const etapa2 = document.getElementById('etapa-2');
     const etapa3 = document.getElementById('etapa-3');
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const etapa6 = document.getElementById('etapa-6');
     const etapa7 = document.getElementById('etapa-7');
 
-    // --- BOTÕES PRÓXIMO ---
     const btnProximo1 = document.getElementById('btn-proximo-1');
     const btnProximo2 = document.getElementById('btn-proximo-2');
     const btnProximo3 = document.getElementById('btn-proximo-3');
@@ -17,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnProximo5 = document.getElementById('btn-proximo-5');
     const btnProximo6 = document.getElementById('btn-proximo-6');
 
-    // --- BOTÕES VOLTAR ---
     const btnVoltar2 = document.getElementById('btn-voltar-2');
     const btnVoltar3 = document.getElementById('btn-voltar-3');
     const btnVoltar4 = document.getElementById('btn-voltar-4');
@@ -25,10 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnVoltar6 = document.getElementById('btn-voltar-6');
     const btnVoltar7 = document.getElementById('btn-voltar-7');
 
-    // --- FORMULÁRIO ---
     const form = document.getElementById('criatura-form');
 
-    // --- MENSAGENS DE ERRO ---
     const errorEtapa1 = document.getElementById('error-etapa-1');
     const errorEtapa2 = document.getElementById('error-etapa-2');
     const errorEtapa3 = document.getElementById('error-etapa-3');
@@ -36,32 +31,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const errorEtapa5 = document.getElementById('error-etapa-5');
     const errorEtapa6 = document.getElementById('error-etapa-6');
     const errorFinal = document.getElementById('error-final');
-    
-    // Classes de destaque do Tailwind
+
     const errorHighlightClasses = ['border-red-500', 'ring-2', 'ring-red-500'];
 
-    // Função para limpar os destaques de erro (dentro de um container)
     function clearErrorStyles(containerElement) {
         if (!containerElement) return;
-        
-        // Esconde mensagens de erro específicas da etapa
-        const errorMsg = containerElement.querySelector('.bg-red-800'); // Encontra a msg de erro na etapa
-        if (errorMsg && !errorMsg.id.includes('final')) errorMsg.classList.add('hidden'); // Esconde se não for a final
-        if (errorFinal) errorFinal.classList.add('hidden'); // Sempre esconde a final
-        
+
+        const errorMsg = containerElement.querySelector('.bg-red-800');
+        if (errorMsg && !errorMsg.id.includes('final')) errorMsg.classList.add('hidden');
+        if (errorFinal) errorFinal.classList.add('hidden'); 
+
         containerElement.querySelectorAll('input, select, textarea').forEach(el => {
             el.classList.remove(...errorHighlightClasses);
         });
     }
 
-    // Função para adicionar destaque de erro
+    
     function addErrorHighlight(element) {
         if (element) {
             element.classList.add(...errorHighlightClasses);
         }
     }
 
-    // --- OBJETOS DO STEPPER ---
+    
     const stepper = {
         circles: [
             document.getElementById('stepper-circle-1'),
@@ -70,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('stepper-circle-4'),
             document.getElementById('stepper-circle-5'),
             document.getElementById('stepper-circle-6'),
-            document.getElementById('stepper-circle-7') 
+            document.getElementById('stepper-circle-7')
         ],
         texts: [
             document.getElementById('stepper-text-1'),
@@ -91,10 +83,10 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
 
-    // --- LÓGICA DE NAVEGAÇÃO DO STEPPER (COM VALIDAÇÃO) ---
+    
 
-    // ----- ETAPA 1 -> 2 -----
-    btnProximo1.addEventListener('click', function() {
+    
+    btnProximo1.addEventListener('click', function () {
         clearErrorStyles(etapa1);
         const isValid = validarEtapa1();
         if (!isValid) {
@@ -104,21 +96,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         etapa1.classList.add('hidden');
         etapa2.classList.remove('hidden');
-        
+
         stepper.circles[0].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.circles[0].classList.add('bg-red-600');
         stepper.texts[0].classList.remove('text-white');
         stepper.texts[0].classList.add('text-red-400');
         stepper.lines[0].classList.remove('border-gray-600');
         stepper.lines[0].classList.add('border-red-600');
-        
+
         stepper.circles[1].classList.remove('bg-gray-800', 'text-gray-400');
         stepper.circles[1].classList.add('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.texts[1].classList.remove('text-gray-500');
         stepper.texts[1].classList.add('text-white');
     });
 
-    btnVoltar2.addEventListener('click', function() {
+    btnVoltar2.addEventListener('click', function () {
         etapa2.classList.add('hidden');
         etapa1.classList.remove('hidden');
 
@@ -128,15 +120,15 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[0].classList.remove('text-red-400');
         stepper.lines[0].classList.add('border-gray-600');
         stepper.lines[0].classList.remove('border-red-600');
-        
+
         stepper.circles[1].classList.add('bg-gray-800', 'text-gray-400');
         stepper.circles[1].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.texts[1].classList.add('text-gray-500');
         stepper.texts[1].classList.remove('text-white');
     });
 
-    // ----- ETAPA 2 -> 3 -----
-    btnProximo2.addEventListener('click', function() {
+    
+    btnProximo2.addEventListener('click', function () {
         clearErrorStyles(etapa2);
         const isValid = validarEtapa2();
         if (!isValid) {
@@ -160,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[2].classList.add('text-white');
     });
 
-    btnVoltar3.addEventListener('click', function() {
+    btnVoltar3.addEventListener('click', function () {
         etapa3.classList.add('hidden');
         etapa2.classList.remove('hidden');
 
@@ -177,8 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[2].classList.remove('text-white');
     });
 
-    // ----- ETAPA 3 -> 4 -----
-    btnProximo3.addEventListener('click', function() {
+    
+    btnProximo3.addEventListener('click', function () {
         clearErrorStyles(etapa3);
         const isValid = validarEtapa3();
         if (!isValid) {
@@ -188,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         etapa3.classList.add('hidden');
         etapa4.classList.remove('hidden');
-        
+
         stepper.circles[2].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.circles[2].classList.add('bg-red-600');
         stepper.texts[2].classList.remove('text-white');
@@ -202,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[3].classList.add('text-white');
     });
 
-    btnVoltar4.addEventListener('click', function() {
+    btnVoltar4.addEventListener('click', function () {
         etapa4.classList.add('hidden');
         etapa3.classList.remove('hidden');
 
@@ -212,15 +204,15 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[2].classList.remove('text-red-400');
         stepper.lines[2].classList.add('border-gray-600');
         stepper.lines[2].classList.remove('border-red-600');
-        
+
         stepper.circles[3].classList.add('bg-gray-800', 'text-gray-400');
         stepper.circles[3].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.texts[3].classList.add('text-gray-500');
         stepper.texts[3].classList.remove('text-white');
     });
 
-    // ----- ETAPA 4 -> 5 -----
-    btnProximo4.addEventListener('click', function() {
+    
+    btnProximo4.addEventListener('click', function () {
         clearErrorStyles(etapa4);
         const isValid = validarEtapa4();
         if (!isValid) {
@@ -230,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         etapa4.classList.add('hidden');
         etapa5.classList.remove('hidden');
-        
+
         stepper.circles[3].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.circles[3].classList.add('bg-red-600');
         stepper.texts[3].classList.remove('text-white');
@@ -244,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[4].classList.add('text-white');
     });
 
-    btnVoltar5.addEventListener('click', function() {
+    btnVoltar5.addEventListener('click', function () {
         etapa5.classList.add('hidden');
         etapa4.classList.remove('hidden');
 
@@ -254,15 +246,15 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[3].classList.remove('text-red-400');
         stepper.lines[3].classList.add('border-gray-600');
         stepper.lines[3].classList.remove('border-red-600');
-        
+
         stepper.circles[4].classList.add('bg-gray-800', 'text-gray-400');
         stepper.circles[4].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.texts[4].classList.add('text-gray-500');
         stepper.texts[4].classList.remove('text-white');
     });
 
-    // ----- ETAPA 5 -> 6 -----
-    btnProximo5.addEventListener('click', function() {
+    
+    btnProximo5.addEventListener('click', function () {
         clearErrorStyles(etapa5);
         const isValid = validarEtapa5();
         if (!isValid) {
@@ -272,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         etapa5.classList.add('hidden');
         etapa6.classList.remove('hidden');
-        
+
         stepper.circles[4].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.circles[4].classList.add('bg-red-600');
         stepper.texts[4].classList.remove('text-white');
@@ -286,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[5].classList.add('text-white');
     });
 
-    btnVoltar6.addEventListener('click', function() {
+    btnVoltar6.addEventListener('click', function () {
         etapa6.classList.add('hidden');
         etapa5.classList.remove('hidden');
 
@@ -296,15 +288,15 @@ document.addEventListener('DOMContentLoaded', function() {
         stepper.texts[4].classList.remove('text-red-400');
         stepper.lines[4].classList.add('border-gray-600');
         stepper.lines[4].classList.remove('border-red-600');
-        
+
         stepper.circles[5].classList.add('bg-gray-800', 'text-gray-400');
         stepper.circles[5].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.texts[5].classList.add('text-gray-500');
         stepper.texts[5].classList.remove('text-white');
     });
+
     
-    // ----- ETAPA 6 -> 7 -----
-    btnProximo6.addEventListener('click', function() {
+    btnProximo6.addEventListener('click', function () {
         clearErrorStyles(etapa6);
         const isValid = validarEtapa6();
         if (!isValid) {
@@ -314,38 +306,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
         etapa6.classList.add('hidden');
         etapa7.classList.remove('hidden');
-        
+
         stepper.circles[5].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.circles[5].classList.add('bg-red-600');
         stepper.texts[5].classList.remove('text-white');
         stepper.texts[5].classList.add('text-red-400');
         stepper.lines[5].classList.remove('border-gray-600');
         stepper.lines[5].classList.add('border-red-600');
-    
+
         stepper.circles[6].classList.remove('bg-gray-800', 'text-gray-400');
         stepper.circles[6].classList.add('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.texts[6].classList.remove('text-gray-500');
         stepper.texts[6].classList.add('text-white');
     });
 
-    btnVoltar7.addEventListener('click', function() {
+    btnVoltar7.addEventListener('click', function () {
         etapa7.classList.add('hidden');
         etapa6.classList.remove('hidden');
-    
+
         stepper.circles[5].classList.add('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.circles[5].classList.remove('bg-red-600');
         stepper.texts[5].classList.add('text-white');
         stepper.texts[5].classList.remove('text-red-400');
         stepper.lines[5].classList.add('border-gray-600');
         stepper.lines[5].classList.remove('border-red-600');
-        
+
         stepper.circles[6].classList.add('bg-gray-800', 'text-gray-400');
         stepper.circles[6].classList.remove('bg-gray-700', 'ring-4', 'ring-red-500');
         stepper.texts[6].classList.add('text-gray-500');
         stepper.texts[6].classList.remove('text-white');
     });
 
-    // --- CÁLCULO DE MODIFICADOR ---
+    
     function calcularModificador(valor) {
         return Math.floor((valor - 10) / 2);
     }
@@ -353,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function atualizarModificadorUI(inputElement, spanElement) {
         const valor = parseInt(inputElement.value, 10) || 10;
         const mod = calcularModificador(valor);
-        
+
         if (spanElement) {
             spanElement.textContent = `Modificador: ${mod >= 0 ? '+' : ''}${mod}`;
         }
@@ -362,8 +354,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const atributos = ['for', 'des', 'con', 'int', 'sab', 'car'];
     atributos.forEach(sigla => {
         const input = document.getElementById(`atr-${sigla}`);
-        const span = input ? input.nextElementSibling : null; 
-        
+        const span = input ? input.nextElementSibling : null;
+
         if (input && span) {
             input.addEventListener('input', () => {
                 atualizarModificadorUI(input, span);
@@ -375,12 +367,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- LÓGICA DO REPETIDOR ---
+    
     function inicializarRepetidorCriatura(addBtnId, containerId, entryClass, prefix) {
-        
+
         const addBtn = document.getElementById(addBtnId);
         const container = document.getElementById(containerId);
-        
+
         if (!addBtn) {
             console.error(`Botão de Adicionar não encontrado: ${addBtnId}`);
             return;
@@ -392,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let entryCounter = container.getElementsByClassName(entryClass).length;
 
-        addBtn.addEventListener('click', function() {
+        addBtn.addEventListener('click', function () {
             const entryMolde = container.querySelector(`.${entryClass}`);
             if (!entryMolde) {
                 console.error(`Molde com classe ${entryClass} não encontrado.`);
@@ -417,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const removeBtn = newEntry.querySelector('.remover-btn');
             if (removeBtn) {
-                removeBtn.addEventListener('click', function() {
+                removeBtn.addEventListener('click', function () {
                     newEntry.remove();
                 });
             }
@@ -427,14 +419,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const firstRemoveBtn = container.querySelector(`.${entryClass} .remover-btn`);
         if (firstRemoveBtn) {
-            firstRemoveBtn.addEventListener('click', function() {
+            firstRemoveBtn.addEventListener('click', function () {
                 if (container.getElementsByClassName(entryClass).length > 1) {
                     firstRemoveBtn.closest(`.${entryClass}`).remove();
                 } else {
                     const firstInput = container.querySelector(`.${entryClass} input[type="text"]`);
                     const firstTextarea = container.querySelector(`.${entryClass} textarea`);
-                    if(firstInput) firstInput.value = '';
-                    if(firstTextarea) firstTextarea.value = '';
+                    if (firstInput) firstInput.value = '';
+                    if (firstTextarea) firstTextarea.value = '';
                 }
             });
         }
@@ -444,8 +436,8 @@ document.addEventListener('DOMContentLoaded', function() {
     inicializarRepetidorCriatura('add-acao', 'acoes-container', 'acao-entry', 'acao');
 
 
-    // --- FUNÇÕES DE VALIDAÇÃO (NOVAS) ---
     
+
     function validarEtapa1() {
         let isValid = true;
         const nome = document.getElementById('nome');
@@ -457,7 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (tamanho.value === '') { addErrorHighlight(tamanho); isValid = false; }
         if (tipo.value.trim() === '') { addErrorHighlight(tipo); isValid = false; }
         if (alinhamento.value === '') { addErrorHighlight(alinhamento); isValid = false; }
-        
+
         return isValid;
     }
 
@@ -496,21 +488,21 @@ document.addEventListener('DOMContentLoaded', function() {
         if (sentidos.value.trim() === '') { addErrorHighlight(sentidos); isValid = false; }
         if (idiomas.value.trim() === '') { addErrorHighlight(idiomas); isValid = false; }
         if (nd.value.trim() === '') { addErrorHighlight(nd); isValid = false; }
-        
+
         return isValid;
     }
 
     function validarEtapa5() {
         let isValid = true;
         const habilidades = document.querySelectorAll('.habilidade-entry');
-        
+
         habilidades.forEach((habilidade) => {
             const nomeInput = habilidade.querySelector('input[name="habilidade-nome[]"]');
             const descInput = habilidade.querySelector('textarea[name="habilidade-desc[]"]');
             const nome = nomeInput.value.trim();
             const desc = descInput.value.trim();
+
             
-            // Validação condicional: Se um for preenchido, o outro também deve ser
             if ((nome !== '' && desc === '') || (nome === '' && desc !== '')) {
                 addErrorHighlight(nomeInput);
                 addErrorHighlight(descInput);
@@ -523,9 +515,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function validarEtapa6() {
         let isValid = true;
         const acoes = document.querySelectorAll('.acao-entry');
-        
-        let filledActions = 0; // Contador para ações válidas
-        
+
+        let filledActions = 0; 
+
         acoes.forEach((acao) => {
             const nomeInput = acao.querySelector('input[name="acao-nome[]"]');
             const descInput = acao.querySelector('textarea[name="acao-desc[]"]');
@@ -533,65 +525,60 @@ document.addEventListener('DOMContentLoaded', function() {
             const desc = descInput.value.trim();
 
             if (nome === '' && desc === '') {
-                // Bloco completamente vazio
+                
             } else if ((nome !== '' && desc === '') || (nome === '' && desc !== '')) {
-                // Bloco parcialmente preenchido (erro)
+                
                 addErrorHighlight(nomeInput);
                 addErrorHighlight(descInput);
                 isValid = false;
             } else if (nome !== '' && desc !== '') {
-                // Bloco válido e preenchido
+                
                 filledActions++;
             }
         });
 
-        // Esta etapa é obrigatória. Deve haver pelo menos UMA ação preenchida.
+        
         if (filledActions === 0) {
             isValid = false;
-            // Destaca o primeiro bloco de ação (que provavelmente está vazio)
+            
             if (acoes.length > 0) {
                 addErrorHighlight(acoes[0].querySelector('input[name="acao-nome[]"]'));
                 addErrorHighlight(acoes[0].querySelector('textarea[name="acao-desc[]"]'));
             }
         }
-        
+
         return isValid;
     }
 
-    // --- VALIDAÇÃO FINAL (AO CLICAR EM "FINALIZAR") ---
     
+
     if (form) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Sempre impede o envio padrão
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); 
+
             
-            // Limpa todos os erros de todas as etapas
             clearErrorStyles(etapa1);
             clearErrorStyles(etapa2);
             clearErrorStyles(etapa3);
             clearErrorStyles(etapa4);
             clearErrorStyles(etapa5);
             clearErrorStyles(etapa6);
-            clearErrorStyles(etapa7); // Limpa o erro final também
+            clearErrorStyles(etapa7); 
 
-            // Roda todas as validações
+            
             const v1 = validarEtapa1();
             const v2 = validarEtapa2();
             const v3 = validarEtapa3();
             const v4 = validarEtapa4();
             const v5 = validarEtapa5();
             const v6 = validarEtapa6();
-            // Etapa 7 é opcional, sem validação
 
-            // Se TODAS forem válidas
             if (v1 && v2 && v3 && v4 && v5 && v6) {
                 console.log("Formulário de criatura válido. Enviando...");
-                // Redireciona para a tela principal
                 window.location.href = 'tela-principal.html';
             } else {
-                // Se qualquer uma falhar, mostra a mensagem de erro final
                 if (errorFinal) errorFinal.classList.remove('hidden');
-                
-                // (Opcional) Re-destaca os campos errados para o usuário ver
+
                 if (!v1) validarEtapa1();
                 if (!v2) validarEtapa2();
                 if (!v3) validarEtapa3();

@@ -12,7 +12,6 @@
         <div class="container mx-auto flex items-center space-x-4">
             
             <div class="h-16 w-16 rounded-full bg-white p-1">
-                <!-- Adicionado link para tela principal -->
                 <a href="tela-principal.html">
                     <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
                 </a>
@@ -27,7 +26,6 @@
 
         <div class="max-w-4xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl">
             
-            <!-- Stepper (igual ao seu) -->
             <div class="flex items-center mb-8">
                 <div class="flex items-center text-white relative">
                     <div id="stepper-circle-1" class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-700 font-bold ring-4 ring-red-500">
@@ -79,12 +77,7 @@
                 </div>
             </div>
             
-            <!-- 
-                - Alterado method="POST" para "GET" para evitar o erro 405
-                - Adicionado id="criatura-form" para o JavaScript
-            -->
             <form action="#" method="GET" id="criatura-form">
-                
                 <div id="etapa-1">
                     <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 1: Dados Básicos</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -135,13 +128,11 @@
                         </div>
                     </div>
 
-                    <!-- Mensagem de Erro (Etapa 1) -->
                     <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
 
                     <div class="mt-10 flex justify-between">
-                        <!-- Botão Cancelar -->
                         <button type="button" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg"
                                 onclick="window.location.href='tela-principal.html'">
                             Cancelar
@@ -185,7 +176,6 @@
                         </div>
                     </div>
                     
-                    <!-- Mensagem de Erro (Etapa 2) -->
                     <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
@@ -247,7 +237,6 @@
                         </div>
                     </div>
                     
-                    <!-- Mensagem de Erro (Etapa 3) -->
                     <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
@@ -307,7 +296,6 @@
                         </div>
                     </div>
                     
-                    <!-- Mensagem de Erro (Etapa 4) -->
                     <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
@@ -333,7 +321,6 @@
                     </div>
 
                     <div id="habilidades-container" class="space-y-6">
-                        <!-- Molde da Habilidade -->
                         <div class="habilidade-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 remover-btn">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -349,7 +336,6 @@
                         </div>
                     </div>
                     
-                    <!-- Mensagem de Erro (Etapa 5) -->
                     <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
@@ -374,7 +360,6 @@
                     </div>
 
                     <div id="acoes-container" class="space-y-6">
-                        <!-- Molde da Ação -->
                         <div class="acao-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 remover-btn">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -390,7 +375,6 @@
                         </div>
                     </div>
                     
-                    <!-- Mensagem de Erro (Etapa 6) -->
                     <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
@@ -423,7 +407,6 @@
 
                     </div>
 
-                    <!-- Mensagem de Erro (Final) -->
                     <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
@@ -432,10 +415,6 @@
                         <button type="button" id="btn-voltar-7" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg">
                             Voltar
                         </button>
-                        <!-- 
-                            - Link "Finalizar" alterado para <button type="submit">
-                            - Adicionado id="btn-finalizar"
-                        -->
                         <button type="submit" id="btn-finalizar" class="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold transition duration-200 text-lg">
                             Finalizar
                         </button>
