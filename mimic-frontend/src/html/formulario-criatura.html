@@ -12,6 +12,7 @@
         <div class="container mx-auto flex items-center space-x-4">
             
             <div class="h-16 w-16 rounded-full bg-white p-1">
+                
                 <a href="tela-principal.html">
                     <img src="../resources/mimic.png" alt="Logo Mimic" class="h-full w-full object-contain">
                 </a>
@@ -25,6 +26,7 @@
     <main class="container mx-auto p-8">
 
         <div class="max-w-4xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl">
+            
             
             <div class="flex items-center mb-8">
                 <div class="flex items-center text-white relative">
@@ -78,6 +80,7 @@
             </div>
             
             <form action="#" method="GET" id="criatura-form">
+                
                 <div id="etapa-1">
                     <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 1: Dados Básicos</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -128,11 +131,13 @@
                         </div>
                     </div>
 
-                    <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
+                    
+                    <div id="error-etapa-1" class="hidden mt-6 p-3 rounded  text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
 
                     <div class="mt-10 flex justify-between">
+                        
                         <button type="button" class="px-6 py-2 rounded bg-gray-600 hover:bg-gray-500 text-white font-semibold transition duration-200 text-lg"
                                 onclick="window.location.href='tela-principal.html'">
                             Cancelar
@@ -176,7 +181,8 @@
                         </div>
                     </div>
                     
-                    <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
+                    
+                    <div id="error-etapa-2" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
 
@@ -195,49 +201,87 @@
                     
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                         
-                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                        
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <label for="atr-for" class="text-xl font-bold text-white">Força *</label>
-                            <input type="number" id="atr-for" name="atr-for" value="10" min="0"
-                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
-                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span> </div>
+                            <div>
+                                <input type="number" id="atr-for" name="atr-for" value="0" min="0"
+                                       class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-white text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-700 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-gray-500">
+                                <input type="text" id="mod-for" value="+0"
+                                       class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-white">
+                            </div>
+                        </div>
+
                         
-                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <label for="atr-des" class="text-xl font-bold text-white">Destreza *</label>
-                            <input type="number" id="atr-des" name="atr-des" value="10" min="0"
-                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
-                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                            <div>
+                                <input type="number" id="atr-des" name="atr-des" value="0" min="0"
+                                       class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-white text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-700 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-gray-500">
+                                <input type="text" id="mod-des" value="+0"
+                                       class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-white">
+                            </div>
                         </div>
+
                         
-                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <label for="atr-con" class="text-xl font-bold text-white">Constituição *</label>
-                            <input type="number" id="atr-con" name="atr-con" value="10" min="0"
-                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
-                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                            <div>
+                                <input type="number" id="atr-con" name="atr-con" value="0" min="0"
+                                       class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-white text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-700 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-gray-500">
+                                <input type="text" id="mod-con" value="+0"
+                                       class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-white">
+                            </div>
                         </div>
+
                         
-                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <label for="atr-int" class="text-xl font-bold text-white">Inteligência *</label>
-                            <input type="number" id="atr-int" name="atr-int" value="10" min="0"
-                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
-                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                            <div>
+                                <input type="number" id="atr-int" name="atr-int" value="0" min="0"
+                                       class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-white text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-700 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-gray-500">
+                                <input type="text" id="mod-int" value="+0"
+                                       class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-white">
+                            </div>
                         </div>
                         
-                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                        
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <label for="atr-sab" class="text-xl font-bold text-white">Sabedoria *</label>
-                            <input type="number" id="atr-sab" name="atr-sab" value="10" min="0"
-                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
-                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                            <div>
+                                <input type="number" id="atr-sab" name="atr-sab" value="0" min="0"
+                                       class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-white text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-700 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-gray-500">
+                                <input type="text" id="mod-sab" value="+0"
+                                       class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-white">
+                            </div>
                         </div>
+
                         
-                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[150px]">
+                        <div class="bg-[#444444] p-4 rounded-lg shadow-lg text-center font-sans flex flex-col justify-between min-h-[180px]">
                             <label for="atr-car" class="text-xl font-bold text-white">Carisma *</label>
-                            <input type="number" id="atr-car" name="atr-car" value="10" min="0"
-                                   class="w-full text-center bg-transparent border-b-2 border-gray-600 p-2 focus:outline-none focus:border-red-500 text-white text-5xl font-bold appearance-none">
-                            <span class="text-lg text-gray-300 mt-2">Modificador: +0</span>
+                            <div>
+                                <input type="number" id="atr-car" name="atr-car" value="0" min="0"
+                                       class="w-24 text-center bg-transparent border-none p-0 focus:ring-0 text-white text-6xl font-bold appearance-none">
+                            </div>
+                            <div class="bg-gray-700 rounded-full px-3 py-1 inline-block mx-auto mt-2 border-2 border-gray-500">
+                                <input type="text" id="mod-car" value="+0"
+                                       class="w-16 text-center bg-transparent border-none p-0 focus:ring-0 text-xl font-bold text-white">
+                            </div>
                         </div>
                     </div>
                     
-                    <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
+                    
+                    <div id="error-etapa-3" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
 
@@ -250,6 +294,7 @@
                         </button>
                     </div>
                 </div>
+
 
                 <div id="etapa-4" class="hidden">
                     <h2 class="text-3xl font-semibold text-white mb-6 pt-8">Etapa 4: Proficiências e Sentidos</h2>
@@ -296,7 +341,8 @@
                         </div>
                     </div>
                     
-                    <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
+                    
+                    <div id="error-etapa-4" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
 
@@ -321,22 +367,24 @@
                     </div>
 
                     <div id="habilidades-container" class="space-y-6">
+                        
                         <div class="habilidade-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 remover-btn">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </button>
                             <div>
-                                <label for="habilidade-nome-1" class="block text-lg font-medium text-gray-300 mb-1">Nome da Habilidade *</label>
+                                <label for="habilidade-nome-1" class="block text-lg font-medium text-gray-300 mb-1">Nome da Habilidade</label>
                                 <input type="text" id="habilidade-nome-1" name="habilidade-nome[]" placeholder="Ex: Faro Aguçado, Sensibilidade à Luz Solar" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg">
                             </div>
                             <div>
-                                <label for="habilidade-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição *</label>
+                                <label for="habilidade-desc-1" class="block text-lg font-medium text-gray-300 mb-1">Descrição</label>
                                 <textarea id="habilidade-desc-1" name="habilidade-desc[]" rows="4" class="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg" placeholder="O goblin tem vantagem em testes de Sabedoria (Percepção) relacionados ao olfato."></textarea>
                             </div>
                         </div>
                     </div>
                     
-                    <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
+                    
+                    <div id="error-etapa-5" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
 
@@ -360,6 +408,7 @@
                     </div>
 
                     <div id="acoes-container" class="space-y-6">
+                        
                         <div class="acao-entry space-y-6 bg-[#3a3a3a] p-4 rounded-lg relative">
                             <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 remover-btn">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -374,8 +423,9 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
+
+
+                    <div id="error-etapa-6" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
 
@@ -407,7 +457,7 @@
 
                     </div>
 
-                    <div id="error-etapa-1" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
+                    <div id="error-final" class="hidden mt-6 p-3 rounded text-red-600 text-lg text-center">
                         Por favor, preencha todos os campos obrigatórios.
                     </div>
 
