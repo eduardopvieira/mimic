@@ -1,4 +1,4 @@
-package br.edu.ufersa.mimic.model.enums.equipamento.arma;
+package br.edu.ufersa.mimic.model.enums;
 
 public enum TipoDeDano {
     CORTANTE("Cortante"),

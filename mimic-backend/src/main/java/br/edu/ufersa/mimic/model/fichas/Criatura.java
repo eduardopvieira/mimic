@@ -1,6 +1,6 @@
 package br.edu.ufersa.mimic.model.fichas;
 
-import br.edu.ufersa.mimic.api.dto.fichas.CriaturaDTO;
+import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
 import jakarta.persistence.*;
@@ -8,14 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Map;
-import java.util.Set;
-
 @Entity
 @Table(name = "criaturas")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class Criatura {
 
     @Id
@@ -26,102 +21,92 @@ public class Criatura {
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    private Tamanho tamanho;
+    private Tamanho tamanho; // MÉDIO, GRANDE, ETC.
 
     @Column(name = "tipo_criatura")
-    private String tipo;
+    private String tipo; // Ex: "Morto-vivo", "Humanoide (Elfo)"
 
     @Enumerated(EnumType.STRING)
     private Alinhamento alinhamento;
 
-    @Column(name = "classe_de_armadura")
-    private Integer classeDeArmadura;
+    // --- ESTATÍSTICAS DEFENSIVAS ---
+    @Column(name = "classe_armadura")
+    private Integer ca;
 
-    @Column(name = "pontos_de_vida")
-    private Integer pontosDeVida;
+    @Column(name = "descricao_ca")
+    private String descricaoCa; // Ex: "(Armadura Natural)" ou "(Cota de Malha)"
 
-    @Column(name = "dados_de_vida")
-    private String dadosDeVida;
+    @Column(name = "pontos_vida_total")
+    private Integer pvTotal;
 
-    @Column
-    private String deslocamento;
-
-    // atributos
-    private int forca = 10;
-    private int destreza = 10;
-    private int constituicao = 10;
-    private int inteligencia = 10;
-    private int sabedoria = 10;
-    private int carisma = 10;
-
-    // pericias
-    @ElementCollection
-    @CollectionTable(name = "criatura_pericias", joinColumns = @JoinColumn(name = "criatura_id"))
-    @MapKeyColumn(name = "pericia_nome")
-    @Column(name = "bonus_valor")
-    private Map<String, Integer> pericias;
-
-    @ElementCollection
-    @CollectionTable(name = "criatura_imunidades_dano", joinColumns = @JoinColumn(name = "criatura_id"))
-    @Column(name = "imunidade")
-    private Set<String> imunidadesDano;
-
-    @ElementCollection
-    @CollectionTable(name = "criatura_resistencias_dano", joinColumns = @JoinColumn(name = "criatura_id"))
-    @Column(name = "resistencia")
-    private Set<String> resistenciasDano;
-
-    @ElementCollection
-    @CollectionTable(name = "criatura_vulnerabilidades_dano", joinColumns = @JoinColumn(name = "criatura_id"))
-    @Column(name = "vulnerabilidade")
-    private Set<String> vulnerabilidadesDano;
+    @Column(name = "formula_vida")
+    private String formulaVida; // Ex: "2d8 + 4"
 
     @Column
-    private String sentidos; // ex: "Visão no escuro 18m, Percepção passiva 13"
+    private String deslocamento; // Ex: "9m, Voo 12m"
+
+    // --- ATRIBUTOS ---
+    private int forca;
+    private int destreza;
+    private int constituicao;
+    private int inteligencia;
+    private int sabedoria;
+    private int carisma;
+
+    // --- PROFICIÊNCIAS E SENTIDOS (Strings para simplificar o DB) ---
+
+    @Column(columnDefinition = "TEXT")
+    private String salvaguardas; // Ex: "CON +4, SAB +2" (Nulo se não tiver)
+
+    @Column(columnDefinition = "TEXT")
+    private String pericias; // Ex: "Furtividade +6, Percepção +3"
+
+    @Column(columnDefinition = "TEXT")
+    private String vulnerabilidades; // Ex: "Fogo"
+
+    @Column(columnDefinition = "TEXT")
+    private String resistencias; // Ex: "Contundente de ataques não mágicos"
+
+    @Column(columnDefinition = "TEXT")
+    private String imunidades; // Ex: "Veneno"
+
+    @Column(columnDefinition = "TEXT")
+    private String imunidadesCondicao; // Ex: "Envenenado, Caído"
 
     @Column
-    private String idiomas;
+    private String sentidos; // Ex: "Visão no escuro 18m, Percepção passiva 13"
 
-    @Column(name = "nivel_de_desafio")
-    private String nivelDeDesafio; // "1/2", "1/4"
+    @Column
+    private String idiomas; // Ex: "Comum, Élfico"
+
+    // --- DESAFIO ---
+    @Column(name = "nivel_desafio")
+    private String nd; // String para aceitar frações: "1/4", "1/8"
+
+    @Column
+    private Integer xp; // Ex: 50, 200
+
+    @Column(name = "bonus_proficiencia")
+    private Integer bonusProficiencia; // Útil para cálculos internos (+2, +3...)
+
+    // --- AÇÕES E TRAÇOS ---
+    // Recomendação: Use Markdown ou HTML simples aqui para negrito e itálico.
 
     @Column(columnDefinition = "TEXT")
-    private String tracosEspeciais; // habilidades passivas como "resistência a magia"
+    private String tracos; // Passivas. Ex: "**Anfíbio.** O sapo pode respirar..."
 
     @Column(columnDefinition = "TEXT")
-    private String acoes; // ataques multiplos, mordida
+    private String acoes; // Ataques. Ex: "**Mordida.** *Ataque Corpo-a-Corpo:* +4..."
 
     @Column(columnDefinition = "TEXT")
-    private String acoesBonus;
+    private String reacoes; // Ex: "**Aparar.** A criatura adiciona 2 na CA..."
 
+    // (Opcional) Monstros Lendários têm ações lendárias
     @Column(columnDefinition = "TEXT")
-    private String reacoes;
+    private String acoesLendarias;
 
-    public Criatura (CriaturaDTO dto) {
-        this.nome = dto.getNome();
-        this.tamanho = dto.getTamanho();
-        this.tipo = dto.getTipo();
-        this.alinhamento = dto.getAlinhamento();
-        this.classeDeArmadura = dto.getClasseDeArmadura();
-        this.pontosDeVida = dto.getPontosDeVida();
-        this.dadosDeVida = dto.getDadosDeVida();
-        this.deslocamento = dto.getDeslocamento();
-        this.forca = dto.getForca();
-        this.destreza = dto.getDestreza();
-        this.constituicao = dto.getConstituicao();
-        this.inteligencia = dto.getInteligencia();
-        this.sabedoria = dto.getSabedoria();
-        this.carisma = dto.getCarisma();
-        this.pericias = dto.getPericias();
-        this.imunidadesDano = dto.getImunidadesDano();
-        this.resistenciasDano = dto.getResistenciasDano();
-        this.vulnerabilidadesDano = dto.getVulnerabilidadesDano();
-        this.sentidos = dto.getSentidos();
-        this.idiomas = dto.getIdiomas();
-        this.nivelDeDesafio = dto.getNivelDeDesafio();
-        this.tracosEspeciais = dto.getTracosEspeciais();
-        this.acoes = dto.getAcoes();
-        this.acoesBonus = dto.getAcoesBonus();
-        this.reacoes = dto.getReacoes();
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false) // Pode ser nulo (Sistema)
+    private Usuario usuario;
+
 }

@@ -1,21 +1,18 @@
 package br.edu.ufersa.mimic.model.caracteristicas;
 
-import br.edu.ufersa.mimic.api.dto.caracteristicas.OrigemDTO;
+import br.edu.ufersa.mimic.model.auth.Usuario;
+import br.edu.ufersa.mimic.model.enums.Atributo; // Certifique-se de ter este Enum
 import br.edu.ufersa.mimic.model.habilidades.Talento;
 import jakarta.persistence.*;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "origens")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class Origem {
 
     @Id
@@ -23,61 +20,45 @@ public class Origem {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String nome;
+    private String nome; // Vai para o campo "Origem" no cabeçalho
 
     @Column(columnDefinition = "TEXT")
-    private String descricao;
+    private String descricao; // Tooltip ou info extra no front
 
-    @ElementCollection
-    @CollectionTable(name = "origem_atributos_sugeridos", joinColumns = @JoinColumn(name = "origem_id"))
+    // MUDANÇA: Use Enum para facilitar a vida do React
+    // Regra 2024: A origem te dá 3 opções de atributos, você escolhe 2 para subir.
+    // O Front recebe [INTELIGENCIA, SABEDORIA, CARISMA] e desenha as opções pro usuário.
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "origem_atributos", joinColumns = @JoinColumn(name = "origem_id"))
     @Column(name = "atributo")
-    private Set<String> atributosSugeridos;
+    private Set<Atributo> atributosPermitidos;
 
-    @ManyToOne
+    // RELACIONAMENTO CRUCIAL
+    // Vai preencher o campo "Talentos" na ficha
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "talento_id", nullable = false)
     private Talento talentoInicial;
 
-    @ElementCollection
-    @CollectionTable(name = "origem_proficiencias_pericia", joinColumns = @JoinColumn(name = "origem_id"))
+    // PROFICIÊNCIAS
+    // O front usa isso para marcar os checkboxes de perícia (Skills)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "origem_pericias", joinColumns = @JoinColumn(name = "origem_id"))
     @Column(name = "pericia")
-    private Set<String> proficienciasPericia;
+    private Set<String> pericias;
 
-    // cada origem concede proficiência em 1 ferramenta
     @Column(name = "proficiencia_ferramenta")
-    private String proficienciaFerramenta;
+    private String ferramenta; // Vai para o box "Ferramentas"
 
-    @Column(name = "equipamento_opcao_a", columnDefinition = "TEXT")
-    private String equipamentoOpcaoA; // Ex: "Suprimentos de Calígrafo, Livro (orações)..."
+    // EQUIPAMENTO
+    // Simplificado para um texto único.
+    // Ex: "Símbolo Sagrado, Livro de Orações, 10 velas..."
+    // Vai para o box de Equipamentos na pág 2 (ou pág 1 se for resumido)
+    @Column(columnDefinition = "TEXT")
+    private String equipamentoInicial;
 
-    @Column(name = "equipamento_opcao_b")
-    private Integer equipamentoOpcaoB; // Ex: 50
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = true) // Pode ser nulo (Sistema)
+    private Usuario usuario;
 
-    public Origem(OrigemDTO origemDTO) {
-        this.nome = origemDTO.getNome();
-        this.descricao = origemDTO.getDescricao();
-        this.atributosSugeridos = origemDTO.getAtributosSugeridos();
-        this.proficienciasPericia = origemDTO.getProficienciasPericia();
-        this.proficienciaFerramenta = origemDTO.getProficienciaFerramenta();
-        this.equipamentoOpcaoA = origemDTO.getEquipamentoOpcaoA();
-        this.equipamentoOpcaoB = origemDTO.getEquipamentoOpcaoB();
-        if (origemDTO.getTalentoInicialId() != null) {
-            this.talentoInicial = new Talento();
-            this.talentoInicial.setId(origemDTO.getTalentoInicialId());
-        }
-    }
-
-    public <E> Origem(String nome, String s, HashSet<E> es, Talento talentoArtifice, HashSet<E> es1, String s1) {
-        this.nome = nome;
-        this.descricao = s;
-        this.atributosSugeridos = new HashSet<>();
-        for (E e : es) {
-            this.atributosSugeridos.add(e.toString());
-        }
-        this.talentoInicial = talentoArtifice;
-        this.proficienciasPericia = new HashSet<>();
-        for (E e : es1) {
-            this.proficienciasPericia.add(e.toString());
-        }
-        this.proficienciaFerramenta = s1;
-    }
 }

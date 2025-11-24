@@ -2,7 +2,6 @@ package br.edu.ufersa.mimic.api.controller.habilidades;
 
 import br.edu.ufersa.mimic.api.dto.habilidades.TalentoDTO;
 import br.edu.ufersa.mimic.model.enums.CategoriaTalento;
-import br.edu.ufersa.mimic.service.habilidades.TalentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

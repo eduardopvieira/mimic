@@ -13,5 +13,7 @@ public interface CaracteristicasDeClasseRepository extends JpaRepository<Caracte
 
     List<CaracteristicaDeClasse> findByClasse(Classe classe);
 
-    List<CaracteristicaDeClasse> findBySubclasse(Subclasse subclasse);
+    List<CaracteristicaDeClasse> findByClasseAndNivelAdquiridoLessThanEqual(Classe classe, Integer nivel);
+
+    List<CaracteristicaDeClasse> findBySubclasseAndNivelAdquiridoLessThanEqual(Subclasse subclasse, Integer nivel);
 }

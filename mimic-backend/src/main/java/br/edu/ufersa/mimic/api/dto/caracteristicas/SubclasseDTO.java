@@ -1,6 +1,5 @@
 package br.edu.ufersa.mimic.api.dto.caracteristicas;
 
-import br.edu.ufersa.mimic.model.caracteristicas.CaracteristicaSubclasse;
 import br.edu.ufersa.mimic.model.caracteristicas.Subclasse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

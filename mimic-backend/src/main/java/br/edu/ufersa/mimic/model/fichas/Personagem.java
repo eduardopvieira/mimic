@@ -1,8 +1,9 @@
 package br.edu.ufersa.mimic.model.fichas;
 
-import br.edu.ufersa.mimic.api.dto.fichas.PersonagemDTO;
+import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.caracteristicas.*;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
+import br.edu.ufersa.mimic.model.enums.Atributo;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
@@ -16,9 +17,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "personagens")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class Personagem {
 
     @Id
@@ -26,30 +25,36 @@ public class Personagem {
     private Long id;
 
     @Column(name = "nome_personagem", nullable = false)
-    private String nomePersonagem;
+    private String nome;
 
-    private Integer nivel;
+    // --- CABEÇALHO ---
+    private Integer nivel; // Essencial para Proficiência (+2, +3...)
+
+    @Column(name = "xp")
     private Integer pontosDeExperiencia;
 
     @Enumerated(EnumType.STRING)
     private Alinhamento alinhamento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    // --- RELACIONAMENTOS BASE ---
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "classe_id")
     private Classe classe;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subclasse_id")
     private Subclasse subclasse;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "especie_id")
-    private Raca especie;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "raca_id") // Ou especie_id conforme preferir
+    private Raca raca;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "antecedente_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "origem_id")
     private Origem origem;
 
+    // --- ATRIBUTOS (Core Stats) ---
+    // O sistema calcula o modificador na hora de enviar pro Front/PDF
     private Integer forca;
     private Integer destreza;
     private Integer constituicao;
@@ -57,29 +62,38 @@ public class Personagem {
     private Integer sabedoria;
     private Integer carisma;
 
-    private Integer pontosDeVidaMaximos;
-    private Integer pontosDeVidaAtuais;
-    private Integer pontosDeVidaTemporarios;
-    private Integer classeDeArmadura;
-    private Integer iniciativa;
-    private Integer deslocamento;
-    private Integer percepcaoPassiva;
+    // --- ESTATÍSTICAS DE COMBATE (Snapshot) ---
+    // Mantemos salvo para permitir edits manuais do usuário
 
-    private String dadosDeVidaTotais; // Ex: "5d10"
-    private Integer dadosDeVidaGastos;
+    private Integer vidaMax;
+    private Integer vidaAtual;
+    private Integer vidaTemp;
+
+    @Column(name = "ca_total")
+    private Integer classeDeArmadura; // O Front sugere (10+DES...), o usuário confirma.
+
+    private Integer iniciativa;       // O Front sugere (DES), o usuário confirma.
+    private Integer deslocamento;     // Vem da Raça, mas o usuário pode ter botas mágicas.
+    private Integer percepcaoPassiva; // 10 + WIS + Prof.
+
+    // --- RECURSOS ---
+    private Integer dadosDeVidaGastos; // O total é calculado pelo Nível + Classe
     private boolean inspiracaoHeroica;
 
+    // --- PROFICIÊNCIAS (Strings simples para o PDF) ---
+    // Ex: "Acrobacia", "Furtividade"
     @ElementCollection
-    @CollectionTable(name = "personagem_proficiencias_pericias", joinColumns = @JoinColumn(name = "personagem_id"))
-    @Column(name = "pericia")
-    private Set<String> proficienciasPericias;
+    @CollectionTable(name = "personagem_pericias", joinColumns = @JoinColumn(name = "personagem_id"))
+    private Set<String> pericias;
 
+    // Ex: "FORCA", "CONSTITUICAO" (Vem da Classe, mas talentos podem dar mais)
     @ElementCollection
-    @CollectionTable(name = "personagem_proficiencias_testes_resistencia", joinColumns = @JoinColumn(name = "personagem_id"))
-    @Column(name = "teste_resistencia")
-    private Set<String> proficienciasTestesDeResistencia;
+    @CollectionTable(name = "personagem_saves", joinColumns = @JoinColumn(name = "personagem_id"))
+    private Set<String> salvaguardas;
 
-    @ManyToMany
+    // --- INVENTÁRIO & DINHEIRO ---
+    // Usa a classe Item Unificada que criamos
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "personagem_inventario",
             joinColumns = @JoinColumn(name = "personagem_id"),
@@ -87,64 +101,30 @@ public class Personagem {
     )
     private List<Item> inventario;
 
-    private Integer pc; // Peças de Cobre
-    private Integer pp; // Peças de Prata
-    private Integer po; // Peças de Ouro
-    private Integer pl; // Peças de Platina
+    private Integer pc, pp, po, pl; // Moedas
 
-    @ManyToMany
-    @JoinTable(
-            name = "personagem_talentos",
-            joinColumns = @JoinColumn(name = "personagem_id"),
-            inverseJoinColumns = @JoinColumn(name = "talento_id")
-    )
+    // --- HABILIDADES & MAGIAS ---
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "personagem_talentos")
     private Set<Talento> talentos;
 
-    @ManyToMany
-    @JoinTable(
-            name = "personagem_magias_preparadas",
-            joinColumns = @JoinColumn(name = "personagem_id"),
-            inverseJoinColumns = @JoinColumn(name = "magia_id")
-    )
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "personagem_magias")
     private Set<Magia> magiasPreparadas;
 
-    public Personagem(PersonagemDTO dto) {
-        this.id = dto.getId();
-        this.nomePersonagem = dto.getNomePersonagem();
-        this.nivel = dto.getNivel();
-        this.pontosDeExperiencia = dto.getPontosDeExperiencia();
-        this.alinhamento = dto.getAlinhamento();
+    // Para o cabeçalho da página de magias
+    @Enumerated(EnumType.STRING)
+    private Atributo atributoChaveConjuracao;
 
-        this.forca = dto.getForca();
-        this.destreza = dto.getDestreza();
-        this.constituicao = dto.getConstituicao();
-        this.inteligencia = dto.getInteligencia();
-        this.sabedoria = dto.getSabedoria();
-        this.carisma = dto.getCarisma();
+    // --- TEXTOS LIVRES (Opcional, mas útil pro PDF) ---
+    @Column(columnDefinition = "TEXT")
+    private String aparencia;
 
-        // Status de Combate
-        this.pontosDeVidaMaximos = dto.getPontosDeVidaMaximos();
-        this.pontosDeVidaAtuais = dto.getPontosDeVidaAtuais();
-        this.pontosDeVidaTemporarios = dto.getPontosDeVidaTemporarios();
-        this.classeDeArmadura = dto.getClasseDeArmadura();
-        this.iniciativa = dto.getIniciativa();
-        this.deslocamento = dto.getDeslocamento();
-        this.percepcaoPassiva = dto.getPercepcaoPassiva();
+    @Column(columnDefinition = "TEXT")
+    private String historia;
 
-        // Recursos
-        this.dadosDeVidaTotais = dto.getDadosDeVidaTotais();
-        this.dadosDeVidaGastos = dto.getDadosDeVidaGastos();
-        this.inspiracaoHeroica = dto.isInspiracaoHeroica();
-
-        // Proficiências
-        this.proficienciasPericias = dto.getProficienciasPericias();
-        this.proficienciasTestesDeResistencia = dto.getProficienciasTestesDeResistencia();
-
-        // Inventário (dinheiro)
-        this.pc = dto.getPc();
-        this.pp = dto.getPp();
-        this.po = dto.getPo();
-        this.pl = dto.getPl();
-
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false) // Pode ser nulo (Sistema)
+    private Usuario usuario;
 }

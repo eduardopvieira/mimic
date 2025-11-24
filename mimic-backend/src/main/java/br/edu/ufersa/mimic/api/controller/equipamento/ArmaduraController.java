@@ -1,7 +1,6 @@
 package br.edu.ufersa.mimic.api.controller.equipamento;
 
 import br.edu.ufersa.mimic.api.dto.equipamento.ArmaduraDTO;
-import br.edu.ufersa.mimic.service.equipamento.ArmaduraService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

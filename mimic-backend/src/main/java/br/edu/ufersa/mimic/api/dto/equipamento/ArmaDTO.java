@@ -1,9 +1,8 @@
 package br.edu.ufersa.mimic.api.dto.equipamento;
 
-import br.edu.ufersa.mimic.model.equipamento.Arma;
 import br.edu.ufersa.mimic.model.enums.equipamento.arma.CategoriaArma;
 import br.edu.ufersa.mimic.model.enums.equipamento.arma.TipoArma;
-import br.edu.ufersa.mimic.model.enums.equipamento.arma.TipoDeDano;
+import br.edu.ufersa.mimic.model.enums.TipoDeDano;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
