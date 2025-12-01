@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 
-// --- ATRIBUTE CARD CORRIGIDO ---
 const AttributeCard = ({ label, value, onChange }: { label: string, value: number, onChange: (val: number) => void }) => {
-  // Estado local para permitir string vazia enquanto digita
   const [localValue, setLocalValue] = useState<string>(value.toString());
 
-  // Sincroniza se o valor mudar externamente (ex: carregamento inicial)
   React.useEffect(() => {
     // Só atualiza se o número real for diferente do que está escrito (evita conflito de digitação)
     if (parseInt(localValue) !== value) {

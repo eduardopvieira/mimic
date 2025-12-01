@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import SpellCard from '../components/ui/SpellCard';
+import { Link } from 'react-router-dom';
 
-// Interface da Magia
 interface Spell {
   id: number;
   name: string;
@@ -13,7 +13,7 @@ interface Spell {
 }
 
 const ManageSpells = () => {
-  // Mock Data (simulando o banco de dados)
+  // dados mockados por enqnt
   const [spells, setSpells] = useState<Spell[]>([
     { id: 1, name: "Bola de Fogo", level: 3, school: "Evocação", description: "Uma explosão de chamas ruge em um ponto à sua escolha. Cada criatura num raio de 6m deve fazer um teste de Destreza." },
     { id: 2, name: "Mãos Mágicas", level: 0, school: "Conjuração", description: "Uma mão espectral flutuante aparece num ponto à sua escolha. Você pode usar a mão para manipular objetos, abrir portas ou causar distrações." },
@@ -21,7 +21,7 @@ const ManageSpells = () => {
     { id: 4, name: "Detectar Magia", level: 1, school: "Adivinhação", description: "Pela duração, você sente a presença de magia a até 9 metros de você. Se você sentir magia dessa forma, você pode usar sua ação para ver uma aura fraca em volta de qualquer criatura ou objeto visível." },
   ]);
 
-  // Handlers (Simulação)
+  // handlers
   const handleEdit = (id: number) => {
     alert(`Editar magia ID: ${id} (Implementar Modal)`);
   };
@@ -49,10 +49,10 @@ const ManageSpells = () => {
             </div>
             
             {/* Botão Nova Magia */}
-            <button className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded shadow-lg shadow-red-900/50 transition transform hover:scale-105">
+            <Link to='/criar-magia' className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded shadow-lg shadow-red-900/50 transition transform hover:scale-105">
                 <span className="text-2xl leading-none mb-1">+</span>
                 <span>Nova Magia</span>
-            </button>
+            </Link>
           </div>
 
           {/* Grid de Cards */}
@@ -61,14 +61,13 @@ const ManageSpells = () => {
                 {spells.map((spell) => (
                 <SpellCard
                     key={spell.id}
-                    {...spell} // Passa todas as props do objeto spell
+                    {...spell}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
                 />
                 ))}
             </div>
           ) : (
-             // Estado Vazio
              <div className="flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-700 rounded-lg text-gray-500">
                 <p className="text-xl font-medieval">O Grimório está vazio.</p>
                 <p className="text-sm">Clique em "Nova Magia" para começar.</p>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface SpellCardProps {
   id: number;
   name: string;

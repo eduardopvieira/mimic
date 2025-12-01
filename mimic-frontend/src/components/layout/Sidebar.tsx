@@ -4,8 +4,8 @@ const Sidebar = () => {
   const location = useLocation(); 
 
   const menuItems = [
-    { label: "Criar Personagem", path: "/formulario-personagem" },
-    { label: "Criar Criatura", path: "/formulario-criatura" },
+    { label: "Gerenciar Personagens", path: "/gerenciar-personagens" },
+    { label: "Gerenciar Criaturas", path: "/gerenciar-criaturas" },
     { label: "Gerenciar Magias", path: "/gerenciar-magias" },
     { label: "Gerenciar Origens", path: "/gerenciar-origens" },
   ];
@@ -15,7 +15,7 @@ const Sidebar = () => {
       <nav className="space-y-4">
         
         <div className="mb-6 pb-6 border-b border-gray-700">
-            <Link to="/home-page" className="flex items-center space-x-2 text-gray-300 hover:text-white transition">
+            <Link to="/gerenciar-personagem" className="flex items-center space-x-2 text-gray-300 hover:text-white transition">
                 <span className="font-bold">Página Principal</span>
             </Link>
         </div>

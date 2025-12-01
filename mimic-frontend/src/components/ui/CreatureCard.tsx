@@ -1,11 +1,11 @@
-interface CharacterCardProps {
+interface CreatureCardProps {
   title: string;
   race: string;
-  charClass: string;
+  size: string;
   image: string | null; 
 }
 
-const CharacterCard = ({ title, race, charClass, image }: CharacterCardProps) => {
+const CreatureCard = ({ title, race, size, image }: CreatureCardProps) => {
   return (
     <a href="#" className="block bg-[#2D2D2D] rounded-lg shadow-2xl overflow-hidden group transition-all duration-300 hover:shadow-red-500/30 border border-transparent hover:border-red-500/50">
       
@@ -33,8 +33,8 @@ const CharacterCard = ({ title, race, charClass, image }: CharacterCardProps) =>
             <p className="text-base font-semibold text-white">{race}</p>
           </div>
           <div>
-            <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">Classe</span>
-            <p className="text-base font-semibold text-white">{charClass}</p>
+            <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">Tamanho</span>
+            <p className="text-base font-semibold text-white">{size}</p>
           </div>
         </div>
       </div>
@@ -42,4 +42,4 @@ const CharacterCard = ({ title, race, charClass, image }: CharacterCardProps) =>
   );
 };
 
-export default CharacterCard;
+export default CreatureCard;

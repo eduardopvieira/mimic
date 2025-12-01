@@ -4,8 +4,8 @@ import Stepper from '../components/ui/Stepper';
 import DynamicSection from '../components/form/DynamicSection';
 import { TALENTOS, TRUQUES, MAGIAS, PERICIAS } from '../data/mockData';
 import AttributeCard from '../components/form/AttributeCard';
+import SelectField from '../components/form/SelectField';
 
-// --- TIPAGEM ---
 interface DynamicItem {
   id: number;
   value: string;
@@ -13,43 +13,24 @@ interface DynamicItem {
 }
 
 interface FormData {
-  // Dados Básicos
+  // DADOS BASICOS
   nome: string; tamanho: string; alinhamento: string; raca: string; subraca: string;
   classe: string; subclasse: string; origem: string; foto: File | null; fotoPreview: string | null;
   
-  // Atributos (Estes são os valores BASE, ex: 10, 15, 20)
+  // ATRIBUTOS
   str: number; dex: number; con: number; int: number; wis: number; cha: number;
   
-  // Equipamento
+  // EQUIPAMENTO
   equipamento: string;
 
-  // Arrays Dinâmicos
+  // ARRAYS DINAMICOS
   talentos: DynamicItem[];
   truques: DynamicItem[];
   magias: DynamicItem[];
   pericias: DynamicItem[];
 }
 
-// --- COMPONENTE AUXILIAR: SELECT ---
-const SelectField = ({ label, value, onChange, options, disabled = false }: any) => (
-  <div>
-    <label className="block text-gray-400 mb-1 text-sm font-bold uppercase tracking-wider">{label}</label>
-    <select 
-      value={value} 
-      onChange={onChange}
-      disabled={disabled}
-      className={`w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition appearance-none ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-    >
-      <option value="">Selecione...</option>
-      {options.map((opt: string) => (
-        <option key={opt} value={opt}>{opt}</option>
-      ))}
-    </select>
-  </div>
-);
-
-
-// --- COMPONENTE PRINCIPAL ---
+// componente principal começa aq
 const CreateCharacter = () => {
   const steps = [
     { id: 1, label: "Dados Básicos" },
@@ -70,7 +51,7 @@ const CreateCharacter = () => {
     talentos: [], truques: [], magias: [], pericias: []
   });
 
-  // --- Handlers ---
+  // handlers
   const updateData = (field: string, value: any) => setFormData(prev => ({ ...prev, [field]: value }));
   
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +65,7 @@ const CreateCharacter = () => {
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, steps.length));
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
-  // Funções Dinâmicas (Adicionar/Remover/Atualizar Listas)
+  // funcoes dinamicas de suporte
   const addDynamicItem = (field: keyof FormData) => {
     const newItem: DynamicItem = { id: Date.now(), value: '', description: '' };
     setFormData(prev => ({ ...prev, [field]: [...(prev[field] as DynamicItem[]), newItem] }));
@@ -148,13 +129,13 @@ const CreateCharacter = () => {
               </div>
             )}
 
-            {/* ETAPAS 2 a 5 (Dinâmicas) */}
+            {/* ETAPAS 2 A 5 */}
             {currentStep === 2 && <DynamicSection title="Talentos" itemName="Talento" items={formData.talentos} options={TALENTOS} onAdd={() => addDynamicItem('talentos')} onRemove={(id) => removeDynamicItem('talentos', id)} onUpdate={(id, val) => updateDynamicItem('talentos', id, val, TALENTOS)} />}
             {currentStep === 3 && <DynamicSection title="Truques" itemName="Truque" items={formData.truques} options={TRUQUES} onAdd={() => addDynamicItem('truques')} onRemove={(id) => removeDynamicItem('truques', id)} onUpdate={(id, val) => updateDynamicItem('truques', id, val, TRUQUES)} />}
             {currentStep === 4 && <DynamicSection title="Magias" itemName="Magia" items={formData.magias} options={MAGIAS} onAdd={() => addDynamicItem('magias')} onRemove={(id) => removeDynamicItem('magias', id)} onUpdate={(id, val) => updateDynamicItem('magias', id, val, MAGIAS)} />}
             {currentStep === 5 && <DynamicSection title="Perícias" itemName="Perícia" items={formData.pericias} options={PERICIAS} onAdd={() => addDynamicItem('pericias')} onRemove={(id) => removeDynamicItem('pericias', id)} onUpdate={(id, val) => updateDynamicItem('pericias', id, val, PERICIAS)} />}
 
-            {/* ETAPA 6: MODIFICADORES (ATRIBUTOS) - NOVO DESIGN */}
+            {/* ETAPA 6: MODIFICADORES/ATRIBUTOS */}
             {currentStep === 6 && (
                <div className="animate-fade-in">
                   <div className="flex justify-between items-center border-b border-gray-700 pb-4 mb-8">
@@ -194,7 +175,7 @@ const CreateCharacter = () => {
                </div>
             )}
 
-            {/* Ações de Navegação */}
+            {/* NAVEGAÇÃO */}
             <div className="mt-10 flex justify-between pb-8 pt-6 border-t border-gray-700">
               {currentStep > 1 ? (
                 <button type="button" onClick={prevStep} className="px-6 py-3 rounded-lg bg-gray-600 hover:bg-gray-500 text-white font-semibold flex items-center gap-2">← Voltar</button>
