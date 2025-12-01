@@ -1,4 +1,3 @@
-import React from 'react';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import CharacterCard from '../components/ui/CharacterCard';
@@ -62,7 +61,6 @@ const Dashboard = () => {
           
           <div className="mb-8 border-b border-gray-700 pb-4">
             <h2 className="text-4xl font-bold text-white">Minhas Fichas</h2>
-            <p className="text-gray-400 mt-2">Gerencie seus personagens e criaturas do D&D 5.5</p>
           </div>
 
           {/* Grid Responsivo: 1 coluna no celular, 2 no tablet, 3 em telas grandes */}

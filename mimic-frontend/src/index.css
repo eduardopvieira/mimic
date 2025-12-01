@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,4 +19,16 @@ html, body {
   height: 100%;
   display: flex;     /* Garante que o conteúdo interno possa expandir */
   flex-direction: column;
+}
+
+@layer utilities {
+  .no-spinner::-webkit-outer-spin-button,
+  .no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .no-spinner {
+    -moz-appearance: textfield;
+  }
 }

@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      // Adicione esta seção fontFamily
+      fontFamily: {
+        // Ao sobrescrever 'sans', o Tailwind aplica essa fonte em TUDO por padrão
+        sans: ['"MedievalSharp"', 'cursive', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

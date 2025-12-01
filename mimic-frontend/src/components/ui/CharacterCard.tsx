@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface CharacterCardProps {
   title: string;
   category: string;

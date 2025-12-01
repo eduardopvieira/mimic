@@ -1,28 +1,44 @@
-import React from 'react';
+import { Link, useLocation } from 'react-router-dom'; 
 
 const Sidebar = () => {
-  // Lista de menus para facilitar manutenção futura
+  const location = useLocation(); 
+
   const menuItems = [
-    { label: "Criar Personagem", href: "/formulario-personagem", icon: "👤" },
-    { label: "Criar Criatura", href: "/formulario-criatura", icon: "🐉" },
-    { label: "Criar Magia", href: "/criar-magia", icon: "✨" },
-    { label: "Criar Origem", href: "/criar-origem", icon: "📜" },
+    { label: "Criar Personagem", path: "/formulario-personagem" },
+    { label: "Criar Criatura", path: "/formulario-criatura" },
+    { label: "Gerenciar Magias", path: "/gerenciar-magias" },
+    { label: "Gerenciar Origens", path: "/gerenciar-origens" },
   ];
 
   return (
-    <aside className="w-64 bg-[#2D2D2D] min-h-[calc(100vh-80px)] p-6 hidden md:block shadow-xl border-r border-gray-700">
+    <aside className="w-64 bg-[#2D2D2D] h-full p-6 hidden md:block shadow-xl border-r border-gray-700">
       <nav className="space-y-4">
+        
+        <div className="mb-6 pb-6 border-b border-gray-700">
+            <Link to="/home-page" className="flex items-center space-x-2 text-gray-300 hover:text-white transition">
+                <span className="font-bold">Página Principal</span>
+            </Link>
+        </div>
+
         <h3 className="text-gray-400 uppercase text-sm font-bold tracking-wider mb-4">Ações</h3>
-        {menuItems.map((item) => (
-          <a
-            key={item.label}
-            href={item.href}
-            className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-red-700/20 text-red-100 hover:bg-red-600 hover:text-white transition duration-200 group border border-red-900/30 hover:border-red-500"
-          >
-            <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
-            <span className="font-semibold">{item.label}</span>
-          </a>
-        ))}
+        
+        {menuItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          
+          return (
+            <Link
+              key={item.label}
+              to={item.path}
+              className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition duration-200 group border
+                ${isActive 
+                  ? 'bg-red-600 text-white border-red-500 shadow-lg shadow-red-900/50' 
+                  : 'bg-red-700/20 text-red-100 hover:bg-red-600 hover:text-white border-red-900/30 hover:border-red-500'
+                }`}
+            >
+              <span className="font-semibold">{item.label}</span>
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );
