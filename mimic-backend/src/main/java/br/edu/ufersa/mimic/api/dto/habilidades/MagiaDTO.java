@@ -1,56 +1,45 @@
-package br.edu.ufersa.mimic.api.dto.habilidades;
+package br.edu.ufersa.mimic.api.dto;
 
 import br.edu.ufersa.mimic.model.enums.EscolaDeMagia;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class MagiaDTO {
 
     private Long id;
-
-    @NotBlank(message = "O nome da magia é obrigatório.")
     private String nome;
-
-    private String descricao;
-
-    @NotNull(message = "O círculo da magia é obrigatório.")
-    @Min(value = 0, message = "O círculo mínimo é 0 (truque).")
-    @Max(value = 9, message = "O círculo máximo é 9.")
     private Integer circulo;
-
-    @NotNull(message = "A escola de magia é obrigatória.")
-    private EscolaDeMagia escolaDeMagia;
-
-    @NotBlank(message = "O tempo de conjuração é obrigatório.")
+    private EscolaDeMagia escola;
     private String tempoConjuracao;
-
     private String alcance;
-
-    private Set<String> componentes;
-
-    @NotBlank(message = "A duração é obrigatória.")
+    private String componentes;
     private String duracao;
+    private boolean isConcentracao;
+    private boolean isRitual;
+    private String formulaDano;
+    private String tipoDano;
+    private String descricao;
+    private Long usuarioId;
 
-    public MagiaDTO(Magia magia) {
-        this.id = magia.getId();
-        this.nome = magia.getNome();
-        this.descricao = magia.getDescricao();
-        this.circulo = magia.getCirculo();
-        this.escolaDeMagia = magia.getEscolaDeMagia();
-        this.tempoConjuracao = magia.getTempoConjuracao();
-        this.alcance = magia.getAlcance();
-        this.componentes = magia.getComponentes();
-        this.duracao = magia.getDuracao();
+    public MagiaDTO(Magia entity) {
+        this.id = entity.getId();
+        this.nome = entity.getNome();
+        this.circulo = entity.getCirculo();
+        this.escola = entity.getEscola();
+        this.tempoConjuracao = entity.getTempoConjuracao();
+        this.alcance = entity.getAlcance();
+        this.componentes = entity.getComponentes();
+        this.duracao = entity.getDuracao();
+        this.isConcentracao = entity.isConcentracao();
+        this.isRitual = entity.isRitual();
+        this.formulaDano = entity.getFormulaDano();
+        this.tipoDano = entity.getTipoDano();
+        this.descricao = entity.getDescricao();
+        if (entity.getUsuario() != null) {
+            this.usuarioId = entity.getUsuario().getId();
+        }
     }
 }

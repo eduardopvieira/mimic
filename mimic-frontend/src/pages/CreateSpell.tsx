@@ -2,57 +2,116 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 
+import type { MagiaDTO } from '../types/Magia';
+import { EscolaDeMagia } from '../types/Magia';
+import { MagiaService } from '../services/MagiaService';
+
 const CreateSpell = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
+  // Estado inicial do formulário
   const [formData, setFormData] = useState({
     nome: '',
     alcance: '',
-    conjuracao: '',
-    nivel: 0,
+    conjuracao: '', // Mapeia para 'tempoConjuracao'
+    nivel: 0,       // Mapeia para 'circulo'
+    escola: '',     // Armazena a string selecionada no dropdown
     duracao: '',
-    components: [] as string[], // V, S, M
+    components: [] as string[], // Array temporário para controlar os checkboxes [V, S, M]
     materialDesc: '',
     isRitual: false,
     isConcentration: false,
     descricao: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // Atualiza inputs de Texto e o Select de Escola
+  // Note que adicionei HTMLSelectElement ao tipo do evento
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Atualiza checkboxes simples (Ritual e Concentração)
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setFormData(prev => ({ ...prev, [name]: checked }));
   };
 
+  // Lógica para adicionar/remover V, S, M do array
   const handleComponentToggle = (val: string) => {
     setFormData(prev => {
       const hasComponent = prev.components.includes(val);
       const newComponents = hasComponent
-        ? prev.components.filter(c => c !== val) // REMOVE
-        : [...prev.components, val]; // ADD
+        ? prev.components.filter(c => c !== val) // Remove se já existe
+        : [...prev.components, val]; // Adiciona se não existe
 
       return { ...prev, components: newComponents };
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Função de Envio
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
+    // Validação Básica
     if (!formData.nome || !formData.alcance || !formData.conjuracao || !formData.duracao || !formData.descricao) {
       setError('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
 
-    // AQUI ENTRARIA A CHAMADA PARA O BACKEND MAS N FUNCIONA AINDA
-    console.log("Enviando Magia:", formData);
+    // 1. Formatar a String de Componentes para o padrão do D&D
+    // Exemplo final esperado: "V, S, M (pó de diamante)"
+    let componentesString = '';
+    
+    // Filtra componentes que não são M para o início da string
+    const basicComps = formData.components.filter(c => c !== 'M').join(', ');
+    
+    if (basicComps) {
+        componentesString += basicComps;
+    }
 
-    navigate('/gerenciar-magias');
+    // Se tiver componente Material (M), adiciona ele com a descrição
+    if (formData.components.includes('M')) {
+        if (componentesString) componentesString += ', '; // Vírgula se já tiver V ou S antes
+        
+        // Se o usuário escreveu descrição, coloca entre parênteses. Se não, só põe "M".
+        if (formData.materialDesc) {
+            componentesString += `M (${formData.materialDesc})`;
+        } else {
+            componentesString += 'M';
+        }
+    }
+
+    // 2. Montar o Objeto DTO Tipado
+    const novaMagia: MagiaDTO = {
+        nome: formData.nome,
+        circulo: formData.nivel,
+        // Converte a string vazia ou valor selecionado para o Enum ou null
+        escola: formData.escola ? (formData.escola as EscolaDeMagia) : null,
+        tempoConjuracao: formData.conjuracao,
+        alcance: formData.alcance,
+        componentes: componentesString, // A string formatada acima
+        duracao: formData.duracao,
+        isConcentracao: formData.isConcentration,
+        isRitual: formData.isRitual,
+        formulaDano: null, // Futuramente você pode adicionar inputs para isso
+        tipoDano: null,    // Futuramente você pode adicionar inputs para isso
+        descricao: formData.descricao,
+        usuarioId: 1 // TODO: Alterar para pegar o ID do usuário logado (Contexto/Session)
+    };
+
+    try {
+        console.log("Enviando DTO:", novaMagia); // Debug
+        await MagiaService.create(novaMagia);
+        
+        alert("Magia criada com sucesso!");
+        navigate('/gerenciar-magias');
+    } catch (err) {
+        console.error(err);
+        setError("Erro ao salvar a magia. Verifique se o backend está rodando.");
+    }
   };
 
   return (
