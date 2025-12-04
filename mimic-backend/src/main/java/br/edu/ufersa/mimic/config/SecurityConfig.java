@@ -40,9 +40,9 @@ public class SecurityConfig {
                         // Rotas Abertas
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll() // Login e Cadastro
                         .requestMatchers(HttpMethod.GET, "/api/biblioteca/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/talentos").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/origens").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
-                        // O resto precisa de token
-                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
 

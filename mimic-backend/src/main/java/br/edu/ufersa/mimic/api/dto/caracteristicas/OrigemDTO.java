@@ -42,11 +42,11 @@ public class OrigemDTO {
 
     private Long usuarioId;
 
+    // --- CONSTRUTOR: ENTITY -> DTO ---
     public OrigemDTO(Origem origem) {
         this.id = origem.getId();
         this.nome = origem.getNome();
         this.descricao = origem.getDescricao();
-
         this.atributosPermitidos = origem.getAtributosPermitidos();
         this.pericias = origem.getPericias();
         this.ferramenta = origem.getFerramenta();

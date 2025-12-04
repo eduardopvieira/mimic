@@ -1,0 +1,114 @@
+
+[
+  {
+    "nome": "Humano",
+    "deslocamento": 9,
+    "tamanho": "MEDIO",
+    "tracosRaciais": [
+      { "nome": "Versátil", "descricao": "Você adquire um talento de Origem à sua escolha (ex: Habilidoso)." },
+      { "nome": "Hábil", "descricao": "Você adquire proficiência em uma perícia à sua escolha." },
+      { "nome": "Eficiente", "descricao": "Você adquire Inspiração Heroica sempre que completar um Descanso Longo." },
+      { "nome": "Tamanho Variável", "descricao": "Pode escolher ser Médio ou Pequeno." }
+    ]
+  },
+  {
+    "nome": "Anão",
+    "deslocamento": 9,
+    "tamanho": "MEDIO",
+    "tracosRaciais": [
+      { "nome": "Visão no Escuro", "descricao": "Enxerga na escuridão a até 36 metros como se fosse meia-luz." },
+      { "nome": "Resistência a Toxinas", "descricao": "Resistência a dano Venenoso e Vantagem em salvaguardas contra condição Envenenado." },
+      { "nome": "Tenacidade Anã", "descricao": "+1 Ponto de Vida máximo por nível." },
+      { "nome": "Conhecimento de Pedras", "descricao": "Ação Bônus: Adquire Sismiconsciência (18m) na pedra por 10 min." }
+    ]
+  },
+  {
+    "nome": "Elfo",
+    "deslocamento": 9,
+    "tamanho": "MEDIO",
+    "tracosRaciais": [
+      { "nome": "Visão no Escuro", "descricao": "Enxerga na escuridão a até 18 metros." },
+      { "nome": "Ancestralidade Feérica", "descricao": "Vantagem em salvaguardas contra ser Enfeitiçado." },
+      { "nome": "Transe", "descricao": "Não dorme. Descanso Longo dura 4 horas meditando." },
+      { "nome": "Sentidos Aguçados", "descricao": "Proficiência em Intuição, Percepção ou Sobrevivência." },
+      { "nome": "Linhagem Élfica", "descricao": "Escolha: Alto Elfo (Truque extra/Teleporte), Drow (Visão 36m/Magias Sombrias) ou Silvestre (Desloc. 10,5m/Magias Druídicas)." }
+    ]
+  },
+  {
+    "nome": "Pequenino",
+    "deslocamento": 9,
+    "tamanho": "PEQUENO",
+    "tracosRaciais": [
+      { "nome": "Sorte", "descricao": "Ao tirar 1 no d20, pode jogar novamente (deve usar o novo resultado)." },
+      { "nome": "Corajoso", "descricao": "Vantagem em salvaguardas contra a condição Amedrontado." },
+      { "nome": "Agilidade Pequenina", "descricao": "Pode mover-se pelo espaço de criaturas maiores que você." },
+      { "nome": "Furtividade Natural", "descricao": "Pode se esconder mesmo quando encoberto apenas por uma criatura maior." }
+    ]
+  },
+  {
+    "nome": "Draconato",
+    "deslocamento": 9,
+    "tamanho": "MEDIO",
+    "tracosRaciais": [
+      { "nome": "Herança Dracônica", "descricao": "Escolha um ancestral metálico ou cromático. Define seu tipo de dano e resistência." },
+      { "nome": "Ataque de Sopro", "descricao": "Substitui um ataque. Cone (4,5m) ou Linha (9m). Dano 1d10 (escala com nível). Dex save." },
+      { "nome": "Resistência a Dano", "descricao": "Resistência ao tipo de dano de sua Herança." },
+      { "nome": "Visão no Escuro", "descricao": "Enxerga na escuridão a até 18 metros." },
+      { "nome": "Voo Dracônico", "descricao": "(Nível 5) Ação Bônus para criar asas e voar por 10 minutos." }
+    ]
+  },
+  {
+    "nome": "Gnomo",
+    "deslocamento": 9,
+    "tamanho": "PEQUENO",
+    "tracosRaciais": [
+      { "nome": "Visão no Escuro", "descricao": "Enxerga na escuridão a até 18 metros." },
+      { "nome": "Astúcia de Gnomo", "descricao": "Vantagem em salvaguardas de Inteligência, Sabedoria e Carisma." },
+      { "nome": "Linhagem Gnômica", "descricao": "Escolha: Gnomo das Rochas (Truques Prestidigitação/Reparar + Dispositivos) ou Gnomo do Bosque (Ilusão Menor + Falar com Animais)." }
+    ]
+  },
+  {
+    "nome": "Tiferino",
+    "deslocamento": 9,
+    "tamanho": "MEDIO",
+    "tracosRaciais": [
+      { "nome": "Visão no Escuro", "descricao": "Enxerga na escuridão a até 18 metros." },
+      { "nome": "Legado Ínfero", "descricao": "Escolha: Abissal (Res. Veneno), Ctônico (Res. Necrótico) ou Infernal (Res. Fogo). Concede magias específicas." },
+      { "nome": "Presença Sobrenatural", "descricao": "Conhece o truque Taumaturgia." },
+      { "nome": "Tamanho Variável", "descricao": "Pode escolher ser Médio ou Pequeno." }
+    ]
+  },
+  {
+    "nome": "Orc",
+    "deslocamento": 9,
+    "tamanho": "MEDIO",
+    "tracosRaciais": [
+      { "nome": "Visão no Escuro", "descricao": "Enxerga na escuridão a até 36 metros." },
+      { "nome": "Pico de Adrenalina", "descricao": "Ação Bônus para Correr. Ganha PV Temporários igual ao Bônus de Proficiência." },
+      { "nome": "Vigor Implacável", "descricao": "Uma vez por dia, ao cair a 0 PV, cai para 1 PV." }
+    ]
+  },
+  {
+    "nome": "Golias",
+    "deslocamento": 10,
+    "tamanho": "MEDIO",
+    "tracosRaciais": [
+      { "nome": "Ancestralidade Gigante", "descricao": "Escolha um tipo de Gigante (Fogo, Gelo, Pedra, Colina, Tempestade, Nuvens) para ganhar um efeito passivo ou reação." },
+      { "nome": "Forma Grande", "descricao": "Ação Bônus: Torna-se Grande, ganha Vantagem em Força e +3m de deslocamento (10 min)." },
+      { "nome": "Porte Poderoso", "descricao": "Vantagem para escapar de Agarrão. Conta como Grande para carga." }
+    ]
+  },
+  {
+    "nome": "Aasimar",
+    "deslocamento": 9,
+    "tamanho": "MEDIO",
+    "tracosRaciais": [
+      { "nome": "Visão no Escuro", "descricao": "Enxerga na escuridão a até 18 metros." },
+      { "nome": "Resistência Celestial", "descricao": "Resistência a dano Necrótico e Radiante." },
+      { "nome": "Mãos Curativas", "descricao": "Ação: Cura PV jogando d4s igual ao bônus de proficiência (1/Descanso Longo)." },
+      { "nome": "Portador da Luz", "descricao": "Conhece o truque Luz." },
+      { "nome": "Revelação Celestial", "descricao": "(Nível 3) Transformação (voo, aura ou dano extra) por 1 minuto." },
+      { "nome": "Tamanho Variável", "descricao": "Pode escolher ser Médio ou Pequeno." }
+    ]
+  }
+]

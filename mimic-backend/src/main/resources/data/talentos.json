@@ -1,0 +1,594 @@
+[
+  {
+    "nome": "Alerta",
+    "categoria": "ORIGEM",
+    "descricao": "Você ganha proficiência em Iniciativa e pode trocar sua iniciativa com um aliado voluntário no início do combate.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Artifista",
+    "categoria": "ORIGEM",
+    "descricao": "Ganha proficiência em 3 ferramentas de artesão, desconto de 20% em itens não mágicos e capacidade de fabricar itens rapidamente durante descanso longo.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Atacante Selvagem",
+    "categoria": "ORIGEM",
+    "descricao": "Uma vez por turno, ao atingir com uma arma, pode jogar os dados de dano duas vezes e usar o melhor resultado.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Curandeiro",
+    "categoria": "ORIGEM",
+    "descricao": "Pode usar Kit de Curandeiro para curar gastando dados de vida do alvo e pode jogar novamente 1s em dados de cura.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Habilidoso",
+    "categoria": "ORIGEM",
+    "descricao": "Você adquire proficiência em qualquer combinação de três perícias ou ferramentas à sua escolha.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": true,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Iniciado em Magia",
+    "categoria": "ORIGEM",
+    "descricao": "Aprende 2 truques e 1 magia de 1º círculo de uma lista (Clérigo, Druida ou Mago). Pode conjurar a magia de 1º círculo uma vez sem gastar espaço.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": true,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Músico",
+    "categoria": "ORIGEM",
+    "descricao": "Ganha proficiência em 3 instrumentos. Pode tocar música após descanso para dar Inspiração Heroica a aliados.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Sortudo",
+    "categoria": "ORIGEM",
+    "descricao": "Ganha Pontos de Sorte igual ao Bônus de Proficiência. Pode gastar para ter Vantagem em d20 ou impor Desvantagem em ataques contra você.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Valentão de Taverna",
+    "categoria": "ORIGEM",
+    "descricao": "Melhora ataque desarmado (dano + empurrão), rerrola 1s no dano e dá proficiência com armas improvisadas.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Vigoroso",
+    "categoria": "ORIGEM",
+    "descricao": "Seus Pontos de Vida máximos aumentam em 2 para cada nível que você possui.",
+    "preRequisito": "Nenhum",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Adepto Elemental",
+    "categoria": "GERAL",
+    "descricao": "Magias ignoram resistência a um tipo de dano escolhido (Ácido, Elétrico, Gélido, Ígneo, Trovejante). Trata 1s no dano como 2s.",
+    "preRequisito": "Nível 4+, Conjuração ou Magia de Pacto",
+    "isRepetivel": true,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Agressor",
+    "categoria": "GERAL",
+    "descricao": "Melhora a ação Correr e permite empurrar ou causar dano extra ao se mover em linha reta antes de um ataque.",
+    "preRequisito": "Nível 4+, Força ou Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Analítico",
+    "categoria": "GERAL",
+    "descricao": "Ganha proficiência ou especialização em Intuição, Investigação ou Percepção. Pode usar a ação Procurar como Ação Bônus.",
+    "preRequisito": "Nível 4+, Inteligência ou Sabedoria 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA"]
+  },
+  {
+    "nome": "Atirador Arcano",
+    "categoria": "GERAL",
+    "descricao": "Ignora cobertura parcial/três quartos com magias. Não tem desvantagem ao conjurar à queima-roupa. Aumenta alcance de magias de ataque.",
+    "preRequisito": "Nível 4+, Conjuração ou Magia de Pacto",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Atleta",
+    "categoria": "GERAL",
+    "descricao": "Ganha deslocamento de escalada, levanta-se com menos movimento e salta melhor.",
+    "preRequisito": "Nível 4+, Força ou Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Ator",
+    "categoria": "GERAL",
+    "descricao": "Vantagem em Atuação/Enganação quando disfarçado. Pode imitar sons e falas de outras criaturas.",
+    "preRequisito": "Nível 4+, Carisma 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["CARISMA"]
+  },
+  {
+    "nome": "Aumento no Valor de Atributo",
+    "categoria": "GERAL",
+    "descricao": "Aumente um valor de atributo em 2, ou dois valores em 1, até o máximo de 20.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": true,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Chef",
+    "categoria": "GERAL",
+    "descricao": "Proficiência com Utensílios de Cozinheiro. Prepara comida que cura extra em descanso curto e guloseimas que dão PV temporários.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["CONSTITUICAO", "SABEDORIA"]
+  },
+  {
+    "nome": "Combatente Montado",
+    "categoria": "GERAL",
+    "descricao": "Vantagem em ataques contra criaturas menores enquanto montado. Pode forçar ataques à montaria a atingirem você. Evasão para a montaria.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "SABEDORIA"]
+  },
+  {
+    "nome": "Conjurador Bélico",
+    "categoria": "GERAL",
+    "descricao": "Vantagem em CON para manter concentração. Pode usar magias como Ataque de Oportunidade. Conjura com armas/escudo nas mãos.",
+    "preRequisito": "Nível 4+, Conjuração ou Magia de Pacto",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Conjurador Ritualista",
+    "categoria": "GERAL",
+    "descricao": "Aprende magias rituais de 1º círculo. Pode conjurar rituais preparados com tempo normal uma vez por dia.",
+    "preRequisito": "Nível 4+, Int/Sab/Car 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Duelista Defensivo",
+    "categoria": "GERAL",
+    "descricao": "Pode usar Reação para adicionar Proficiência à CA contra um ataque corpo a corpo se estiver usando arma de Acuidade.",
+    "preRequisito": "Nível 4+, Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["DESTREZA"]
+  },
+  {
+    "nome": "Envenenador",
+    "categoria": "GERAL",
+    "descricao": "Ignora resistência a veneno. Proficiência com Kit de Veneno. Pode aplicar veneno como Ação Bônus. Cria venenos potentes.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["DESTREZA", "INTELIGENCIA"]
+  },
+  {
+    "nome": "Esmagador",
+    "categoria": "GERAL",
+    "descricao": "Uma vez por turno, empurra criatura 1,5m com dano contundente. Crítico com dano contundente dá vantagem em ataques contra o alvo.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "CONSTITUICAO"]
+  },
+  {
+    "nome": "Especialista Ambidestro",
+    "categoria": "GERAL",
+    "descricao": "Pode usar armas sem propriedade Leve para combate com duas armas. Saque rápido de duas armas. Adiciona atributo ao dano extra.",
+    "preRequisito": "Nível 4+, Força ou Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Especialista em Armaduras Leves",
+    "categoria": "GERAL",
+    "descricao": "Ganha treinamento com Armadura Leve e Escudos.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Especialista em Armaduras Médias",
+    "categoria": "GERAL",
+    "descricao": "Ganha treinamento com Armadura Média. Pode adicionar +3 de Des na CA (em vez de +2) com armadura média.",
+    "preRequisito": "Nível 4+, Treinamento em Armadura Leve",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Especialista em Armaduras Pesadas",
+    "categoria": "GERAL",
+    "descricao": "Ganha treinamento com Armadura Pesada. Reduz dano contundente, cortante e perfurante igual ao Bônus de Proficiência.",
+    "preRequisito": "Nível 4+, Treinamento em Armadura Média",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "CONSTITUICAO"]
+  },
+  {
+    "nome": "Especialista em Besta",
+    "categoria": "GERAL",
+    "descricao": "Ignora propriedade Recarga de bestas. Sem desvantagem à queima-roupa. Melhora combate com duas armas usando bestas leves.",
+    "preRequisito": "Nível 4+, Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["DESTREZA"]
+  },
+  {
+    "nome": "Especialista em Perícia",
+    "categoria": "GERAL",
+    "descricao": "Ganha proficiência em uma perícia e Especialização (dobro da proficiência) em uma perícia conhecida.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Exterminador de Conjuradores",
+    "categoria": "GERAL",
+    "descricao": "Causa desvantagem na concentração de inimigos. Pode escolher passar em salvaguardas mentais (Int/Sab/Car) uma vez por descanso.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Imobilizador",
+    "categoria": "GERAL",
+    "descricao": "Ao acertar ataque desarmado, pode causar dano E imobilizar. Vantagem contra criaturas imobilizadas por você. Move-se rápido enquanto imobiliza.",
+    "preRequisito": "Nível 4+, Força ou Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Líder Inspirador",
+    "categoria": "GERAL",
+    "descricao": "Após descanso, pode dar PV temporários a até 6 aliados (Nível + Modificador de Atributo).",
+    "preRequisito": "Nível 4+, Sabedoria ou Carisma 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Mente Aguçada",
+    "categoria": "GERAL",
+    "descricao": "Ganha proficiência ou especialização em perícias de conhecimento (Arcanismo, História, etc). Ação Analisar como Bônus.",
+    "preRequisito": "Nível 4+, Inteligência 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA"]
+  },
+  {
+    "nome": "Mestre das Armas",
+    "categoria": "GERAL",
+    "descricao": "Pode usar a propriedade de Maestria de uma arma escolhida.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Mestre em Armaduras Médias",
+    "categoria": "GERAL",
+    "descricao": "Ganha treinamento com Armadura Média. Permite somar até +3 de Destreza na CA com armaduras médias.",
+    "preRequisito": "Nível 4+, Treinamento em Armadura Leve",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Mestre em Armas de Haste",
+    "categoria": "GERAL",
+    "descricao": "Ataque bônus com a extremidade oposta de armas de haste (d4). Ataque de oportunidade quando inimigo entra no alcance.",
+    "preRequisito": "Nível 4+, Força ou Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Mestre em Armas Grandes",
+    "categoria": "GERAL",
+    "descricao": "Adiciona Bônus de Proficiência ao dano com armas pesadas. Ataque bônus ao critar ou matar.",
+    "preRequisito": "Nível 4+, Força 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA"]
+  },
+  {
+    "nome": "Mestre em Escudos",
+    "categoria": "GERAL",
+    "descricao": "Pode empurrar/derrubar com escudo após atacar. Adiciona bônus de escudo em certas salvaguardas de Destreza. Reação para não sofrer dano em salvaguardas de Des.",
+    "preRequisito": "Nível 4+, Treinamento com Escudo",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA"]
+  },
+  {
+    "nome": "Mestre-Atirador",
+    "categoria": "GERAL",
+    "descricao": "Ignora cobertura parcial/três quartos. Sem desvantagem à queima-roupa ou longo alcance com armas à distância.",
+    "preRequisito": "Nível 4+, Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["DESTREZA"]
+  },
+  {
+    "nome": "Perfurador",
+    "categoria": "GERAL",
+    "descricao": "Uma vez por turno, rerrola um dado de dano perfurante. Crítico com perfurante adiciona um dado extra de dano.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Resiliente",
+    "categoria": "GERAL",
+    "descricao": "Ganha proficiência em salvaguardas de um atributo escolhido.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Resistente",
+    "categoria": "GERAL",
+    "descricao": "Vantagem em Salvaguardas contra Morte. Pode gastar Dado de Vida para se curar como Ação Bônus.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["CONSTITUICAO"]
+  },
+  {
+    "nome": "Sentinela",
+    "categoria": "GERAL",
+    "descricao": "Ataque de oportunidade reduz deslocamento a 0. Ataca mesmo se inimigo desengajar. Reação para atacar inimigo que ataca aliado.",
+    "preRequisito": "Nível 4+, Força ou Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Sorrateiro",
+    "categoria": "GERAL",
+    "descricao": "Ganha Visão às Cegas (3m). Vantagem em Furtividade para se esconder em combate. Atacar escondido e errar não revela posição.",
+    "preRequisito": "Nível 4+, Destreza 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["DESTREZA"]
+  },
+  {
+    "nome": "Talhador",
+    "categoria": "GERAL",
+    "descricao": "Uma vez por turno, dano cortante reduz velocidade do alvo em 3m. Crítico com cortante impõe desvantagem nos ataques do alvo.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Telecinético",
+    "categoria": "GERAL",
+    "descricao": "Aprende Mãos Mágicas (invisível, maior alcance). Ação Bônus para empurrar criaturas telecineticamente.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Telepático",
+    "categoria": "GERAL",
+    "descricao": "Pode falar telepaticamente a 18m. Pode conjurar Detectar Pensamentos sem componentes ou espaço de magia uma vez por dia.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Tocado Pelas Sombras",
+    "categoria": "GERAL",
+    "descricao": "Aprende Invisibilidade e uma magia de 1º círculo (Ilusão ou Necromancia). Pode conjurar cada uma de graça 1 vez por dia.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Tocado Por Fadas",
+    "categoria": "GERAL",
+    "descricao": "Aprende Passo Nebuloso e uma magia de 1º círculo (Adivinhação ou Encantamento). Pode conjurar cada uma de graça 1 vez por dia.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Treinamento com Armas Marciais",
+    "categoria": "GERAL",
+    "descricao": "Adquire proficiência com armas Marciais.",
+    "preRequisito": "Nível 4+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Velocista",
+    "categoria": "GERAL",
+    "descricao": "Aumenta deslocamento em 3m. Correr ignora terreno difícil. Ataques de oportunidade contra você têm desvantagem.",
+    "preRequisito": "Nível 4+, Destreza ou Constituição 13+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["DESTREZA", "CONSTITUICAO"]
+  },
+  {
+    "nome": "Arquearia",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "Você recebe um bônus de +2 nas jogadas de ataque com armas à Distância.",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Combate com Armas de Arremesso",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "Dano +2 com armas de arremesso à distância.",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Combate com Armas Grandes",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "Pode tratar 1 ou 2 em dados de dano como 3 ao usar armas de duas mãos.",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Combate com Duas Armas",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "Adiciona modificador de atributo ao dano do ataque extra ao usar duas armas.",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Combate Desarmado",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "Ataques desarmados causam 1d6 + Força (ou 1d8 se sem escudo/arma). Causa dano automático em imobilizados no início do turno.",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Defensivo",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "+1 na CA enquanto estiver usando armadura.",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Duelismo",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "+2 no dano quando empunhando uma arma corpo a corpo em uma mão e nenhuma outra arma.",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Interceptação",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "Reação para reduzir dano em aliado adjacente em 1d10 + BP.",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Luta às Cegas",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "Você tem Visão às Cegas com um alcance de 3 metros.",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Protetivo",
+    "categoria": "ESTILO_DE_LUTA",
+    "descricao": "Reação para impor Desvantagem em ataque contra aliado adjacente (requer Escudo).",
+    "preRequisito": "Característica de Estilo de Luta",
+    "isRepetivel": false,
+    "atributosElegiveis": []
+  },
+  {
+    "nome": "Dádiva da Fortitude",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "PV Máximo +40. Pode recuperar PV extra ao se curar.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva da Proeza em Combate",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Quando errar um ataque, pode escolher acertar (uma vez por turno).",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva da Proficiência em Perícia",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Ganha proficiência em TODAS as perícias. Ganha especialização em uma.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva da Recordação de Magia",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Chance de não gastar espaço de magia ao conjurar magias de 1º a 4º círculo.",
+    "preRequisito": "Nível 19+, Conjuração",
+    "isRepetivel": false,
+    "atributosElegiveis": ["INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva da Recuperação",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Uma vez por dia, ao cair a 0 PV, recupera metade dos PV máximos. Ação bônus para curar com reserva de dados.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva da Resistência à Energia",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Ganha resistência a dois tipos de dano. Pode redirecionar dano sofrido para inimigos.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva da Velocidade",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Deslocamento aumenta em 9m. Ação Bônus para Desengajar e encerrar Imobilizado.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva da Viagem Dimensional",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Pode se teleportar 9m imediatamente após atacar ou conjurar magia.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva da Visão Verdadeira",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Ganha Visão Verdadeira com alcance de 18 metros.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva do Ataque Irresistível",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Ignora resistência a danos físicos. Críticos causam dano extra.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA"]
+  },
+  {
+    "nome": "Dádiva do Destino",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Pode adicionar ou subtrair 2d4 de um Teste de D20 de outra criatura.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  },
+  {
+    "nome": "Dádiva do Espírito da Noite",
+    "categoria": "DADIVA_EPICA",
+    "descricao": "Pode ficar invisível como ação bônus em meia-luz/escuridão. Ganha resistências em meia-luz/escuridão.",
+    "preRequisito": "Nível 19+",
+    "isRepetivel": false,
+    "atributosElegiveis": ["FORCA", "DESTREZA", "CONSTITUICAO", "INTELIGENCIA", "SABEDORIA", "CARISMA"]
+  }
+]
