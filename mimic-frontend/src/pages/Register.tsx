@@ -6,36 +6,62 @@ const Register = () => {
 
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    confirmPassword: ''
+    senha: '',
+    confirmSenha: ''
   });
   
-  const [message, setMessage] = useState({ text: '', type: '' }); // type: 'error' | 'success'
+  const [message, setMessage] = useState({ text: '', type: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage({ text: '', type: '' });
+    setIsLoading(true);
 
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.senha !== formData.confirmSenha) {
       setMessage({ text: 'As senhas não coincidem.', type: 'error' });
+      setIsLoading(false);
       return;
     }
 
-    if (formData.password.length < 6) {
+    if (formData.senha.length < 6) {
         setMessage({ text: 'A senha deve ter pelo menos 6 caracteres.', type: 'error' });
+        setIsLoading(false);
         return;
     }
 
-    console.log("Cadastrando:", formData.email);
-    setMessage({ text: 'Cadastro realizado com sucesso! Redirecionando...', type: 'success' });
-    
-    setTimeout(() => {
-        navigate('/');
-    }, 1500);
+    try {
+        const response = await fetch('http://localhost:8080/api/usuarios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: formData.email,
+                senha: formData.senha 
+            })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text(); 
+            throw new Error(errorText || 'Erro ao realizar cadastro.');
+        }
+
+        setMessage({ text: 'Cadastro realizado! Redirecionando...', type: 'success' });
+        
+        setTimeout(() => {
+            navigate('/');
+        }, 1500);
+
+    } catch (error: any) {
+        setMessage({ text: error.message || 'Falha ao cadastrar.', type: 'error' });
+    } finally {
+        setIsLoading(false);
+    }
   };
 
   return (
@@ -56,14 +82,14 @@ const Register = () => {
               <input 
                 type="email" name="email" value={formData.email} onChange={handleChange}
                 className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
-                placeholder="seu@email.com" required 
+                required 
               />
             </div>
             
             <div>
               <label className="block text-lg font-medium text-gray-300 mb-2">Senha</label>
               <input 
-                type="password" name="password" value={formData.password} onChange={handleChange}
+                type="password" name="senha" value={formData.senha} onChange={handleChange}
                 className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
                 placeholder="********" required 
               />
@@ -72,7 +98,7 @@ const Register = () => {
             <div>
               <label className="block text-lg font-medium text-gray-300 mb-2">Confirmar Senha</label>
               <input 
-                type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}
+                type="password" name="confirmSenha" value={formData.confirmSenha} onChange={handleChange}
                 className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
                 placeholder="********" required 
               />
@@ -80,7 +106,7 @@ const Register = () => {
           </div>
 
           {message.text && (
-            <p className={`text-center mt-4 text-lg ${message.type === 'error' ? 'text-red-400' : 'text-green-400'}`}>
+            <p className={`text-center mt-4 text-lg animate-pulse ${message.type === 'error' ? 'text-red-400' : 'text-green-400'}`}>
                 {message.text}
             </p>
           )}
@@ -88,9 +114,12 @@ const Register = () => {
           <div className="mt-8">
             <button 
                 type="submit"
-                className="w-full p-3 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg shadow-lg shadow-red-900/50"
+                disabled={isLoading}
+                className={`w-full p-3 rounded text-white font-semibold transition duration-200 text-lg shadow-lg shadow-red-900/50 ${
+                    isLoading ? 'bg-gray-600 cursor-not-allowed' : 'bg-red-600 hover:bg-red-500'
+                }`}
             >
-                Finalizar Cadastro
+                {isLoading ? 'Cadastrando...' : 'Finalizar Cadastro'}
             </button>
           </div>
         </form>

@@ -1,34 +1,72 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import SpellCard from '../components/ui/SpellCard';
 import { Link } from 'react-router-dom';
 
+// Interface deve bater com o retorno do Java
 interface Spell {
   id: number;
-  name: string;
-  level: number;
-  school: string;
-  description: string;
+  nome: string; // Java manda 'nome', não 'name'
+  circulo: number; // Java manda 'circulo'
+  escola: string; 
+  descricao: string;
 }
 
 const ManageSpells = () => {
-  // dados mockados por enqnt
-  const [spells, setSpells] = useState<Spell[]>([
-    { id: 1, name: "Bola de Fogo", level: 3, school: "Evocação", description: "Uma explosão de chamas ruge em um ponto à sua escolha. Cada criatura num raio de 6m deve fazer um teste de Destreza." },
-    { id: 2, name: "Mãos Mágicas", level: 0, school: "Conjuração", description: "Uma mão espectral flutuante aparece num ponto à sua escolha. Você pode usar a mão para manipular objetos, abrir portas ou causar distrações." },
-    { id: 3, name: "Escudo", level: 1, school: "Abjuração", description: "Uma barreira invisível de força mágica aparece e protege você. Até o início do seu próximo turno, você tem +5 na CA, inclusive contra o ataque que ativou a magia." },
-    { id: 4, name: "Detectar Magia", level: 1, school: "Adivinhação", description: "Pela duração, você sente a presença de magia a até 9 metros de você. Se você sentir magia dessa forma, você pode usar sua ação para ver uma aura fraca em volta de qualquer criatura ou objeto visível." },
-  ]);
+  const [spells, setSpells] = useState<Spell[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // handlers
-  const handleEdit = (id: number) => {
-    alert(`Editar magia ID: ${id} (Implementar Modal)`);
+  // Carrega as magias ao abrir a página
+  useEffect(() => {
+    fetchSpells();
+  }, []);
+
+  const fetchSpells = async () => {
+    const token = localStorage.getItem('token');
+    const usuarioId = localStorage.getItem('usuarioId');
+
+    if (!token || !usuarioId) return; // Talvez redirecionar p/ login
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/magias?usuarioId=${usuarioId}`, {
+            headers: { 'Authorization': token }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            setSpells(data);
+        }
+    } catch (error) {
+        console.error("Erro ao buscar magias", error);
+    } finally {
+        setLoading(false);
+    }
   };
 
-  const handleDelete = (id: number) => {
-    if (confirm("Tem certeza que deseja excluir esta magia?")) {
-      setSpells(prev => prev.filter(spell => spell.id !== id));
+  const handleEdit = (id: number) => {
+    // Futuro: Navigate para /editar-magia/id
+    alert(`Funcionalidade de editar (ID: ${id}) em breve!`);
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!confirm("Tem certeza que deseja excluir esta magia?")) return;
+
+    const token = localStorage.getItem('token');
+    const usuarioId = localStorage.getItem('usuarioId');
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/magias/${id}?usuarioId=${usuarioId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': token || '' }
+        });
+
+        if (response.ok) {
+            setSpells(prev => prev.filter(spell => spell.id !== id));
+        } else {
+            alert("Erro ao excluir. Verifique se a magia é do sistema (oficial).");
+        }
+    } catch (error) {
+        console.error(error);
     }
   };
 
@@ -41,27 +79,32 @@ const ManageSpells = () => {
 
         <main className="flex-1 p-8 overflow-y-auto">
           
-          {/* Cabeçalho da Página */}
           <div className="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
             <div>
                 <h2 className="text-4xl font-bold text-white font-medieval">Grimório de Magias</h2>
                 <p className="text-gray-400 mt-2">Gerencie as magias disponíveis no sistema.</p>
             </div>
             
-            {/* Botão Nova Magia */}
-            <Link to='/criar-magia' className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded shadow-lg shadow-red-900/50 transition transform hover:scale-105">
+            <Link to='/criar-magia' className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded shadow-lg transition transform hover:scale-105">
                 <span className="text-2xl leading-none mb-1">+</span>
                 <span>Nova Magia</span>
             </Link>
           </div>
 
-          {/* Grid de Cards */}
-          {spells.length > 0 ? (
+          {loading ? (
+             <div className="text-center text-gray-400 mt-20">Carregando grimório...</div>
+          ) : spells.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {spells.map((spell) => (
                 <SpellCard
                     key={spell.id}
-                    {...spell}
+                    // Mapeia os campos do Java para o que o SpellCard espera
+                    // Se o SpellCard esperar 'name', passamos 'name={spell.nome}'
+                    id={spell.id}
+                    name={spell.nome} 
+                    level={spell.circulo}
+                    school={spell.escola}
+                    description={spell.descricao}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
                 />
