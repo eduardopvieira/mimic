@@ -1,7 +1,6 @@
 package br.edu.ufersa.mimic.api.controller.habilidades;
 
-import br.edu.ufersa.mimic.api.dto.MagiaDTO;
-import br.edu.ufersa.mimic.model.auth.Usuario;
+import br.edu.ufersa.mimic.api.dto.habilidades.MagiaDTO;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.service.habilidades.MagiaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +37,6 @@ public class MagiaController {
     @GetMapping("/{id}")
     public ResponseEntity<MagiaDTO> buscarPorId(@PathVariable Long id) {
         Magia magia = magiaService.buscarPorId(id);
-        // Se o service lançar exceção quando não acha, o Spring trata. 
-        // Caso retorne null, precisaria verificar. Assumindo que retorna objeto:
         return ResponseEntity.ok(new MagiaDTO(magia));
     }
 
@@ -58,7 +55,7 @@ public class MagiaController {
     // CRIAR (POST /api/magias)
     @PostMapping
     public ResponseEntity<MagiaDTO> criar(@RequestBody MagiaDTO dto) {
-        Magia magiaParaSalvar = converterParaEntity(dto);
+        Magia magiaParaSalvar = new Magia(dto);
         Magia magiaSalva = magiaService.salvar(magiaParaSalvar);
         return new ResponseEntity<>(new MagiaDTO(magiaSalva), HttpStatus.CREATED);
     }
@@ -66,10 +63,8 @@ public class MagiaController {
     // ATUALIZAR (PUT /api/magias/{id})
     @PutMapping("/{id}")
     public ResponseEntity<MagiaDTO> atualizar(@PathVariable Long id, @RequestBody MagiaDTO dto) {
-        // Aqui assumo que o Service cuida de manter o ID correto ou fazemos merge
-        Magia magiaParaAtualizar = converterParaEntity(dto);
+        Magia magiaParaAtualizar = new Magia(dto);
         
-        // O service deve buscar pelo ID da URL e atualizar os dados
         Magia magiaAtualizada = magiaService.atualizar(id, magiaParaAtualizar);
         
         return ResponseEntity.ok(new MagiaDTO(magiaAtualizada));
@@ -82,32 +77,5 @@ public class MagiaController {
         return ResponseEntity.noContent().build();
     }
 
-    // --- MÉTODOS AUXILIARES ---
-    
-    // Converte DTO -> Entity (Inverso do construtor do DTO)
-    private Magia converterParaEntity(MagiaDTO dto) {
-        Magia magia = new Magia();
-        magia.setId(dto.getId());
-        magia.setNome(dto.getNome());
-        magia.setCirculo(dto.getCirculo());
-        magia.setEscola(dto.getEscola());
-        magia.setTempoConjuracao(dto.getTempoConjuracao());
-        magia.setAlcance(dto.getAlcance());
-        magia.setComponentes(dto.getComponentes());
-        magia.setDuracao(dto.getDuracao());
-        magia.setConcentracao(dto.isConcentracao());
-        magia.setRitual(dto.isRitual());
-        magia.setFormulaDano(dto.getFormulaDano());
-        magia.setTipoDano(dto.getTipoDano());
-        magia.setDescricao(dto.getDescricao());
 
-        // Lógica simples para vincular usuário pelo ID
-        if (dto.getUsuarioId() != null) {
-            Usuario u = new Usuario();
-            u.setId(dto.getUsuarioId());
-            magia.setUsuario(u);
-        }
-        
-        return magia;
-    }
 }

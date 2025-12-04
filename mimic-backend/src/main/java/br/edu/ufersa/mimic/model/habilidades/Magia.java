@@ -1,5 +1,6 @@
 package br.edu.ufersa.mimic.model.habilidades;
 
+import br.edu.ufersa.mimic.api.dto.habilidades.MagiaDTO;
 import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.enums.EscolaDeMagia;
 import jakarta.persistence.*;
@@ -24,7 +25,7 @@ public class Magia {
 
     @Enumerated(EnumType.STRING)
     @Column
-    private EscolaDeMagia escola; // Ex: EVOCACAO (Para preencher a escola na ficha)
+    private EscolaDeMagia escolaDeMagia; // Ex: EVOCACAO (Para preencher a escola na ficha)
 
     // DADOS DE CONJURAÇÃO (Coluna "Tempo")
     @Column(nullable = false)
@@ -65,4 +66,16 @@ public class Magia {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = true) // Pode ser nulo (Sistema)
     private Usuario usuario;
+
+    public Magia (MagiaDTO magia) {
+        this.id = magia.getId();
+        this.nome = magia.getNome();
+        this.descricao = magia.getDescricao();
+        this.circulo = magia.getCirculo();
+        this.escolaDeMagia = magia.getEscolaDeMagia();
+        this.tempoConjuracao = magia.getTempoConjuracao();
+        this.alcance = magia.getAlcance();
+        this.componentes = magia.getComponentes();
+        this.duracao = magia.getDuracao();
+    }
 }
