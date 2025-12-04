@@ -37,7 +37,7 @@ public class MagiaDTO {
 
     private String alcance;
 
-    private Set<String> componentes;
+    private String componentes;
 
     @NotBlank(message = "A duração é obrigatória.")
     private String duracao;
@@ -47,7 +47,7 @@ public class MagiaDTO {
         this.nome = magia.getNome();
         this.descricao = magia.getDescricao();
         this.circulo = magia.getCirculo();
-        this.escolaDeMagia = magia.getEscolaDeMagia();
+        this.escolaDeMagia = magia.getEscola();
         this.tempoConjuracao = magia.getTempoConjuracao();
         this.alcance = magia.getAlcance();
         this.componentes = magia.getComponentes();

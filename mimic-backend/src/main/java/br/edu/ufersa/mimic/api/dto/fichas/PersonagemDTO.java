@@ -1,10 +1,8 @@
 package br.edu.ufersa.mimic.api.dto.fichas;
 
 import br.edu.ufersa.mimic.model.caracteristicas.Classe;
-import br.edu.ufersa.mimic.model.caracteristicas.Origem;
-import br.edu.ufersa.mimic.model.caracteristicas.Raca;
-import br.edu.ufersa.mimic.model.caracteristicas.Subclasse;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
+import br.edu.ufersa.mimic.model.enums.Atributo;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.fichas.Personagem;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
@@ -26,24 +24,26 @@ public class PersonagemDTO {
 
     private Long id;
 
-    // --- Informações Básicas ---
     @NotBlank
     private String nomePersonagem;
+
     @NotNull
     private Integer nivel;
+
     private Integer pontosDeExperiencia;
     private Alinhamento alinhamento;
 
-    // --- Relacionamentos (IDs) ---
     @NotNull
     private Long classeId;
-    private Long subclasseId;
-    @NotNull
-    private Long especieId;
-    @NotNull
-    private Long antecedenteId;
 
-    // --- Atributos ---
+    private Long subclasseId;
+
+    @NotNull
+    private Long racaId;
+
+    @NotNull
+    private Long origemId;
+
     private Integer forca;
     private Integer destreza;
     private Integer constituicao;
@@ -51,81 +51,90 @@ public class PersonagemDTO {
     private Integer sabedoria;
     private Integer carisma;
 
-    // --- Status de Combate ---
     private Integer pontosDeVidaMaximos;
     private Integer pontosDeVidaAtuais;
     private Integer pontosDeVidaTemporarios;
+
     private Integer classeDeArmadura;
     private Integer iniciativa;
     private Integer deslocamento;
     private Integer percepcaoPassiva;
 
-    // --- Recursos ---
-    private String dadosDeVidaTotais;
     private Integer dadosDeVidaGastos;
     private boolean inspiracaoHeroica;
 
-    // --- Proficiências ---
-    private Set<String> proficienciasPericias;
-    private Set<String> proficienciasTestesDeResistencia;
+    private Set<String> pericias;
+    private Set<String> salvaguardas;
 
-    // --- Listas de IDs para Relacionamentos ManyToMany ---
+    private Atributo atributoChaveConjuracao;
+
+    private String aparencia;
+    private String historia;
+
     private List<Long> inventarioIds;
     private Set<Long> talentosIds;
     private Set<Long> magiasPreparadasIds;
 
-    // --- Dinheiro ---
     private Integer pc;
     private Integer pp;
     private Integer po;
     private Integer pl;
 
-    // Construtor de conversão (Entidade -> DTO)
-    public PersonagemDTO(Personagem personagem) {
-        this.id = personagem.getId();
-        this.nomePersonagem = personagem.getNomePersonagem();
-        this.nivel = personagem.getNivel();
-        this.pontosDeExperiencia = personagem.getPontosDeExperiencia();
-        this.alinhamento = personagem.getAlinhamento();
+    private Long usuarioId;
 
-        // Mapeia entidades para seus IDs
-        if (personagem.getClasse() != null) this.classeId = personagem.getClasse().getId();
-        if (personagem.getSubclasse() != null) this.subclasseId = personagem.getSubclasse().getId();
-        if (personagem.getEspecie() != null) this.especieId = personagem.getEspecie().getId();
-        if (personagem.getOrigem() != null) this.antecedenteId = personagem.getOrigem().getId();
+    public PersonagemDTO(Personagem p) {
+        this.id = p.getId();
+        this.nomePersonagem = p.getNome();
+        this.nivel = p.getNivel();
+        this.pontosDeExperiencia = p.getPontosDeExperiencia();
+        this.alinhamento = p.getAlinhamento();
 
-        this.forca = personagem.getForca();
-        this.destreza = personagem.getDestreza();
-        this.constituicao = personagem.getConstituicao();
-        this.inteligencia = personagem.getInteligencia();
-        this.sabedoria = personagem.getSabedoria();
-        this.carisma = personagem.getCarisma();
-        this.pontosDeVidaMaximos = personagem.getPontosDeVidaMaximos();
-        this.pontosDeVidaAtuais = personagem.getPontosDeVidaAtuais();
-        this.pontosDeVidaTemporarios = personagem.getPontosDeVidaTemporarios();
-        this.classeDeArmadura = personagem.getClasseDeArmadura();
-        this.iniciativa = personagem.getIniciativa();
-        this.deslocamento = personagem.getDeslocamento();
-        this.percepcaoPassiva = personagem.getPercepcaoPassiva();
-        this.dadosDeVidaTotais = personagem.getDadosDeVidaTotais();
-        this.dadosDeVidaGastos = personagem.getDadosDeVidaGastos();
-        this.inspiracaoHeroica = personagem.isInspiracaoHeroica();
-        this.proficienciasPericias = personagem.getProficienciasPericias();
-        this.proficienciasTestesDeResistencia = personagem.getProficienciasTestesDeResistencia();
-        this.pc = personagem.getPc();
-        this.pp = personagem.getPp();
-        this.po = personagem.getPo();
-        this.pl = personagem.getPl();
+        if (p.getClasse() != null) this.classeId = p.getClasse().getId();
+        if (p.getSubclasse() != null) this.subclasseId = p.getSubclasse().getId();
+        if (p.getRaca() != null) this.racaId = p.getRaca().getId();
+        if (p.getOrigem() != null) this.origemId = p.getOrigem().getId();
 
-        // Mapeia listas de entidades para listas de IDs
-        if (personagem.getInventario() != null) {
-            this.inventarioIds = personagem.getInventario().stream().map(Item::getId).collect(Collectors.toList());
+        this.forca = p.getForca();
+        this.destreza = p.getDestreza();
+        this.constituicao = p.getConstituicao();
+        this.inteligencia = p.getInteligencia();
+        this.sabedoria = p.getSabedoria();
+        this.carisma = p.getCarisma();
+
+        this.pontosDeVidaMaximos = p.getVidaMax();
+        this.pontosDeVidaAtuais = p.getVidaAtual();
+        this.pontosDeVidaTemporarios = p.getVidaTemp();
+        this.classeDeArmadura = p.getClasseDeArmadura();
+        this.iniciativa = p.getIniciativa();
+        this.deslocamento = p.getDeslocamento();
+        this.percepcaoPassiva = p.getPercepcaoPassiva();
+
+        this.dadosDeVidaGastos = p.getDadosDeVidaGastos();
+        this.inspiracaoHeroica = p.isInspiracaoHeroica();
+
+        this.pericias = p.getPericias();
+        this.salvaguardas = p.getSalvaguardas();
+        this.aparencia = p.getAparencia();
+        this.historia = p.getHistoria();
+        this.atributoChaveConjuracao = p.getAtributoChaveConjuracao();
+
+        this.pc = p.getPc();
+        this.pp = p.getPp();
+        this.po = p.getPo();
+        this.pl = p.getPl();
+
+        if (p.getInventario() != null) {
+            this.inventarioIds = p.getInventario().stream().map(Item::getId).collect(Collectors.toList());
         }
-        if (personagem.getTalentos() != null) {
-            this.talentosIds = personagem.getTalentos().stream().map(Talento::getId).collect(Collectors.toSet());
+        if (p.getTalentos() != null) {
+            this.talentosIds = p.getTalentos().stream().map(Talento::getId).collect(Collectors.toSet());
         }
-        if (personagem.getMagiasPreparadas() != null) {
-            this.magiasPreparadasIds = personagem.getMagiasPreparadas().stream().map(Magia::getId).collect(Collectors.toSet());
+        if (p.getMagiasPreparadas() != null) {
+            this.magiasPreparadasIds = p.getMagiasPreparadas().stream().map(Magia::getId).collect(Collectors.toSet());
+        }
+
+        if (p.getUsuario() != null) {
+            this.usuarioId = p.getUsuario().getUsuarioId();
         }
     }
 }

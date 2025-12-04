@@ -41,7 +41,7 @@ public class MagiaService {
         magiaExistente.setNome(magiaAtualizada.getNome());
         magiaExistente.setDescricao(magiaAtualizada.getDescricao());
         magiaExistente.setCirculo(magiaAtualizada.getCirculo());
-        magiaExistente.setEscolaDeMagia(magiaAtualizada.getEscolaDeMagia());
+        magiaExistente.setEscola(magiaAtualizada.getEscola());
         magiaExistente.setTempoConjuracao(magiaAtualizada.getTempoConjuracao());
         magiaExistente.setAlcance(magiaAtualizada.getAlcance());
         magiaExistente.setComponentes(magiaAtualizada.getComponentes());

@@ -1,16 +1,18 @@
 package br.edu.ufersa.mimic.model.fichas;
 
+import br.edu.ufersa.mimic.api.dto.fichas.CriaturaDTO;
 import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "criaturas")
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Criatura {
 
     @Id
@@ -21,31 +23,29 @@ public class Criatura {
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    private Tamanho tamanho; // MÉDIO, GRANDE, ETC.
+    private Tamanho tamanho;
 
     @Column(name = "tipo_criatura")
-    private String tipo; // Ex: "Morto-vivo", "Humanoide (Elfo)"
+    private String tipo;
 
     @Enumerated(EnumType.STRING)
     private Alinhamento alinhamento;
 
-    // --- ESTATÍSTICAS DEFENSIVAS ---
     @Column(name = "classe_armadura")
     private Integer ca;
 
     @Column(name = "descricao_ca")
-    private String descricaoCa; // Ex: "(Armadura Natural)" ou "(Cota de Malha)"
+    private String descricaoCa;
 
     @Column(name = "pontos_vida_total")
     private Integer pvTotal;
 
     @Column(name = "formula_vida")
-    private String formulaVida; // Ex: "2d8 + 4"
+    private String formulaVida;
 
     @Column
-    private String deslocamento; // Ex: "9m, Voo 12m"
+    private String deslocamento;
 
-    // --- ATRIBUTOS ---
     private int forca;
     private int destreza;
     private int constituicao;
@@ -53,60 +53,75 @@ public class Criatura {
     private int sabedoria;
     private int carisma;
 
-    // --- PROFICIÊNCIAS E SENTIDOS (Strings para simplificar o DB) ---
 
     @Column(columnDefinition = "TEXT")
-    private String salvaguardas; // Ex: "CON +4, SAB +2" (Nulo se não tiver)
+    private String salvaguardas;
 
     @Column(columnDefinition = "TEXT")
-    private String pericias; // Ex: "Furtividade +6, Percepção +3"
+    private String pericias;
 
     @Column(columnDefinition = "TEXT")
-    private String vulnerabilidades; // Ex: "Fogo"
+    private String vulnerabilidades;
 
     @Column(columnDefinition = "TEXT")
-    private String resistencias; // Ex: "Contundente de ataques não mágicos"
+    private String resistencias;
 
     @Column(columnDefinition = "TEXT")
-    private String imunidades; // Ex: "Veneno"
+    private String imunidades;
 
     @Column(columnDefinition = "TEXT")
-    private String imunidadesCondicao; // Ex: "Envenenado, Caído"
+    private String imunidadesCondicao;
 
     @Column
-    private String sentidos; // Ex: "Visão no escuro 18m, Percepção passiva 13"
+    private String sentidos;
 
     @Column
-    private String idiomas; // Ex: "Comum, Élfico"
+    private String idiomas;
 
-    // --- DESAFIO ---
     @Column(name = "nivel_desafio")
-    private String nd; // String para aceitar frações: "1/4", "1/8"
+    private String nd;
 
     @Column
-    private Integer xp; // Ex: 50, 200
+    private Integer xp;
 
     @Column(name = "bonus_proficiencia")
-    private Integer bonusProficiencia; // Útil para cálculos internos (+2, +3...)
-
-    // --- AÇÕES E TRAÇOS ---
-    // Recomendação: Use Markdown ou HTML simples aqui para negrito e itálico.
+    private Integer bonusProficiencia;
 
     @Column(columnDefinition = "TEXT")
-    private String tracos; // Passivas. Ex: "**Anfíbio.** O sapo pode respirar..."
+    private String tracos;
 
     @Column(columnDefinition = "TEXT")
-    private String acoes; // Ataques. Ex: "**Mordida.** *Ataque Corpo-a-Corpo:* +4..."
+    private String acoes;
 
     @Column(columnDefinition = "TEXT")
-    private String reacoes; // Ex: "**Aparar.** A criatura adiciona 2 na CA..."
+    private String reacoes;
 
-    // (Opcional) Monstros Lendários têm ações lendárias
     @Column(columnDefinition = "TEXT")
     private String acoesLendarias;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false) // Pode ser nulo (Sistema)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
+
+    public Criatura(CriaturaDTO criaturaDTO) {
+        this.id = criaturaDTO.getId();
+        this.nome = criaturaDTO.getNome();
+        this.tamanho = criaturaDTO.getTamanho();
+        this.tipo = criaturaDTO.getTipo();
+        this.alinhamento = criaturaDTO.getAlinhamento();
+
+        this.ca = criaturaDTO.getCa();
+        this.descricaoCa = criaturaDTO.getDescricaoCa();
+        this.pvTotal = criaturaDTO.getPvTotal();
+        this.formulaVida = criaturaDTO.getFormulaVida();
+        this.deslocamento = criaturaDTO.getDeslocamento();
+
+        this.forca = criaturaDTO.getForca();
+        this.destreza = criaturaDTO.getDestreza();
+        this.constituicao = criaturaDTO.getConstituicao();
+        this.inteligencia = criaturaDTO.getInteligencia();
+        this.sabedoria = criaturaDTO.getSabedoria();
+        this.carisma = criaturaDTO.getCarisma();
+    }
 
 }
