@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/layout/Header';
 
-// Opções para o select de Escola
 const escolasDeMagia = [
     { value: "ABJURACAO", label: "Abjuração" },
     { value: "ADIVINHACAO", label: "Adivinhação" },
@@ -16,7 +15,11 @@ const escolasDeMagia = [
 
 const CreateSpell = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEditMode = !!id;   
+
   const [error, setError] = useState('');
+  const [loadingData, setLoadingData] = useState(false);
 
   const [formData, setFormData] = useState({
     nome: '',
@@ -29,8 +32,62 @@ const CreateSpell = () => {
     isRitual: false,
     isConcentration: false,
     descricao: '',
-    escola: '' // Campo novo para o enum
+    escola: ''
   });
+
+
+  useEffect(() => {
+    if (isEditMode) {
+      fetchSpellData();
+    }
+  }, [id]);
+
+  const fetchSpellData = async () => {
+    setLoadingData(true);
+    const token = localStorage.getItem('token');
+    const usuarioId = localStorage.getItem('usuarioId');
+
+    try {
+      const response = await fetch(`http://localhost:8080/api/magias/${id}?usuarioId=${usuarioId}`, {
+        headers: { 'Authorization': token || '' }
+      });
+
+      if (!response.ok) throw new Error("Erro ao carregar magia.");
+
+      const data = await response.json();
+    
+      const compsArray = [];
+      if (data.componentes.includes('V')) compsArray.push('V');
+      if (data.componentes.includes('S')) compsArray.push('S');
+      if (data.componentes.includes('M')) compsArray.push('M');
+
+    
+      const materialMatch = data.componentes.match(/\(([^)]+)\)/);
+      const materialText = materialMatch ? materialMatch[1] : '';
+
+    
+      setFormData({
+        nome: data.nome,
+        alcance: data.alcance,
+        conjuracao: data.tempoConjuracao,
+        nivel: data.circulo,             
+        duracao: data.duracao,
+        components: compsArray,
+        materialDesc: materialText,
+        isRitual: data.eRitual,          
+        isConcentration: data.eConcentracao,
+        descricao: data.descricao,
+        escola: data.escola || ''
+      });
+
+    } catch (err) {
+      console.error(err);
+      setError("Não foi possível carregar os dados da magia.");
+    } finally {
+      setLoadingData(false);
+    }
+  };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -52,60 +109,62 @@ const CreateSpell = () => {
     });
   };
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    // Validação básica
     if (!formData.nome || !formData.alcance || !formData.conjuracao || !formData.duracao || !formData.descricao) {
       setError('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
 
-    // 1. Recupera credenciais
     const token = localStorage.getItem('token');
     const usuarioId = localStorage.getItem('usuarioId');
 
     if (!token || !usuarioId) {
-        setError('Você precisa estar logado.');
+        setError('Sessão inválida. Faça login novamente.');
         return;
     }
 
-    // 2. Formata componentes para String única "V, S, M (desc)"
+  
     let componentesString = formData.components.join(', ');
     if (formData.components.includes('M') && formData.materialDesc) {
         componentesString += ` (${formData.materialDesc})`;
     }
 
-    // 3. Monta o Payload para o Java
     const payload = {
         nome: formData.nome,
         alcance: formData.alcance,
-        tempoConjuracao: formData.conjuracao, 
+        tempoConjuracao: formData.conjuracao,
         circulo: formData.nivel,
         duracao: formData.duracao,
         componentes: componentesString,
-        isRitual: formData.isRitual,
-        isConcentracao: formData.isConcentration, // Java: isConcentracao
+        eRitual: formData.isRitual,         
+        eConcentracao: formData.isConcentration, 
         descricao: formData.descricao,
-        escola: formData.escola || null // Envia null se vazio, ou valor do enum
+        escola: formData.escola || null
     };
 
     try {
-        const response = await fetch(`http://localhost:8080/api/magias?usuarioId=${usuarioId}`, {
-            method: 'POST',
+        const url = isEditMode 
+            ? `http://localhost:8080/api/magias/${id}?usuarioId=${usuarioId}`
+            : `http://localhost:8080/api/magias?usuarioId=${usuarioId}`;
+        
+        const method = isEditMode ? 'PUT' : 'POST';
+
+        const response = await fetch(url, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token // Envia o token no header
+                'Authorization': token
             },
             body: JSON.stringify(payload)
         });
 
-        if (!response.ok) {
-            throw new Error('Erro ao salvar magia.');
-        }
+        if (!response.ok) throw new Error('Erro ao salvar magia.');
 
-        console.log("Magia criada com sucesso!");
+        console.log(isEditMode ? "Editado com sucesso!" : "Criado com sucesso!");
         navigate('/gerenciar-magias');
 
     } catch (err) {
@@ -114,6 +173,14 @@ const CreateSpell = () => {
     }
   };
 
+  if (loadingData) {
+    return (
+        <div className="bg-[#1A1A1A] h-screen flex items-center justify-center text-white">
+            <p className="text-xl animate-pulse">Carregando dados do grimório...</p>
+        </div>
+    );
+  }
+
   return (
     <div className="bg-[#1A1A1A] text-gray-200 min-h-screen font-sans">
       <Header />
@@ -121,7 +188,10 @@ const CreateSpell = () => {
       <main className="container mx-auto p-8">
         <div className="max-w-4xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl">
 
-          <h2 className="text-3xl font-semibold text-white mb-2 font-medieval">Criar Magia</h2>
+          {/* TÍTULO DINÂMICO */}
+          <h2 className="text-3xl font-semibold text-white mb-2 font-medieval">
+            {isEditMode ? 'Editar Magia' : 'Criar Magia'}
+          </h2>
           <hr className="border-t-2 border-red-600 mb-8" />
 
           <form onSubmit={handleSubmit}>
@@ -138,7 +208,6 @@ const CreateSpell = () => {
                 <label className="text-lg font-medium text-gray-300">Conjuração</label>
                 <input type="text" name="conjuracao" value={formData.conjuracao} onChange={handleChange} className="p-2 rounded bg-[#444444] border border-gray-600 text-white w-full focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Ex: 1 Ação" />
                 
-                {/* SELECT DE ESCOLA */}
                 <label className="text-lg font-medium text-gray-300">Escola</label>
                 <div className="relative w-full">
                     <select name="escola" value={formData.escola} onChange={handleChange} className="p-2 rounded bg-[#444444] border border-gray-600 text-white w-full appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500">
@@ -198,7 +267,9 @@ const CreateSpell = () => {
 
             <div className="mt-10 flex justify-between">
               <button type="button" onClick={() => navigate('/gerenciar-magias')} className="px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold">Cancelar</button>
-              <button type="submit" className="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold shadow-lg">Finalizar</button>
+              <button type="submit" className="px-6 py-2 rounded bg-green-600 hover:bg-green-500 text-white font-semibold shadow-lg">
+                {isEditMode ? 'Salvar Alterações' : 'Criar Magia'}
+              </button>
             </div>
           </form>
         </div>

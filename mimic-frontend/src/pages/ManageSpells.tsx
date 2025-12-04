@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import SpellCard from '../components/ui/SpellCard';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Interface deve bater com o retorno do Java
 interface Spell {
@@ -16,7 +16,7 @@ interface Spell {
 const ManageSpells = () => {
   const [spells, setSpells] = useState<Spell[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   // Carrega as magias ao abrir a página
   useEffect(() => {
     fetchSpells();
@@ -44,8 +44,7 @@ const ManageSpells = () => {
   };
 
   const handleEdit = (id: number) => {
-    // Futuro: Navigate para /editar-magia/id
-    alert(`Funcionalidade de editar (ID: ${id}) em breve!`);
+    navigate(`/editar-magia/${id}`);
   };
 
   const handleDelete = async (id: number) => {
