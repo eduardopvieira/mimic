@@ -1,4 +1,4 @@
-package br.edu.ufersa.mimic.service.caracteristicas;
+package br.edu.ufersa.mimic.service.geral;
 
 import br.edu.ufersa.mimic.api.dto.caracteristicas.OrigemDTO;
 import br.edu.ufersa.mimic.model.caracteristicas.Origem;

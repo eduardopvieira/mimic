@@ -44,7 +44,8 @@ public class OrigemSeeder implements CommandLineRunner {
                     origem.setAtributosPermitidos(dto.getAtributosPermitidos());
                     origem.setPericias(dto.getPericias());
                     origem.setFerramenta(dto.getFerramenta());
-                    origem.setEquipamentoInicial(dto.getEquipamentoInicial());
+                    origem.setEquipamentoA(dto.getEquipamentoA());
+                    origem.setEquipamentoB(dto.getEquipamentoB());
 
                     Optional<Talento> talentoOpt = talentoRepository.findByNome(dto.getTalentoInicial());
 

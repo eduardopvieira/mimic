@@ -50,15 +50,7 @@ public class BibliotecaService {
     //                             SUBCLASSES
     // =========================================================================
 
-    @Transactional(readOnly = true)
-    public List<SubclasseDTO> listarSubclassesPorClasse(Long classeId) {
-        Classe classe = classeRepository.findById(classeId)
-                .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada com id: " + classeId));
 
-        return subclasseRepository.findByClassePai(classe).stream()
-                .map(SubclasseDTO::new)
-                .collect(Collectors.toList());
-    }
 
     @Transactional(readOnly = true)
     public SubclasseDTO buscarSubclassePorId(Long id) {

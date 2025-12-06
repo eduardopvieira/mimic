@@ -2,7 +2,7 @@ package br.edu.ufersa.mimic.api.controller.geral;
 
 import br.edu.ufersa.mimic.api.dto.caracteristicas.OrigemDTO;
 import jakarta.validation.Valid;
-import br.edu.ufersa.mimic.service.caracteristicas.OrigemService;
+import br.edu.ufersa.mimic.service.geral.OrigemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +30,7 @@ public class OrigemController {
 
     @PostMapping
     public ResponseEntity<OrigemDTO> criar(@RequestBody @Valid OrigemDTO dto, @RequestParam Long usuarioId) {
+        System.out.println(dto.getNome() + ", " + usuarioId);
         return ResponseEntity.status(HttpStatus.CREATED).body(origemService.salvar(dto, usuarioId));
     }
 

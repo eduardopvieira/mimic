@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MagiaService {
@@ -19,8 +20,6 @@ public class MagiaService {
     }
 
     public List<Magia> listarTodas() {
-        // Nota: Futuramente, você deve usar o findAllPublicAndUser(userId) 
-        // pegando o ID do usuário logado via SecurityContext para não mostrar magias de outros.
         return magiaRepository.findAll();
     }
 
@@ -33,9 +32,6 @@ public class MagiaService {
         return magiaRepository.findByNomeContainingIgnoreCase(nome);
     }
 
-    public List<Magia> buscarPorCirculo(Integer circulo) {
-        return magiaRepository.findByCirculo(circulo);
-    }
 
     public Magia salvar(Magia magia) {
         return magiaRepository.save(magia);

@@ -13,4 +13,6 @@ public class OrigemJsonDTO {
     private Set<String> pericias;
     private String ferramenta;
     private String equipamentoInicial;
+    private String equipamentoA;
+    private String equipamentoB;
 }

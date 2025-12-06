@@ -1,0 +1,438 @@
+[
+  {
+    "nome": "Trilha da Árvore do Mundo",
+    "classePaiId": 1,
+    "caracteristicas": [
+      { "nome": "Vitalidade da Árvore", "nivelAdquirido": 3, "descricao": "Ao entrar em Fúria, ganha PV Temp. e cura aliados próximos a cada turno." },
+      { "nome": "Ramos da Árvore", "nivelAdquirido": 6, "descricao": "Reação: Teleporta uma criatura a 9m para perto de você e reduz desl. a 0." },
+      { "nome": "Raízes Devastadoras", "nivelAdquirido": 10, "descricao": "Alcance +3m com armas Pesadas/Versáteis. Pode usar maestria Derrubar ou Empurrar." },
+      { "nome": "Percorrer a Árvore", "nivelAdquirido": 14, "descricao": "Teleporte via Fúria. Pode levar aliados." }
+    ]
+  },
+  {
+    "nome": "Trilha do Berserker",
+    "classePaiId": 1,
+    "caracteristicas": [
+      { "nome": "Frenesi", "nivelAdquirido": 3, "descricao": "Causa dano extra de Fúria (d6s) no primeiro ataque imprudente do turno." },
+      { "nome": "Fúria Irracional", "nivelAdquirido": 6, "descricao": "Imunidade a Amedrontado e Enfeitiçado durante a Fúria." },
+      { "nome": "Retaliação", "nivelAdquirido": 10, "descricao": "Reação: Ataca quem te causou dano a 1,5m." },
+      { "nome": "Presença Intimidante", "nivelAdquirido": 14, "descricao": "Ação Bônus: Amedronta criaturas em emanação de 9m." }
+    ]
+  },
+  {
+    "nome": "Trilha do Coração Selvagem",
+    "classePaiId": 1,
+    "caracteristicas": [
+      { "nome": "Fúria dos Selvagens", "nivelAdquirido": 3, "descricao": "Escolha ao entrar em Fúria: Águia (Desengajar/Correr), Lobo (Vantagem para aliados) ou Urso (Resistência a quase tudo)." },
+      { "nome": "Aspecto dos Selvagens", "nivelAdquirido": 6, "descricao": "Escolha: Visão no Escuro, Escalada ou Natação." },
+      { "nome": "Poder dos Selvagens", "nivelAdquirido": 14, "descricao": "Melhoria da Fúria: Derrubar (Carneiro), Voo (Falcão) ou Desvantagem inimiga (Leão)." }
+    ]
+  },
+  {
+    "nome": "Trilha do Fanático",
+    "classePaiId": 1,
+    "caracteristicas": [
+      { "nome": "Fúria Divina", "nivelAdquirido": 3, "descricao": "Causa 1d6 + meia nível de dano extra (Necrótico/Radiante) no primeiro acerto do turno." },
+      { "nome": "Campeão dos Deuses", "nivelAdquirido": 3, "descricao": "Reserva de dados (d12) para se curar como Ação Bônus." },
+      { "nome": "Concentração Fanática", "nivelAdquirido": 6, "descricao": "Jogue novamente uma falha em salvaguarda (1/Fúria)." },
+      { "nome": "Fúria dos Deuses", "nivelAdquirido": 14, "descricao": "Resistência a dano e pode evitar cair a 0 PV usando Fúria como Reação." }
+    ]
+  },
+  {
+    "nome": "Colégio da Bravura",
+    "classePaiId": 2,
+    "caracteristicas": [
+      { "nome": "Inspiração em Combate", "nivelAdquirido": 3, "descricao": "Dados de Inspiração podem ser usados para aumentar Dano ou CA." },
+      { "nome": "Treinamento Marcial", "nivelAdquirido": 3, "descricao": "Proficiência em Armaduras Médias, Escudos e Armas Marciais." },
+      { "nome": "Ataque Extra", "nivelAdquirido": 6, "descricao": "Pode atacar duas vezes. Pode substituir um ataque por um Truque." },
+      { "nome": "Magia de Batalha", "nivelAdquirido": 14, "descricao": "Ação Bônus: Ataca com arma após conjurar magia de ação." }
+    ]
+  },
+  {
+    "nome": "Colégio da Dança",
+    "classePaiId": 2,
+    "caracteristicas": [
+      { "nome": "Ginga Fascinante", "nivelAdquirido": 3, "descricao": "Sem armadura: CA base melhorada. Ataques desarmados usam Des e causam dano de Bardo." },
+      { "nome": "Gingado Coordenado", "nivelAdquirido": 6, "descricao": "Compartilha Iniciativa com aliados." },
+      { "nome": "Evasão Liderada", "nivelAdquirido": 14, "descricao": "Evasão para você e aliados próximos." }
+    ]
+  },
+  {
+    "nome": "Colégio do Conhecimento",
+    "classePaiId": 2,
+    "caracteristicas": [
+      { "nome": "Palavras de Interrupção", "nivelAdquirido": 3, "descricao": "Reação: Usa Inspiração para reduzir Jogada de Ataque, Dano ou Teste de Atributo inimigo." },
+      { "nome": "Descobertas Mágicas", "nivelAdquirido": 6, "descricao": "Aprende 2 magias de qualquer classe." },
+      { "nome": "Perícia Inigualável", "nivelAdquirido": 14, "descricao": "Usa Inspiração para melhorar seus próprios testes falhos." }
+    ]
+  },
+  {
+    "nome": "Colégio do Glamour",
+    "classePaiId": 2,
+    "caracteristicas": [
+      { "nome": "Manto de Inspiração", "nivelAdquirido": 3, "descricao": "Gasta Inspiração para dar PV Temp. e movimento tático a aliados." },
+      { "nome": "Manto de Majestade", "nivelAdquirido": 6, "descricao": "Conjura Comando como Ação Bônus sem gastar espaço por 1 min." },
+      { "nome": "Majestade Inquebrável", "nivelAdquirido": 14, "descricao": "Inimigos devem passar em Carisma para te atacar." }
+    ]
+  },
+  {
+    "nome": "Patrono Arquifada",
+    "classePaiId": 3,
+    "caracteristicas": [
+      { "nome": "Passos Feéricos", "nivelAdquirido": 3, "descricao": "Conjura Passo Nebuloso (recarga em desc. longo) com efeitos extras (Provocar ou Revigorar)." },
+      { "nome": "Fuga em Névoa", "nivelAdquirido": 6, "descricao": "Reação ao sofrer dano: Conjura Passo Nebuloso." },
+      { "nome": "Defesas Sedutoras", "nivelAdquirido": 10, "descricao": "Imune a Enfeitiçado; reflete encanto." }
+    ]
+  },
+  {
+    "nome": "Patrono Celestial",
+    "classePaiId": 3,
+    "caracteristicas": [
+      { "nome": "Luz Medicinal", "nivelAdquirido": 3, "descricao": "Reserva de d6s para curar como Ação Bônus." },
+      { "nome": "Alma Radiante", "nivelAdquirido": 6, "descricao": "Resistência a Radiante; Dano extra (Car) em magias de Fogo/Radiante." },
+      { "nome": "Vingança Calcinante", "nivelAdquirido": 14, "descricao": "Ao cair a 0 PV, levanta com metade da vida e causa dano em área." }
+    ]
+  },
+  {
+    "nome": "Patrono O Grande Antigo",
+    "classePaiId": 3,
+    "caracteristicas": [
+      { "nome": "Mente Desperta", "nivelAdquirido": 3, "descricao": "Telepatia unidirecional e magias causam dano Psíquico." },
+      { "nome": "Combatente Clarividente", "nivelAdquirido": 6, "descricao": "Impõe Desvantagem em ataques inimigos e ganha Vantagem contra eles." },
+      { "nome": "Criar Servo", "nivelAdquirido": 14, "descricao": "Conjura Invocar Aberração sem concentração." }
+    ]
+  },
+  {
+    "nome": "Patrono Ínfero",
+    "classePaiId": 3,
+    "caracteristicas": [
+      { "nome": "Bênção do Tenebroso", "nivelAdquirido": 3, "descricao": "Ganha PV Temp. ao reduzir inimigo a 0 PV." },
+      { "nome": "Sorte do Tenebroso", "nivelAdquirido": 6, "descricao": "Adiciona 1d10 a um teste de atributo ou salvaguarda (1/descanso)." },
+      { "nome": "Lançar no Inferno", "nivelAdquirido": 14, "descricao": "Ao acertar ataque, bane inimigo para pesadelo causando 8d10 psíquico." }
+    ]
+  },
+  {
+    "nome": "Domínio da Guerra",
+    "classePaiId": 4,
+    "caracteristicas": [
+      { "nome": "Ataque Direcionado", "nivelAdquirido": 3, "descricao": "Canalizar Divindade: +10 no acerto (Reação para aliados ou no seu ataque)." },
+      { "nome": "Sacerdote da Guerra", "nivelAdquirido": 3, "descricao": "Ação Bônus: Realiza um ataque com arma limitado." },
+      { "nome": "Avatar da Guerra", "nivelAdquirido": 17, "descricao": "Resistência a dano Contundente, Cortante e Perfurante." }
+    ]
+  },
+  {
+    "nome": "Domínio da Luz",
+    "classePaiId": 4,
+    "caracteristicas": [
+      { "nome": "Brilho do Amanhecer", "nivelAdquirido": 3, "descricao": "Canalizar Divindade: Dano radiante em área e dissipa escuridão." },
+      { "nome": "Labareda Protetora", "nivelAdquirido": 3, "descricao": "Reação: Impõe Desvantagem em ataque inimigo." },
+      { "nome": "Coroa de Luz", "nivelAdquirido": 17, "descricao": "Emite luz solar; inimigos têm desvantagem contra suas magias de fogo/radiante." }
+    ]
+  },
+  {
+    "nome": "Domínio da Trapaça",
+    "classePaiId": 4,
+    "caracteristicas": [
+      { "nome": "Invocar Duplicidade", "nivelAdquirido": 3, "descricao": "Cria ilusão perfeita. Pode conjurar a partir dela e ganha Vantagem se ambos estiverem perto do alvo." },
+      { "nome": "Bênção do Trapaceiro", "nivelAdquirido": 3, "descricao": "Concede Vantagem em Furtividade a outra criatura." },
+      { "nome": "Duplicidade Aprimorada", "nivelAdquirido": 17, "descricao": "Aliados ganham Vantagem contra inimigos perto da ilusão." }
+    ]
+  },
+  {
+    "nome": "Domínio da Vida",
+    "classePaiId": 4,
+    "caracteristicas": [
+      { "nome": "Discípulo da Vida", "nivelAdquirido": 3, "descricao": "Magias de cura recuperam PV adicionais (2 + nível da magia)." },
+      { "nome": "Preservar a Vida", "nivelAdquirido": 3, "descricao": "Canalizar Divindade: Cura em área até metade dos PV dos alvos." },
+      { "nome": "Cura Suprema", "nivelAdquirido": 17, "descricao": "Sempre cura o valor máximo dos dados." }
+    ]
+  },
+  {
+    "nome": "Círculo da Lua",
+    "classePaiId": 5,
+    "caracteristicas": [
+      { "nome": "Formas de Combate", "nivelAdquirido": 3, "descricao": "Ação Bônus: Forma Selvagem com CA melhorada e PV Temp. triplicados." },
+      { "nome": "Radiância Lunar", "nivelAdquirido": 6, "descricao": "Ataques na forma animal causam dano Radiante." },
+      { "nome": "Forma Lunar", "nivelAdquirido": 14, "descricao": "Dano extra 2d10 Radiante e teleporte compartilhado." }
+    ]
+  },
+  {
+    "nome": "Círculo da Terra",
+    "classePaiId": 5,
+    "caracteristicas": [
+      { "nome": "Auxílio da Terra", "nivelAdquirido": 3, "descricao": "Gasta Forma Selvagem para curar ou causar dano em área." },
+      { "nome": "Recuperação Natural", "nivelAdquirido": 6, "descricao": "Recupera espaços de magia em Descanso Curto. Conjura magias de círculo sem gastar espaço." },
+      { "nome": "Santuário Natural", "nivelAdquirido": 14, "descricao": "Cria área de plantas que dá cobertura e resistência." }
+    ]
+  },
+  {
+    "nome": "Círculo das Estrelas",
+    "classePaiId": 5,
+    "caracteristicas": [
+      { "nome": "Mapa Estelar", "nivelAdquirido": 3, "descricao": "Foco druídico que concede Orientação e Raio Guia." },
+      { "nome": "Forma Estrelada", "nivelAdquirido": 3, "descricao": "Gasta Forma Selvagem para virar constelação (Arqueiro, Dragão ou Taça)." },
+      { "nome": "Repleto de Estrelas", "nivelAdquirido": 14, "descricao": "Resistência a danos físicos na forma estrelada." }
+    ]
+  },
+  {
+    "nome": "Círculo do Mar",
+    "classePaiId": 5,
+    "caracteristicas": [
+      { "nome": "Ira do Mar", "nivelAdquirido": 3, "descricao": "Gasta Forma Selvagem para criar emanação de água que causa dano Frio e empurra." },
+      { "nome": "Afinidade Aquática", "nivelAdquirido": 6, "descricao": "Deslocamento de Natação e emanação maior." },
+      { "nome": "Filho da Tempestade", "nivelAdquirido": 10, "descricao": "Voo e resistência a Elétrico, Gélido e Trovejante." }
+    ]
+  },
+  {
+    "nome": "Feitiçaria Aberrante",
+    "classePaiId": 6,
+    "caracteristicas": [
+      { "nome": "Fala Telepática", "nivelAdquirido": 3, "descricao": "Elo mental com criatura a até 9m." },
+      { "nome": "Feitiçaria Psiônica", "nivelAdquirido": 6, "descricao": "Conjura magias da subclasse usando Pontos de Feitiçaria com desconto e sem componentes." },
+      { "nome": "Revelação em Carne", "nivelAdquirido": 14, "descricao": "Transformação (Voo, Natação, Ver Invisível ou passar em frestas)." }
+    ]
+  },
+  {
+    "nome": "Feitiçaria Dracônica",
+    "classePaiId": 6,
+    "caracteristicas": [
+      { "nome": "Resiliência Dracônica", "nivelAdquirido": 3, "descricao": "+PV por nível e CA 10+Des+Car sem armadura." },
+      { "nome": "Afinidade Elemental", "nivelAdquirido": 6, "descricao": "Resistência e dano extra ao elemento do dragão." },
+      { "nome": "Asas de Dragão", "nivelAdquirido": 14, "descricao": "Ganha voo por 1 hora." }
+    ]
+  },
+  {
+    "nome": "Feitiçaria Mecânica",
+    "classePaiId": 6,
+    "caracteristicas": [
+      { "nome": "Restaurar Equilíbrio", "nivelAdquirido": 3, "descricao": "Reação: Anula Vantagem/Desvantagem de uma criatura." },
+      { "nome": "Bastião da Lei", "nivelAdquirido": 6, "descricao": "Cria escudo de d8s para reduzir dano." },
+      { "nome": "Transe da Ordem", "nivelAdquirido": 14, "descricao": "Por 1 min, rolagens de 9 ou menos viram 10." }
+    ]
+  },
+  {
+    "nome": "Feitiçaria Selvagem",
+    "classePaiId": 6,
+    "caracteristicas": [
+      { "nome": "Marés do Caos", "nivelAdquirido": 3, "descricao": "Ganha Vantagem em um teste (recarga com Surto ou descanso)." },
+      { "nome": "Surto de Magia Selvagem", "nivelAdquirido": 3, "descricao": "Chance de efeito aleatório ao conjurar magias." },
+      { "nome": "Caos Controlado", "nivelAdquirido": 14, "descricao": "Rola duas vezes na tabela de surto e escolhe um." }
+    ]
+  },
+  {
+    "nome": "Andarilho Feérico",
+    "classePaiId": 7,
+    "caracteristicas": [
+      { "nome": "Golpes Terríveis", "nivelAdquirido": 3, "descricao": "Dano psíquico extra ao atingir com arma." },
+      { "nome": "Glamour Transcendental", "nivelAdquirido": 3, "descricao": "Soma Sabedoria em testes de Carisma." },
+      { "nome": "Reforços Feéricos", "nivelAdquirido": 11, "descricao": "Conjura Convocar Feérico sem componente e sem concentração." }
+    ]
+  },
+  {
+    "nome": "Caçador",
+    "classePaiId": 7,
+    "caracteristicas": [
+      { "nome": "Presa do Caçador", "nivelAdquirido": 3, "descricao": "Escolha: Colosso (dano extra em feridos) ou Horda (ataque extra em criatura adjacente)." },
+      { "nome": "Táticas Defensivas", "nivelAdquirido": 7, "descricao": "Escolha: Defesa Múltipla ou Escapar de Hordas." },
+      { "nome": "Ataque Voluntário", "nivelAdquirido": 11, "descricao": "Ataque em área com arma (Saraivada ou Redemoinho)." }
+    ]
+  },
+  {
+    "nome": "Senhor das Feras",
+    "classePaiId": 7,
+    "caracteristicas": [
+      { "nome": "Companheiro Primal", "nivelAdquirido": 3, "descricao": "Invoca uma Fera da Terra, Ar ou Mar que age no seu turno." },
+      { "nome": "Treinamento Excepcional", "nivelAdquirido": 7, "descricao": "Ataques da fera são mágicos; Ação Bônus comanda a fera a Ajudar/Correr/Etc." },
+      { "nome": "Fúria Bestial", "nivelAdquirido": 11, "descricao": "Fera ataca duas vezes." }
+    ]
+  },
+  {
+    "nome": "Vigilante das Sombras",
+    "classePaiId": 7,
+    "caracteristicas": [
+      { "nome": "Emboscador das Sombras", "nivelAdquirido": 3, "descricao": "No 1º turno: +3m deslc., ataque extra causa +1d8 dano. Soma Sab na Iniciativa." },
+      { "nome": "Visão Umbrosa", "nivelAdquirido": 3, "descricao": "Visão no Escuro aprimorada e invisível para visão no escuro." },
+      { "nome": "Torrente do Vigilante", "nivelAdquirido": 11, "descricao": "Se errar ataque, pode fazer outro." }
+    ]
+  },
+  {
+    "nome": "Campeão",
+    "classePaiId": 8,
+    "caracteristicas": [
+      { "nome": "Crítico Aprimorado", "nivelAdquirido": 3, "descricao": "Crítico no 19-20." },
+      { "nome": "Atleta Extraordinário", "nivelAdquirido": 3, "descricao": "Vantagem em Iniciativa e Atletismo. Salto maior." },
+      { "nome": "Crítico Superior", "nivelAdquirido": 15, "descricao": "Crítico no 18-20." }
+    ]
+  },
+  {
+    "nome": "Cavaleiro Místico",
+    "classePaiId": 8,
+    "caracteristicas": [
+      { "nome": "Conjuração", "nivelAdquirido": 3, "descricao": "Magias de Mago (Inteligência)." },
+      { "nome": "Vínculo com Arma", "nivelAdquirido": 3, "descricao": "Invoca arma para a mão." },
+      { "nome": "Magia de Guerra", "nivelAdquirido": 7, "descricao": "Pode substituir um ataque por um Truque." }
+    ]
+  },
+  {
+    "nome": "Combatente Psíquico",
+    "classePaiId": 8,
+    "caracteristicas": [
+      { "nome": "Poder Psiônico", "nivelAdquirido": 3, "descricao": "Dados de energia para reduzir dano ou aumentar dano e mover objetos." },
+      { "nome": "Guerreiro Telecinético", "nivelAdquirido": 7, "descricao": "Empurra inimigos ou salta com a mente." },
+      { "nome": "Baluarte de Energia", "nivelAdquirido": 15, "descricao": "Garante cobertura parcial para aliados." }
+    ]
+  },
+  {
+    "nome": "Mestre da Batalha",
+    "classePaiId": 8,
+    "caracteristicas": [
+      { "nome": "Superioridade em Combate", "nivelAdquirido": 3, "descricao": "Manobras (ex: Derrubar, Precisão) usando dados de superioridade (d8)." },
+      { "nome": "Estudioso da Guerra", "nivelAdquirido": 3, "descricao": "Proficiência em ferramenta artesão." },
+      { "nome": "Conheça seu Inimigo", "nivelAdquirido": 7, "descricao": "Descobre atributos do inimigo." }
+    ]
+  },
+  {
+    "nome": "Adaga Espiritual",
+    "classePaiId": 9,
+    "caracteristicas": [
+      { "nome": "Lâminas Psíquicas", "nivelAdquirido": 3, "descricao": "Cria lâminas de energia (dano psíquico). Pode atacar com bonus action." },
+      { "nome": "Poder Psiônico", "nivelAdquirido": 3, "descricao": "Dados de energia para melhorar testes de perícia ou comunicação telepática." },
+      { "nome": "Lâminas da Alma", "nivelAdquirido": 9, "descricao": "Teleporte ou acerto guiado com lâminas." }
+    ]
+  },
+  {
+    "nome": "Assassino",
+    "classePaiId": 9,
+    "caracteristicas": [
+      { "nome": "Assassinar", "nivelAdquirido": 3, "descricao": "Vantagem contra quem não agiu. Dano extra se acertar." },
+      { "nome": "Especialista em Infiltração", "nivelAdquirido": 9, "descricao": "Cria identidades falsas e imita vozes/escrita." },
+      { "nome": "Golpe Mortal", "nivelAdquirido": 17, "descricao": "Dobra o dano do ataque surpresa." }
+    ]
+  },
+  {
+    "nome": "Ladrão",
+    "classePaiId": 9,
+    "caracteristicas": [
+      { "nome": "Mãos Leves", "nivelAdquirido": 3, "descricao": "Ação Bônus: Prestidigitação, Usar Objeto." },
+      { "nome": "Andarilho de Telhados", "nivelAdquirido": 3, "descricao": "Deslocamento de escalada. Pulo com Destreza." },
+      { "nome": "Furtividade Suprema", "nivelAdquirido": 9, "descricao": "Vantagem em Furtividade se mover metade do deslocamento." }
+    ]
+  },
+  {
+    "nome": "Trapaceiro Arcano",
+    "classePaiId": 9,
+    "caracteristicas": [
+      { "nome": "Conjuração", "nivelAdquirido": 3, "descricao": "Magias de Mago (Inteligência, foco em Ilusão/Encantamento)." },
+      { "nome": "Mãos Mágicas Ligeiras", "nivelAdquirido": 3, "descricao": "Mãos Mágicas invisível, pode roubar/colocar itens." },
+      { "nome": "Emboscada Mágica", "nivelAdquirido": 9, "descricao": "Inimigos têm Desvantagem em SG se você estiver escondido." }
+    ]
+  },
+  {
+    "nome": "Abjurador",
+    "classePaiId": 10,
+    "caracteristicas": [
+      { "nome": "Proteção Arcana", "nivelAdquirido": 3, "descricao": "Escudo mágico com PVs que absorve dano. Recarrega ao conjurar Abjuração." },
+      { "nome": "Proteção Projetada", "nivelAdquirido": 6, "descricao": "Reação: Absorve dano de aliado com a Proteção Arcana." },
+      { "nome": "Rompe-Magia", "nivelAdquirido": 10, "descricao": "Soma proficiência ao dissipar/contra-magia." }
+    ]
+  },
+  {
+    "nome": "Adivinhador",
+    "classePaiId": 10,
+    "caracteristicas": [
+      { "nome": "Prodígio", "nivelAdquirido": 3, "descricao": "Rola 2d20 no início do dia e substitui rolagens futuras." },
+      { "nome": "Perito em Adivinhação", "nivelAdquirido": 6, "descricao": "Recupera espaço de magia ao conjurar Adivinhação." },
+      { "nome": "O Terceiro Olho", "nivelAdquirido": 10, "descricao": "Ganha Visão no Escuro, Ver Invisível ou Ler Idiomas." }
+    ]
+  },
+  {
+    "nome": "Evocador",
+    "classePaiId": 10,
+    "caracteristicas": [
+      { "nome": "Esculpir Magias", "nivelAdquirido": 3, "descricao": "Cria bolsões seguros em magias de área para proteger aliados." },
+      { "nome": "Truque Potente", "nivelAdquirido": 3, "descricao": "Truques causam metade do dano em caso de sucesso na SG." },
+      { "nome": "Evocação Potencializada", "nivelAdquirido": 10, "descricao": "Soma Int ao dano de evocação." }
+    ]
+  },
+  {
+    "nome": "Ilusionista",
+    "classePaiId": 10,
+    "caracteristicas": [
+      { "nome": "Ilusões Aprimoradas", "nivelAdquirido": 3, "descricao": "Conhece Ilusão Menor (som+imagem). Pode conjurar como Ação Bônus." },
+      { "nome": "Ilusões Maleáveis", "nivelAdquirido": 6, "descricao": "Pode alterar a natureza de uma ilusão ativa." },
+      { "nome": "Autoimagem Ilusória", "nivelAdquirido": 10, "descricao": "Reação: Anula um ataque criando uma duplicata." }
+    ]
+  },
+  {
+    "nome": "Combatente da Mão Espalmada",
+    "classePaiId": 11,
+    "caracteristicas": [
+      { "nome": "Técnica da Mão Espalmada", "nivelAdquirido": 3, "descricao": "Torrente de Golpes derruba, empurra ou impede reações." },
+      { "nome": "Integridade Corporal", "nivelAdquirido": 6, "descricao": "Cura PV igual a 3x nível de Monge." },
+      { "nome": "Palma Vibrante", "nivelAdquirido": 17, "descricao": "Pode reduzir inimigo a 0 PV com vibrações letais." }
+    ]
+  },
+  {
+    "nome": "Combatente da Misericórdia",
+    "classePaiId": 11,
+    "caracteristicas": [
+      { "nome": "Mãos de Cura", "nivelAdquirido": 3, "descricao": "Gasta Ki para curar com toque." },
+      { "nome": "Mãos de Dolo", "nivelAdquirido": 3, "descricao": "Gasta Ki para causar dano necrótico extra." },
+      { "nome": "Toque de Médico", "nivelAdquirido": 6, "descricao": "Cura remove condições; Dano envenena." }
+    ]
+  },
+  {
+    "nome": "Combatente das Sombras",
+    "classePaiId": 11,
+    "caracteristicas": [
+      { "nome": "Artes das Sombras", "nivelAdquirido": 3, "descricao": "Gasta Ki para conjurar Escuridão, Visão no Escuro, Passos sem Pegadas." },
+      { "nome": "Passo da Sombra", "nivelAdquirido": 6, "descricao": "Teleporte entre sombras como Ação Bônus + Vantagem no ataque." },
+      { "nome": "Manto da Sombra", "nivelAdquirido": 17, "descricao": "Fica invisível na penumbra/escuridão." }
+    ]
+  },
+  {
+    "nome": "Combatente dos Elementos",
+    "classePaiId": 11,
+    "caracteristicas": [
+      { "nome": "Sintonia Elemental", "nivelAdquirido": 3, "descricao": "Ataques alcance aumentado e dano elemental." },
+      { "nome": "Explosão Elemental", "nivelAdquirido": 6, "descricao": "Causa dano em área (fogo/gelo/etc)." },
+      { "nome": "Ápice Elemental", "nivelAdquirido": 17, "descricao": "Aumenta dano e velocidade." }
+    ]
+  },
+  {
+    "nome": "Juramento da Devoção",
+    "classePaiId": 12,
+    "caracteristicas": [
+      { "nome": "Arma Sagrada", "nivelAdquirido": 3, "descricao": "CDivindade: Soma Carisma nas jogadas de ataque da arma. Emite luz." },
+      { "nome": "Aura de Devoção", "nivelAdquirido": 7, "descricao": "Imunidade a Enfeitiçado para você e aliados na aura." },
+      { "nome": "Resplendor Sagrado", "nivelAdquirido": 20, "descricao": "Dano radiante em área e vantagem contra ínferos/mortos-vivos." }
+    ]
+  },
+  {
+    "nome": "Juramento da Glória",
+    "classePaiId": 12,
+    "caracteristicas": [
+      { "nome": "Atleta Inigualável", "nivelAdquirido": 3, "descricao": "CDivindade: Vantagem em Atletismo/Acrobacia, saltos maiores." },
+      { "nome": "Destruição Inspiradora", "nivelAdquirido": 3, "descricao": "CDivindade: Distribui PV temp após Divine Smite." },
+      { "nome": "Aura de Vivacidade", "nivelAdquirido": 7, "descricao": "Aumenta deslocamento na aura." }
+    ]
+  },
+  {
+    "nome": "Juramento da Vingança",
+    "classePaiId": 12,
+    "caracteristicas": [
+      { "nome": "Voto de Inimizade", "nivelAdquirido": 3, "descricao": "CDivindade: Vantagem nos ataques contra um alvo específico." },
+      { "nome": "Vingador Implacável", "nivelAdquirido": 7, "descricao": "Move-se após acertar ataque de oportunidade." },
+      { "nome": "Anjo Vingador", "nivelAdquirido": 20, "descricao": "Voo e aura de medo." }
+    ]
+  },
+  {
+    "nome": "Juramento dos Anciões",
+    "classePaiId": 12,
+    "caracteristicas": [
+      { "nome": "Ira da Natureza", "nivelAdquirido": 3, "descricao": "CDivindade: Vinhas prendem o alvo." },
+      { "nome": "Aura de Resistência", "nivelAdquirido": 7, "descricao": "Resistência a dano de magias para você e aliados na aura." },
+      { "nome": "Campeão Ancestral", "nivelAdquirido": 20, "descricao": "Regeneração e magias de ação bônus." }
+    ]
+  }
+]

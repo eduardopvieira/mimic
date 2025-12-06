@@ -45,7 +45,10 @@ public class Origem {
     private String ferramenta;
 
     @Column(columnDefinition = "TEXT")
-    private String equipamentoInicial;
+    private String equipamentoA;
+
+    @Column(columnDefinition = "TEXT")
+    private String equipamentoB;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = true)
@@ -64,7 +67,8 @@ public class Origem {
         this.atributosPermitidos = dto.getAtributosPermitidos();
         this.pericias = dto.getPericias();
         this.ferramenta = dto.getFerramenta();
-        this.equipamentoInicial = dto.getEquipamentoInicial();
+        this.equipamentoA = dto.getEquipamentoA();
+        this.equipamentoB = dto.getEquipamentoB();
 
         // Mapeando Relacionamento com Talento (Apenas referência por ID)
         if (dto.getTalentoInicialId() != null) {

@@ -3,6 +3,7 @@ package br.edu.ufersa.mimic.api.controller.habilidades;
 import br.edu.ufersa.mimic.api.dto.habilidades.MagiaDTO;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.service.habilidades.MagiaService;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +56,7 @@ public class MagiaController {
     // CRIAR (POST /api/magias)
     @PostMapping
     public ResponseEntity<MagiaDTO> criar(@RequestBody MagiaDTO dto) {
+        System.out.println("criando magia: " + dto.toString());
         Magia magiaParaSalvar = new Magia(dto);
         Magia magiaSalva = magiaService.salvar(magiaParaSalvar);
         return new ResponseEntity<>(new MagiaDTO(magiaSalva), HttpStatus.CREATED);

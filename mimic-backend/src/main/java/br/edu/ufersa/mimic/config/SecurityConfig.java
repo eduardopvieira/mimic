@@ -1,11 +1,13 @@
-package br.edu.ufersa.mimic;
+package br.edu.ufersa.mimic.config; // Ajuste o pacote se necessário
 
 import br.edu.ufersa.mimic.filters.AuthorizationFilter;
+import br.edu.ufersa.mimic.service.auth.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,10 +24,12 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final AuthorizationFilter authorizationFilter;
 
+    // Injetamos apenas o filtro de autorização
     public SecurityConfig(AuthorizationFilter authorizationFilter) {
         this.authorizationFilter = authorizationFilter;
     }
@@ -37,12 +41,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Rotas Abertas
-                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll() // Login e Cadastro
-                        .requestMatchers(HttpMethod.GET, "/api/biblioteca/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/talentos").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/origens").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
+
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
 

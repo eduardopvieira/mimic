@@ -8,6 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SubclasseRepository extends JpaRepository<Subclasse, Long> {
-    Optional<Subclasse> findByNome(String nome);
-    List<Subclasse> findByClassePai(Classe classePai);
+    List<Subclasse> findByClassePaiId(Long classePaiId);
 }
