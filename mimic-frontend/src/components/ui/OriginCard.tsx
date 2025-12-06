@@ -1,13 +1,15 @@
+import React from 'react';
+
 interface OriginCardProps {
   id: number;
   name: string;
   skills: string[]; // Array com as duas perícias
-  equipment: string;
+  description: string; // Alterado de equipment para description
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
 }
 
-const OriginCard = ({ id, name, skills, equipment, onEdit, onDelete }: OriginCardProps) => {
+const OriginCard = ({ id, name, skills, description, onEdit, onDelete }: OriginCardProps) => {
   return (
     <div className="bg-[#2D2D2D] rounded-lg shadow-lg border border-gray-700 p-6 flex flex-col justify-between h-full hover:border-red-500 transition-colors group">
       
@@ -27,11 +29,11 @@ const OriginCard = ({ id, name, skills, equipment, onEdit, onDelete }: OriginCar
         </div>
       </div>
 
-      {/* Resumo do Equipamento */}
+      {/* Resumo da História (Descrição) */}
       <div className="flex-grow">
-        <p className="text-gray-500 text-xs uppercase font-bold mb-1">Equipamento Inicial:</p>
-        <p className="text-gray-300 text-sm line-clamp-3 italic">
-            {equipment}
+        <p className="text-gray-500 text-xs uppercase font-bold mb-1">História:</p>
+        <p className="text-gray-300 text-sm line-clamp-3 italic" title={description}>
+            {description || "Nenhuma história foi dada a essa origem."}
         </p>
       </div>
 

@@ -8,8 +8,8 @@ import OriginCard from '../components/ui/OriginCard';
 interface Origin {
   id: number;
   nome: string;
-  pericias: string[];     // Java: Set<String> pericias
-  equipamentoInicial: string; // Java: equipamentoInicial
+  pericias: string[];
+  descricao: string;
 }
 
 const ManageOrigins = () => {
@@ -17,15 +17,15 @@ const ManageOrigins = () => {
   const [origins, setOrigins] = useState<Origin[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchOrigins();
+   useEffect(() => {
+    fetchSpells();
   }, []);
 
-  const fetchOrigins = async () => {
+  const fetchSpells = async () => {
     const token = localStorage.getItem('token');
     const usuarioId = localStorage.getItem('usuarioId');
 
-    if (!token || !usuarioId) return;
+    if (!token || !usuarioId) return; // Talvez redirecionar p/ login
 
     try {
         const response = await fetch(`http://localhost:8080/api/origens?usuarioId=${usuarioId}`, {
@@ -33,17 +33,10 @@ const ManageOrigins = () => {
         });
         if (response.ok) {
             const data = await response.json();
-            // Adaptador caso o Java retorne nomes diferentes
-            const adaptedOrigins = data.map((o: any) => ({
-                id: o.id,
-                nome: o.nome,
-                pericias: o.pericias || [],
-                equipamentoInicial: o.equipamentoInicial
-            }));
-            setOrigins(adaptedOrigins);
+            setOrigins(data);
         }
     } catch (error) {
-        console.error("Erro ao buscar origens", error);
+        console.error("Erro ao buscar magias", error);
     } finally {
         setLoading(false);
     }
@@ -106,7 +99,7 @@ const ManageOrigins = () => {
                     id={origin.id}
                     name={origin.nome}
                     skills={origin.pericias}
-                    equipment={origin.equipamentoInicial}
+                    description={origin.descricao}
                     onEdit={handleEdit} 
                     onDelete={handleDelete} 
                 />

@@ -55,11 +55,11 @@ const CreateOrigin = () => {
   const [formData, setFormData] = useState({
     nome: '',
     descricao: '',
-    equipamento: '',
+    equipamentoA: '',
+    equipamentoB: '',
     pericia1: '',
     pericia2: '',
     ferramenta: '',
-    // Array com os atributos permitidos (ex: ["FORCA", "DESTREZA", "CARISMA"])
     atributosPermitidos: [] as string[],
     talentoInicialId: '' // String para o select, converte p/ number no submit
   });
@@ -105,7 +105,8 @@ const CreateOrigin = () => {
                 setFormData({
                     nome: data.nome,
                     descricao: data.descricao || '',
-                    equipamento: data.equipamentoInicial || '',
+                    equipamentoA: data.equipamentoA || '',
+                    equipamentoB: data.equipamentoB || '',
                     pericia1: data.pericias && data.pericias.length > 0 ? data.pericias[0] : '',
                     pericia2: data.pericias && data.pericias.length > 1 ? data.pericias[1] : '',
                     ferramenta: data.ferramenta || '',
@@ -153,7 +154,7 @@ const CreateOrigin = () => {
     setError('');
 
     // Validações Básicas
-    if (!formData.nome || !formData.pericia1 || !formData.pericia2 || !formData.equipamento || !formData.talentoInicialId) {
+    if (!formData.nome || !formData.pericia1 || !formData.pericia2 || !formData.equipamentoA || !formData.equipamentoB || !formData.talentoInicialId) {
         setError('Por favor, preencha todos os campos obrigatórios (*).');
         return;
     }
@@ -167,19 +168,18 @@ const CreateOrigin = () => {
     const token = localStorage.getItem('token');
     const usuarioId = localStorage.getItem('usuarioId');
 
-    // Montar Payload JSON
     const payload = {
         nome: formData.nome,
         descricao: formData.descricao,
-        equipamentoInicial: formData.equipamento,
-        // Junta as duas selects em um array pro Java
+        equipamentoA: formData.equipamentoA,
+        equipamentoB: formData.equipamentoB,
         pericias: [formData.pericia1, formData.pericia2], 
         ferramenta: formData.ferramenta,
         atributosPermitidos: formData.atributosPermitidos,
         talentoInicialId: parseInt(formData.talentoInicialId)
     };
 
-    alert(JSON.stringify(payload, null, 2));
+    // alert(JSON.stringify(payload, null, 2));
 
     try {
         const url = isEditMode 
@@ -192,7 +192,7 @@ const CreateOrigin = () => {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token || ''
+                'Authorization': token ? `Bearer ${token}` : ''
             },
             body: JSON.stringify(payload)
         });
@@ -252,7 +252,6 @@ const CreateOrigin = () => {
                                     <option key={t.id} value={t.id}>{t.nome}</option>
                                 ))}
                             </select>
-                            {/* Setinha customizada */}
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                             </div>
@@ -325,11 +324,20 @@ const CreateOrigin = () => {
                 </div>
 
                 {/* EQUIPAMENTO */}
-                <div className="mt-6">
-                    <label className="block text-lg font-medium text-gray-300 mb-2">Equipamento Inicial *</label>
-                    <textarea name="equipamento" rows={3} value={formData.equipamento} onChange={handleChange}
-                            className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 resize-y placeholder-gray-400"
-                            placeholder="Liste os itens. Ex: Um símbolo sagrado, um livro de preces, 15 PO..."></textarea>
+                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label className="block text-lg font-medium text-gray-300 mb-2">Equipamento Inicial A *</label>
+                        <textarea name="equipamentoA" rows={4} value={formData.equipamentoA} onChange={handleChange}
+                                className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 resize-y placeholder-gray-400"
+                                placeholder="Opção A. Ex: Cota de malha, Escudo, Maça, Símbolo Sagrado..."></textarea>
+                    </div>
+                    
+                    <div>
+                        <label className="block text-lg font-medium text-gray-300 mb-2">Equipamento Inicial B *</label>
+                        <textarea name="equipamentoB" rows={4} value={formData.equipamentoB} onChange={handleChange}
+                                className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 resize-y placeholder-gray-400"
+                                placeholder="Opção B. Ex: 50 PO (Moedas de Ouro)"></textarea>
+                    </div>
                 </div>
 
                 {/* DESCRIÇÃO */}
