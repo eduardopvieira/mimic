@@ -1,10 +1,27 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Stepper from '../components/ui/Stepper';
 import InputField from '../components/form/InputField';
 import AttributeCard from '../components/form/AttributeCard';
-import FreeTextSection, { type FreeTextItem } from '../components/form/FreeTextSection';
+// Trocamos o FreeTextSection pelo DynamicSection para usar Selects vindos do banco
+import DynamicSection from '../components/form/DynamicSection'; 
+
+// --- INTERFACES ---
+
+// O que vem do Banco de Dados
+interface RecursoCreaturaDTO {
+    id: number;
+    nome: string;
+    descricao: string;
+}
+
+// O item visual na lista do formulário
+interface DynamicItem {
+  id: number;
+  value: string | number;
+  description: string;
+}
 
 interface CreatureData {
   // ETAPA 1
@@ -15,15 +32,18 @@ interface CreatureData {
   str: number; dex: number; con: number; int: number; wis: number; cha: number;
   // ETAPA 4
   saves: string; skills: string; resistDano: string; imunidDano: string; imunidCond: string; sentidos: string; idiomas: string; nd: string;
-  // LISTAS
-  specialAbilities: FreeTextItem[];
-  actions: FreeTextItem[];
+  
+  // LISTAS DINÂMICAS (Conectadas ao Banco)
+  specialAbilities: DynamicItem[];
+  actions: DynamicItem[];
+  
   // ETAPA 7
   legendaryActions: string; lairActions: string;
 }
 
 const CreateCreature = () => {
   const navigate = useNavigate();
+  
   const steps = [
     { id: 1, label: "Dados Básicos" },
     { id: 2, label: "Combate" },
@@ -35,38 +55,142 @@ const CreateCreature = () => {
   ];
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  // --- ESTADO DAS LISTAS DO BANCO ---
+  const [listas, setListas] = useState({
+      habilidades: [] as RecursoCreaturaDTO[],
+      acoes: [] as RecursoCreaturaDTO[]
+  });
+
   const [formData, setFormData] = useState<CreatureData>({
     nome: '', tamanho: '', tipo: '', tag: '', alinhamento: '',
     ca: '', pv: '', deslBase: '', deslVoo: '', deslNatacao: '',
     str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10,
     saves: '', skills: '', resistDano: '', imunidDano: '', imunidCond: '', sentidos: '', idiomas: '', nd: '',
-    specialAbilities: [], actions: [],
+    
+    specialAbilities: [], 
+    actions: [],
+    
     legendaryActions: '', lairActions: ''
   });
 
+  // --- 1. BUSCAR DADOS DO BACKEND ---
+  // --- 1. BUSCAR DADOS DO BACKEND (COM DEBUG) ---
+  // --- 1. BUSCAR DADOS DO BACKEND (COM DEBUG DE TOKEN) ---
+  // --- 1. BUSCAR DADOS DO BACKEND (Habilidades e Ações) ---
+  useEffect(() => {
+    const fetchListas = async () => {
+        const token = localStorage.getItem('token');
+        const usuarioId = localStorage.getItem('usuarioId');
+
+        if (!usuarioId || !token) {
+            setLoading(false);
+            return;
+        }
+
+        // Garante que o token esteja no formato correto sem duplicar "Bearer"
+        const tokenLimpo = token.replace("Bearer ", "").trim();
+        const headers = { 'Authorization': `Bearer ${tokenLimpo}` };
+
+        try {
+            // Promise.all para carregar as duas listas simultaneamente
+            const [resHabilidades, resAcoes] = await Promise.all([
+                // Se no futuro você quiser filtrar por usuário, adicione ?usuarioId=${usuarioId}
+                fetch(`http://localhost:8080/api/habilidades_criatura`, { headers }),
+                fetch(`http://localhost:8080/api/acoes_criatura`, { headers })
+            ]);
+
+            if (!resHabilidades.ok || !resAcoes.ok) {
+                throw new Error("Falha na resposta do servidor (403/404/500)");
+            }
+
+            const habilidades = await resHabilidades.json();
+            const acoes = await resAcoes.json();
+
+            setListas({
+                habilidades,
+                acoes
+            });
+
+        } catch (error) {
+            console.error("Erro ao carregar dados de criatura:", error);
+            // alert("Erro ao conectar com o servidor."); 
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchListas();
+  }, []);
+
+  // --- HANDLERS ---
+
   const updateData = (field: string, value: any) => setFormData(prev => ({ ...prev, [field]: value }));
+  
+  // Handlers para Itens Dinâmicos (Genéricos)
+  const addDynamicItem = (field: keyof CreatureData) => {
+      if (!Array.isArray(formData[field])) return;
+      const list = formData[field] as DynamicItem[];
+      const newItem: DynamicItem = { id: Date.now(), value: '', description: '' };
+      setFormData(prev => ({ ...prev, [field]: [...list, newItem] }));
+  };
+
+  const removeDynamicItem = (field: keyof CreatureData, id: number) => {
+      if (!Array.isArray(formData[field])) return;
+      const list = formData[field] as DynamicItem[];
+      setFormData(prev => ({ ...prev, [field]: list.filter(item => item.id !== id) }));
+  };
+
+  const updateDynamicItem = (field: keyof CreatureData, id: number, newValueStr: string, sourceOptions: any[]) => {
+      if (!Array.isArray(formData[field])) return;
+      
+      const newValue = Number(newValueStr); // Converte ID para número
+      const selectedOption = sourceOptions.find(opt => opt.value === newValue);
+      const newDesc = selectedOption ? selectedOption.desc : '';
+
+      const list = formData[field] as DynamicItem[];
+      setFormData(prev => ({
+          ...prev,
+          [field]: list.map(item => item.id === id ? { ...item, value: newValue, description: newDesc } : item)
+      }));
+  };
+
+  // --- PREPARAÇÃO DE OPÇÕES PARA O SELECT ---
+  const opcoesHabilidades = listas.habilidades.map(h => ({
+      value: h.id,
+      label: h.nome,
+      desc: h.descricao
+  }));
+
+  const opcoesAcoes = listas.acoes.map(a => ({
+      value: a.id,
+      label: a.nome,
+      desc: a.descricao
+  }));
+
+  // --- SUBMIT ---
+  const handleSubmit = async () => {
+      // Montar Payload para o Backend
+      // Nota: O backend provavelmente espera IDs para habilidades e ações
+      const payload = {
+          ...formData,
+          habilidadesIds: formData.specialAbilities.map(i => Number(i.value)).filter(v => v > 0),
+          acoesIds: formData.actions.map(i => Number(i.value)).filter(v => v > 0),
+          // Remova os arrays de objetos se o backend só quiser IDs
+      };
+
+      console.log("Enviando Criatura:", payload);
+      // Adicione aqui o fetch POST para /api/criaturas
+      // await fetch(...)
+      
+      navigate('/home-page'); // Ou dashboard
+  };
+
+  // Navegação
   const handleStepClick = (id: number) => setCurrentStep(id);
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, steps.length));
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
-  
-  const addItem = (field: 'specialAbilities' | 'actions') => {
-      const newItem: FreeTextItem = { id: Date.now(), name: '', description: '' };
-      setFormData(prev => ({ ...prev, [field]: [...prev[field], newItem] }));
-  };
-  const removeItem = (field: 'specialAbilities' | 'actions', id: number) => {
-      setFormData(prev => ({ ...prev, [field]: prev[field].filter(i => i.id !== id) }));
-  };
-  const updateItem = (field: 'specialAbilities' | 'actions', id: number, key: 'name' | 'description', val: string) => {
-      setFormData(prev => ({
-          ...prev,
-          [field]: prev[field].map(i => i.id === id ? { ...i, [key]: val } : i)
-      }));
-  };
-  
-  const handleSubmit = () => {
-      console.log("Criatura Salva:", formData);
-      navigate('/home-page');
-  };
 
   return (
     <div className="bg-[#1A1A1A] text-gray-200 min-h-screen font-sans">
@@ -81,7 +205,10 @@ const CreateCreature = () => {
             {/* ETAPA 1: DADOS BÁSICOS */}
             {currentStep === 1 && (
                 <div className="animate-fade-in space-y-6">
-                    <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 mb-6 font-medieval">Identidade da Criatura</h2>
+                    <div className="flex justify-between items-center border-b border-gray-700 pb-4 mb-6">
+                        <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 font-medieval">Identidade da Criatura</h2>
+                        {loading && <span className="text-yellow-500 animate-pulse text-sm">Carregando dados...</span>}
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="md:col-span-2">
                              <InputField label="Nome da Criatura" value={formData.nome} onChange={(e: any) => updateData('nome', e.target.value)} placeholder="Ex: Dragão Vermelho Jovem" />
@@ -156,29 +283,33 @@ const CreateCreature = () => {
                 </div>
             )}
 
-            {/* ETAPA 5: HABILIDADES */}
+            {/* ETAPA 5: HABILIDADES (USANDO DYNAMIC SECTION COM SELECT) */}
             {currentStep === 5 && (
-                <FreeTextSection 
+                <DynamicSection 
                     title="Habilidades Especiais" 
+                    itemName="Habilidade"
                     items={formData.specialAbilities} 
-                    onAdd={() => addItem('specialAbilities')} 
-                    onRemove={(id: number) => removeItem('specialAbilities', id)} 
-                    onUpdate={(id: number, key: 'name' | 'description', val: string) => updateItem('specialAbilities', id, key, val)} 
+                    options={opcoesHabilidades} // Passa a lista vinda do banco
+                    onAdd={() => addDynamicItem('specialAbilities')} 
+                    onRemove={(id: number) => removeDynamicItem('specialAbilities', id)} 
+                    onUpdate={(id, val) => updateDynamicItem('specialAbilities', id, val, opcoesHabilidades)} 
                 />
             )}
 
-            {/* ETAPA 6: AÇÕES */}
+            {/* ETAPA 6: AÇÕES (USANDO DYNAMIC SECTION COM SELECT) */}
             {currentStep === 6 && (
-                <FreeTextSection 
+                <DynamicSection 
                     title="Ações da Criatura" 
+                    itemName="Ação"
                     items={formData.actions} 
-                    onAdd={() => addItem('actions')} 
-                    onRemove={(id: number) => removeItem('actions', id)} 
-                    onUpdate={(id: number, key: 'name' | 'description', val: string) => updateItem('actions', id, key, val)} 
+                    options={opcoesAcoes} // Passa a lista vinda do banco
+                    onAdd={() => addDynamicItem('actions')} 
+                    onRemove={(id: number) => removeDynamicItem('actions', id)} 
+                    onUpdate={(id, val) => updateDynamicItem('actions', id, val, opcoesAcoes)} 
                 />
             )}
 
-            {/* ETAPA 7: LENDÁRIAS */}
+            {/* ETAPA 7: LENDÁRIAS (TEXTO LIVRE) */}
             {currentStep === 7 && (
                 <div className="animate-fade-in space-y-6">
                     <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 mb-6 font-medieval">Ações Lendárias e de Covil</h2>

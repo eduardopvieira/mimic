@@ -1,19 +1,19 @@
 // Define o formato de um item da lista
 interface Item {
   id: number;
-  value: string;
+  value: string | number;
   description: string;
 }
 
 // Props que o componente recebe
 interface DynamicSectionProps {
-  title: string;          // ex: "Talentos"
-  items: Item[];          // O array do estado (formData.talentos)
-  options: any[];         // A lista de opções (TALENTOS)
-  onAdd: () => void;      // Função para adicionar
-  onRemove: (id: number) => void; // Função para remover
-  onUpdate: (id: number, newValue: string) => void; // Função ao mudar o select
-  itemName: string;       // ex: "Talento", "Magia" (para o botão)
+  title: string;
+  items: Item[];
+  options: any[];
+  onAdd: () => void;
+  onRemove: (id: number) => void;
+  onUpdate: (id: number, newValue: string) => void; 
+  itemName: string;
 }
 
 const DynamicSection = ({ title, items, options, onAdd, onRemove, onUpdate, itemName }: DynamicSectionProps) => {
