@@ -1,0 +1,14 @@
+package br.edu.ufersa.mimic.repository.habilidades;
+
+import br.edu.ufersa.mimic.model.habilidades.HabilidadeCriatura;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface HabilidadeCriaturaRepository extends JpaRepository<HabilidadeCriatura, Long> {
+    boolean existsByNome(String nome);
+
+    Optional<HabilidadeCriatura> findByNome(String nome);
+}

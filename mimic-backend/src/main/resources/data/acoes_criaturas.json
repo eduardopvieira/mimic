@@ -1,0 +1,106 @@
+[
+  {
+    "nome": "Cabeçada Aríete",
+    "descricao": "Ataque Corpo a Corpo. Dano: Contundente. Se a criatura se moveu pelo menos 6m em linha reta antes do ataque, o alvo sofre dano extra e pode cair (condição Caído)."
+  },
+  {
+    "nome": "Mordida (Perfurante)",
+    "descricao": "Ataque Corpo a Corpo. Dano: Perfurante."
+  },
+  {
+    "nome": "Mordida (Venenosa)",
+    "descricao": "Ataque Corpo a Corpo. Dano: Perfurante mais dano Venenoso."
+  },
+  {
+    "nome": "Mordida (Agarrar)",
+    "descricao": "Ataque Corpo a Corpo. Dano: Perfurante. Se o alvo for Médio ou menor, ele tem a condição Imobilizado (escapar CD variável). Enquanto estiver Imobilizado, o alvo tem a condição Contido."
+  },
+  {
+    "nome": "Teia",
+    "descricao": "Recarga 5–6. Ataque à distância. O alvo tem a condição Contido até que a teia seja destruída (CA 10; PV 5; Vulnerabilidade a Fogo)."
+  },
+  {
+    "nome": "Cascos",
+    "descricao": "Ataque Corpo a Corpo. Dano: Contundente. Se a criatura se moveu 6m antes, pode causar dano extra e derrubar o alvo (Caído)."
+  },
+  {
+    "nome": "Garras",
+    "descricao": "Ataque Corpo a Corpo. Dano: Contundente ou Cortante. Se o alvo for Médio ou menor, pode ficar Imobilizado."
+  },
+  {
+    "nome": "Constrição",
+    "descricao": "Ataque Corpo a Corpo. O alvo sofre dano Contundente e tem a condição Imobilizado."
+  },
+  {
+    "nome": "Ferroada",
+    "descricao": "Ataque Corpo a Corpo. Dano: Perfurante mais dano Venenoso (salvaguarda de Constituição para metade ou para evitar condição Envenenado)."
+  },
+  {
+    "nome": "Invisibilidade",
+    "descricao": "A criatura conjura Invisibilidade em si mesma magicamente (sem componentes)."
+  },
+  {
+    "nome": "Multimorfar",
+    "descricao": "A criatura se transforma magicamente em uma besta (como aranha, rato, corvo) ou volta à sua forma verdadeira. Estatísticas físicas mudam, mentais se mantêm."
+  },
+  {
+    "nome": "Bico",
+    "descricao": "Ataque Corpo a Corpo. Dano: Perfurante."
+  },
+  {
+    "nome": "Ataques Múltiplos",
+    "descricao": "A criatura realiza dois ou mais ataques (ex: um com Mordida e um com Garras)."
+  },
+  {
+    "nome": "Investida",
+    "descricao": "Ataque Corpo a Corpo. Dano: Perfurante. Se a criatura se moveu 6m antes, causa dano extra e pode derrubar o alvo (Caído)."
+  },
+  {
+    "nome": "Pisão",
+    "descricao": "Ação Bônus. O alvo caído deve fazer uma salvaguarda de Destreza ou sofrer dano Contundente."
+  },
+  {
+    "nome": "Dilacerar",
+    "descricao": "Ataque Corpo a Corpo. Dano: Cortante."
+  },
+  {
+    "nome": "Punho",
+    "descricao": "Ataque Corpo a Corpo. Dano: Contundente."
+  },
+  {
+    "nome": "Rocha",
+    "descricao": "Ataque à Distância. Dano: Contundente."
+  },
+  {
+    "nome": "Rugido",
+    "descricao": "Criaturas próximas devem passar em salvaguarda de Sabedoria ou ficam com a condição Amedrontado."
+  },
+  {
+    "nome": "Tentáculos",
+    "descricao": "Ataque Corpo a Corpo. Dano: Contundente. Pode agarrar o alvo."
+  },
+  {
+    "nome": "Nuvem de Tinta",
+    "descricao": "Reação (apenas na água). Libera uma nuvem que obscurece a visão e permite à criatura fugir."
+  },
+  {
+    "nome": "Assustar",
+    "descricao": "Uma criatura deve passar em salvaguarda de Sabedoria ou fica com a condição Amedrontado."
+  },
+  {
+    "nome": "Agulha-Espada",
+    "descricao": "Ataque Corpo a Corpo. Dano: Perfurante."
+  },
+  {
+    "nome": "Arco Encantado",
+    "descricao": "Ataque à Distância. Dano: Perfurante. O alvo deve passar em salvaguarda ou ficar com a condição Enfeitiçado."
+  },
+  {
+    "nome": "Ver o Coração",
+    "descricao": "A criatura conhece as emoções e o alinhamento de um alvo que falhar na salvaguarda de Carisma."
+  },
+  {
+    "nome": "Pancada",
+    "descricao": "Ataque Corpo a Corpo. Dano: Contundente."
+  }
+]

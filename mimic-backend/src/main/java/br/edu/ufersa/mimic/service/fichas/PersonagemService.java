@@ -16,7 +16,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -64,6 +66,15 @@ public class PersonagemService {
     }
 
     @Transactional
+    public void salvarImagem(Long personagemId, Long usuarioId, MultipartFile file) throws IOException {
+        Personagem personagem = personagemRepository.findByIdAndUsuario_UsuarioId(personagemId, usuarioId)
+                .orElseThrow(() -> new EntityNotFoundException("Personagem não encontrado."));
+
+        personagem.setImagem(file.getBytes()); // Converte o arquivo para bytes e salva no banco
+        personagemRepository.save(personagem);
+    }
+
+    @Transactional
     public PersonagemDTO atualizar(Long id, PersonagemDTO dto, Long usuarioId) {
         Personagem personagemExistente = personagemRepository.findByIdAndUsuario_UsuarioId(id, usuarioId)
                 .orElseThrow(() -> new EntityNotFoundException("Personagem não encontrado ou acesso negado."));
@@ -107,6 +118,9 @@ public class PersonagemService {
         personagem.setIniciativa(dto.getIniciativa());
         personagem.setDeslocamento(dto.getDeslocamento());
         personagem.setPercepcaoPassiva(dto.getPercepcaoPassiva());
+
+        personagem.setEscolhaEquipamentoClasse(dto.getEscolhaEquipamentoClasse());
+        personagem.setEscolhaEquipamentoOrigem(dto.getEscolhaEquipamentoOrigem());
 
         personagem.setDadosDeVidaGastos(dto.getDadosDeVidaGastos());
         personagem.setInspiracaoHeroica(dto.isInspiracaoHeroica());

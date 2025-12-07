@@ -38,6 +38,9 @@ public class ClasseDTO {
     private boolean isConjurador;
     private Atributo atributoDeConjuracao;
 
+    private String equipamentoA;
+    private String equipamentoB;
+
     public ClasseDTO(Classe classe) {
         this.id = classe.getId();
         this.nome = classe.getNome();
@@ -49,5 +52,7 @@ public class ClasseDTO {
 
         this.isConjurador = classe.isConjurador();
         this.atributoDeConjuracao = classe.getAtributoDeConjuracao();
+        this.equipamentoA = classe.getEquipamentoA();
+        this.equipamentoB = classe.getEquipamentoB();
     }
 }

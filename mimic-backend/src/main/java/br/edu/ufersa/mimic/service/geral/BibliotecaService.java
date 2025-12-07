@@ -2,9 +2,7 @@ package br.edu.ufersa.mimic.service.geral;
 
 import br.edu.ufersa.mimic.api.dto.caracteristicas.*;
 import br.edu.ufersa.mimic.api.dto.habilidades.TalentoDTO;
-import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.caracteristicas.Classe;
-import br.edu.ufersa.mimic.model.caracteristicas.Origem;
 import br.edu.ufersa.mimic.model.caracteristicas.Subclasse;
 import br.edu.ufersa.mimic.repository.caracteristicas.*;
 import br.edu.ufersa.mimic.repository.habilidades.TalentoRepository;
@@ -20,11 +18,9 @@ import java.util.stream.Collectors;
 @Service
 public class BibliotecaService {
 
-    // Injeção de todos os Repositórios de Regras
     @Autowired private ClasseRepository classeRepository;
     @Autowired private SubclasseRepository subclasseRepository;
     @Autowired private RacaRepository racaRepository;
-    @Autowired private OrigemRepository origemRepository;
     @Autowired private TalentoRepository talentoRepository;
     @Autowired private CaracteristicasDeClasseRepository caracteristicaRepository;
 
@@ -50,8 +46,6 @@ public class BibliotecaService {
     //                             SUBCLASSES
     // =========================================================================
 
-
-
     @Transactional(readOnly = true)
     public SubclasseDTO buscarSubclassePorId(Long id) {
         return subclasseRepository.findById(id)
@@ -63,15 +57,10 @@ public class BibliotecaService {
     //                   CARACTERÍSTICAS (FEATURES) - LÓGICA DO PDF
     // =========================================================================
 
-    /**
-     * Este é o método mais importante para o preenchimento automático.
-     * Ele retorna apenas as habilidades que o personagem já ganhou no nível atual.
-     */
     @Transactional(readOnly = true)
     public List<CaracteristicaDeClasseDTO> listarCaracteristicasDesbloqueadas(Long classeId, Long subclasseId, Integer nivelPersonagem) {
         List<CaracteristicaDeClasseDTO> resultado = new ArrayList<>();
 
-        // 1. Busca Features da CLASSE base até o nível atual
         Classe classe = classeRepository.findById(classeId)
                 .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada: " + classeId));
 
@@ -81,7 +70,6 @@ public class BibliotecaService {
                 .map(CaracteristicaDeClasseDTO::new)
                 .collect(Collectors.toList()));
 
-        // 2. Se tiver SUBCLASSE, busca features dela até o nível atual
         if (subclasseId != null) {
             Subclasse subclasse = subclasseRepository.findById(subclasseId)
                     .orElseThrow(() -> new EntityNotFoundException("Subclasse não encontrada: " + subclasseId));

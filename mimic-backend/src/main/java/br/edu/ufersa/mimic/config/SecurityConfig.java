@@ -1,7 +1,6 @@
-package br.edu.ufersa.mimic.config; // Ajuste o pacote se necessário
+package br.edu.ufersa.mimic.config;
 
 import br.edu.ufersa.mimic.filters.AuthorizationFilter;
-import br.edu.ufersa.mimic.service.auth.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,7 +28,6 @@ public class SecurityConfig {
 
     private final AuthorizationFilter authorizationFilter;
 
-    // Injetamos apenas o filtro de autorização
     public SecurityConfig(AuthorizationFilter authorizationFilter) {
         this.authorizationFilter = authorizationFilter;
     }

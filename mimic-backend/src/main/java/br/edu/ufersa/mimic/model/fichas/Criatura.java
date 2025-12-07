@@ -1,14 +1,18 @@
 package br.edu.ufersa.mimic.model.fichas;
 
-import br.edu.ufersa.mimic.api.dto.fichas.CriaturaDTO;
 import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
+import br.edu.ufersa.mimic.model.habilidades.AcaoCriatura;
+import br.edu.ufersa.mimic.model.habilidades.HabilidadeCriatura;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "criaturas")
@@ -19,33 +23,37 @@ public class Criatura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    private Tamanho tamanho;
+    private Tamanho tamanho; // Certifique-se que o Enum Tamanho existe (MIUDO, PEQUENO...)
 
     @Column(name = "tipo_criatura")
     private String tipo;
 
+    @Column(name = "tag_criatura") // Adicionado tag que tem no front
+    private String tag;
+
+    // No front vc envia string "Leal e Bom", o Jackson converte se o Enum bater,
+    // ou usamos String se preferir simplificar. Vou manter Enum.
     @Enumerated(EnumType.STRING)
     private Alinhamento alinhamento;
 
+    // --- COMBATE ---
     @Column(name = "classe_armadura")
-    private Integer ca;
+    private String ca; // Mudei para String pois no front vc aceita "17 (Natural)"
 
-    @Column(name = "descricao_ca")
-    private String descricaoCa;
+    @Column(name = "pontos_vida") // Simplificado para bater com o front
+    private String pv; // String para aceitar "136 (16d10 + 48)"
 
-    @Column(name = "pontos_vida_total")
-    private Integer pvTotal;
-
-    @Column(name = "formula_vida")
-    private String formulaVida;
-
-    @Column
+    // Deslocamentos (Separados ou String única? No front tem 3 campos)
+    // Vou guardar consolidado ou criar campos.
+    // Para simplificar, vou concatenar no Service ou guardar como JSON/Texto.
+    // Mas baseada na sua classe antiga, vou manter 'deslocamento' como String geral.
     private String deslocamento;
 
+    // --- ATRIBUTOS ---
     private int forca;
     private int destreza;
     private int constituicao;
@@ -53,7 +61,7 @@ public class Criatura {
     private int sabedoria;
     private int carisma;
 
-
+    // --- PROFICIÊNCIAS (Textos livres do passo 4) ---
     @Column(columnDefinition = "TEXT")
     private String salvaguardas;
 
@@ -61,13 +69,13 @@ public class Criatura {
     private String pericias;
 
     @Column(columnDefinition = "TEXT")
-    private String vulnerabilidades;
+    private String vulnerabilidades; // Não tem no front, mas mantive
 
     @Column(columnDefinition = "TEXT")
-    private String resistencias;
+    private String resistencias; // "resistDano" no front
 
     @Column(columnDefinition = "TEXT")
-    private String imunidades;
+    private String imunidades; // "imunidDano" no front
 
     @Column(columnDefinition = "TEXT")
     private String imunidadesCondicao;
@@ -81,47 +89,31 @@ public class Criatura {
     @Column(name = "nivel_desafio")
     private String nd;
 
-    @Column
-    private Integer xp;
+    // --- LISTAS DINÂMICAS (Habilidades e Ações) ---
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "criatura_habilidades_rel",
+            joinColumns = @JoinColumn(name = "criatura_id"),
+            inverseJoinColumns = @JoinColumn(name = "habilidade_id")
+    )
+    private List<HabilidadeCriatura> habilidades = new ArrayList<>();
 
-    @Column(name = "bonus_proficiencia")
-    private Integer bonusProficiencia;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "criatura_acoes_rel",
+            joinColumns = @JoinColumn(name = "criatura_id"),
+            inverseJoinColumns = @JoinColumn(name = "acao_id")
+    )
+    private List<AcaoCriatura> acoes = new ArrayList<>();
+
+    // --- TEXTOS FINAIS ---
+    @Column(columnDefinition = "TEXT")
+    private String acoesLendarias; // CORRIGIDO: String para o textarea
 
     @Column(columnDefinition = "TEXT")
-    private String tracos;
-
-    @Column(columnDefinition = "TEXT")
-    private String acoes;
-
-    @Column(columnDefinition = "TEXT")
-    private String reacoes;
-
-    @Column(columnDefinition = "TEXT")
-    private String acoesLendarias;
+    private String acoesCovil; // ADICIONADO: Para o textarea "lairActions"
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
-
-    public Criatura(CriaturaDTO criaturaDTO) {
-        this.id = criaturaDTO.getId();
-        this.nome = criaturaDTO.getNome();
-        this.tamanho = criaturaDTO.getTamanho();
-        this.tipo = criaturaDTO.getTipo();
-        this.alinhamento = criaturaDTO.getAlinhamento();
-
-        this.ca = criaturaDTO.getCa();
-        this.descricaoCa = criaturaDTO.getDescricaoCa();
-        this.pvTotal = criaturaDTO.getPvTotal();
-        this.formulaVida = criaturaDTO.getFormulaVida();
-        this.deslocamento = criaturaDTO.getDeslocamento();
-
-        this.forca = criaturaDTO.getForca();
-        this.destreza = criaturaDTO.getDestreza();
-        this.constituicao = criaturaDTO.getConstituicao();
-        this.inteligencia = criaturaDTO.getInteligencia();
-        this.sabedoria = criaturaDTO.getSabedoria();
-        this.carisma = criaturaDTO.getCarisma();
-    }
-
 }

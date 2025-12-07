@@ -5,8 +5,10 @@ import br.edu.ufersa.mimic.service.fichas.PersonagemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,7 +23,6 @@ public class PersonagemController {
     public PersonagemController(PersonagemService personagemService) {
         this.personagemService = personagemService;
     }
-
 
     @PostMapping
     public ResponseEntity<PersonagemDTO> criarPersonagem(
@@ -62,5 +63,19 @@ public class PersonagemController {
 
         personagemService.deletarPorId(id, usuarioId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/{id}/imagem", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> uploadImagem(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam Long usuarioId) {
+
+        try {
+            personagemService.salvarImagem(id, usuarioId, file);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

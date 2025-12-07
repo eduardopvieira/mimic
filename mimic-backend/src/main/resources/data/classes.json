@@ -13,6 +13,8 @@
     ],
     "isConjurador": false,
     "atributoDeConjuracao": null,
+    "equipamentoA": "4 Machadinhas, Machado Grande, Kit de Aventureiro e 15 PO",
+    "equipamentoB": "75 PO",
     "caracteristicas": [
       { "nome": "Fúria", "descricao": "Vantagem em testes/SG de Força; Resistência a dano Contundente, Cortante e Perfurante; Dano extra com Força. Não pode conjurar magias.", "nivelAdquirido": 1 },
       { "nome": "Defesa Sem Armadura", "descricao": "CA = 10 + Mod. Des + Mod. Con (enquanto sem armadura). Pode usar escudo.", "nivelAdquirido": 1 },
@@ -40,6 +42,8 @@
     "periciasDeClasse": ["Qualquer 3 perícias"],
     "isConjurador": true,
     "atributoDeConjuracao": "CARISMA",
+    "equipamentoA": "Armadura de Couro, 2 Adagas, Instrumento Musical, Kit de Artista e 19 PO",
+    "equipamentoB": "90 PO",
     "caracteristicas": [
       { "nome": "Inspiração de Bardo", "descricao": "Ação Bônus: Concede um dado (d6) a um aliado para somar em Testes de D20.", "nivelAdquirido": 1 },
       { "nome": "Conjuração", "descricao": "Conjura magias arcanas usando Carisma. Pode usar ritual.", "nivelAdquirido": 1 },
@@ -66,6 +70,8 @@
     ],
     "isConjurador": true,
     "atributoDeConjuracao": "CARISMA",
+    "equipamentoA": "Armadura de Couro, Foice, 2 Adagas, Foco Arcano (orbe), Livro (conhecimento oculto), Kit de Erudito e 15 PO",
+    "equipamentoB": "100 PO",
     "caracteristicas": [
       { "nome": "Magia de Pacto", "descricao": "Conjura magias que recarregam em Descanso Curto. Carisma.", "nivelAdquirido": 1 },
       { "nome": "Invocações Místicas", "descricao": "Concede habilidades mágicas permanentes ou aprimoramentos.", "nivelAdquirido": 1 },
@@ -93,6 +99,8 @@
     ],
     "isConjurador": true,
     "atributoDeConjuracao": "SABEDORIA",
+    "equipamentoA": "Cota de Malha Parcial, Escudo, Maça, Símbolo Sagrado, Kit de Sacerdote e 7 PO",
+    "equipamentoB": "110 PO",
     "caracteristicas": [
       { "nome": "Conjuração", "descricao": "Conjura magias divinas usando Sabedoria. Prepara magias diariamente.", "nivelAdquirido": 1 },
       { "nome": "Ordem Divina", "descricao": "Escolha entre Protetor (Arm. Pesada/Armas Marciais) ou Taumaturgo (Truque extra/Bônus em Arcanismo/Religião).", "nivelAdquirido": 1 },
@@ -120,6 +128,8 @@
     ],
     "isConjurador": true,
     "atributoDeConjuracao": "SABEDORIA",
+    "equipamentoA": "Armadura de Couro, Escudo, Foice, Foco Druídico (Cajado), Kit de Explorador, Kit de Herbalismo e 9 PO",
+    "equipamentoB": "50 PO",
     "caracteristicas": [
       { "nome": "Conjuração", "descricao": "Conjura magias primais usando Sabedoria.", "nivelAdquirido": 1 },
       { "nome": "Idioma Druídico", "descricao": "Fala Druídico e conhece Falar com Animais.", "nivelAdquirido": 1 },
@@ -147,6 +157,8 @@
     ],
     "isConjurador": true,
     "atributoDeConjuracao": "CARISMA",
+    "equipamentoA": "Lança, 2 Adagas, Foco Arcano (cristal), Kit de Explorador de Masmorras e 28 PO",
+    "equipamentoB": "50 PO",
     "caracteristicas": [
       { "nome": "Conjuração", "descricao": "Magia inata usando Carisma.", "nivelAdquirido": 1 },
       { "nome": "Feitiçaria Inata", "descricao": "Ação Bônus: +1 na CD das magias e Vantagem nos ataques mágicos por 1 min.", "nivelAdquirido": 1 },
@@ -174,6 +186,8 @@
     ],
     "isConjurador": true,
     "atributoDeConjuracao": "SABEDORIA",
+    "equipamentoA": "Armadura de Couro Batido, Cimitarra, Espada Curta, Arco Longo, 20 Flechas, Aljava, Foco Druídico (ramo de visco), Kit de Aventureiro e 7 PO",
+    "equipamentoB": "150 PO",
     "caracteristicas": [
       { "nome": "Conjuração", "descricao": "Magias primais usando Sabedoria. Pode trocar magias em descanso longo.", "nivelAdquirido": 1 },
       { "nome": "Inimigo Favorito", "descricao": "Sempre tem Marca do Predador preparada e pode conjurar sem gastar espaço algumas vezes.", "nivelAdquirido": 1 },
@@ -202,6 +216,8 @@
     ],
     "isConjurador": false,
     "atributoDeConjuracao": null,
+    "equipamentoA": "Cota de Malha, Espada Grande, Mangual, 8 Azagaias, Kit de Explorador de Masmorras e 4 PO",
+    "equipamentoB": "Armadura de Couro Batido, Cimitarra, Espada Curta, Arco Longo, 20 Flechas, Aljava, Kit de Explorador de Masmorras e 11 PO; ou (C) 155 PO",
     "caracteristicas": [
       { "nome": "Estilo de Luta", "descricao": "Talento de Estilo de Luta.", "nivelAdquirido": 1 },
       { "nome": "Maestria em Arma", "descricao": "Propriedades de maestria em 3 armas.", "nivelAdquirido": 1 },
@@ -231,6 +247,8 @@
     ],
     "isConjurador": false,
     "atributoDeConjuracao": null,
+    "equipamentoA": "Armadura de Couro, 2 Adagas, Espada Curta, Arco Curto, 20 Flechas, Aljava, Ferramentas de Ladrão, Kit de Assaltante e 8 PO",
+    "equipamentoB": "100 PO",
     "caracteristicas": [
       { "nome": "Ataque Furtivo", "descricao": "Dano extra (Xd6) em ataques com vantagem ou aliado próximo, usando armas de acuidade/distância.", "nivelAdquirido": 1 },
       { "nome": "Especialista", "descricao": "Especialização em duas perícias ou ferramentas.", "nivelAdquirido": 1 },
@@ -258,6 +276,8 @@
     ],
     "isConjurador": true,
     "atributoDeConjuracao": "INTELIGENCIA",
+    "equipamentoA": "2 Adagas, Foco Arcano (Cajado), Kit de Erudito, Livro de Magias, Túnica e 5 PO",
+    "equipamentoB": "55 PO",
     "caracteristicas": [
       { "nome": "Conjuração", "descricao": "Magia arcana usando Inteligência. Requer Livro de Magias.", "nivelAdquirido": 1 },
       { "nome": "Adepto de Ritual", "descricao": "Pode conjurar rituais direto do livro sem preparar.", "nivelAdquirido": 1 },
@@ -285,6 +305,8 @@
     ],
     "isConjurador": false,
     "atributoDeConjuracao": null,
+    "equipamentoA": "Lança, 5 Adagas, Ferramentas de Artesão ou Instrumento Musical, Kit de Aventureiro e 11 PO",
+    "equipamentoB": "50 PO",
     "caracteristicas": [
       { "nome": "Artes Marciais", "descricao": "Usa Des em vez de Força. Dado de dano escala (d6->d12). Ação Bônus para ataque desarmado.", "nivelAdquirido": 1 },
       { "nome": "Defesa Sem Armadura", "descricao": "CA = 10 + Mod. Des + Mod. Sab (sem armadura/escudo).", "nivelAdquirido": 1 },
@@ -313,6 +335,8 @@
     ],
     "isConjurador": true,
     "atributoDeConjuracao": "CARISMA",
+    "equipamentoA": "Cota de Malha, Escudo, Espada Longa, 6 Azagaias, Símbolo Sagrado, Kit de Sacerdote e 9 PO",
+    "equipamentoB": "150 PO",
     "caracteristicas": [
       { "nome": "Mãos Consagradas", "descricao": "Reserva de cura (5 x Nível). Ação Bônus para curar ou remover veneno.", "nivelAdquirido": 1 },
       { "nome": "Conjuração", "descricao": "Magias divinas usando Carisma.", "nivelAdquirido": 1 },

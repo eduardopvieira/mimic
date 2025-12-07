@@ -54,13 +54,11 @@ public class Origem {
     @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
 
-    // --- CONSTRUTOR: DTO -> ENTITY ---
     public Origem(OrigemDTO dto) {
-        this.id = dto.getId(); // Pode ser nulo se for criação
+        this.id = dto.getId();
         this.atualizarDados(dto);
     }
 
-    // Método auxiliar para não duplicar código no construtor e no update
     public void atualizarDados(OrigemDTO dto) {
         this.nome = dto.getNome();
         this.descricao = dto.getDescricao();
@@ -70,20 +68,18 @@ public class Origem {
         this.equipamentoA = dto.getEquipamentoA();
         this.equipamentoB = dto.getEquipamentoB();
 
-        // Mapeando Relacionamento com Talento (Apenas referência por ID)
         if (dto.getTalentoInicialId() != null) {
             Talento t = new Talento();
             t.setId(dto.getTalentoInicialId());
             this.talentoInicial = t;
         }
 
-        // Mapeando Relacionamento com Usuário (Apenas referência por ID)
         if (dto.getUsuarioId() != null) {
             Usuario u = new Usuario();
-            u.setUsuarioId(dto.getUsuarioId()); // Atenção: seu model Usuario usa 'usuarioId' ou 'id'? Ajuste se necessário.
+            u.setUsuarioId(dto.getUsuarioId());
             this.usuario = u;
         } else {
-            this.usuario = null; // Regra de Sistema
+            this.usuario = null;
         }
     }
 }

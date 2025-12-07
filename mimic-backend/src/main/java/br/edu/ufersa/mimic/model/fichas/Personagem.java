@@ -45,6 +45,10 @@ public class Personagem {
     @JoinColumn(name = "subclasse_id")
     private Subclasse subclasse;
 
+    @Lob
+    @Column(name = "imagem", length = 10000000)
+    private byte[] imagem;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "raca_id") // Ou especie_id conforme preferir
     private Raca raca;
@@ -112,6 +116,13 @@ public class Personagem {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "personagem_magias")
     private Set<Magia> magiasPreparadas;
+
+    // Adicione dois campos string simples
+    @Column(length = 1)
+    private String escolhaEquipamentoClasse; // "A" ou "B"
+
+    @Column(length = 1)
+    private String escolhaEquipamentoOrigem; // "A" ou "B"
 
     // Para o cabeçalho da página de magias
     @Enumerated(EnumType.STRING)
