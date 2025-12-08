@@ -49,14 +49,6 @@ const CreatureView = () => {
   const getMod = (valor: number) => Math.floor((valor - 10) / 2);
   const formatMod = (val: number) => (val >= 0 ? `+${val}` : `${val}`);
   const formatText = (text: string) => text ? text.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase()) : '-';
-  
-  const getPBfromND = (ndString: string) => {
-      if (!ndString) return 2;
-      if (ndString.includes('/') || ndString === '0') return 2;
-      const nd = parseInt(ndString);
-      if (isNaN(nd)) return 2;
-      return Math.ceil(nd / 4) + 1;
-  };
 
   useEffect(() => {
     const fetchData = async () => {

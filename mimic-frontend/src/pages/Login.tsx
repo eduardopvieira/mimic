@@ -21,7 +21,7 @@ const Login = () => {
     }
 
     try {
-      // 1. Chama o AuthController no Backend
+    
       const response = await fetch('http://localhost:8080/api/auth/login', {
         method: 'POST',
         headers: {
@@ -34,20 +34,20 @@ const Login = () => {
         throw new Error('Credenciais inválidas.');
       }
 
-      // 2. Recebe o JSON { token, id, email }
+    
       const data = await response.json();
 
       if (!data.token) {
          throw new Error("Token não recebido do servidor.");
       }
 
-      // 3. Salva para usar no resto do app
+    
       localStorage.setItem('token', data.token);
       localStorage.setItem('usuarioId', data.id);
       localStorage.setItem('usuarioEmail', data.email);
 
       console.log("Login realizado com sucesso!", data);
-      navigate('/gerenciar-magias'); // Ou /gerenciar-personagens
+      navigate('/gerenciar-magias');
 
     } catch (err: any) {
       console.error(err);
