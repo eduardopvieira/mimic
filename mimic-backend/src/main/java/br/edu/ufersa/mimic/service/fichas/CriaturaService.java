@@ -13,7 +13,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +48,6 @@ public class CriaturaService {
             throw new SecurityException("Você não tem permissão para alterar esta criatura.");
         }
 
-        // Reutilizamos o método de mapeamento para atualizar os dados
         mapearDtoParaEntidade(dto, criatura);
 
         return new CriaturaDTO(criaturaRepository.save(criatura));
@@ -62,6 +63,15 @@ public class CriaturaService {
         }
 
         return new CriaturaDTO(criatura);
+    }
+
+    @Transactional
+    public void salvarImagem(Long criaturaId, Long usuarioId, MultipartFile file) throws IOException {
+        Criatura criatura = criaturaRepository.findByIdAndUsuario_UsuarioId(criaturaId, usuarioId)
+                .orElseThrow(() -> new EntityNotFoundException("Criatura não encontrada."));
+
+        criatura.setImagem(file.getBytes());
+        criaturaRepository.save(criatura);
     }
 
     @Transactional
@@ -94,10 +104,9 @@ public class CriaturaService {
         c.setCa(dto.getCa());
         c.setPv(dto.getPv());
 
-        String desl = "Base " + dto.getDeslBase();
-        if(dto.getDeslVoo() != null && !dto.getDeslVoo().isEmpty()) desl += ", Voo " + dto.getDeslVoo();
-        if(dto.getDeslNatacao() != null && !dto.getDeslNatacao().isEmpty()) desl += ", Natação " + dto.getDeslNatacao();
-        c.setDeslocamento(desl);
+        c.setDeslBase(dto.getDeslBase());
+        c.setDeslVoo(dto.getDeslVoo());
+        c.setDeslNatacao(dto.getDeslNatacao());
 
         c.setForca(dto.getStr());
         c.setDestreza(dto.getDex());
@@ -118,7 +127,6 @@ public class CriaturaService {
         c.setAcoesLendarias(dto.getLegendaryActions());
         c.setAcoesCovil(dto.getLairActions());
 
-        // Listas
         if (dto.getHabilidadesIds() != null) {
             List<HabilidadeCriatura> habs = habilidadeRepository.findAllById(dto.getHabilidadesIds());
             c.setHabilidades(habs);

@@ -20,34 +20,29 @@ public class Talento {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 100)
-    private String nome; // Ex: "Iniciado em Magia", "Mestre de Armas Grandes"
+    private String nome;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private CategoriaTalento categoria; // ORIGEM, GERAL, EPIC (Nível 19)
+    private CategoriaTalento categoria;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String descricao; // Texto completo para referência
+    private String descricao;
 
     @Column(name = "pre_requisito")
-    private String preRequisito; // Ex: "Nível 4, Carisma 13+"
+    private String preRequisito;
 
     @Column(nullable = false)
-    private boolean isRepetivel; // Ex: "Melhoria de Atributo" pode pegar várias vezes
+    private boolean isRepetivel;
 
-    // D&D 2024 CRITICAL FEATURE:
-    // Quase todo talento agora dá +1 em um atributo.
-    // O sistema precisa dizer quais atributos esse talento permite aumentar.
-    // O Front escolhe UM deles e soma na ficha.
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "talento_atributos", joinColumns = @JoinColumn(name = "talento_id"))
     @Column(name = "atributo_elegivel")
     private Set<Atributo> atributosElegiveis;
-    // Ex: Para o talento "Atleta", a lista seria [FORCA, DESTREZA]
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = true) // Pode ser nulo (Sistema)
+    @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
 
 }

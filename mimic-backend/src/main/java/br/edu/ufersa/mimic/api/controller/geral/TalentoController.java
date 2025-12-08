@@ -1,7 +1,7 @@
 package br.edu.ufersa.mimic.api.controller.geral;
 
 import br.edu.ufersa.mimic.api.dto.habilidades.TalentoDTO;
-import br.edu.ufersa.mimic.service.geral.BibliotecaService;
+import br.edu.ufersa.mimic.service.habilidades.TalentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,20 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/talentos") // <--- Defina a rota base aqui para facilitar
+@RequestMapping("/api/talentos")
 @CrossOrigin(origins = "*")
-public class TalentoController { // Ou TalentoController se preferir
+public class TalentoController {
     @Autowired
-    private BibliotecaService bibliotecaService;
-    // ou private TalentoRepository talentoRepository;
+    private TalentoService talentoService;
 
-    // --- ENDPOINT DE LISTAGEM ---
     @GetMapping
     public ResponseEntity<List<TalentoDTO>> listarTalentos() {
-        // Se usar o service:
-        return ResponseEntity.ok(bibliotecaService.listarTodosTalentos());
+        return ResponseEntity.ok(talentoService.listarTodosTalentos());
 
-        // OU se usar o repository direto (mais rápido para testar):
-        // return ResponseEntity.ok(talentoRepository.findAll().stream().map(TalentoDTO::new).toList());
     }
 }

@@ -34,27 +34,22 @@ public class PersonagemDTO {
     private Alinhamento alinhamento;
     private Tamanho tamanho;
 
-    // --- RELACIONAMENTOS (IDs para Entrada/Input) ---
     @NotNull
     private Long classeId;
     private Long subclasseId;
     @NotNull
     private Long racaId;
+    private Long subracaId;
     @NotNull
     private Long origemId;
 
-    // --- CAMPOS DE LEITURA (Nomes para Exibição no Front) ---
-    // Adicionados para facilitar a listagem sem precisar buscar objetos aninhados complexos
     private String classeNome;
     private String subclasseNome;
     private String racaNome;
     private String origemNome;
 
-    // --- IMAGEM ---
-    // O Jackson serializa byte[] automaticamente para String Base64 no JSON
     private byte[] imagem;
 
-    // --- ATRIBUTOS ---
     private Integer forca;
     private Integer destreza;
     private Integer constituicao;
@@ -62,7 +57,6 @@ public class PersonagemDTO {
     private Integer sabedoria;
     private Integer carisma;
 
-    // --- STATUS ---
     private Integer pontosDeVidaMaximos;
     private Integer pontosDeVidaAtuais;
     private Integer pontosDeVidaTemporarios;
@@ -75,7 +69,6 @@ public class PersonagemDTO {
     private Integer dadosDeVidaGastos;
     private boolean inspiracaoHeroica;
 
-    // --- LISTAS SIMPLES ---
     private Set<String> pericias;
     private Set<String> salvaguardas;
 
@@ -87,12 +80,10 @@ public class PersonagemDTO {
     private String escolhaEquipamentoClasse;
     private String escolhaEquipamentoOrigem;
 
-    // --- RELACIONAMENTOS LISTAS (IDs) ---
     private List<Long> inventarioIds;
     private Set<Long> talentosIds;
     private Set<Long> magiasPreparadasIds;
 
-    // --- DINHEIRO ---
     private Integer pc;
     private Integer pp;
     private Integer po;
@@ -108,7 +99,6 @@ public class PersonagemDTO {
         this.alinhamento = p.getAlinhamento();
         this.tamanho = p.getTamanho();
 
-        // Mapeamento Inteligente: Seta ID e Nome se o objeto existir
         if (p.getClasse() != null) {
             this.classeId = p.getClasse().getId();
             this.classeNome = p.getClasse().getNome();
@@ -121,12 +111,17 @@ public class PersonagemDTO {
             this.racaId = p.getRaca().getId();
             this.racaNome = p.getRaca().getNome();
         }
+
+        if (p.getSubraca() != null) {
+            this.subracaId = p.getSubraca().getId();
+        }
+
+
         if (p.getOrigem() != null) {
             this.origemId = p.getOrigem().getId();
             this.origemNome = p.getOrigem().getNome();
         }
 
-        // Imagem
         this.imagem = p.getImagem();
 
         this.forca = p.getForca();

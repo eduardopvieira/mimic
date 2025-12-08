@@ -22,28 +22,23 @@ public class MagiaController {
         this.magiaService = magiaService;
     }
 
-    // LISTAR TUDO (GET /api/magias)
     @GetMapping
     public ResponseEntity<List<MagiaDTO>> listarTodas() {
         List<Magia> magias = magiaService.listarTodas();
-        // Converte a lista de Entidades para lista de DTOs
         List<MagiaDTO> dtos = magias.stream()
                                     .map(MagiaDTO::new)
                                     .collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
 
-    // BUSCAR POR ID (GET /api/magias/{id})
     @GetMapping("/{id}")
     public ResponseEntity<MagiaDTO> buscarPorId(@PathVariable Long id) {
         Magia magia = magiaService.buscarPorId(id);
         return ResponseEntity.ok(new MagiaDTO(magia));
     }
 
-    // BUSCAR POR NOME (GET /api/magias/busca?nome=Bola de Fogo)
     @GetMapping("/busca")
     public ResponseEntity<List<MagiaDTO>> buscarPorNome(@RequestParam String nome) {
-        // ATENÇÃO: Você precisa garantir que o Service tenha esse método 'buscarPorNome'
         List<Magia> magias = magiaService.buscarPorNome(nome);
         
         List<MagiaDTO> dtos = magias.stream()
@@ -52,7 +47,6 @@ public class MagiaController {
         return ResponseEntity.ok(dtos);
     }
 
-    // CRIAR (POST /api/magias)
     @PostMapping
     public ResponseEntity<MagiaDTO> criar(@RequestBody MagiaDTO dto) {
         System.out.println("criando magia: " + dto.toString());
@@ -61,7 +55,6 @@ public class MagiaController {
         return new ResponseEntity<>(new MagiaDTO(magiaSalva), HttpStatus.CREATED);
     }
 
-    // ATUALIZAR (PUT /api/magias/{id})
     @PutMapping("/{id}")
     public ResponseEntity<MagiaDTO> atualizar(@PathVariable Long id, @RequestBody MagiaDTO dto) {
         Magia magiaParaAtualizar = new Magia(dto);
@@ -71,7 +64,6 @@ public class MagiaController {
         return ResponseEntity.ok(new MagiaDTO(magiaAtualizada));
     }
 
-    // DELETAR (DELETE /api/magias/{id})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         magiaService.deletarPorId(id);

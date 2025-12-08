@@ -8,7 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface TalentoRepository extends JpaRepository<Talento, Long> {
-    boolean existsByNome(String nome);
-
     Optional<Talento> findByNome(String nome);
 }

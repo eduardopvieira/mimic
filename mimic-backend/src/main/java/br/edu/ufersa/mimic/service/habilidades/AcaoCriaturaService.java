@@ -23,16 +23,9 @@ public class AcaoCriaturaService {
 
     @Transactional(readOnly = true)
     public List<AcaoCriaturaDTO> listarTodasAcoesCriaturas() {
-        // Como você decidiu que Talentos são "apenas do livro", usamos findAll simples
         return acRepository.findAll().stream()
                 .map(AcaoCriaturaDTO::new)
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
-    public AcaoCriaturaDTO buscarAcaoCriaturaPorId(Long id) {
-        return acRepository.findById(id)
-                .map(AcaoCriaturaDTO::new)
-                .orElseThrow(() -> new EntityNotFoundException("Talento não encontrado com id: " + id));
-    }
 }

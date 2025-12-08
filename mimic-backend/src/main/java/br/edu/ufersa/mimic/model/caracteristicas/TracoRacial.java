@@ -21,12 +21,10 @@ public class TracoRacial {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String descricao;
 
-    // CONEXÃO COM A RAÇA (Pode ser nulo se o traço pertencer a uma sub-raça)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "raca_id", nullable = true)
     private Raca raca;
 
-    // NOVA CONEXÃO COM A SUB-RAÇA
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subraca_id", nullable = true)
     private Subraca subraca;

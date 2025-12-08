@@ -21,18 +21,14 @@ public class AuthController {
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private TokenService tokenService;
 
-    // --- LOGIN ---
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Usuario loginData) {
-        // 1. Busca usuário
         Usuario usuario = usuarioRepository.findByEmail(loginData.getEmail()).orElse(null);
 
-        // 2. Valida se existe e se a senha bate (Hash vs Texto)
         if (usuario == null || !passwordEncoder.matches(loginData.getSenha(), usuario.getSenha())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha incorretos.");
         }
 
-        // 3. Gera Token e Resposta
         String token = tokenService.generateToken(usuario.getEmail());
 
         Map<String, Object> response = new HashMap<>();
@@ -43,14 +39,12 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    // --- CADASTRO ---
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrar(@RequestBody Usuario usuario) {
         if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Email já cadastrado.");
         }
 
-        // Criptografa antes de salvar
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         Usuario salvo = usuarioRepository.save(usuario);

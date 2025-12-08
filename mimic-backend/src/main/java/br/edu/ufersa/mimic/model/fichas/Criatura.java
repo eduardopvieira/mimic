@@ -29,31 +29,25 @@ public class Criatura {
     @Enumerated(EnumType.STRING)
     private Tamanho tamanho;
 
+    @Lob
+    @Column(name = "imagem", length = 10000000)
+    private byte[] imagem;
+
     @Column(name = "tipo_criatura")
     private String tipo;
 
-    @Column(name = "tag_criatura") // Adicionado tag que tem no front
+    @Column(name = "tag_criatura")
     private String tag;
 
-    // No front vc envia string "Leal e Bom", o Jackson converte se o Enum bater,
-    // ou usamos String se preferir simplificar. Vou manter Enum.
     @Enumerated(EnumType.STRING)
     private Alinhamento alinhamento;
 
-    // --- COMBATE ---
     @Column(name = "classe_armadura")
-    private String ca; // Mudei para String pois no front vc aceita "17 (Natural)"
+    private String ca;
 
-    @Column(name = "pontos_vida") // Simplificado para bater com o front
-    private String pv; // String para aceitar "136 (16d10 + 48)"
+    @Column(name = "pontos_vida")
+    private String pv;
 
-    // Deslocamentos (Separados ou String única? No front tem 3 campos)
-    // Vou guardar consolidado ou criar campos.
-    // Para simplificar, vou concatenar no Service ou guardar como JSON/Texto.
-    // Mas baseada na sua classe antiga, vou manter 'deslocamento' como String geral.
-    private String deslocamento;
-
-    // --- ATRIBUTOS ---
     private int forca;
     private int destreza;
     private int constituicao;
@@ -61,21 +55,23 @@ public class Criatura {
     private int sabedoria;
     private int carisma;
 
-    // --- PROFICIÊNCIAS (Textos livres do passo 4) ---
-    @Column(columnDefinition = "TEXT")
     private String salvaguardas;
+
+    private String deslBase;
+    private String deslVoo;
+    private String deslNatacao;
 
     @Column(columnDefinition = "TEXT")
     private String pericias;
 
     @Column(columnDefinition = "TEXT")
-    private String vulnerabilidades; // Não tem no front, mas mantive
+    private String vulnerabilidades;
 
     @Column(columnDefinition = "TEXT")
-    private String resistencias; // "resistDano" no front
+    private String resistencias;
 
     @Column(columnDefinition = "TEXT")
-    private String imunidades; // "imunidDano" no front
+    private String imunidades;
 
     @Column(columnDefinition = "TEXT")
     private String imunidadesCondicao;
@@ -89,7 +85,6 @@ public class Criatura {
     @Column(name = "nivel_desafio")
     private String nd;
 
-    // --- LISTAS DINÂMICAS (Habilidades e Ações) ---
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "criatura_habilidades_rel",
@@ -106,12 +101,11 @@ public class Criatura {
     )
     private List<AcaoCriatura> acoes = new ArrayList<>();
 
-    // --- TEXTOS FINAIS ---
     @Column(columnDefinition = "TEXT")
-    private String acoesLendarias; // CORRIGIDO: String para o textarea
+    private String acoesLendarias;
 
     @Column(columnDefinition = "TEXT")
-    private String acoesCovil; // ADICIONADO: Para o textarea "lairActions"
+    private String acoesCovil;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)

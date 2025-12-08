@@ -8,7 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface AcaoCriaturaRepository extends JpaRepository<AcaoCriatura, Long> {
-    boolean existsByNome(String nome);
-
-    Optional<AcaoCriatura> findByNome(String nome);
 }

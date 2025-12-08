@@ -10,9 +10,8 @@ import java.util.Date;
 
 @Service
 public class TokenService {
-    // Em produção, isso iria para o application.properties
     private static final String SECRET = "NkjqwnKWnqwJQNWiuhoQWhqwo7wWOQWGQHWQYUBWohjqwbjkJW";
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 3; // 3 horas
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 3;
 
     private final SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
@@ -34,7 +33,7 @@ public class TokenService {
                     .getPayload()
                     .getSubject();
         } catch (Exception e) {
-            return null; // Token inválido ou expirado
+            return null;
         }
     }
 }

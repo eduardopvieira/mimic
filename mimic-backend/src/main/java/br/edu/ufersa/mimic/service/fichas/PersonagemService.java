@@ -37,6 +37,7 @@ public class PersonagemService {
     @Autowired private ItemRepository itemRepository;
     @Autowired private TalentoRepository talentoRepository;
     @Autowired private MagiaRepository magiaRepository;
+    @Autowired private SubracaRepository subracaRepository;
 
     @Transactional
     public PersonagemDTO salvar(PersonagemDTO dto, Long usuarioId) {
@@ -46,10 +47,8 @@ public class PersonagemService {
         dono.setUsuarioId(usuarioId);
         personagem.setUsuario(dono);
 
-        // Mapeia DTO -> Entidade (Calcula Vida e CA aqui dentro)
         mapearDtoParaEntidade(dto, personagem);
 
-        // Regra de Negócio: Na criação, a vida atual começa cheia
         personagem.setVidaAtual(personagem.getVidaMax());
 
         return new PersonagemDTO(personagemRepository.save(personagem));
@@ -87,7 +86,6 @@ public class PersonagemService {
 
         mapearDtoParaEntidade(dto, personagemExistente);
 
-        // Validação: Se a vida máxima diminuiu (perdeu CON/Nível), ajusta a atual
         if (dto.getPontosDeVidaAtuais() > personagemExistente.getVidaMax()) {
             personagemExistente.setVidaAtual(personagemExistente.getVidaMax());
         } else {
@@ -109,17 +107,13 @@ public class PersonagemService {
      * Mapeia os dados do DTO para a Entidade e aplica regras de negócio (HP e CA).
      */
     private void mapearDtoParaEntidade(PersonagemDTO dto, Personagem personagem) {
-        // 1. DADOS BÁSICOS
         personagem.setNome(dto.getNomePersonagem());
         personagem.setNivel(dto.getNivel());
         personagem.setPontosDeExperiencia(dto.getPontosDeExperiencia());
         personagem.setAlinhamento(dto.getAlinhamento());
 
-        // --- CORREÇÃO: Setando o tamanho que vem do DTO ---
         personagem.setTamanho(dto.getTamanho());
-        // --------------------------------------------------
 
-        // 2. ATRIBUTOS
         personagem.setForca(dto.getForca());
         personagem.setDestreza(dto.getDestreza());
         personagem.setConstituicao(dto.getConstituicao());
@@ -127,7 +121,6 @@ public class PersonagemService {
         personagem.setSabedoria(dto.getSabedoria());
         personagem.setCarisma(dto.getCarisma());
 
-        // 3. RELACIONAMENTOS (Busca no Banco)
         Classe classe = classeRepository.findById(dto.getClasseId())
                 .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada: " + dto.getClasseId()));
         personagem.setClasse(classe);
@@ -148,7 +141,14 @@ public class PersonagemService {
             personagem.setSubclasse(null);
         }
 
-        // 4. REGRA DE NEGÓCIO: CÁLCULO DE VIDA MÁXIMA
+        if (dto.getSubracaId() != null) {
+            Subraca subraca = subracaRepository.findById(dto.getSubracaId())
+                    .orElseThrow(() -> new EntityNotFoundException("Sub-raça não encontrada"));
+            personagem.setSubraca(subraca);
+        } else {
+            personagem.setSubraca(null);
+        }
+
         int vidaCalculada = calcularVidaMaxima(
                 personagem.getNivel(),
                 personagem.getConstituicao(),
@@ -157,7 +157,6 @@ public class PersonagemService {
         personagem.setVidaMax(vidaCalculada);
         personagem.setVidaTemp(dto.getPontosDeVidaTemporarios());
 
-        // 5. REGRA DE NEGÓCIO: CÁLCULO DE CA (BASE)
         String nomeSubclasse = (personagem.getSubclasse() != null) ? personagem.getSubclasse().getNome() : "";
         int caCalculada = calcularClasseDeArmadura(
                 personagem.getNivel(),
@@ -169,14 +168,12 @@ public class PersonagemService {
                 nomeSubclasse
         );
 
-        // Respeita valor manual se for maior (ex: armadura equipada), senão usa o calculado
         if (dto.getClasseDeArmadura() != null && dto.getClasseDeArmadura() > caCalculada) {
             personagem.setClasseDeArmadura(dto.getClasseDeArmadura());
         } else {
             personagem.setClasseDeArmadura(caCalculada);
         }
 
-        // 6. OUTROS STATUS
         personagem.setIniciativa(dto.getIniciativa());
         personagem.setDeslocamento(dto.getDeslocamento());
         personagem.setPercepcaoPassiva(dto.getPercepcaoPassiva());
@@ -184,7 +181,6 @@ public class PersonagemService {
         personagem.setInspiracaoHeroica(dto.isInspiracaoHeroica());
         personagem.setAtributoChaveConjuracao(dto.getAtributoChaveConjuracao());
 
-        // 7. INVENTÁRIO E ECONOMIA
         personagem.setEscolhaEquipamentoClasse(dto.getEscolhaEquipamentoClasse());
         personagem.setEscolhaEquipamentoOrigem(dto.getEscolhaEquipamentoOrigem());
         personagem.setPc(dto.getPc());
@@ -192,7 +188,6 @@ public class PersonagemService {
         personagem.setPo(dto.getPo());
         personagem.setPl(dto.getPl());
 
-        // 8. LISTAS E RELACIONAMENTOS N:N
 
         personagem.setPericias(dto.getPericias());
 

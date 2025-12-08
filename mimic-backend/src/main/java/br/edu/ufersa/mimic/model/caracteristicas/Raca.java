@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "racas") // Pode manter o nome da tabela, mas na UI use "Espécie" (2024)
+@Table(name = "racas")
 @Getter @Setter @NoArgsConstructor
 public class Raca {
 
@@ -18,14 +18,14 @@ public class Raca {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String nome; // Vai para o campo "Espécie"
+    private String nome;
 
     @Column(nullable = false)
-    private Integer deslocamento; // Vai para o campo "Velocidade" (Ex: 9m ou 30ft)
+    private Integer deslocamento;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private Tamanho tamanho; // Vai para o campo "Tamanho" (Médio/Pequeno)
+    private Tamanho tamanho;
 
     @OneToMany(mappedBy = "raca", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Subraca> subracas;

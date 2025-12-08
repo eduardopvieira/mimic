@@ -21,6 +21,7 @@ public class CriaturaDTO {
     private String tipo;
     private String tag;
     private Alinhamento alinhamento; // Recebe String ("Leal e Bom"), converte no Service
+    private byte[] imagem;
 
     private String ca;
     private String pv;
@@ -79,10 +80,14 @@ public class CriaturaDTO {
         this.tipo = c.getTipo();
         this.tag = c.getTag();
         this.alinhamento = c.getAlinhamento();
+        this.imagem = c.getImagem();
 
         this.ca = c.getCa();
         this.pv = c.getPv();
-        this.deslocamentoTotal = c.getDeslocamento();
+
+        this.deslBase = c.getDeslBase();
+        this.deslVoo = c.getDeslVoo();
+        this.deslNatacao = c.getDeslNatacao();
 
         this.str = c.getForca();
         this.dex = c.getDestreza();

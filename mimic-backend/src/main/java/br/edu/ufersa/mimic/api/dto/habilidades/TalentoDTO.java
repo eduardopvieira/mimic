@@ -21,7 +21,7 @@ public class TalentoDTO {
     @NotNull(message = "A categoria do talento é obrigatória.")
     private CategoriaTalento categoria;
 
-    private String preRequisito; // pode ser nulo (nao tem pre-requisito)
+    private String preRequisito;
 
     @NotBlank(message = "A descrição do talento é obrigatória.")
     private String descricao;

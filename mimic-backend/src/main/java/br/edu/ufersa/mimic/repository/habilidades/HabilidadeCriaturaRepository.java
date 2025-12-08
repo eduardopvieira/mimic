@@ -8,7 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface HabilidadeCriaturaRepository extends JpaRepository<HabilidadeCriatura, Long> {
-    boolean existsByNome(String nome);
-
-    Optional<HabilidadeCriatura> findByNome(String nome);
 }

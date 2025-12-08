@@ -27,10 +27,6 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
-    public Usuario findByEmail(String email) {
-        return usuarioRepository.findByEmail(email).orElse(null);
-    }
-
     public void deleteById(Long id) {
         if (!usuarioRepository.existsById(id)) {
             throw new RuntimeException("Usuário não encontrado para exclusão!");

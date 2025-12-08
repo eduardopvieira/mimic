@@ -44,7 +44,6 @@ public class OrigemDTO {
 
     private Long usuarioId;
 
-    // --- CONSTRUTOR: ENTITY -> DTO ---
     public OrigemDTO(Origem origem) {
         this.id = origem.getId();
         this.nome = origem.getNome();

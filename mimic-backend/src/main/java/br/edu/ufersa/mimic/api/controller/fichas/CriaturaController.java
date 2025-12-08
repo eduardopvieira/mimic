@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -41,6 +43,16 @@ public class CriaturaController {
             @PathVariable Long id,
             @RequestParam Long usuarioId) {
         return ResponseEntity.ok(service.buscarPorId(id, usuarioId));
+    }
+
+    @PostMapping("/{id}/imagem")
+    public ResponseEntity<Void> uploadImagem(
+            @PathVariable Long id,
+            @RequestParam("usuarioId") Long usuarioId,
+            @RequestParam("file") MultipartFile file) throws IOException {
+
+        service.salvarImagem(id, usuarioId, file);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping

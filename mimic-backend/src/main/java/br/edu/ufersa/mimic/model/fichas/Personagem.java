@@ -28,7 +28,7 @@ public class Personagem {
     @Column(name = "nome_personagem", nullable = false)
     private String nome;
 
-    private Integer nivel; // Essencial para Proficiência (+2, +3...)
+    private Integer nivel;
 
     @Column(name = "xp")
     private Integer pontosDeExperiencia;
@@ -39,7 +39,6 @@ public class Personagem {
     @Enumerated(EnumType.STRING)
     private Tamanho tamanho;
 
-    // --- RELACIONAMENTOS BASE ---
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "classe_id")
     private Classe classe;
@@ -53,8 +52,12 @@ public class Personagem {
     private byte[] imagem;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "raca_id") // Ou especie_id conforme preferir
+    @JoinColumn(name = "raca_id")
     private Raca raca;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "subraca_id")
+    private Subraca subraca;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "origem_id")
@@ -73,29 +76,23 @@ public class Personagem {
     private Integer vidaTemp;
 
     @Column(name = "ca_total")
-    private Integer classeDeArmadura; // O Front sugere (10+DES...), o usuário confirma.
+    private Integer classeDeArmadura;
 
-    private Integer iniciativa;       // O Front sugere (DES), o usuário confirma.
-    private Integer deslocamento;     // Vem da Raça, mas o usuário pode ter botas mágicas.
-    private Integer percepcaoPassiva; // 10 + WIS + Prof.
+    private Integer iniciativa;
+    private Integer deslocamento;
+    private Integer percepcaoPassiva;
 
-    // --- RECURSOS ---
-    private Integer dadosDeVidaGastos; // O total é calculado pelo Nível + Classe
+    private Integer dadosDeVidaGastos;
     private boolean inspiracaoHeroica;
 
-    // --- PROFICIÊNCIAS (Strings simples para o PDF) ---
-    // Ex: "Acrobacia", "Furtividade"
     @ElementCollection
     @CollectionTable(name = "personagem_pericias", joinColumns = @JoinColumn(name = "personagem_id"))
     private Set<String> pericias;
 
-    // Ex: "FORCA", "CONSTITUICAO" (Vem da Classe, mas talentos podem dar mais)
     @ElementCollection
     @CollectionTable(name = "personagem_saves", joinColumns = @JoinColumn(name = "personagem_id"))
     private Set<String> salvaguardas;
 
-    // --- INVENTÁRIO & DINHEIRO ---
-    // Usa a classe Item Unificada que criamos
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "personagem_inventario",
@@ -104,9 +101,7 @@ public class Personagem {
     )
     private List<Item> inventario;
 
-    private Integer pc, pp, po, pl; // Moedas
-
-    // --- HABILIDADES & MAGIAS ---
+    private Integer pc, pp, po, pl;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "personagem_talentos")
@@ -116,18 +111,17 @@ public class Personagem {
     @JoinTable(name = "personagem_magias")
     private Set<Magia> magiasPreparadas;
 
-    // Adicione dois campos string simples
-    @Column(length = 1)
-    private String escolhaEquipamentoClasse; // "A" ou "B"
 
     @Column(length = 1)
-    private String escolhaEquipamentoOrigem; // "A" ou "B"
+    private String escolhaEquipamentoClasse;
 
-    // Para o cabeçalho da página de magias
+    @Column(length = 1)
+    private String escolhaEquipamentoOrigem;
+
     @Enumerated(EnumType.STRING)
     private Atributo atributoChaveConjuracao;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false) // Pode ser nulo (Sistema)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 }

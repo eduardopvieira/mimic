@@ -15,7 +15,5 @@ public interface OrigemRepository extends JpaRepository<Origem, Long> {
     @Query("SELECT o FROM Origem o WHERE o.usuario IS NULL OR o.usuario.usuarioId = :uid")
     List<Origem> findAllPublicAndUser(@Param("uid") Long usuarioId);
 
-//    List<Origem> findAllPublic();
-
     Optional<Origem> findByIdAndUsuario_UsuarioId(Long id, Long usuarioId);
 }

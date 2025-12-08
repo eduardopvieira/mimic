@@ -27,10 +27,4 @@ public class HabilidadeCriaturaService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
-    public HabilidadeCriaturaDTO buscarHabilidadeCriaturaPorId(Long id) {
-        return hcRepository.findById(id)
-                .map(HabilidadeCriaturaDTO::new)
-                .orElseThrow(() -> new EntityNotFoundException("Talento não encontrado com id: " + id));
-    }
 }
