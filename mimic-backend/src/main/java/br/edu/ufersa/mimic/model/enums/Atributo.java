@@ -1,5 +1,8 @@
 package br.edu.ufersa.mimic.model.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Atributo {
     FORCA("Força"),
     DESTREZA("Destreza"),
@@ -14,7 +17,4 @@ public enum Atributo {
         this.nomeAtributo = nomeAtributo;
     }
 
-    public String getNomeAtributo() {
-        return nomeAtributo;
-    }
 }

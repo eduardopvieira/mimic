@@ -1,0 +1,107 @@
+[
+  {
+    "racaId": 3,
+    "nome": "Alto Elfo",
+    "tracos": [
+      { "nome": "Prestidigitação", "descricao": "Conhece o truque Prestidigitação Arcana (pode trocar em descanso longo).", "magiaNome": "Prestidigitação Arcana" },
+      { "nome": "Magia de Alto Elfo", "descricao": "Nível 3: Detectar Magia. Nível 5: Passo Nebuloso. Pode conjurar sem gastar espaço 1x/dia.", "magiaNome": "Detectar Magia" }
+    ]
+  },
+  {
+    "racaId": 3,
+    "nome": "Drow",
+    "tracos": [
+      { "nome": "Visão no Escuro Superior", "descricao": "Alcance aumenta para 36 metros." },
+      { "nome": "Magia Drow", "descricao": "Truque: Luzes Dançantes. Nível 3: Fogo das Fadas. Nível 5: Escuridão.", "magiaNome": "Luzes Dançantes" }
+    ]
+  },
+  {
+    "racaId": 3,
+    "nome": "Elfo Silvestre",
+    "tracos": [
+      { "nome": "Pés Ligeiros", "descricao": "Deslocamento aumenta para 10,5 metros." },
+      { "nome": "Magia Silvestre", "descricao": "Truque: Arte Druídica. Nível 3: Passos Largos. Nível 5: Passo Sem Rastro.", "magiaNome": "Arte Druídica" }
+    ]
+  },
+  {
+    "racaId": 6,
+    "nome": "Gnomo das Rochas",
+    "tracos": [
+      { "nome": "Magia Gnomica", "descricao": "Conhece Prestidigitação Arcana e Reparar.", "magiaNome": "Reparar" },
+      { "nome": "Engenhoqueiro", "descricao": "Pode criar pequenos dispositivos mecânicos (isqueiro, caixa de música, brinquedo)." }
+    ]
+  },
+  {
+    "racaId": 6,
+    "nome": "Gnomo do Bosque",
+    "tracos": [
+      { "nome": "Magia da Floresta", "descricao": "Conhece Ilusão Menor e pode conjurar Falar com Animais.", "magiaNome": "Ilusão Menor" }
+    ]
+  },
+  {
+    "racaId": 7,
+    "nome": "Tiferino Abissal",
+    "tracos": [
+      { "nome": "Resistência Abissal", "descricao": "Resistência a dano Venenoso." },
+      { "nome": "Magia Abissal", "descricao": "Truque: Rajada de Veneno. Nível 3: Raio Nauseante. Nível 5: Paralisar Pessoa.", "magiaNome": "Rajada de Veneno" }
+    ]
+  },
+  {
+    "racaId": 7,
+    "nome": "Tiferino Ctônico",
+    "tracos": [
+      { "nome": "Resistência Ctônica", "descricao": "Resistência a dano Necrótico." },
+      { "nome": "Magia Ctônica", "descricao": "Truque: Toque Necrótico. Nível 3: Vitalidade Vazia. Nível 5: Raio do Enfraquecimento.", "magiaNome": "Toque Necrótico" }
+    ]
+  },
+  {
+    "racaId": 7,
+    "nome": "Tiferino Infernal",
+    "tracos": [
+      { "nome": "Resistência Infernal", "descricao": "Resistência a dano Ígneo." },
+      { "nome": "Magia Infernal", "descricao": "Truque: Raio de Fogo. Nível 3: Repreensão Diabólica. Nível 5: Escuridão.", "magiaNome": "Raio de Fogo" }
+    ]
+  },
+  {
+    "racaId": 9,
+    "nome": "Gigante das Nuvens",
+    "tracos": [
+      { "nome": "Salto da Nuvem", "descricao": "Ação Bônus: Teleporte mágico de até 9 metros." }
+    ]
+  },
+  {
+    "racaId": 9,
+    "nome": "Gigante do Fogo",
+    "tracos": [
+      { "nome": "Queimadura de Fogo", "descricao": "Ao acertar ataque, causa 1d10 de dano ígneo extra." }
+    ]
+  },
+  {
+    "racaId": 9,
+    "nome": "Gigante do Gelo",
+    "tracos": [
+      { "nome": "Arrepio do Gelo", "descricao": "Ao acertar ataque, causa 1d6 frio e reduz velocidade do alvo em 3m." }
+    ]
+  },
+  {
+    "racaId": 9,
+    "nome": "Gigante da Colina",
+    "tracos": [
+      { "nome": "Tombo da Colina", "descricao": "Ao acertar ataque em criatura Grande ou menor, pode derrubá-la (Caído)." }
+    ]
+  },
+  {
+    "racaId": 9,
+    "nome": "Gigante da Pedra",
+    "tracos": [
+      { "nome": "Resistência da Pedra", "descricao": "Reação ao sofrer dano: Reduz dano em 1d12 + Constituicão." }
+    ]
+  },
+  {
+    "racaId": 9,
+    "nome": "Gigante da Tempestade",
+    "tracos": [
+      { "nome": "Trovão da Tempestade", "descricao": "Reação ao sofrer dano: Causa 1d8 trovejante ao atacante." }
+    ]
+  }
+]

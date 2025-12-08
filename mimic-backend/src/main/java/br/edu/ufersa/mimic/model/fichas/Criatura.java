@@ -1,14 +1,18 @@
 package br.edu.ufersa.mimic.model.fichas;
 
-import br.edu.ufersa.mimic.api.dto.fichas.CriaturaDTO;
 import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.enums.Tamanho;
+import br.edu.ufersa.mimic.model.habilidades.AcaoCriatura;
+import br.edu.ufersa.mimic.model.habilidades.HabilidadeCriatura;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "criaturas")
@@ -19,32 +23,30 @@ public class Criatura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nome;
 
     @Enumerated(EnumType.STRING)
     private Tamanho tamanho;
 
+    @Lob
+    @Column(name = "imagem", length = 10000000)
+    private byte[] imagem;
+
     @Column(name = "tipo_criatura")
     private String tipo;
+
+    @Column(name = "tag_criatura")
+    private String tag;
 
     @Enumerated(EnumType.STRING)
     private Alinhamento alinhamento;
 
     @Column(name = "classe_armadura")
-    private Integer ca;
+    private String ca;
 
-    @Column(name = "descricao_ca")
-    private String descricaoCa;
-
-    @Column(name = "pontos_vida_total")
-    private Integer pvTotal;
-
-    @Column(name = "formula_vida")
-    private String formulaVida;
-
-    @Column
-    private String deslocamento;
+    @Column(name = "pontos_vida")
+    private String pv;
 
     private int forca;
     private int destreza;
@@ -53,9 +55,11 @@ public class Criatura {
     private int sabedoria;
     private int carisma;
 
-
-    @Column(columnDefinition = "TEXT")
     private String salvaguardas;
+
+    private String deslBase;
+    private String deslVoo;
+    private String deslNatacao;
 
     @Column(columnDefinition = "TEXT")
     private String pericias;
@@ -81,47 +85,29 @@ public class Criatura {
     @Column(name = "nivel_desafio")
     private String nd;
 
-    @Column
-    private Integer xp;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "criatura_habilidades_rel",
+            joinColumns = @JoinColumn(name = "criatura_id"),
+            inverseJoinColumns = @JoinColumn(name = "habilidade_id")
+    )
+    private List<HabilidadeCriatura> habilidades = new ArrayList<>();
 
-    @Column(name = "bonus_proficiencia")
-    private Integer bonusProficiencia;
-
-    @Column(columnDefinition = "TEXT")
-    private String tracos;
-
-    @Column(columnDefinition = "TEXT")
-    private String acoes;
-
-    @Column(columnDefinition = "TEXT")
-    private String reacoes;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "criatura_acoes_rel",
+            joinColumns = @JoinColumn(name = "criatura_id"),
+            inverseJoinColumns = @JoinColumn(name = "acao_id")
+    )
+    private List<AcaoCriatura> acoes = new ArrayList<>();
 
     @Column(columnDefinition = "TEXT")
     private String acoesLendarias;
 
+    @Column(columnDefinition = "TEXT")
+    private String acoesCovil;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
-
-    public Criatura(CriaturaDTO criaturaDTO) {
-        this.id = criaturaDTO.getId();
-        this.nome = criaturaDTO.getNome();
-        this.tamanho = criaturaDTO.getTamanho();
-        this.tipo = criaturaDTO.getTipo();
-        this.alinhamento = criaturaDTO.getAlinhamento();
-
-        this.ca = criaturaDTO.getCa();
-        this.descricaoCa = criaturaDTO.getDescricaoCa();
-        this.pvTotal = criaturaDTO.getPvTotal();
-        this.formulaVida = criaturaDTO.getFormulaVida();
-        this.deslocamento = criaturaDTO.getDeslocamento();
-
-        this.forca = criaturaDTO.getForca();
-        this.destreza = criaturaDTO.getDestreza();
-        this.constituicao = criaturaDTO.getConstituicao();
-        this.inteligencia = criaturaDTO.getInteligencia();
-        this.sabedoria = criaturaDTO.getSabedoria();
-        this.carisma = criaturaDTO.getCarisma();
-    }
-
 }

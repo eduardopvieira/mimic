@@ -3,6 +3,7 @@ package br.edu.ufersa.mimic.service.fichas;
 import br.edu.ufersa.mimic.api.dto.fichas.PersonagemDTO;
 import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.caracteristicas.*;
+import br.edu.ufersa.mimic.model.enums.Atributo;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.fichas.Personagem;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
@@ -16,7 +17,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +37,7 @@ public class PersonagemService {
     @Autowired private ItemRepository itemRepository;
     @Autowired private TalentoRepository talentoRepository;
     @Autowired private MagiaRepository magiaRepository;
+    @Autowired private SubracaRepository subracaRepository;
 
     @Transactional
     public PersonagemDTO salvar(PersonagemDTO dto, Long usuarioId) {
@@ -44,6 +48,9 @@ public class PersonagemService {
         personagem.setUsuario(dono);
 
         mapearDtoParaEntidade(dto, personagem);
+
+        personagem.setVidaAtual(personagem.getVidaMax());
+
         return new PersonagemDTO(personagemRepository.save(personagem));
     }
 
@@ -64,11 +71,27 @@ public class PersonagemService {
     }
 
     @Transactional
+    public void salvarImagem(Long personagemId, Long usuarioId, MultipartFile file) throws IOException {
+        Personagem personagem = personagemRepository.findByIdAndUsuario_UsuarioId(personagemId, usuarioId)
+                .orElseThrow(() -> new EntityNotFoundException("Personagem não encontrado."));
+
+        personagem.setImagem(file.getBytes());
+        personagemRepository.save(personagem);
+    }
+
+    @Transactional
     public PersonagemDTO atualizar(Long id, PersonagemDTO dto, Long usuarioId) {
         Personagem personagemExistente = personagemRepository.findByIdAndUsuario_UsuarioId(id, usuarioId)
                 .orElseThrow(() -> new EntityNotFoundException("Personagem não encontrado ou acesso negado."));
 
         mapearDtoParaEntidade(dto, personagemExistente);
+
+        if (dto.getPontosDeVidaAtuais() > personagemExistente.getVidaMax()) {
+            personagemExistente.setVidaAtual(personagemExistente.getVidaMax());
+        } else {
+            personagemExistente.setVidaAtual(dto.getPontosDeVidaAtuais());
+        }
+
         return new PersonagemDTO(personagemRepository.save(personagemExistente));
     }
 
@@ -81,16 +104,15 @@ public class PersonagemService {
     }
 
     /**
-     * Atualiza os dados da entidade com base no DTO.
-     * Atualizado para refletir os novos nomes de campos e a estrutura limpa da Entidade.
+     * Mapeia os dados do DTO para a Entidade e aplica regras de negócio (HP e CA).
      */
     private void mapearDtoParaEntidade(PersonagemDTO dto, Personagem personagem) {
         personagem.setNome(dto.getNomePersonagem());
         personagem.setNivel(dto.getNivel());
         personagem.setPontosDeExperiencia(dto.getPontosDeExperiencia());
         personagem.setAlinhamento(dto.getAlinhamento());
-        personagem.setAparencia(dto.getAparencia());
-        personagem.setHistoria(dto.getHistoria());
+
+        personagem.setTamanho(dto.getTamanho());
 
         personagem.setForca(dto.getForca());
         personagem.setDestreza(dto.getDestreza());
@@ -98,29 +120,6 @@ public class PersonagemService {
         personagem.setInteligencia(dto.getInteligencia());
         personagem.setSabedoria(dto.getSabedoria());
         personagem.setCarisma(dto.getCarisma());
-
-        personagem.setVidaMax(dto.getPontosDeVidaMaximos());
-        personagem.setVidaAtual(dto.getPontosDeVidaAtuais());
-        personagem.setVidaTemp(dto.getPontosDeVidaTemporarios());
-
-        personagem.setClasseDeArmadura(dto.getClasseDeArmadura());
-        personagem.setIniciativa(dto.getIniciativa());
-        personagem.setDeslocamento(dto.getDeslocamento());
-        personagem.setPercepcaoPassiva(dto.getPercepcaoPassiva());
-
-        personagem.setDadosDeVidaGastos(dto.getDadosDeVidaGastos());
-        personagem.setInspiracaoHeroica(dto.isInspiracaoHeroica());
-
-        personagem.setPericias(dto.getPericias());
-        personagem.setSalvaguardas(dto.getSalvaguardas());
-
-        personagem.setAtributoChaveConjuracao(dto.getAtributoChaveConjuracao());
-
-        personagem.setPc(dto.getPc());
-        personagem.setPp(dto.getPp());
-        personagem.setPo(dto.getPo());
-        personagem.setPl(dto.getPl());
-
 
         Classe classe = classeRepository.findById(dto.getClasseId())
                 .orElseThrow(() -> new EntityNotFoundException("Classe não encontrada: " + dto.getClasseId()));
@@ -142,6 +141,64 @@ public class PersonagemService {
             personagem.setSubclasse(null);
         }
 
+        if (dto.getSubracaId() != null) {
+            Subraca subraca = subracaRepository.findById(dto.getSubracaId())
+                    .orElseThrow(() -> new EntityNotFoundException("Sub-raça não encontrada"));
+            personagem.setSubraca(subraca);
+        } else {
+            personagem.setSubraca(null);
+        }
+
+        int vidaCalculada = calcularVidaMaxima(
+                personagem.getNivel(),
+                personagem.getConstituicao(),
+                classe.getDadoDeVida()
+        );
+        personagem.setVidaMax(vidaCalculada);
+        personagem.setVidaTemp(dto.getPontosDeVidaTemporarios());
+
+        String nomeSubclasse = (personagem.getSubclasse() != null) ? personagem.getSubclasse().getNome() : "";
+        int caCalculada = calcularClasseDeArmadura(
+                personagem.getNivel(),
+                personagem.getDestreza(),
+                personagem.getConstituicao(),
+                personagem.getSabedoria(),
+                personagem.getCarisma(),
+                classe.getNome(),
+                nomeSubclasse
+        );
+
+        if (dto.getClasseDeArmadura() != null && dto.getClasseDeArmadura() > caCalculada) {
+            personagem.setClasseDeArmadura(dto.getClasseDeArmadura());
+        } else {
+            personagem.setClasseDeArmadura(caCalculada);
+        }
+
+        personagem.setIniciativa(dto.getIniciativa());
+        personagem.setDeslocamento(dto.getDeslocamento());
+        personagem.setPercepcaoPassiva(dto.getPercepcaoPassiva());
+        personagem.setDadosDeVidaGastos(dto.getDadosDeVidaGastos());
+        personagem.setInspiracaoHeroica(dto.isInspiracaoHeroica());
+        personagem.setAtributoChaveConjuracao(dto.getAtributoChaveConjuracao());
+
+        personagem.setEscolhaEquipamentoClasse(dto.getEscolhaEquipamentoClasse());
+        personagem.setEscolhaEquipamentoOrigem(dto.getEscolhaEquipamentoOrigem());
+        personagem.setPc(dto.getPc());
+        personagem.setPp(dto.getPp());
+        personagem.setPo(dto.getPo());
+        personagem.setPl(dto.getPl());
+
+
+        personagem.setPericias(dto.getPericias());
+
+        if (classe.getTestesDeResistencia() != null) {
+            Set<String> salvaguardas = classe.getTestesDeResistencia().stream()
+                    .map(Atributo::getNomeAtributo)
+                    .collect(Collectors.toSet());
+            personagem.setSalvaguardas(salvaguardas);
+        } else {
+            personagem.setSalvaguardas(Collections.emptySet());
+        }
 
         if (dto.getInventarioIds() != null && !dto.getInventarioIds().isEmpty()) {
             List<Item> inventario = itemRepository.findAllById(dto.getInventarioIds());
@@ -163,5 +220,56 @@ public class PersonagemService {
         } else {
             personagem.setMagiasPreparadas(Collections.emptySet());
         }
+    }
+
+    /**
+     * Calcula Vida Máxima (Regra D&D 2024).
+     */
+    private int calcularVidaMaxima(int nivel, int valorConstituicao, Integer facesDado) {
+        int dado = (facesDado != null) ? facesDado : 8;
+        int modCon = (int) Math.floor((valorConstituicao - 10) / 2.0);
+
+        int vidaNivel1 = dado + modCon;
+        if (vidaNivel1 < 1) vidaNivel1 = 1;
+
+        if (nivel == 1) {
+            return vidaNivel1;
+        }
+
+        int mediaFixa = (dado / 2) + 1;
+        int ganhoPorNivel = Math.max(1, mediaFixa + modCon);
+
+        return vidaNivel1 + (ganhoPorNivel * (nivel - 1));
+    }
+
+    private int calcularClasseDeArmadura(int nivel, int des, int con, int sab, int car, String nomeClasse, String nomeSubclasse) {
+        int modDes = (int) Math.floor((des - 10) / 2.0);
+        int modCon = (int) Math.floor((con - 10) / 2.0);
+        int modSab = (int) Math.floor((sab - 10) / 2.0);
+        int modCar = (int) Math.floor((car - 10) / 2.0);
+
+        int caFinal = 10 + modDes;
+
+        String classe = nomeClasse.toLowerCase().trim();
+        String subclasse = nomeSubclasse != null ? nomeSubclasse.toLowerCase().trim() : "";
+
+        if (classe.equals("bárbaro")) {
+            int caBarbaro = 10 + modDes + modCon;
+            if (caBarbaro > caFinal) caFinal = caBarbaro;
+        }
+        else if (classe.equals("monge")) {
+            int caMonge = 10 + modDes + modSab;
+            if (caMonge > caFinal) caFinal = caMonge;
+        }
+        else if (classe.equals("feiticeiro") && subclasse.contains("dracônica") && nivel >= 3) {
+            int caDraconica = 10 + modDes + modCar;
+            if (caDraconica > caFinal) caFinal = caDraconica;
+        }
+        else if (classe.equals("bardo") && subclasse.contains("dança") && nivel >= 3) {
+            int caDanca = 10 + modDes + modCar;
+            if (caDanca > caFinal) caFinal = caDanca;
+        }
+
+        return caFinal;
     }
 }

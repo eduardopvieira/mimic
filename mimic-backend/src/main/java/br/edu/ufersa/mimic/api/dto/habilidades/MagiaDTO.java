@@ -47,7 +47,7 @@ public class MagiaDTO {
         this.nome = magia.getNome();
         this.descricao = magia.getDescricao();
         this.circulo = magia.getCirculo();
-        this.escolaDeMagia = magia.getEscola();
+        this.escolaDeMagia = magia.getEscolaDeMagia();
         this.tempoConjuracao = magia.getTempoConjuracao();
         this.alcance = magia.getAlcance();
         this.componentes = magia.getComponentes();

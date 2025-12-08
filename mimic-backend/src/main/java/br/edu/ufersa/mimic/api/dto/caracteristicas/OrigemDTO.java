@@ -32,7 +32,9 @@ public class OrigemDTO {
 
     private String ferramenta;
 
-    private String equipamentoInicial;
+    private String equipamentoA;
+
+    private String equipamentoB;
 
     @NotNull(message = "O ID do talento inicial é obrigatório.")
     @Positive
@@ -46,11 +48,11 @@ public class OrigemDTO {
         this.id = origem.getId();
         this.nome = origem.getNome();
         this.descricao = origem.getDescricao();
-
         this.atributosPermitidos = origem.getAtributosPermitidos();
         this.pericias = origem.getPericias();
         this.ferramenta = origem.getFerramenta();
-        this.equipamentoInicial = origem.getEquipamentoInicial();
+        this.equipamentoA = origem.getEquipamentoA();
+        this.equipamentoB = origem.getEquipamentoB();
 
         if (origem.getTalentoInicial() != null) {
             this.talentoInicialId = origem.getTalentoInicial().getId();

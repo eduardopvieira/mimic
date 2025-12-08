@@ -9,7 +9,8 @@ public enum Alinhamento {
     CAOTICO_NEUTRO("Caótico e Neutro"),
     LEAL_MAU("Leal e Mal"),
     NEUTRO_MAU("Neutro e Mau"),
-    CAOTICO_MAU("Caótico e Mau");
+    CAOTICO_MAU("Caótico e Mau"),
+    SEM_ALINHAMENTO("Sem Alinhamento");
 
     private final String alinhamento;
 

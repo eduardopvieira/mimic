@@ -1,8 +1,8 @@
 package br.edu.ufersa.mimic.api.dto.fichas;
 
-import br.edu.ufersa.mimic.model.caracteristicas.Classe;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.enums.Atributo;
+import br.edu.ufersa.mimic.model.enums.Tamanho;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.fichas.Personagem;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
@@ -32,17 +32,23 @@ public class PersonagemDTO {
 
     private Integer pontosDeExperiencia;
     private Alinhamento alinhamento;
+    private Tamanho tamanho;
 
     @NotNull
     private Long classeId;
-
     private Long subclasseId;
-
     @NotNull
     private Long racaId;
-
+    private Long subracaId;
     @NotNull
     private Long origemId;
+
+    private String classeNome;
+    private String subclasseNome;
+    private String racaNome;
+    private String origemNome;
+
+    private byte[] imagem;
 
     private Integer forca;
     private Integer destreza;
@@ -71,6 +77,9 @@ public class PersonagemDTO {
     private String aparencia;
     private String historia;
 
+    private String escolhaEquipamentoClasse;
+    private String escolhaEquipamentoOrigem;
+
     private List<Long> inventarioIds;
     private Set<Long> talentosIds;
     private Set<Long> magiasPreparadasIds;
@@ -88,11 +97,32 @@ public class PersonagemDTO {
         this.nivel = p.getNivel();
         this.pontosDeExperiencia = p.getPontosDeExperiencia();
         this.alinhamento = p.getAlinhamento();
+        this.tamanho = p.getTamanho();
 
-        if (p.getClasse() != null) this.classeId = p.getClasse().getId();
-        if (p.getSubclasse() != null) this.subclasseId = p.getSubclasse().getId();
-        if (p.getRaca() != null) this.racaId = p.getRaca().getId();
-        if (p.getOrigem() != null) this.origemId = p.getOrigem().getId();
+        if (p.getClasse() != null) {
+            this.classeId = p.getClasse().getId();
+            this.classeNome = p.getClasse().getNome();
+        }
+        if (p.getSubclasse() != null) {
+            this.subclasseId = p.getSubclasse().getId();
+            this.subclasseNome = p.getSubclasse().getNome();
+        }
+        if (p.getRaca() != null) {
+            this.racaId = p.getRaca().getId();
+            this.racaNome = p.getRaca().getNome();
+        }
+
+        if (p.getSubraca() != null) {
+            this.subracaId = p.getSubraca().getId();
+        }
+
+
+        if (p.getOrigem() != null) {
+            this.origemId = p.getOrigem().getId();
+            this.origemNome = p.getOrigem().getNome();
+        }
+
+        this.imagem = p.getImagem();
 
         this.forca = p.getForca();
         this.destreza = p.getDestreza();
@@ -109,13 +139,14 @@ public class PersonagemDTO {
         this.deslocamento = p.getDeslocamento();
         this.percepcaoPassiva = p.getPercepcaoPassiva();
 
+        this.escolhaEquipamentoClasse = p.getEscolhaEquipamentoClasse();
+        this.escolhaEquipamentoOrigem = p.getEscolhaEquipamentoOrigem();
+
         this.dadosDeVidaGastos = p.getDadosDeVidaGastos();
         this.inspiracaoHeroica = p.isInspiracaoHeroica();
 
         this.pericias = p.getPericias();
         this.salvaguardas = p.getSalvaguardas();
-        this.aparencia = p.getAparencia();
-        this.historia = p.getHistoria();
         this.atributoChaveConjuracao = p.getAtributoChaveConjuracao();
 
         this.pc = p.getPc();

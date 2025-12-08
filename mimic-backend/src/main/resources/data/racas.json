@@ -1,0 +1,12 @@
+[
+  { "id": 1, "nome": "Humano", "deslocamento": 9, "tamanho": "MEDIO" },
+  { "id": 2, "nome": "Anão", "deslocamento": 9, "tamanho": "MEDIO" },
+  { "id": 3, "nome": "Elfo", "deslocamento": 9, "tamanho": "MEDIO" },
+  { "id": 4, "nome": "Pequenino", "deslocamento": 9, "tamanho": "PEQUENO" },
+  { "id": 5, "nome": "Draconato", "deslocamento": 9, "tamanho": "MEDIO" },
+  { "id": 6, "nome": "Gnomo", "deslocamento": 9, "tamanho": "PEQUENO" },
+  { "id": 7, "nome": "Tiferino", "deslocamento": 9, "tamanho": "MEDIO" },
+  { "id": 8, "nome": "Orc", "deslocamento": 9, "tamanho": "MEDIO" },
+  { "id": 9, "nome": "Golias", "deslocamento": 10, "tamanho": "MEDIO" },
+  { "id": 10, "nome": "Aasimar", "deslocamento": 9, "tamanho": "MEDIO" }
+]

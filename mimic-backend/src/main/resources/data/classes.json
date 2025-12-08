@@ -1,0 +1,355 @@
+[
+  {
+    "nome": "Bárbaro",
+    "dadoDeVida": 12,
+    "proficienciasTexto": [
+      "Armaduras Leves e Médias",
+      "Escudos",
+      "Armas Simples e Marciais"
+    ],
+    "testesDeResistencia": ["FORCA", "CONSTITUICAO"],
+    "periciasDeClasse": [
+      "Atletismo", "Intimidação", "Lidar com Animais", "Natureza", "Percepção", "Sobrevivência"
+    ],
+    "isConjurador": false,
+    "atributoDeConjuracao": null,
+    "equipamentoA": "4 Machadinhas, Machado Grande, Kit de Aventureiro e 15 PO",
+    "equipamentoB": "75 PO",
+    "caracteristicas": [
+      { "nome": "Fúria", "descricao": "Vantagem em testes/SG de Força; Resistência a dano Contundente, Cortante e Perfurante; Dano extra com Força. Não pode conjurar magias.", "nivelAdquirido": 1 },
+      { "nome": "Defesa Sem Armadura", "descricao": "CA = 10 + Mod. Des + Mod. Con (enquanto sem armadura). Pode usar escudo.", "nivelAdquirido": 1 },
+      { "nome": "Maestria em Arma", "descricao": "Acesso às propriedades de maestria de duas armas.", "nivelAdquirido": 1 },
+      { "nome": "Ataque Imprudente", "descricao": "Pode atacar com Vantagem (Força), mas ataques contra você também têm Vantagem.", "nivelAdquirido": 2 },
+      { "nome": "Sentido de Perigo", "descricao": "Vantagem em SG de Destreza contra efeitos visíveis.", "nivelAdquirido": 2 },
+      { "nome": "Conhecimento Primordial", "descricao": "Proficiência em outra perícia de Bárbaro. Pode usar Força para Acrobacia, Furtividade, etc. durante Fúria.", "nivelAdquirido": 3 }
+    ],
+    "subclasses": [
+      { "nome": "Trilha da Árvore do Mundo" },
+      { "nome": "Trilha do Berserker" },
+      { "nome": "Trilha do Coração Selvagem" },
+      { "nome": "Trilha do Fanático" }
+    ]
+  },
+  {
+    "nome": "Bardo",
+    "dadoDeVida": 8,
+    "proficienciasTexto": [
+      "Armaduras Leves",
+      "Armas Simples",
+      "3 Instrumentos Musicais"
+    ],
+    "testesDeResistencia": ["DESTREZA", "CARISMA"],
+    "periciasDeClasse": ["Qualquer 3 perícias"],
+    "isConjurador": true,
+    "atributoDeConjuracao": "CARISMA",
+    "equipamentoA": "Armadura de Couro, 2 Adagas, Instrumento Musical, Kit de Artista e 19 PO",
+    "equipamentoB": "90 PO",
+    "caracteristicas": [
+      { "nome": "Inspiração de Bardo", "descricao": "Ação Bônus: Concede um dado (d6) a um aliado para somar em Testes de D20.", "nivelAdquirido": 1 },
+      { "nome": "Conjuração", "descricao": "Conjura magias arcanas usando Carisma. Pode usar ritual.", "nivelAdquirido": 1 },
+      { "nome": "Especialista", "descricao": "Especialização (dobro de proficiência) em duas perícias.", "nivelAdquirido": 2 },
+      { "nome": "Pau pra Toda Obra", "descricao": "Adiciona metade da proficiência em testes de atributo sem proficiência.", "nivelAdquirido": 2 }
+    ],
+    "subclasses": [
+      { "nome": "Colégio da Bravura" },
+      { "nome": "Colégio da Dança" },
+      { "nome": "Colégio do Conhecimento" },
+      { "nome": "Colégio do Glamour" }
+    ]
+  },
+  {
+    "nome": "Bruxo",
+    "dadoDeVida": 8,
+    "proficienciasTexto": [
+      "Armaduras Leves",
+      "Armas Simples"
+    ],
+    "testesDeResistencia": ["SABEDORIA", "CARISMA"],
+    "periciasDeClasse": [
+      "Arcanismo", "Enganação", "História", "Intimidação", "Investigação", "Natureza", "Religião"
+    ],
+    "isConjurador": true,
+    "atributoDeConjuracao": "CARISMA",
+    "equipamentoA": "Armadura de Couro, Foice, 2 Adagas, Foco Arcano (orbe), Livro (conhecimento oculto), Kit de Erudito e 15 PO",
+    "equipamentoB": "100 PO",
+    "caracteristicas": [
+      { "nome": "Magia de Pacto", "descricao": "Conjura magias que recarregam em Descanso Curto. Carisma.", "nivelAdquirido": 1 },
+      { "nome": "Invocações Místicas", "descricao": "Concede habilidades mágicas permanentes ou aprimoramentos.", "nivelAdquirido": 1 },
+      { "nome": "Astúcia Mágica", "descricao": "Recupera metade dos espaços de magia com ritual de 1 minuto (1x por Descanso Longo).", "nivelAdquirido": 2 },
+      { "nome": "Pacto", "descricao": "Escolha entre Pacto da Lâmina, Corrente ou Tomo nas Invocações.", "nivelAdquirido": 1 }
+    ],
+    "subclasses": [
+      { "nome": "Patrono Arquifada" },
+      { "nome": "Patrono Celestial" },
+      { "nome": "Patrono O Grande Antigo" },
+      { "nome": "Patrono Ínfero" }
+    ]
+  },
+  {
+    "nome": "Clérigo",
+    "dadoDeVida": 8,
+    "proficienciasTexto": [
+      "Armaduras Leves e Médias",
+      "Escudos",
+      "Armas Simples"
+    ],
+    "testesDeResistencia": ["SABEDORIA", "CARISMA"],
+    "periciasDeClasse": [
+      "História", "Intuição", "Medicina", "Persuasão", "Religião"
+    ],
+    "isConjurador": true,
+    "atributoDeConjuracao": "SABEDORIA",
+    "equipamentoA": "Cota de Malha Parcial, Escudo, Maça, Símbolo Sagrado, Kit de Sacerdote e 7 PO",
+    "equipamentoB": "110 PO",
+    "caracteristicas": [
+      { "nome": "Conjuração", "descricao": "Conjura magias divinas usando Sabedoria. Prepara magias diariamente.", "nivelAdquirido": 1 },
+      { "nome": "Ordem Divina", "descricao": "Escolha entre Protetor (Arm. Pesada/Armas Marciais) ou Taumaturgo (Truque extra/Bônus em Arcanismo/Religião).", "nivelAdquirido": 1 },
+      { "nome": "Canalizar Divindade", "descricao": "Usa energia divina para efeitos como Expulsar Mortos-Vivos ou Centelha Divina (Cura/Dano).", "nivelAdquirido": 2 }
+    ],
+    "subclasses": [
+      { "nome": "Domínio da Guerra" },
+      { "nome": "Domínio da Luz" },
+      { "nome": "Domínio da Trapaça" },
+      { "nome": "Domínio da Vida" }
+    ]
+  },
+  {
+    "nome": "Druida",
+    "dadoDeVida": 8,
+    "proficienciasTexto": [
+      "Armaduras Leves",
+      "Escudos (madeira)",
+      "Armas Simples",
+      "Kit de Herbalismo"
+    ],
+    "testesDeResistencia": ["INTELIGENCIA", "SABEDORIA"],
+    "periciasDeClasse": [
+      "Arcanismo", "Lidar com Animais", "Intuição", "Medicina", "Natureza", "Percepção", "Religião", "Sobrevivência"
+    ],
+    "isConjurador": true,
+    "atributoDeConjuracao": "SABEDORIA",
+    "equipamentoA": "Armadura de Couro, Escudo, Foice, Foco Druídico (Cajado), Kit de Explorador, Kit de Herbalismo e 9 PO",
+    "equipamentoB": "50 PO",
+    "caracteristicas": [
+      { "nome": "Conjuração", "descricao": "Conjura magias primais usando Sabedoria.", "nivelAdquirido": 1 },
+      { "nome": "Idioma Druídico", "descricao": "Fala Druídico e conhece Falar com Animais.", "nivelAdquirido": 1 },
+      { "nome": "Ordem Primal", "descricao": "Escolha entre Protetor (Arm. Média/Armas Marciais) ou Xamã (Truque extra/Bônus em Arcanismo/Natureza).", "nivelAdquirido": 1 },
+      { "nome": "Forma Selvagem", "descricao": "Transforma-se em animais (Fera). Ganha PV temporários.", "nivelAdquirido": 2 },
+      { "nome": "Companheiro Selvagem", "descricao": "Pode conjurar Convocar Familiar usando Forma Selvagem.", "nivelAdquirido": 2 }
+    ],
+    "subclasses": [
+      { "nome": "Círculo da Lua" },
+      { "nome": "Círculo da Terra" },
+      { "nome": "Círculo das Estrelas" },
+      { "nome": "Círculo do Mar" }
+    ]
+  },
+  {
+    "nome": "Feiticeiro",
+    "dadoDeVida": 6,
+    "proficienciasTexto": [
+      "Nenhuma armadura",
+      "Armas Simples"
+    ],
+    "testesDeResistencia": ["CONSTITUICAO", "CARISMA"],
+    "periciasDeClasse": [
+      "Arcanismo", "Enganação", "Intimidação", "Intuição", "Persuasão", "Religião"
+    ],
+    "isConjurador": true,
+    "atributoDeConjuracao": "CARISMA",
+    "equipamentoA": "Lança, 2 Adagas, Foco Arcano (cristal), Kit de Explorador de Masmorras e 28 PO",
+    "equipamentoB": "50 PO",
+    "caracteristicas": [
+      { "nome": "Conjuração", "descricao": "Magia inata usando Carisma.", "nivelAdquirido": 1 },
+      { "nome": "Feitiçaria Inata", "descricao": "Ação Bônus: +1 na CD das magias e Vantagem nos ataques mágicos por 1 min.", "nivelAdquirido": 1 },
+      { "nome": "Fonte de Magia", "descricao": "Pontos de Feitiçaria para criar espaços de magia ou usar Metamagia.", "nivelAdquirido": 2 },
+      { "nome": "Metamagia", "descricao": "Altera propriedades das magias (ex: Sutil, Acelerada).", "nivelAdquirido": 2 }
+    ],
+    "subclasses": [
+      { "nome": "Feitiçaria Aberrante" },
+      { "nome": "Feitiçaria Dracônica" },
+      { "nome": "Feitiçaria Mecânica" },
+      { "nome": "Feitiçaria Selvagem" }
+    ]
+  },
+  {
+    "nome": "Guardião",
+    "dadoDeVida": 10,
+    "proficienciasTexto": [
+      "Armaduras Leves e Médias",
+      "Escudos",
+      "Armas Simples e Marciais"
+    ],
+    "testesDeResistencia": ["FORCA", "DESTREZA"],
+    "periciasDeClasse": [
+      "Atletismo", "Furtividade", "Intuição", "Investigação", "Lidar com Animais", "Natureza", "Percepção", "Sobrevivência"
+    ],
+    "isConjurador": true,
+    "atributoDeConjuracao": "SABEDORIA",
+    "equipamentoA": "Armadura de Couro Batido, Cimitarra, Espada Curta, Arco Longo, 20 Flechas, Aljava, Foco Druídico (ramo de visco), Kit de Aventureiro e 7 PO",
+    "equipamentoB": "150 PO",
+    "caracteristicas": [
+      { "nome": "Conjuração", "descricao": "Magias primais usando Sabedoria. Pode trocar magias em descanso longo.", "nivelAdquirido": 1 },
+      { "nome": "Inimigo Favorito", "descricao": "Sempre tem Marca do Predador preparada e pode conjurar sem gastar espaço algumas vezes.", "nivelAdquirido": 1 },
+      { "nome": "Maestria em Arma", "descricao": "Propriedades de maestria em 2 armas.", "nivelAdquirido": 1 },
+      { "nome": "Explorador Hábil", "descricao": "Especialização em uma perícia e aprende 2 idiomas.", "nivelAdquirido": 2 },
+      { "nome": "Estilo de Luta", "descricao": "Escolha um talento de Estilo de Luta.", "nivelAdquirido": 2 }
+    ],
+    "subclasses": [
+      { "nome": "Andarilho Feérico" },
+      { "nome": "Caçador" },
+      { "nome": "Senhor das Feras" },
+      { "nome": "Vigilante das Sombras" }
+    ]
+  },
+  {
+    "nome": "Guerreiro",
+    "dadoDeVida": 10,
+    "proficienciasTexto": [
+      "Todas as Armaduras",
+      "Escudos",
+      "Armas Simples e Marciais"
+    ],
+    "testesDeResistencia": ["FORCA", "CONSTITUICAO"],
+    "periciasDeClasse": [
+      "Acrobacia", "Atletismo", "História", "Intimidação", "Intuição", "Lidar com Animais", "Percepção", "Persuasão", "Sobrevivência"
+    ],
+    "isConjurador": false,
+    "atributoDeConjuracao": null,
+    "equipamentoA": "Cota de Malha, Espada Grande, Mangual, 8 Azagaias, Kit de Explorador de Masmorras e 4 PO",
+    "equipamentoB": "Armadura de Couro Batido, Cimitarra, Espada Curta, Arco Longo, 20 Flechas, Aljava, Kit de Explorador de Masmorras e 11 PO; ou (C) 155 PO",
+    "caracteristicas": [
+      { "nome": "Estilo de Luta", "descricao": "Talento de Estilo de Luta.", "nivelAdquirido": 1 },
+      { "nome": "Maestria em Arma", "descricao": "Propriedades de maestria em 3 armas.", "nivelAdquirido": 1 },
+      { "nome": "Recuperar Fôlego", "descricao": "Ação Bônus: Recupera 1d10 + Nível de PV.", "nivelAdquirido": 1 },
+      { "nome": "Surto de Ação", "descricao": "Uma ação adicional no turno (1/descanso).", "nivelAdquirido": 2 },
+      { "nome": "Mente Tática", "descricao": "Gasta Recuperar Fôlego para adicionar 1d10 em teste de atributo falho.", "nivelAdquirido": 2 }
+    ],
+    "subclasses": [
+      { "nome": "Campeão" },
+      { "nome": "Cavaleiro Místico" },
+      { "nome": "Combatente Psíquico" },
+      { "nome": "Mestre da Batalha" }
+    ]
+  },
+  {
+    "nome": "Ladino",
+    "dadoDeVida": 8,
+    "proficienciasTexto": [
+      "Armaduras Leves",
+      "Armas Simples",
+      "Armas Marciais (Acuidade/Leve)",
+      "Ferramentas de Ladrão"
+    ],
+    "testesDeResistencia": ["DESTREZA", "INTELIGENCIA"],
+    "periciasDeClasse": [
+      "Acrobacia", "Atletismo", "Enganação", "Furtividade", "Intimidação", "Intuição", "Investigação", "Percepção", "Persuasão", "Prestidigitação"
+    ],
+    "isConjurador": false,
+    "atributoDeConjuracao": null,
+    "equipamentoA": "Armadura de Couro, 2 Adagas, Espada Curta, Arco Curto, 20 Flechas, Aljava, Ferramentas de Ladrão, Kit de Assaltante e 8 PO",
+    "equipamentoB": "100 PO",
+    "caracteristicas": [
+      { "nome": "Ataque Furtivo", "descricao": "Dano extra (Xd6) em ataques com vantagem ou aliado próximo, usando armas de acuidade/distância.", "nivelAdquirido": 1 },
+      { "nome": "Especialista", "descricao": "Especialização em duas perícias ou ferramentas.", "nivelAdquirido": 1 },
+      { "nome": "Gíria de Ladrão", "descricao": "Idioma secreto e sinais.", "nivelAdquirido": 1 },
+      { "nome": "Maestria em Arma", "descricao": "Propriedades de maestria em 2 armas.", "nivelAdquirido": 1 },
+      { "nome": "Ação Ardilosa", "descricao": "Ação Bônus: Correr, Desengajar ou Esconder.", "nivelAdquirido": 2 }
+    ],
+    "subclasses": [
+      { "nome": "Adaga Espiritual" },
+      { "nome": "Assassino" },
+      { "nome": "Ladrão" },
+      { "nome": "Trapaceiro Arcano" }
+    ]
+  },
+  {
+    "nome": "Mago",
+    "dadoDeVida": 6,
+    "proficienciasTexto": [
+      "Nenhuma armadura",
+      "Armas Simples"
+    ],
+    "testesDeResistencia": ["INTELIGENCIA", "SABEDORIA"],
+    "periciasDeClasse": [
+      "Arcanismo", "História", "Intuição", "Investigação", "Medicina", "Natureza", "Religião"
+    ],
+    "isConjurador": true,
+    "atributoDeConjuracao": "INTELIGENCIA",
+    "equipamentoA": "2 Adagas, Foco Arcano (Cajado), Kit de Erudito, Livro de Magias, Túnica e 5 PO",
+    "equipamentoB": "55 PO",
+    "caracteristicas": [
+      { "nome": "Conjuração", "descricao": "Magia arcana usando Inteligência. Requer Livro de Magias.", "nivelAdquirido": 1 },
+      { "nome": "Adepto de Ritual", "descricao": "Pode conjurar rituais direto do livro sem preparar.", "nivelAdquirido": 1 },
+      { "nome": "Recuperação Arcana", "descricao": "Recupera espaços de magia (metade do nível) em descanso curto.", "nivelAdquirido": 1 },
+      { "nome": "Acadêmico", "descricao": "Especialização em uma perícia acadêmica (Arcanismo, História, etc).", "nivelAdquirido": 2 }
+    ],
+    "subclasses": [
+      { "nome": "Abjurador" },
+      { "nome": "Adivinhador" },
+      { "nome": "Evocador" },
+      { "nome": "Ilusionista" }
+    ]
+  },
+  {
+    "nome": "Monge",
+    "dadoDeVida": 8,
+    "proficienciasTexto": [
+      "Nenhuma armadura",
+      "Armas Simples",
+      "Armas Marciais (Leve)"
+    ],
+    "testesDeResistencia": ["FORCA", "DESTREZA"],
+    "periciasDeClasse": [
+      "Acrobacia", "Atletismo", "Furtividade", "História", "Intuição", "Religião"
+    ],
+    "isConjurador": false,
+    "atributoDeConjuracao": null,
+    "equipamentoA": "Lança, 5 Adagas, Ferramentas de Artesão ou Instrumento Musical, Kit de Aventureiro e 11 PO",
+    "equipamentoB": "50 PO",
+    "caracteristicas": [
+      { "nome": "Artes Marciais", "descricao": "Usa Des em vez de Força. Dado de dano escala (d6->d12). Ação Bônus para ataque desarmado.", "nivelAdquirido": 1 },
+      { "nome": "Defesa Sem Armadura", "descricao": "CA = 10 + Mod. Des + Mod. Sab (sem armadura/escudo).", "nivelAdquirido": 1 },
+      { "nome": "Foco do Monge", "descricao": "Pontos de Foco para habilidades (Passo do Vento, Defesa Paciente, Torrente de Golpes).", "nivelAdquirido": 2 },
+      { "nome": "Movimento Sem Armadura", "descricao": "Aumenta o deslocamento.", "nivelAdquirido": 2 },
+      { "nome": "Metabolismo Incomum", "descricao": "Recupera PV e Foco ao rolar iniciativa (1/descanso longo).", "nivelAdquirido": 2 }
+    ],
+    "subclasses": [
+      { "nome": "Combatente da Mão Espalmada" },
+      { "nome": "Combatente da Misericórdia" },
+      { "nome": "Combatente das Sombras" },
+      { "nome": "Combatente dos Elementos" }
+    ]
+  },
+  {
+    "nome": "Paladino",
+    "dadoDeVida": 10,
+    "proficienciasTexto": [
+      "Todas as Armaduras",
+      "Escudos",
+      "Armas Simples e Marciais"
+    ],
+    "testesDeResistencia": ["SABEDORIA", "CARISMA"],
+    "periciasDeClasse": [
+      "Atletismo", "Intimidação", "Intuição", "Medicina", "Persuasão", "Religião"
+    ],
+    "isConjurador": true,
+    "atributoDeConjuracao": "CARISMA",
+    "equipamentoA": "Cota de Malha, Escudo, Espada Longa, 6 Azagaias, Símbolo Sagrado, Kit de Sacerdote e 9 PO",
+    "equipamentoB": "150 PO",
+    "caracteristicas": [
+      { "nome": "Mãos Consagradas", "descricao": "Reserva de cura (5 x Nível). Ação Bônus para curar ou remover veneno.", "nivelAdquirido": 1 },
+      { "nome": "Conjuração", "descricao": "Magias divinas usando Carisma.", "nivelAdquirido": 1 },
+      { "nome": "Maestria em Arma", "descricao": "Propriedades de maestria em 2 armas.", "nivelAdquirido": 1 },
+      { "nome": "Destruição do Paladino", "descricao": "Pode usar Destruição Divina (Divine Smite) sem gastar espaço 1x/dia.", "nivelAdquirido": 2 },
+      { "nome": "Estilo de Luta", "descricao": "Talento de Estilo de Luta.", "nivelAdquirido": 2 },
+      { "nome": "Canalizar Divindade", "descricao": "Efeitos sagrados específicos da subclasse ou Sentido Divino.", "nivelAdquirido": 3 }
+    ],
+    "subclasses": [
+      { "nome": "Juramento da Devoção" },
+      { "nome": "Juramento da Glória" },
+      { "nome": "Juramento da Vingança" },
+      { "nome": "Juramento dos Anciões" }
+    ]
+  }
+]

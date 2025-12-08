@@ -2,63 +2,61 @@ package br.edu.ufersa.mimic.api.controller.fichas;
 
 import br.edu.ufersa.mimic.api.dto.fichas.CriaturaDTO;
 import br.edu.ufersa.mimic.service.fichas.CriaturaService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/criaturas")
-@CrossOrigin(origins = "*")
 public class CriaturaController {
 
-    private final CriaturaService criaturaService;
-
-    @Autowired
-    public CriaturaController(CriaturaService criaturaService) {
-        this.criaturaService = criaturaService;
-    }
-
-
-    @GetMapping
-    public ResponseEntity<List<CriaturaDTO>> listarCriaturas(@RequestParam Long usuarioId) {
-        return ResponseEntity.ok(criaturaService.listarTodas(usuarioId));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<CriaturaDTO> buscarCriaturaPorId(
-            @PathVariable Long id,
-            @RequestParam Long usuarioId) {
-        return ResponseEntity.ok(criaturaService.buscarPorId(id, usuarioId));
-    }
-
+    @Autowired private CriaturaService service;
 
     @PostMapping
-    public ResponseEntity<CriaturaDTO> criarCriatura(
-            @Valid @RequestBody CriaturaDTO dto,
-            @RequestParam Long usuarioId) {
-
-        return new ResponseEntity<>(criaturaService.salvar(dto, usuarioId), HttpStatus.CREATED);
+    public ResponseEntity<CriaturaDTO> criar(@RequestBody CriaturaDTO dto, @RequestParam Long usuarioId) {
+        return new ResponseEntity<>(service.salvar(dto, usuarioId), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CriaturaDTO> atualizarCriatura(
+    public ResponseEntity<CriaturaDTO> atualizar(
             @PathVariable Long id,
-            @Valid @RequestBody CriaturaDTO dto,
+            @RequestBody CriaturaDTO dto,
             @RequestParam Long usuarioId) {
-
-        return ResponseEntity.ok(criaturaService.atualizar(id, dto, usuarioId));
+        return ResponseEntity.ok(service.atualizar(id, dto, usuarioId));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarCriatura(
+    public ResponseEntity<Void> deletar(
             @PathVariable Long id,
             @RequestParam Long usuarioId) {
-
-        criaturaService.deletarPorId(id, usuarioId);
+        service.deletar(id, usuarioId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CriaturaDTO> buscarPorId(
+            @PathVariable Long id,
+            @RequestParam Long usuarioId) {
+        return ResponseEntity.ok(service.buscarPorId(id, usuarioId));
+    }
+
+    @PostMapping("/{id}/imagem")
+    public ResponseEntity<Void> uploadImagem(
+            @PathVariable Long id,
+            @RequestParam("usuarioId") Long usuarioId,
+            @RequestParam("file") MultipartFile file) throws IOException {
+
+        service.salvarImagem(id, usuarioId, file);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CriaturaDTO>> listar(@RequestParam Long usuarioId) {
+        return ResponseEntity.ok(service.listarPorUsuario(usuarioId));
     }
 }

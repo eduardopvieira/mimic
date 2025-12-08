@@ -1,6 +1,5 @@
 package br.edu.ufersa.mimic.service.habilidades;
 
-
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.repository.habilidades.MagiaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -8,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MagiaService {
 
-    private final br.edu.ufersa.mimic.repository.habilidades.MagiaRepository magiaRepository;
+    private final MagiaRepository magiaRepository;
 
     @Autowired
     public MagiaService(MagiaRepository magiaRepository) {
@@ -28,9 +28,10 @@ public class MagiaService {
                 .orElseThrow(() -> new EntityNotFoundException("Magia não encontrada com o id: " + id));
     }
 
-    public List<Magia> buscarPorCirculo(Integer circulo) {
-        return magiaRepository.findByCirculo(circulo);
+    public List<Magia> buscarPorNome(String nome) {
+        return magiaRepository.findByNomeContainingIgnoreCase(nome);
     }
+
 
     public Magia salvar(Magia magia) {
         return magiaRepository.save(magia);
@@ -38,14 +39,19 @@ public class MagiaService {
 
     public Magia atualizar(Long id, Magia magiaAtualizada) {
         Magia magiaExistente = buscarPorId(id);
+        
         magiaExistente.setNome(magiaAtualizada.getNome());
-        magiaExistente.setDescricao(magiaAtualizada.getDescricao());
         magiaExistente.setCirculo(magiaAtualizada.getCirculo());
-        magiaExistente.setEscola(magiaAtualizada.getEscola());
+        magiaExistente.setEscolaDeMagia(magiaAtualizada.getEscolaDeMagia());
         magiaExistente.setTempoConjuracao(magiaAtualizada.getTempoConjuracao());
         magiaExistente.setAlcance(magiaAtualizada.getAlcance());
         magiaExistente.setComponentes(magiaAtualizada.getComponentes());
         magiaExistente.setDuracao(magiaAtualizada.getDuracao());
+        magiaExistente.setConcentracao(magiaAtualizada.isConcentracao());
+        magiaExistente.setRitual(magiaAtualizada.isRitual());
+        magiaExistente.setFormulaDano(magiaAtualizada.getFormulaDano());
+        magiaExistente.setTipoDano(magiaAtualizada.getTipoDano());
+        magiaExistente.setDescricao(magiaAtualizada.getDescricao());
 
         return magiaRepository.save(magiaExistente);
     }
