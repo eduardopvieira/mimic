@@ -7,8 +7,12 @@ import CreateOrigin from './pages/CreateOrigin';
 import ManageCharacters from './pages/ManageCharacters';
 import ManageCreatures from './pages/ManageCreatures';
 import CreateCreature from './pages/CreateCreature';
+import ViewCharacter from './pages/CharacterView';
+
+
 import Login from './pages/Login';
 import Register from './pages/Register';
+import CreatureView from './pages/CreatureView';
 
 function App() {
   return (
@@ -27,13 +31,17 @@ function App() {
 
       <Route path="/editar-personagem/:id" element={<CreateCharacter />} />
 
+      <Route path="/personagem/:id" element={<ViewCharacter />} />
+
 
       <Route path="/gerenciar-criaturas" element={<ManageCreatures />} />
 
       <Route path="/criar-criatura" element={<CreateCreature />} />
 
       <Route path="/editar-criatura/:id" element={<CreateCreature />} />
-      
+
+      <Route path="/criatura/:id" element={<CreatureView />} />
+
       
       <Route path="/gerenciar-magias" element={<ManageSpells />} />
 

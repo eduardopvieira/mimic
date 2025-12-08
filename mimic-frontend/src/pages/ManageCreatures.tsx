@@ -123,6 +123,7 @@ const ManageCreatures = () => {
                 
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onView={(id) => navigate(`/criatura/${id}`)}
               />
             ))}
           </div>

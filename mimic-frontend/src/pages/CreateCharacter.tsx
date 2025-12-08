@@ -107,6 +107,15 @@ const CreateCharacter = () => {
     { id: 6, label: "Equipamento" },
   ];
 
+const OPCOES_TAMANHO = [
+    { id: "MINUSCULO", nome: "Minúsculo" },
+    { id: "PEQUENO", nome: "Pequeno" },
+    { id: "MEDIO", nome: "Médio" },
+    { id: "GRANDE", nome: "Grande" },
+    { id: "ENORME", nome: "Enorme" },
+    { id: "COLOSSAL", nome: "Colossal" }
+];
+
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -125,7 +134,7 @@ const CreateCharacter = () => {
   const [formData, setFormData] = useState<IFormData>({
     nivel: 1,
     nome: '', 
-    tamanho: 'Médio', 
+    tamanho: 'MEDIO', 
     alinhamento: '', 
     racaId: '', 
     subracaId: '',
@@ -404,6 +413,7 @@ const CreateCharacter = () => {
         subclasseId: formData.subclasseId ? Number(formData.subclasseId) : null,
         racaId: Number(formData.racaId),
         origemId: Number(formData.origemId),
+        tamanho: formData.tamanho,
         
         forca: formData.str, destreza: formData.dex, constituicao: formData.con,
         inteligencia: formData.int, sabedoria: formData.wis, carisma: formData.cha,
@@ -420,6 +430,8 @@ const CreateCharacter = () => {
         
         aparencia: "Foto enviada separadamente", historia: ""
     };
+
+    alert(JSON.stringify(payload));
 
     try {
         const urlBase = `http://localhost:8080/api/personagens`;
@@ -534,7 +546,12 @@ const CreateCharacter = () => {
                         { id: "LEAL_MAU", nome: "Leal e Mau" }, { id: "NEUTRO_MAU", nome: "Neutro e Mau" }, { id: "CAOTICO_MAU", nome: "Caótico e Mau" }
                     ]} />
                     
-                    <SelectField label="Tamanho" value={formData.tamanho} onChange={(e: any) => updateData('tamanho', e.target.value)} options={["Miúdo", "Pequeno", "Médio", "Grande"]} />
+                    <SelectField 
+                        label="Tamanho" 
+                        value={formData.tamanho} 
+                        onChange={(e: any) => updateData('tamanho', e.target.value)} 
+                        options={OPCOES_TAMANHO}
+                    />
                   </div>
                   
                   {/* FOTO */}
@@ -639,7 +656,7 @@ const CreateCharacter = () => {
                 <button type="button" onClick={nextStep} className="px-8 py-3 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold flex items-center gap-2 shadow-lg shadow-red-900/50">Próximo →</button>
               ) : (
                 <button type="button" onClick={handleFinish} className="px-8 py-3 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold flex items-center gap-2 shadow-lg shadow-green-900/50">
-                    {isEditMode ? 'Atualizar Ficha ✓' : 'Finalizar Ficha ✓'}
+                    {isEditMode ? 'Atualizar Ficha' : 'Finalizar Ficha'}
                 </button>
               )}
             </div>

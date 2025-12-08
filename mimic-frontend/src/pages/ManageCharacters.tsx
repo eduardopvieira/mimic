@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
@@ -58,6 +58,11 @@ const ManageCharacters = () => {
     fetchMeusPersonagens();
   }, []);
 
+  // --- FUNÇÃO VISUALIZAR ---
+  const handleView = (id: number) => {
+    navigate(`/personagem/${id}`);
+  };
+
   // --- FUNÇÃO DELETAR ---
   const handleDelete = async (id: number) => {
     if (!window.confirm("Tem certeza que deseja excluir este personagem? Essa ação não pode ser desfeita.")) {
@@ -78,7 +83,6 @@ const ManageCharacters = () => {
         if (response.ok) {
             // Remove da lista local para não precisar recarregar a página
             setPersonagens(prev => prev.filter(p => p.id !== id));
-            // Opcional: Mostrar um Toast/Notificação de sucesso
         } else {
             alert("Erro ao excluir personagem. Tente novamente.");
         }
@@ -103,18 +107,20 @@ const ManageCharacters = () => {
 
   // --- RENDER ---
   return (
-    <div className="bg-[#1A1A1A] w-full h-full flex flex-col font-sans text-gray-200">
+    <div className="bg-[#1A1A1A] w-full h-full flex flex-col font-sans text-gray-200 min-h-screen">
       
       <Header />
+      
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />
+        
         <main className="flex-1 p-8 overflow-y-auto">
           
           {/* TÍTULO E BOTÃO NOVO */}
           <div className="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
             <div>
                 <h2 className="text-4xl font-bold text-white font-medieval">Minhas Fichas</h2>
-                <p className="text-gray-400 mt-2">Gerencie seus personagens de D&D 5.5e.</p>
+                <p className="text-gray-400 mt-2">Gerencie seus personagens do D&D 5.5.</p>
             </div>
 
             <Link to='/criar-personagem' className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded shadow-lg shadow-red-900/50 transition transform hover:scale-105">
@@ -141,8 +147,6 @@ const ManageCharacters = () => {
           {!loading && !error && personagens.length === 0 && (
             <div className="text-center py-20 bg-[#2D2D2D] rounded-lg border border-dashed border-gray-600">
                 <h3 className="text-2xl text-gray-300 font-semibold mb-2">Você ainda não tem personagens.</h3>
-                <p className="text-gray-500 mb-6">Que tal criar sua primeira lenda agora mesmo?</p>
-                <Link to='/criar-personagem' className="text-red-400 hover:text-red-300 underline">Criar Personagem</Link>
             </div>
           )}
 
@@ -157,6 +161,7 @@ const ManageCharacters = () => {
                 charClass={personagem.classeNome || "Desconhecido"}
                 image={getImagemSrc(personagem.imagem)}
                 
+                onView={handleView}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
               />

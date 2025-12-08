@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Stepper from '../components/ui/Stepper';
 import InputField from '../components/form/InputField';
 import AttributeCard from '../components/form/AttributeCard';
-// Trocamos o FreeTextSection pelo DynamicSection para usar Selects vindos do banco
 import DynamicSection from '../components/form/DynamicSection'; 
+import SelectField from '../components/form/SelectField';
+
 
 // --- INTERFACES ---
 
-// O que vem do Banco de Dados
 interface RecursoCreaturaDTO {
     id: number;
     nome: string;
     descricao: string;
 }
 
-// O item visual na lista do formulário
 interface DynamicItem {
   id: number;
   value: string | number;
@@ -24,26 +23,38 @@ interface DynamicItem {
 }
 
 interface CreatureData {
-  // ETAPA 1
   nome: string; tamanho: string; tipo: string; tag: string; alinhamento: string;
-  // ETAPA 2
   ca: string; pv: string; deslBase: string; deslVoo: string; deslNatacao: string;
-  // ETAPA 3
   str: number; dex: number; con: number; int: number; wis: number; cha: number;
-  // ETAPA 4
   saves: string; skills: string; resistDano: string; imunidDano: string; imunidCond: string; sentidos: string; idiomas: string; nd: string;
   
-  // LISTAS DINÂMICAS (Conectadas ao Banco)
   specialAbilities: DynamicItem[];
   actions: DynamicItem[];
   
-  // ETAPA 7
   legendaryActions: string; lairActions: string;
 }
 
+// --- FUNÇÃO DE RECONSTRUÇÃO (CORE DA EDIÇÃO) ---
+// Pega [1, 2] e transforma em [{id:..., value:1, desc:...}, ...]
+const reconstruirLista = (ids: number[], listaCompleta: RecursoCreaturaDTO[]): DynamicItem[] => {
+    if (!ids || ids.length === 0) return [];
+    
+    return ids.map((idDoBanco, index) => {
+        // Encontra o objeto completo na lista de opções
+        const itemOriginal = listaCompleta.find(i => i.id === idDoBanco);
+        return {
+            id: Date.now() + index, // ID único para o React (key)
+            value: idDoBanco,       // ID real para o select
+            description: itemOriginal ? itemOriginal.descricao : ''
+        };
+    });
+};
+
 const CreateCreature = () => {
   const navigate = useNavigate();
-  
+  const { id } = useParams(); // ID da URL
+  const isEditMode = !!id;    // True se for edição
+
   const steps = [
     { id: 1, label: "Dados Básicos" },
     { id: 2, label: "Combate" },
@@ -57,137 +68,185 @@ const CreateCreature = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  // --- ESTADO DAS LISTAS DO BANCO ---
+  // Listas de Opções (Vêm do Banco)
   const [listas, setListas] = useState({
       habilidades: [] as RecursoCreaturaDTO[],
       acoes: [] as RecursoCreaturaDTO[]
   });
 
   const [formData, setFormData] = useState<CreatureData>({
-    nome: '', tamanho: '', tipo: '', tag: '', alinhamento: '',
+    nome: '', tamanho: 'MEDIO', tipo: '', tag: '', alinhamento: 'SEM_ALINHAMENTO',
     ca: '', pv: '', deslBase: '', deslVoo: '', deslNatacao: '',
     str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10,
     saves: '', skills: '', resistDano: '', imunidDano: '', imunidCond: '', sentidos: '', idiomas: '', nd: '',
-    
     specialAbilities: [], 
     actions: [],
-    
     legendaryActions: '', lairActions: ''
   });
 
-  // --- 1. BUSCAR DADOS DO BACKEND ---
-  // --- 1. BUSCAR DADOS DO BACKEND (COM DEBUG) ---
-  // --- 1. BUSCAR DADOS DO BACKEND (COM DEBUG DE TOKEN) ---
-  // --- 1. BUSCAR DADOS DO BACKEND (Habilidades e Ações) ---
+  // --- 1. BUSCAR LISTAS DE REFERÊNCIA (Ao abrir) ---
   useEffect(() => {
-    const fetchListas = async () => {
-        const token = localStorage.getItem('token');
-        const usuarioId = localStorage.getItem('usuarioId');
+      const fetchListas = async () => {
+          const token = localStorage.getItem('token');
+          if (!token) return;
+          const tokenLimpo = token.replace("Bearer ", "").trim();
+          const headers = { 'Authorization': `Bearer ${tokenLimpo}` };
 
-        if (!usuarioId || !token) {
-            setLoading(false);
-            return;
-        }
+          try {
+              const [resHabilidades, resAcoes] = await Promise.all([
+                  fetch(`http://localhost:8080/api/habilidades_criatura`, { headers }),
+                  fetch(`http://localhost:8080/api/acoes_criatura`, { headers })
+              ]);
 
-        // Garante que o token esteja no formato correto sem duplicar "Bearer"
-        const tokenLimpo = token.replace("Bearer ", "").trim();
-        const headers = { 'Authorization': `Bearer ${tokenLimpo}` };
+              const habilidadesData = await resHabilidades.json();
+              const acoesData = await resAcoes.json();
 
-        try {
-            // Promise.all para carregar as duas listas simultaneamente
-            const [resHabilidades, resAcoes] = await Promise.all([
-                // Se no futuro você quiser filtrar por usuário, adicione ?usuarioId=${usuarioId}
-                fetch(`http://localhost:8080/api/habilidades_criatura`, { headers }),
-                fetch(`http://localhost:8080/api/acoes_criatura`, { headers })
-            ]);
-
-            if (!resHabilidades.ok || !resAcoes.ok) {
-                throw new Error("Falha na resposta do servidor (403/404/500)");
-            }
-
-            const habilidades = await resHabilidades.json();
-            const acoes = await resAcoes.json();
-
-            setListas({
-                habilidades,
-                acoes
-            });
-
-        } catch (error) {
-            console.error("Erro ao carregar dados de criatura:", error);
-            // alert("Erro ao conectar com o servidor."); 
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    fetchListas();
+              setListas({ habilidades: habilidadesData, acoes: acoesData });
+          } catch (error) {
+              console.error("Erro ao carregar recursos:", error);
+          } finally {
+              setLoading(false);
+          }
+      };
+      fetchListas();
   }, []);
 
-  // --- HANDLERS ---
+  // --- 2. CARREGAR DADOS DA CRIATURA (SE FOR EDIÇÃO) ---
+  useEffect(() => {
+      // Só roda se for edição E se as listas já tiverem carregado (senão reconstruirLista falha)
+      if (!isEditMode || loading) return;
+
+      const fetchCriatura = async () => {
+          const token = localStorage.getItem('token');
+          const usuarioId = localStorage.getItem('usuarioId');
+          const tokenLimpo = token?.replace("Bearer ", "").trim();
+          
+          try {
+              const res = await fetch(`http://localhost:8080/api/criaturas/${id}?usuarioId=${usuarioId}`, {
+                  headers: { 'Authorization': `Bearer ${tokenLimpo}` }
+              });
+
+              if (res.ok) {
+                  const data = await res.json();
+                  
+                  // Tratamento de campos opcionais/nulos
+                  const deslBase = data.deslocamentoTotal || ""; 
+
+                  setFormData(prev => ({
+                      ...prev,
+                      nome: data.nome,
+                      tamanho: data.tamanho || 'MEDIO',
+                      tipo: data.tipo,
+                      tag: data.tag,
+                      alinhamento: data.alinhamento || 'SEM_ALINHAMENTO',
+                      
+                      ca: data.ca, pv: data.pv,
+                      deslBase: deslBase, deslVoo: '', deslNatacao: '', // Ajuste se tiver lógica de split
+
+                      str: data.str, dex: data.dex, con: data.con,
+                      int: data.intelligence, wis: data.wis, cha: data.cha,
+
+                      saves: data.saves, skills: data.skills,
+                      resistDano: data.resistDano, imunidDano: data.imunidDano,
+                      imunidCond: data.imunidCond, sentidos: data.sentidos,
+                      idiomas: data.idiomas, nd: data.nd,
+
+                      legendaryActions: data.legendaryActions || '',
+                      lairActions: data.lairActions || '',
+
+                      // AQUI ACONTECE A MÁGICA: Converte IDs [1, 2] -> Objetos visuais
+                      specialAbilities: reconstruirLista(data.habilidadesIds, listas.habilidades),
+                      actions: reconstruirLista(data.acoesIds, listas.acoes)
+                  }));
+              }
+          } catch (err) {
+              console.error("Erro ao carregar criatura para edição:", err);
+          }
+      };
+
+      fetchCriatura();
+  }, [id, isEditMode, loading]); // Roda quando ID muda ou quando loading termina
+
+  // --- HANDLERS (Com Correção de Estado 'prev') ---
 
   const updateData = (field: string, value: any) => setFormData(prev => ({ ...prev, [field]: value }));
   
-  // Handlers para Itens Dinâmicos (Genéricos)
   const addDynamicItem = (field: keyof CreatureData) => {
-      if (!Array.isArray(formData[field])) return;
-      const list = formData[field] as DynamicItem[];
-      const newItem: DynamicItem = { id: Date.now(), value: '', description: '' };
-      setFormData(prev => ({ ...prev, [field]: [...list, newItem] }));
+      setFormData(prev => {
+          const currentList = Array.isArray(prev[field]) ? (prev[field] as DynamicItem[]) : [];
+          const newItem: DynamicItem = { id: Date.now(), value: '', description: '' };
+          return { ...prev, [field]: [...currentList, newItem] };
+      });
   };
 
   const removeDynamicItem = (field: keyof CreatureData, id: number) => {
-      if (!Array.isArray(formData[field])) return;
-      const list = formData[field] as DynamicItem[];
-      setFormData(prev => ({ ...prev, [field]: list.filter(item => item.id !== id) }));
+      setFormData(prev => {
+          const currentList = Array.isArray(prev[field]) ? (prev[field] as DynamicItem[]) : [];
+          return { ...prev, [field]: currentList.filter(item => item.id !== id) };
+      });
   };
 
   const updateDynamicItem = (field: keyof CreatureData, id: number, newValueStr: string, sourceOptions: any[]) => {
-      if (!Array.isArray(formData[field])) return;
-      
-      const newValue = Number(newValueStr); // Converte ID para número
+      const newValue = Number(newValueStr);
       const selectedOption = sourceOptions.find(opt => opt.value === newValue);
       const newDesc = selectedOption ? selectedOption.desc : '';
 
-      const list = formData[field] as DynamicItem[];
-      setFormData(prev => ({
-          ...prev,
-          [field]: list.map(item => item.id === id ? { ...item, value: newValue, description: newDesc } : item)
-      }));
+      setFormData(prev => {
+          const currentList = Array.isArray(prev[field]) ? (prev[field] as DynamicItem[]) : [];
+          const updatedList = currentList.map(item => 
+              item.id === id ? { ...item, value: newValue, description: newDesc } : item
+          );
+          return { ...prev, [field]: updatedList };
+      });
   };
 
-  // --- PREPARAÇÃO DE OPÇÕES PARA O SELECT ---
-  const opcoesHabilidades = listas.habilidades.map(h => ({
-      value: h.id,
-      label: h.nome,
-      desc: h.descricao
-  }));
-
-  const opcoesAcoes = listas.acoes.map(a => ({
-      value: a.id,
-      label: a.nome,
-      desc: a.descricao
-  }));
+  // --- PREPARAÇÃO DE OPÇÕES ---
+  const opcoesHabilidades = listas.habilidades.map(h => ({ value: h.id, label: h.nome, desc: h.descricao }));
+  const opcoesAcoes = listas.acoes.map(a => ({ value: a.id, label: a.nome, desc: a.descricao }));
 
   // --- SUBMIT ---
   const handleSubmit = async () => {
-      // Montar Payload para o Backend
-      // Nota: O backend provavelmente espera IDs para habilidades e ações
+      const token = localStorage.getItem('token');
+      const usuarioId = localStorage.getItem('usuarioId');
+      const tokenLimpo = token?.replace("Bearer ", "").trim();
+      
       const payload = {
           ...formData,
+          // Mapeamento para DTO Java
+          intelligence: formData.int, 
+          // Extrai apenas os IDs válidos das listas visuais
           habilidadesIds: formData.specialAbilities.map(i => Number(i.value)).filter(v => v > 0),
           acoesIds: formData.actions.map(i => Number(i.value)).filter(v => v > 0),
-          // Remova os arrays de objetos se o backend só quiser IDs
       };
 
-      console.log("Enviando Criatura:", payload);
-      // Adicione aqui o fetch POST para /api/criaturas
-      // await fetch(...)
-      
-      navigate('/home-page'); // Ou dashboard
+      try {
+          const urlBase = `http://localhost:8080/api/criaturas`;
+          // Se for edição, PUT na URL com ID. Se novo, POST.
+          const url = isEditMode ? `${urlBase}/${id}?usuarioId=${usuarioId}` : `${urlBase}?usuarioId=${usuarioId}`;
+          const method = isEditMode ? 'PUT' : 'POST';
+
+          const res = await fetch(url, {
+              method: method,
+              headers: { 
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${tokenLimpo}` 
+              },
+              body: JSON.stringify(payload)
+          });
+
+          if (res.ok) {
+              alert(isEditMode ? "Criatura atualizada!" : "Criatura criada!");
+              navigate('/gerenciar-criaturas');
+          } else {
+              const txt = await res.text();
+              alert("Erro ao salvar: " + txt);
+          }
+      } catch (err) {
+          console.error(err);
+          alert("Erro de conexão.");
+      }
   };
 
-  // Navegação
   const handleStepClick = (id: number) => setCurrentStep(id);
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, steps.length));
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
@@ -198,11 +257,17 @@ const CreateCreature = () => {
       <main className="container mx-auto p-8">
         <div className="max-w-5xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl min-h-[700px] flex flex-col">
           
+          <div className="flex justify-between items-center mb-6">
+             <h1 className="text-2xl font-bold text-gray-400">
+                {isEditMode ? `Editando: ${formData.nome}` : "Nova Criatura"}
+             </h1>
+          </div>
+
           <Stepper steps={steps} currentStep={currentStep} onStepClick={handleStepClick} />
 
           <form onSubmit={(e) => e.preventDefault()} className="flex-1 flex flex-col justify-between mt-8">
             
-            {/* ETAPA 1: DADOS BÁSICOS */}
+            {/* ETAPA 1: DADOS BÁSICOS (Com Selects Corrigidos) */}
             {currentStep === 1 && (
                 <div className="animate-fade-in space-y-6">
                     <div className="flex justify-between items-center border-b border-gray-700 pb-4 mb-6">
@@ -213,22 +278,43 @@ const CreateCreature = () => {
                         <div className="md:col-span-2">
                              <InputField label="Nome da Criatura" value={formData.nome} onChange={(e: any) => updateData('nome', e.target.value)} placeholder="Ex: Dragão Vermelho Jovem" />
                         </div>
-                        <div>
-                            <label className="block text-gray-400 mb-1 text-sm font-bold uppercase tracking-wider">Tamanho</label>
-                            <select value={formData.tamanho} onChange={(e) => updateData('tamanho', e.target.value)} className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white outline-none">
-                                <option value="">Selecione...</option>
-                                {['Miúdo', 'Pequeno', 'Médio', 'Grande', 'Enorme', 'Imenso'].map(t => <option key={t} value={t}>{t}</option>)}
-                            </select>
-                        </div>
-                        <InputField label="Tipo" value={formData.tipo} onChange={(e: any) => updateData('tipo', e.target.value)} placeholder="Ex: Dragão, Monstruosidade" />
+                        
+                        {/* SELECT TAMANHO */}
+                        <SelectField 
+                            label="Tamanho" 
+                            value={formData.tamanho} 
+                            onChange={(e: any) => updateData('tamanho', e.target.value)} 
+                            options={[
+                                { id: "MINUSCULO", nome: "Minúsculo" }, 
+                                { id: "PEQUENO", nome: "Pequeno" }, 
+                                { id: "MEDIO", nome: "Médio" }, 
+                                { id: "GRANDE", nome: "Grande" }, 
+                                { id: "ENORME", nome: "Enorme" }, 
+                                { id: "COLOSSAL", nome: "Colossal" }
+                            ]} 
+                        />
+
+                        <InputField label="Tipo" value={formData.tipo} onChange={(e: any) => updateData('tipo', e.target.value)} placeholder="Ex: Dragão" />
                         <InputField label="Tag (Opcional)" value={formData.tag} onChange={(e: any) => updateData('tag', e.target.value)} placeholder="Ex: Metamorfo" />
-                        <div>
-                            <label className="block text-gray-400 mb-1 text-sm font-bold uppercase tracking-wider">Alinhamento</label>
-                            <select value={formData.alinhamento} onChange={(e) => updateData('alinhamento', e.target.value)} className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white outline-none">
-                                <option value="">Selecione...</option>
-                                {['Leal e Bom', 'Neutro e Bom', 'Caótico e Bom', 'Leal e Neutro', 'Neutro', 'Caótico e Neutro', 'Leal e Mau', 'Neutro e Mau', 'Caótico e Mau', 'Sem Alinhamento'].map(a => <option key={a} value={a}>{a}</option>)}
-                            </select>
-                        </div>
+                        
+                        {/* SELECT ALINHAMENTO */}
+                        <SelectField 
+                            label="Alinhamento" 
+                            value={formData.alinhamento} 
+                            onChange={(e: any) => updateData('alinhamento', e.target.value)} 
+                            options={[
+                                { id: "LEAL_BOM", nome: "Leal e Bom" }, 
+                                { id: "NEUTRO_BOM", nome: "Neutro e Bom" }, 
+                                { id: "CAOTICO_BOM", nome: "Caótico e Bom" },
+                                { id: "LEAL_NEUTRO", nome: "Leal e Neutro" }, 
+                                { id: "VERDADEIRO_NEUTRO", nome: "Neutro" }, 
+                                { id: "CAOTICO_NEUTRO", nome: "Caótico e Neutro" },
+                                { id: "LEAL_MAU", nome: "Leal e Mau" }, 
+                                { id: "NEUTRO_MAU", nome: "Neutro e Mau" }, 
+                                { id: "CAOTICO_MAU", nome: "Caótico e Mau" },
+                                { id: "SEM_ALINHAMENTO", nome: "Sem Alinhamento"}
+                            ]} 
+                        />
                     </div>
                 </div>
             )}
@@ -278,38 +364,38 @@ const CreateCreature = () => {
                         <InputField label="Imunidade a Condição" value={formData.imunidCond} onChange={(e: any) => updateData('imunidCond', e.target.value)} placeholder="Ex: Enfeitiçado" />
                         <InputField label="Sentidos" value={formData.sentidos} onChange={(e: any) => updateData('sentidos', e.target.value)} placeholder="Ex: Visão no Escuro 18m" />
                         <InputField label="Idiomas" value={formData.idiomas} onChange={(e: any) => updateData('idiomas', e.target.value)} placeholder="Ex: Comum, Dracônico" />
-                        <InputField label="Nível de Desafio (ND)" value={formData.nd} onChange={(e: any) => updateData('nd', e.target.value)} placeholder="Ex: 5 (1.800 XP)" />
+                        <InputField label="Nível de Desafio (ND)" value={formData.nd} onChange={(e: any) => updateData('nd', e.target.value)} placeholder="Ex: 5" />
                     </div>
                 </div>
             )}
 
-            {/* ETAPA 5: HABILIDADES (USANDO DYNAMIC SECTION COM SELECT) */}
+            {/* ETAPA 5: HABILIDADES */}
             {currentStep === 5 && (
                 <DynamicSection 
                     title="Habilidades Especiais" 
                     itemName="Habilidade"
                     items={formData.specialAbilities} 
-                    options={opcoesHabilidades} // Passa a lista vinda do banco
+                    options={opcoesHabilidades} 
                     onAdd={() => addDynamicItem('specialAbilities')} 
                     onRemove={(id: number) => removeDynamicItem('specialAbilities', id)} 
                     onUpdate={(id, val) => updateDynamicItem('specialAbilities', id, val, opcoesHabilidades)} 
                 />
             )}
 
-            {/* ETAPA 6: AÇÕES (USANDO DYNAMIC SECTION COM SELECT) */}
+            {/* ETAPA 6: AÇÕES */}
             {currentStep === 6 && (
                 <DynamicSection 
                     title="Ações da Criatura" 
                     itemName="Ação"
                     items={formData.actions} 
-                    options={opcoesAcoes} // Passa a lista vinda do banco
+                    options={opcoesAcoes} 
                     onAdd={() => addDynamicItem('actions')} 
                     onRemove={(id: number) => removeDynamicItem('actions', id)} 
                     onUpdate={(id, val) => updateDynamicItem('actions', id, val, opcoesAcoes)} 
                 />
             )}
 
-            {/* ETAPA 7: LENDÁRIAS (TEXTO LIVRE) */}
+            {/* ETAPA 7: LENDÁRIAS */}
             {currentStep === 7 && (
                 <div className="animate-fade-in space-y-6">
                     <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 mb-6 font-medieval">Ações Lendárias e de Covil</h2>
@@ -324,16 +410,18 @@ const CreateCreature = () => {
                 </div>
             )}
 
-            {/* BOTÕES DE NAVEGAÇÃO */}
+            {/* BOTÕES */}
             <div className="mt-10 flex justify-between pb-8 pt-6 border-t border-gray-700">
                 {currentStep > 1 ? (
                     <button type="button" onClick={prevStep} className="px-6 py-3 rounded-lg bg-gray-600 hover:bg-gray-500 text-white font-semibold transition text-lg flex items-center gap-2">← Voltar</button>
-                ) : <button type="button" onClick={() => navigate('/home-page')} className="px-6 py-3 rounded-lg bg-red-800 hover:bg-red-700 text-white font-semibold">Cancelar</button>}
+                ) : <button type="button" onClick={() => navigate('/gerenciar-criaturas')} className="px-6 py-3 rounded-lg bg-red-800 hover:bg-red-700 text-white font-semibold">Cancelar</button>}
 
                 {currentStep < steps.length ? (
                     <button type="button" onClick={nextStep} className="px-8 py-3 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold transition text-lg shadow-lg shadow-red-900/50 flex items-center gap-2">Próximo →</button>
                 ) : (
-                    <button type="button" onClick={handleSubmit} className="px-8 py-3 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold transition text-lg shadow-lg shadow-green-900/50 flex items-center gap-2">Criar Criatura ✓</button>
+                    <button type="button" onClick={handleSubmit} className="px-8 py-3 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold transition text-lg shadow-lg shadow-green-900/50 flex items-center gap-2">
+                        {isEditMode ? 'Atualizar Criatura ✓' : 'Criar Criatura ✓'}
+                    </button>
                 )}
             </div>
           </form>

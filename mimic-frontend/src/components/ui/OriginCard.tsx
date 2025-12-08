@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface OriginCardProps {
   id: number;
   name: string;

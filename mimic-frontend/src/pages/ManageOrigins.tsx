@@ -77,7 +77,7 @@ const ManageOrigins = () => {
           
           <div className="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
             <div>
-                <h2 className="text-4xl font-bold text-white font-medieval">Origens (Antecedentes)</h2>
+                <h2 className="text-4xl font-bold text-white font-medieval">Origens</h2>
                 <p className="text-gray-400 mt-2">Defina o passado dos personagens.</p>
             </div>
             <Link 

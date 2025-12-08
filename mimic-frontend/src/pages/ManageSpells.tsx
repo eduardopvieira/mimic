@@ -81,7 +81,7 @@ const ManageSpells = () => {
           <div className="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
             <div>
                 <h2 className="text-4xl font-bold text-white font-medieval">Grimório de Magias</h2>
-                <p className="text-gray-400 mt-2">Gerencie as magias disponíveis no sistema.</p>
+                <p className="text-gray-400 mt-2">Crie suas próprias magias</p>
             </div>
             
             <Link to='/criar-magia' className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded shadow-lg transition transform hover:scale-105">
