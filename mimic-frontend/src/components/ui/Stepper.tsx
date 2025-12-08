@@ -8,14 +8,13 @@ interface Step {
 interface StepperProps {
   steps: Step[];
   currentStep: number;
-  onStepClick: (id: number) => void; // Nova função para permitir o clique
+  onStepClick: (id: number) => void;
 }
 
 const Stepper = ({ steps, currentStep, onStepClick }: StepperProps) => {
   return (
     <div 
       className="w-full overflow-x-auto py-4"
-      // Esse estilo remove a barra de rolagem visualmente (Chrome, Safari, Firefox)
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }} 
     >
       <style>{`
@@ -31,12 +30,10 @@ const Stepper = ({ steps, currentStep, onStepClick }: StepperProps) => {
           return (
             <React.Fragment key={step.id}>
               
-              {/* ITEM DO STEP (Bolinha + Texto) */}
               <div 
-                onClick={() => onStepClick(step.id)} // Funcionalidade de clique
+                onClick={() => onStepClick(step.id)}
                 className="relative flex flex-col items-center group cursor-pointer w-24 flex-shrink-0"
               >
-                {/* Bolinha */}
                 <div
                   className={`rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg ring-4 transition-all duration-300 z-10
                   ${isActive 
@@ -49,7 +46,6 @@ const Stepper = ({ steps, currentStep, onStepClick }: StepperProps) => {
                   {step.id}
                 </div>
 
-                {/* Texto (Agora relativo, logo abaixo da bolinha) */}
                 <span
                   className={`mt-3 text-xs font-bold uppercase text-center transition-colors duration-300 select-none
                   ${isActive ? 'text-white' : 'text-gray-500 group-hover:text-gray-400'}`}
@@ -58,10 +54,8 @@ const Stepper = ({ steps, currentStep, onStepClick }: StepperProps) => {
                 </span>
               </div>
 
-              {/* LINHA CONECTORA */}
               {!isLast && (
                 <div className="flex-auto mt-5 h-[2px] bg-gray-700 mx-2 relative">
-                  {/* Barra de progresso colorida que preenche a linha cinza */}
                   <div 
                     className={`absolute top-0 left-0 h-full bg-red-600 transition-all duration-500 ease-out`}
                     style={{ width: isCompleted ? '100%' : '0%' }}

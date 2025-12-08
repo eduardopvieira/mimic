@@ -5,21 +5,56 @@ const Login = () => {
   const navigate = useNavigate();
   
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
-    // AQUI VEM O SPRING QND FUNCIONAR
-    if (!email || !password) {
+    if (!email || !senha) {
       setError('Por favor, preencha todos os campos.');
+      setIsLoading(false);
       return;
     }
 
-    console.log("Logando com:", email);
-    navigate('/gerenciar-personagens');
+    try {
+    
+      const response = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Credenciais inválidas.');
+      }
+
+    
+      const data = await response.json();
+
+      if (!data.token) {
+         throw new Error("Token não recebido do servidor.");
+      }
+
+    
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('usuarioId', data.id);
+      localStorage.setItem('usuarioEmail', data.email);
+
+      console.log("Login realizado com sucesso!", data);
+      navigate('/gerenciar-magias');
+
+    } catch (err: any) {
+      console.error(err);
+      setError('Email ou senha incorretos. Tente novamente.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -36,28 +71,28 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-lg font-medium text-gray-300 mb-2">Email</label>
+              <label className="block text-lg font-medium text-gray-300 mb-2">Email</label>
               <input 
                 type="email" 
-                id="email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
                 placeholder="seu@email.com" 
                 required 
+                disabled={isLoading}
               />
             </div>
             
             <div>
-              <label htmlFor="senha" className="block text-lg font-medium text-gray-300 mb-2">Senha</label>
+              <label className="block text-lg font-medium text-gray-300 mb-2">Senha</label>
               <input 
                 type="password" 
-                id="senha" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
                 className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
                 placeholder="********" 
                 required 
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -69,9 +104,12 @@ const Login = () => {
           <div className="mt-8">
             <button 
                 type="submit"
-                className="w-full p-3 rounded bg-red-600 hover:bg-red-500 text-white font-semibold transition duration-200 text-lg shadow-lg shadow-red-900/50"
+                disabled={isLoading}
+                className={`w-full p-3 rounded text-white font-semibold transition duration-200 text-lg shadow-lg shadow-red-900/50 ${
+                  isLoading ? 'bg-gray-600 cursor-not-allowed' : 'bg-red-600 hover:bg-red-500'
+                }`}
             >
-                Entrar
+                {isLoading ? 'Entrando...' : 'Entrar'}
             </button>
           </div>
         </form>

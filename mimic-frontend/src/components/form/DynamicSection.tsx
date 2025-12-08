@@ -1,26 +1,24 @@
-// Define o formato de um item da lista
+
 interface Item {
   id: number;
-  value: string;
+  value: string | number;
   description: string;
 }
 
-// Props que o componente recebe
 interface DynamicSectionProps {
-  title: string;          // ex: "Talentos"
-  items: Item[];          // O array do estado (formData.talentos)
-  options: any[];         // A lista de opções (TALENTOS)
-  onAdd: () => void;      // Função para adicionar
-  onRemove: (id: number) => void; // Função para remover
-  onUpdate: (id: number, newValue: string) => void; // Função ao mudar o select
-  itemName: string;       // ex: "Talento", "Magia" (para o botão)
+  title: string;
+  items: Item[];
+  options: any[];
+  onAdd: () => void;
+  onRemove: (id: number) => void;
+  onUpdate: (id: number, newValue: string) => void; 
+  itemName: string;
 }
 
 const DynamicSection = ({ title, items, options, onAdd, onRemove, onUpdate, itemName }: DynamicSectionProps) => {
   return (
     <div className="animate-fade-in">
       
-      {/* Cabeçalho com Botão Adicionar */}
       <div className="flex justify-between items-center border-b border-gray-700 pb-4 mb-6 pt-4">
         <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4">{title}</h2>
         <button 
@@ -33,7 +31,6 @@ const DynamicSection = ({ title, items, options, onAdd, onRemove, onUpdate, item
         </button>
       </div>
 
-      {/* Lista de Itens */}
       <div className="space-y-6">
         {items.length === 0 && (
             <p className="text-gray-500 italic text-center py-8">Nenhum {itemName.toLowerCase()} adicionado ainda.</p>
@@ -42,7 +39,6 @@ const DynamicSection = ({ title, items, options, onAdd, onRemove, onUpdate, item
         {items.map((item, index) => (
           <div key={item.id} className="bg-[#3a3a3a] p-6 rounded-lg relative border border-gray-600 shadow-md group hover:border-gray-500 transition-colors">
             
-            {/* Botão de Remover (X) */}
             <button 
                 type="button" 
                 onClick={() => onRemove(item.id)}
@@ -53,7 +49,6 @@ const DynamicSection = ({ title, items, options, onAdd, onRemove, onUpdate, item
             </button>
 
             <div className="grid grid-cols-1 gap-4">
-                {/* Select */}
                 <div>
                     <label className="block text-gray-400 mb-1 text-sm font-bold uppercase tracking-wider">
                         {itemName} #{index + 1}
@@ -70,7 +65,7 @@ const DynamicSection = ({ title, items, options, onAdd, onRemove, onUpdate, item
                     </select>
                 </div>
 
-                {/* Descrição Automática */}
+                
                 <div>
                     <label className="block text-gray-400 mb-1 text-sm font-bold uppercase tracking-wider">Descrição</label>
                     <textarea 
