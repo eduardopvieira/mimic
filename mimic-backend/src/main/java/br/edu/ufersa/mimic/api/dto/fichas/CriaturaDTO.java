@@ -17,10 +17,10 @@ public class CriaturaDTO {
 
     private Long id;
     private String nome;
-    private String tamanho; // Recebe String do front, converte no Service
+    private Tamanho tamanho;
     private String tipo;
     private String tag;
-    private String alinhamento; // Recebe String ("Leal e Bom"), converte no Service
+    private Alinhamento alinhamento; // Recebe String ("Leal e Bom"), converte no Service
 
     private String ca;
     private String pv;
@@ -75,10 +75,10 @@ public class CriaturaDTO {
     public CriaturaDTO(Criatura c) {
         this.id = c.getId();
         this.nome = c.getNome();
-        this.tamanho = c.getTamanho() != null ? c.getTamanho().name() : null;
+        this.tamanho = c.getTamanho();
         this.tipo = c.getTipo();
         this.tag = c.getTag();
-        this.alinhamento = c.getAlinhamento() != null ? c.getAlinhamento().name() : null;
+        this.alinhamento = c.getAlinhamento();
 
         this.ca = c.getCa();
         this.pv = c.getPv();

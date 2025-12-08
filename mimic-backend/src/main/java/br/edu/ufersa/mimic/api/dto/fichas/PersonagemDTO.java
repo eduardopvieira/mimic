@@ -2,6 +2,7 @@ package br.edu.ufersa.mimic.api.dto.fichas;
 
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.enums.Atributo;
+import br.edu.ufersa.mimic.model.enums.Tamanho;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.fichas.Personagem;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
@@ -31,6 +32,7 @@ public class PersonagemDTO {
 
     private Integer pontosDeExperiencia;
     private Alinhamento alinhamento;
+    private Tamanho tamanho;
 
     // --- RELACIONAMENTOS (IDs para Entrada/Input) ---
     @NotNull
@@ -104,6 +106,7 @@ public class PersonagemDTO {
         this.nivel = p.getNivel();
         this.pontosDeExperiencia = p.getPontosDeExperiencia();
         this.alinhamento = p.getAlinhamento();
+        this.tamanho = p.getTamanho();
 
         // Mapeamento Inteligente: Seta ID e Nome se o objeto existir
         if (p.getClasse() != null) {
@@ -149,8 +152,6 @@ public class PersonagemDTO {
 
         this.pericias = p.getPericias();
         this.salvaguardas = p.getSalvaguardas();
-        this.aparencia = p.getAparencia();
-        this.historia = p.getHistoria();
         this.atributoChaveConjuracao = p.getAtributoChaveConjuracao();
 
         this.pc = p.getPc();

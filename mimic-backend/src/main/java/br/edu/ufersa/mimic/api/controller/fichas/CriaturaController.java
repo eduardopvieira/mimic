@@ -36,6 +36,13 @@ public class CriaturaController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CriaturaDTO> buscarPorId(
+            @PathVariable Long id,
+            @RequestParam Long usuarioId) {
+        return ResponseEntity.ok(service.buscarPorId(id, usuarioId));
+    }
+
     @GetMapping
     public ResponseEntity<List<CriaturaDTO>> listar(@RequestParam Long usuarioId) {
         return ResponseEntity.ok(service.listarPorUsuario(usuarioId));

@@ -27,7 +27,7 @@ public class Criatura {
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    private Tamanho tamanho; // Certifique-se que o Enum Tamanho existe (MIUDO, PEQUENO...)
+    private Tamanho tamanho;
 
     @Column(name = "tipo_criatura")
     private String tipo;

@@ -9,10 +9,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AcaoCriaturaDTO {
+    public Long id;
     public String nome;
     public String descricao;
 
     public AcaoCriaturaDTO(AcaoCriatura entity) {
+        this.id = entity.getId();
         this.nome = entity.getNome();
         this.descricao = entity.getDescricao();
     }

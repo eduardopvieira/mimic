@@ -3,7 +3,6 @@ package br.edu.ufersa.mimic.service.fichas;
 import br.edu.ufersa.mimic.api.dto.fichas.CriaturaDTO;
 import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
-import br.edu.ufersa.mimic.model.enums.Tamanho;
 import br.edu.ufersa.mimic.model.fichas.Criatura;
 import br.edu.ufersa.mimic.model.habilidades.AcaoCriatura;
 import br.edu.ufersa.mimic.model.habilidades.HabilidadeCriatura;
@@ -53,6 +52,18 @@ public class CriaturaService {
         return new CriaturaDTO(criaturaRepository.save(criatura));
     }
 
+    @Transactional(readOnly = true)
+    public CriaturaDTO buscarPorId(Long id, Long usuarioId) {
+        Criatura criatura = criaturaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Criatura não encontrada."));
+
+        if (!criatura.getUsuario().getUsuarioId().equals(usuarioId)) {
+            throw new SecurityException("Você não tem permissão para acessar esta criatura.");
+        }
+
+        return new CriaturaDTO(criatura);
+    }
+
     @Transactional
     public void deletar(Long id, Long usuarioId) {
         Criatura criatura = criaturaRepository.findById(id)
@@ -77,18 +88,12 @@ public class CriaturaService {
         c.setTipo(dto.getTipo());
         c.setTag(dto.getTag());
 
-        // Conversão de Enums (Frontend manda string customizada, precisamos mapear ou usar padrão)
-        // Exemplo simples: Tentar valueOf uppercase, se falhar, null.
-        try { c.setTamanho(Tamanho.valueOf(dto.getTamanho().toUpperCase())); } catch (Exception e) { c.setTamanho(Tamanho.MEDIO); }
-
-        // Mapeamento manual do Alinhamento (O front manda "Leal e Bom", o Enum é LEAL_BOM)
-        // Idealmente faça um switch ou mapa auxiliar.
-        c.setAlinhamento(null); // TODO: Implementar conversor String -> Enum
+        c.setTamanho(dto.getTamanho());
+        c.setAlinhamento(dto.getAlinhamento());
 
         c.setCa(dto.getCa());
         c.setPv(dto.getPv());
 
-        // Junta os deslocamentos numa string só
         String desl = "Base " + dto.getDeslBase();
         if(dto.getDeslVoo() != null && !dto.getDeslVoo().isEmpty()) desl += ", Voo " + dto.getDeslVoo();
         if(dto.getDeslNatacao() != null && !dto.getDeslNatacao().isEmpty()) desl += ", Natação " + dto.getDeslNatacao();

@@ -4,6 +4,7 @@ import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.caracteristicas.*;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.enums.Atributo;
+import br.edu.ufersa.mimic.model.enums.Tamanho;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
@@ -27,7 +28,6 @@ public class Personagem {
     @Column(name = "nome_personagem", nullable = false)
     private String nome;
 
-    // --- CABEÇALHO ---
     private Integer nivel; // Essencial para Proficiência (+2, +3...)
 
     @Column(name = "xp")
@@ -35,6 +35,9 @@ public class Personagem {
 
     @Enumerated(EnumType.STRING)
     private Alinhamento alinhamento;
+
+    @Enumerated(EnumType.STRING)
+    private Tamanho tamanho;
 
     // --- RELACIONAMENTOS BASE ---
     @ManyToOne(fetch = FetchType.EAGER)
@@ -57,8 +60,6 @@ public class Personagem {
     @JoinColumn(name = "origem_id")
     private Origem origem;
 
-    // --- ATRIBUTOS (Core Stats) ---
-    // O sistema calcula o modificador na hora de enviar pro Front/PDF
     private Integer forca;
     private Integer destreza;
     private Integer constituicao;
@@ -66,8 +67,6 @@ public class Personagem {
     private Integer sabedoria;
     private Integer carisma;
 
-    // --- ESTATÍSTICAS DE COMBATE (Snapshot) ---
-    // Mantemos salvo para permitir edits manuais do usuário
 
     private Integer vidaMax;
     private Integer vidaAtual;
@@ -127,13 +126,6 @@ public class Personagem {
     // Para o cabeçalho da página de magias
     @Enumerated(EnumType.STRING)
     private Atributo atributoChaveConjuracao;
-
-    // --- TEXTOS LIVRES (Opcional, mas útil pro PDF) ---
-    @Column(columnDefinition = "TEXT")
-    private String aparencia;
-
-    @Column(columnDefinition = "TEXT")
-    private String historia;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false) // Pode ser nulo (Sistema)
