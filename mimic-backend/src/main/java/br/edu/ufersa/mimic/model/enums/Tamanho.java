@@ -1,9 +1,12 @@
 package br.edu.ufersa.mimic.model.enums;
 
 public enum Tamanho {
+    MINUSCULO("Minúsculo"),
     PEQUENO("Pequeno"),
     MEDIO("Médio"),
-    GRANDE("Grande");
+    GRANDE("Grande"),
+    ENORME("Enorme"),
+    COLOSSAL("Colossal");
 
     private final String tamanho;
 

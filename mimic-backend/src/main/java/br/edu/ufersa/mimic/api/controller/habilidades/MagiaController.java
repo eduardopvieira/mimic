@@ -1,5 +1,6 @@
 package br.edu.ufersa.mimic.api.controller.habilidades;
 
+import br.edu.ufersa.mimic.api.dto.habilidades.MagiaDTO;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.service.habilidades.MagiaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/magias")
@@ -21,34 +23,52 @@ public class MagiaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Magia>> listarTodasMagias() {
-        return ResponseEntity.ok(magiaService.listarTodas());
+    public ResponseEntity<List<MagiaDTO>> listarTodas() {
+        List<Magia> magias = magiaService.listarTodas();
+        List<MagiaDTO> dtos = magias.stream()
+                                    .map(MagiaDTO::new)
+                                    .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Magia> buscarMagiaPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(magiaService.buscarPorId(id));
+    public ResponseEntity<MagiaDTO> buscarPorId(@PathVariable Long id) {
+        Magia magia = magiaService.buscarPorId(id);
+        return ResponseEntity.ok(new MagiaDTO(magia));
     }
 
-    @GetMapping("/circulo/{circulo}")
-    public ResponseEntity<List<Magia>> buscarMagiasPorCirculo(@PathVariable Integer circulo) {
-        return ResponseEntity.ok(magiaService.buscarPorCirculo(circulo));
+    @GetMapping("/busca")
+    public ResponseEntity<List<MagiaDTO>> buscarPorNome(@RequestParam String nome) {
+        List<Magia> magias = magiaService.buscarPorNome(nome);
+        
+        List<MagiaDTO> dtos = magias.stream()
+                                    .map(MagiaDTO::new)
+                                    .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 
     @PostMapping
-    public ResponseEntity<Magia> criarMagia(@RequestBody Magia magia) {
-        Magia novaMagia = magiaService.salvar(magia);
-        return new ResponseEntity<>(novaMagia, HttpStatus.CREATED);
+    public ResponseEntity<MagiaDTO> criar(@RequestBody MagiaDTO dto) {
+        System.out.println("criando magia: " + dto.toString());
+        Magia magiaParaSalvar = new Magia(dto);
+        Magia magiaSalva = magiaService.salvar(magiaParaSalvar);
+        return new ResponseEntity<>(new MagiaDTO(magiaSalva), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Magia> atualizarMagia(@PathVariable Long id, @RequestBody Magia magia) {
-        return ResponseEntity.ok(magiaService.atualizar(id, magia));
+    public ResponseEntity<MagiaDTO> atualizar(@PathVariable Long id, @RequestBody MagiaDTO dto) {
+        Magia magiaParaAtualizar = new Magia(dto);
+        
+        Magia magiaAtualizada = magiaService.atualizar(id, magiaParaAtualizar);
+        
+        return ResponseEntity.ok(new MagiaDTO(magiaAtualizada));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarMagia(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         magiaService.deletarPorId(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }

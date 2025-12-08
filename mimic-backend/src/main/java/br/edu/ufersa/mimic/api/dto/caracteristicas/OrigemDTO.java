@@ -1,6 +1,7 @@
 package br.edu.ufersa.mimic.api.dto.caracteristicas;
 
 import br.edu.ufersa.mimic.model.caracteristicas.Origem;
+import br.edu.ufersa.mimic.model.enums.Atributo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -23,36 +24,43 @@ public class OrigemDTO {
 
     private String descricao;
 
-    @NotEmpty(message = "A origem deve sugerir pelo menos um atributo.")
-    private Set<String> atributosSugeridos;
+    @NotEmpty(message = "A origem deve permitir pelo menos um atributo.")
+    private Set<Atributo> atributosPermitidos;
 
     @NotEmpty(message = "A origem deve conceder pelo menos uma proficiência em perícia.")
-    private Set<String> proficienciasPericia;
+    private Set<String> pericias;
 
-    @NotBlank(message = "A proficiência em ferramenta não pode ser vazia.")
-    private String proficienciaFerramenta;
+    private String ferramenta;
 
-    private String equipamentoOpcaoA;
+    private String equipamentoA;
 
-    @NotNull(message = "A opção B de equipamento (valor em PO) é obrigatória.")
-    private Integer equipamentoOpcaoB;
+    private String equipamentoB;
 
     @NotNull(message = "O ID do talento inicial é obrigatório.")
     @Positive
     private Long talentoInicialId;
 
+    private String nomeTalentoInicial;
+
+    private Long usuarioId;
+
     public OrigemDTO(Origem origem) {
         this.id = origem.getId();
         this.nome = origem.getNome();
         this.descricao = origem.getDescricao();
-        this.atributosSugeridos = origem.getAtributosSugeridos();
-        this.proficienciasPericia = origem.getProficienciasPericia();
-        this.proficienciaFerramenta = origem.getProficienciaFerramenta();
-        this.equipamentoOpcaoA = origem.getEquipamentoOpcaoA();
-        this.equipamentoOpcaoB = origem.getEquipamentoOpcaoB();
+        this.atributosPermitidos = origem.getAtributosPermitidos();
+        this.pericias = origem.getPericias();
+        this.ferramenta = origem.getFerramenta();
+        this.equipamentoA = origem.getEquipamentoA();
+        this.equipamentoB = origem.getEquipamentoB();
+
         if (origem.getTalentoInicial() != null) {
             this.talentoInicialId = origem.getTalentoInicial().getId();
+            this.nomeTalentoInicial = origem.getTalentoInicial().getNome();
+        }
+
+        if (origem.getUsuario() != null) {
+            this.usuarioId = origem.getUsuario().getUsuarioId();
         }
     }
 }
-

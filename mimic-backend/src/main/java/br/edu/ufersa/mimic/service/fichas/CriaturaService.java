@@ -1,87 +1,139 @@
 package br.edu.ufersa.mimic.service.fichas;
 
 import br.edu.ufersa.mimic.api.dto.fichas.CriaturaDTO;
+import br.edu.ufersa.mimic.model.auth.Usuario;
+import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.fichas.Criatura;
+import br.edu.ufersa.mimic.model.habilidades.AcaoCriatura;
+import br.edu.ufersa.mimic.model.habilidades.HabilidadeCriatura;
 import br.edu.ufersa.mimic.repository.fichas.CriaturaRepository;
+import br.edu.ufersa.mimic.repository.habilidades.AcaoCriaturaRepository;
+import br.edu.ufersa.mimic.repository.habilidades.HabilidadeCriaturaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class CriaturaService {
 
-    private final CriaturaRepository criaturaRepository;
+    @Autowired private CriaturaRepository criaturaRepository;
+    @Autowired private HabilidadeCriaturaRepository habilidadeRepository;
+    @Autowired private AcaoCriaturaRepository acaoRepository;
 
-    @Autowired
-    public CriaturaService(CriaturaRepository criaturaRepository) {
-        this.criaturaRepository = criaturaRepository;
+    @Transactional
+    public CriaturaDTO salvar(CriaturaDTO dto, Long usuarioId) {
+        Criatura criatura = new Criatura();
+
+        Usuario u = new Usuario();
+        u.setUsuarioId(usuarioId);
+        criatura.setUsuario(u);
+
+        mapearDtoParaEntidade(dto, criatura);
+
+        return new CriaturaDTO(criaturaRepository.save(criatura));
     }
 
     @Transactional
-    public CriaturaDTO salvar(CriaturaDTO dto) {
-        criaturaRepository.findByNome(dto.getNome()).ifPresent(c -> {
-            throw new IllegalArgumentException("Uma criatura com o nome '" + dto.getNome() + "' já existe.");
-        });
-        Criatura criatura = new Criatura(dto);
+    public CriaturaDTO atualizar(Long id, CriaturaDTO dto, Long usuarioId) {
+        Criatura criatura = criaturaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Criatura não encontrada."));
+
+        if (!criatura.getUsuario().getUsuarioId().equals(usuarioId)) {
+            throw new SecurityException("Você não tem permissão para alterar esta criatura.");
+        }
+
+        mapearDtoParaEntidade(dto, criatura);
+
         return new CriaturaDTO(criaturaRepository.save(criatura));
     }
 
     @Transactional(readOnly = true)
-    public List<CriaturaDTO> listarTodas() {
-        return criaturaRepository.findAll().stream().map(CriaturaDTO::new).collect(Collectors.toList());
+    public CriaturaDTO buscarPorId(Long id, Long usuarioId) {
+        Criatura criatura = criaturaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Criatura não encontrada."));
+
+        if (!criatura.getUsuario().getUsuarioId().equals(usuarioId)) {
+            throw new SecurityException("Você não tem permissão para acessar esta criatura.");
+        }
+
+        return new CriaturaDTO(criatura);
+    }
+
+    @Transactional
+    public void salvarImagem(Long criaturaId, Long usuarioId, MultipartFile file) throws IOException {
+        Criatura criatura = criaturaRepository.findByIdAndUsuario_UsuarioId(criaturaId, usuarioId)
+                .orElseThrow(() -> new EntityNotFoundException("Criatura não encontrada."));
+
+        criatura.setImagem(file.getBytes());
+        criaturaRepository.save(criatura);
+    }
+
+    @Transactional
+    public void deletar(Long id, Long usuarioId) {
+        Criatura criatura = criaturaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Criatura não encontrada."));
+
+        if (!criatura.getUsuario().getUsuarioId().equals(usuarioId)) {
+            throw new SecurityException("Você não tem permissão para deletar esta criatura.");
+        }
+
+        criaturaRepository.delete(criatura);
     }
 
     @Transactional(readOnly = true)
-    public CriaturaDTO buscarPorId(Long id) {
-        return criaturaRepository.findById(id).map(CriaturaDTO::new)
-                .orElseThrow(() -> new EntityNotFoundException("Criatura não encontrada com id: " + id));
+    public List<CriaturaDTO> listarPorUsuario(Long usuarioId) {
+        return criaturaRepository.findByUsuario_UsuarioId(usuarioId).stream()
+                .map(CriaturaDTO::new)
+                .collect(Collectors.toList());
     }
 
-    @Transactional
-    public CriaturaDTO atualizar(Long id, CriaturaDTO dto) {
-        Criatura criaturaExistente = criaturaRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Criatura não encontrada com id: " + id));
+    private void mapearDtoParaEntidade(CriaturaDTO dto, Criatura c) {
+        c.setNome(dto.getNome());
+        c.setTipo(dto.getTipo());
+        c.setTag(dto.getTag());
 
-        criaturaExistente.setNome(dto.getNome());
-        criaturaExistente.setTamanho(dto.getTamanho());
-        criaturaExistente.setTipo(dto.getTipo());
-        criaturaExistente.setAlinhamento(dto.getAlinhamento());
-        criaturaExistente.setClasseDeArmadura(dto.getClasseDeArmadura());
-        criaturaExistente.setPontosDeVida(dto.getPontosDeVida());
-        criaturaExistente.setDadosDeVida(dto.getDadosDeVida());
-        criaturaExistente.setDeslocamento(dto.getDeslocamento());
-        criaturaExistente.setForca(dto.getForca());
-        criaturaExistente.setDestreza(dto.getDestreza());
-        criaturaExistente.setConstituicao(dto.getConstituicao());
-        criaturaExistente.setInteligencia(dto.getInteligencia());
-        criaturaExistente.setSabedoria(dto.getSabedoria());
-        criaturaExistente.setCarisma(dto.getCarisma());
-        criaturaExistente.setPericias(dto.getPericias());
-        criaturaExistente.setImunidadesDano(dto.getImunidadesDano());
-        criaturaExistente.setResistenciasDano(dto.getResistenciasDano());
-        criaturaExistente.setVulnerabilidadesDano(dto.getVulnerabilidadesDano());
-        criaturaExistente.setSentidos(dto.getSentidos());
-        criaturaExistente.setIdiomas(dto.getIdiomas());
-        criaturaExistente.setNivelDeDesafio(dto.getNivelDeDesafio());
-        criaturaExistente.setTracosEspeciais(dto.getTracosEspeciais());
-        criaturaExistente.setAcoes(dto.getAcoes());
-        criaturaExistente.setAcoesBonus(dto.getAcoesBonus());
-        criaturaExistente.setReacoes(dto.getReacoes());
+        c.setTamanho(dto.getTamanho());
+        c.setAlinhamento(dto.getAlinhamento());
 
-        Criatura criaturaAtualizada = criaturaRepository.save(criaturaExistente);
+        c.setCa(dto.getCa());
+        c.setPv(dto.getPv());
 
-        return new CriaturaDTO(criaturaAtualizada);
-    }
+        c.setDeslBase(dto.getDeslBase());
+        c.setDeslVoo(dto.getDeslVoo());
+        c.setDeslNatacao(dto.getDeslNatacao());
 
-    @Transactional
-    public void deletarPorId(Long id) {
-        if (!criaturaRepository.existsById(id)) {
-            throw new EntityNotFoundException("Criatura não encontrada com id: " + id);
+        c.setForca(dto.getStr());
+        c.setDestreza(dto.getDex());
+        c.setConstituicao(dto.getCon());
+        c.setInteligencia(dto.getIntelligence());
+        c.setSabedoria(dto.getWis());
+        c.setCarisma(dto.getCha());
+
+        c.setSalvaguardas(dto.getSaves());
+        c.setPericias(dto.getSkills());
+        c.setResistencias(dto.getResistDano());
+        c.setImunidades(dto.getImunidDano());
+        c.setImunidadesCondicao(dto.getImunidCond());
+        c.setSentidos(dto.getSentidos());
+        c.setIdiomas(dto.getIdiomas());
+        c.setNd(dto.getNd());
+
+        c.setAcoesLendarias(dto.getLegendaryActions());
+        c.setAcoesCovil(dto.getLairActions());
+
+        if (dto.getHabilidadesIds() != null) {
+            List<HabilidadeCriatura> habs = habilidadeRepository.findAllById(dto.getHabilidadesIds());
+            c.setHabilidades(habs);
         }
-        criaturaRepository.deleteById(id);
+        if (dto.getAcoesIds() != null) {
+            List<AcaoCriatura> acoes = acaoRepository.findAllById(dto.getAcoesIds());
+            c.setAcoes(acoes);
+        }
     }
 }

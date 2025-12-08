@@ -1,6 +1,7 @@
 package br.edu.ufersa.mimic.api.controller.equipamento;
 
 import br.edu.ufersa.mimic.api.dto.equipamento.ItemDTO;
+import br.edu.ufersa.mimic.model.enums.TipoItem;
 import br.edu.ufersa.mimic.service.equipamento.ItemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,38 +13,57 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/itens")
+@CrossOrigin(origins = "*")
 public class ItemController {
 
-    private final ItemService itemService;
-
     @Autowired
-    public ItemController(ItemService itemService) {
-        this.itemService = itemService;
-    }
+    private ItemService itemService;
 
-    @PostMapping
-    public ResponseEntity<ItemDTO> criarItem(@Valid @RequestBody ItemDTO dto) {
-        return new ResponseEntity<>(itemService.salvar(dto), HttpStatus.CREATED);
-    }
 
     @GetMapping
-    public ResponseEntity<List<ItemDTO>> listarItens() {
-        return ResponseEntity.ok(itemService.listarTodos());
+    public ResponseEntity<List<ItemDTO>> listarTodos(@RequestParam Long usuarioId) {
+        return ResponseEntity.ok(itemService.listarTudo(usuarioId));
+    }
+
+    @GetMapping("/tipo/{tipo}")
+    public ResponseEntity<List<ItemDTO>> listarPorTipo(
+            @PathVariable TipoItem tipo,
+            @RequestParam Long usuarioId) {
+        return ResponseEntity.ok(itemService.listarPorTipo(tipo, usuarioId));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ItemDTO> buscarItemPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(itemService.buscarPorId(id));
+    public ResponseEntity<ItemDTO> buscarPorId(
+            @PathVariable Long id,
+            @RequestParam Long usuarioId) {
+        return ResponseEntity.ok(itemService.buscarPorId(id, usuarioId));
+    }
+
+
+    @PostMapping
+    public ResponseEntity<ItemDTO> criarItem(
+            @RequestBody @Valid ItemDTO dto,
+            @RequestParam Long usuarioId) {
+
+        ItemDTO novoItem = itemService.criarItemCustomizado(dto, usuarioId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoItem);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ItemDTO> atualizarItem(@PathVariable Long id, @Valid @RequestBody ItemDTO dto) {
-        return ResponseEntity.ok(itemService.atualizar(id, dto));
+    public ResponseEntity<ItemDTO> atualizarItem(
+            @PathVariable Long id,
+            @RequestBody ItemDTO dto,
+            @RequestParam Long usuarioId) {
+
+        return ResponseEntity.ok(itemService.atualizarItemCustomizado(id, dto, usuarioId));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarItem(@PathVariable Long id) {
-        itemService.deletarPorId(id);
+    public ResponseEntity<Void> deletarItem(
+            @PathVariable Long id,
+            @RequestParam Long usuarioId) {
+
+        itemService.deletarItemCustomizado(id, usuarioId);
         return ResponseEntity.noContent().build();
     }
 }

@@ -21,11 +21,13 @@ const CreateSpell = () => {
   const [error, setError] = useState('');
   const [loadingData, setLoadingData] = useState(false);
 
+  // Estado inicial do formulário
   const [formData, setFormData] = useState({
     nome: '',
     alcance: '',
-    conjuracao: '',
-    nivel: 0,
+    conjuracao: '', // Mapeia para 'tempoConjuracao'
+    nivel: 0,       // Mapeia para 'circulo'
+    escola: '',     // Armazena a string selecionada no dropdown
     duracao: '',
     components: [] as string[],
     materialDesc: '',
@@ -94,11 +96,13 @@ const CreateSpell = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Atualiza checkboxes simples (Ritual e Concentração)
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setFormData(prev => ({ ...prev, [name]: checked }));
   };
 
+  // Lógica para adicionar/remover V, S, M do array
   const handleComponentToggle = (val: string) => {
     setFormData(prev => {
       const hasComponent = prev.components.includes(val);
@@ -114,6 +118,7 @@ const CreateSpell = () => {
     e.preventDefault();
     setError('');
 
+    // Validação Básica
     if (!formData.nome || !formData.alcance || !formData.conjuracao || !formData.duracao || !formData.descricao) {
       setError('Por favor, preencha todos os campos obrigatórios.');
       return;

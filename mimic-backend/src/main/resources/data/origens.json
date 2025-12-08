@@ -1,0 +1,162 @@
+[
+  {
+    "nome": "Acólito",
+    "descricao": "Você se dedicou ao serviço em um templo, realizando ritos em homenagem a um deus ou panteão.",
+    "atributosPermitidos": ["INTELIGENCIA", "SABEDORIA", "CARISMA"],
+    "talentoInicial": "Iniciado em Magia",
+    "pericias": ["Intuição", "Religião"],
+    "ferramenta": "Suprimentos de Calígrafo",
+    "equipamentoA": "Suprimentos de Calígrafo, Livro (orações), Símbolo Sagrado, Pergaminho (10 folhas), Túnica, 8 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Andarilho",
+    "descricao": "Você cresceu nas ruas cercado por rejeitados, dormindo onde podia e fazendo bicos por comida.",
+    "atributosPermitidos": ["DESTREZA", "SABEDORIA", "CARISMA"],
+    "talentoInicial": "Sortudo",
+    "pericias": ["Furtividade", "Intuição"],
+    "ferramenta": "Ferramentas de Ladrão",
+    "equipamentoA": "2 Adagas, Ferramentas de Ladrão, Kit de Jogos (qualquer um), 2 Algibeiras, Roupas de Viagem, Saco de Dormir, 16 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Artesão",
+    "descricao": "Você começou limpando chão em uma oficina e se tornou um aprendiz, aprendendo a fabricar e negociar.",
+    "atributosPermitidos": ["FORCA", "DESTREZA", "INTELIGENCIA"],
+    "talentoInicial": "Artifista",
+    "pericias": ["Investigação", "Persuasão"],
+    "ferramenta": "Ferramentas de Artesão (escolha uma)",
+    "equipamentoA": "Ferramentas de Artesão (a mesma da proficiência), 2 Algibeiras, Roupas de Viagem, 32 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Artista",
+    "descricao": "Você passou a juventude em feiras e festivais, aprendendo música, acrobacia e poesia.",
+    "atributosPermitidos": ["FORCA", "DESTREZA", "CARISMA"],
+    "talentoInicial": "Músico",
+    "pericias": ["Acrobacia", "Atuação"],
+    "ferramenta": "Instrumento Musical (escolha um)",
+    "equipamentoA": "Instrumento Musical (o mesmo da proficiência), Espelho, 2 Fantasias, Perfume, Roupas de Viagem, 11 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Charlatão",
+    "descricao": "Você percorreu o circuito de bares e botequins, aprendendo a lidar com infelizes em busca de mentiras reconfortantes.",
+    "atributosPermitidos": ["DESTREZA", "CONSTITUICAO", "CARISMA"],
+    "talentoInicial": "Habilidoso",
+    "pericias": ["Enganação", "Prestidigitação"],
+    "ferramenta": "Kit de Falsificação",
+    "equipamentoA": "Kit de Falsificação, Fantasia, Roupas Finas, 15 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Criminoso",
+    "descricao": "Você sobrevivia em becos escuros, furtando ou assaltando, talvez como parte de uma guilda ou gangue.",
+    "atributosPermitidos": ["DESTREZA", "CONSTITUICAO", "INTELIGENCIA"],
+    "talentoInicial": "Alerta",
+    "pericias": ["Furtividade", "Prestidigitação"],
+    "ferramenta": "Ferramentas de Ladrão",
+    "equipamentoA": "2 Adagas, Ferramentas de Ladrão, 2 Algibeiras, Pé de Cabra, Roupas de Viagem, 16 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Eremita",
+    "descricao": "Você passou seus primeiros anos isolado em uma cabana ou mosteiro, ponderando os mistérios da criação.",
+    "atributosPermitidos": ["CONSTITUICAO", "SABEDORIA", "CARISMA"],
+    "talentoInicial": "Curandeiro",
+    "pericias": ["Medicina", "Religião"],
+    "ferramenta": "Kit de Herbalismo",
+    "equipamentoA": "Cajado, Kit de Herbalismo, Lâmpada, Livro (filosofia), Óleo (3 frascos), Roupas de Viagem, Saco de Dormir, 16 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Escriba",
+    "descricao": "Você passou anos em um scriptorium ou biblioteca, aprendendo a escrever com mão firme e atenção aos detalhes.",
+    "atributosPermitidos": ["DESTREZA", "INTELIGENCIA", "SABEDORIA"],
+    "talentoInicial": "Habilidoso",
+    "pericias": ["Investigação", "Percepção"],
+    "ferramenta": "Suprimentos de Calígrafo",
+    "equipamentoA": "Suprimentos de Calígrafo, Lâmpada, Óleo (3 frascos), Pergaminho (12 folhas), Roupas Finas, 23 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Fazendeiro",
+    "descricao": "Você cresceu perto da terra, cuidando de animais e cultivando, recompensado com paciência e saúde.",
+    "atributosPermitidos": ["FORCA", "CONSTITUICAO", "SABEDORIA"],
+    "talentoInicial": "Vigoroso",
+    "pericias": ["Lidar com Animais", "Natureza"],
+    "ferramenta": "Ferramentas de Carpinteiro",
+    "equipamentoA": "Foice, Ferramentas de Carpinteiro, Kit de Curandeiro, Balde de Ferro, Pá, 30 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Guarda",
+    "descricao": "Você foi treinado para manter o olho atento, vigiando muralhas contra saqueadores e assaltantes.",
+    "atributosPermitidos": ["FORCA", "INTELIGENCIA", "SABEDORIA"],
+    "talentoInicial": "Alerta",
+    "pericias": ["Atletismo", "Percepção"],
+    "ferramenta": "Kit de Jogos (escolha um)",
+    "equipamentoA": "Lança, Besta Leve, 20 Virotes, Kit de Jogo (o mesmo da proficiência), Aljava, Grilhões, Lanterna Coberta, Roupas de Viagem, 12 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Guia",
+    "descricao": "Você cresceu ao ar livre, vivendo em qualquer lugar onde estendesse seu saco de dormir, guiando viajantes.",
+    "atributosPermitidos": ["DESTREZA", "CONSTITUICAO", "SABEDORIA"],
+    "talentoInicial": "Iniciado em Magia",
+    "pericias": ["Furtividade", "Sobrevivência"],
+    "ferramenta": "Ferramentas de Cartógrafo",
+    "equipamentoA": "Arco Curto, 20 Flechas, Ferramentas de Cartógrafo, Aljava, Roupas de Viagem, Saco de Dormir, Tenda, 3 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Marinheiro",
+    "descricao": "Você viveu com o vento nas costas e conveses balançando, visitando portos distantes e enfrentando tempestades.",
+    "atributosPermitidos": ["FORCA", "DESTREZA", "SABEDORIA"],
+    "talentoInicial": "Valentão de Taverna",
+    "pericias": ["Acrobacia", "Percepção"],
+    "ferramenta": "Ferramentas de Navegador",
+    "equipamentoA": "Adaga, Ferramentas de Navegador, Corda, Roupas de Viagem, 20 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Mercador",
+    "descricao": "Aprendiz de comerciante ou lojista, você viajou comprando e vendendo matérias-primas e produtos.",
+    "atributosPermitidos": ["CONSTITUICAO", "INTELIGENCIA", "CARISMA"],
+    "talentoInicial": "Sortudo",
+    "pericias": ["Lidar com Animais", "Persuasão"],
+    "ferramenta": "Ferramentas de Navegador",
+    "equipamentoA": "Ferramentas de Navegador, 2 Algibeiras, Roupas de Viagem, 22 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Nobre",
+    "descricao": "Criado em um castelo com riqueza e poder, você recebeu educação de primeira e aprendeu sobre liderança.",
+    "atributosPermitidos": ["FORCA", "INTELIGENCIA", "CARISMA"],
+    "talentoInicial": "Habilidoso",
+    "pericias": ["História", "Persuasão"],
+    "ferramenta": "Kit de Jogos (escolha um)",
+    "equipamentoA": "Kit de Jogos (o mesmo da proficiência), Perfume, Roupas Finas, 29 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Sábio",
+    "descricao": "Você passou seus anos de formação viajando entre mansões e mosteiros em busca de conhecimento.",
+    "atributosPermitidos": ["CONSTITUICAO", "INTELIGENCIA", "SABEDORIA"],
+    "talentoInicial": "Iniciado em Magia",
+    "pericias": ["Arcanismo", "História"],
+    "ferramenta": "Suprimentos de Calígrafo",
+    "equipamentoA": "Cajado, Suprimentos de Calígrafo, Livro (história), Pergaminho (8 folhas), Túnica, 8 PO",
+    "equipamentoB": "50 PO"
+  },
+  {
+    "nome": "Soldado",
+    "descricao": "Você começou a treinar para a guerra assim que atingiu a idade adulta, com a batalha em seu sangue.",
+    "atributosPermitidos": ["FORCA", "DESTREZA", "CONSTITUICAO"],
+    "talentoInicial": "Atacante Selvagem",
+    "pericias": ["Atletismo", "Intimidação"],
+    "ferramenta": "Kit de Jogos (escolha um)",
+    "equipamentoA": "Lança, Arco Curto, 20 Flechas, Kit de Curandeiro, Kit de Jogo (o mesmo da proficiência), Aljava, Roupas de Viagem, 14 PO",
+    "equipamentoB": "50 PO"
+  }
+]

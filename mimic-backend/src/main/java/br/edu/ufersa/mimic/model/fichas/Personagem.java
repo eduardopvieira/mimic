@@ -4,6 +4,7 @@ import br.edu.ufersa.mimic.model.auth.Usuario;
 import br.edu.ufersa.mimic.model.caracteristicas.*;
 import br.edu.ufersa.mimic.model.enums.Alinhamento;
 import br.edu.ufersa.mimic.model.enums.Atributo;
+import br.edu.ufersa.mimic.model.enums.Tamanho;
 import br.edu.ufersa.mimic.model.equipamento.Item;
 import br.edu.ufersa.mimic.model.habilidades.Magia;
 import br.edu.ufersa.mimic.model.habilidades.Talento;
@@ -27,8 +28,7 @@ public class Personagem {
     @Column(name = "nome_personagem", nullable = false)
     private String nome;
 
-    // --- CABEÇALHO ---
-    private Integer nivel; // Essencial para Proficiência (+2, +3...)
+    private Integer nivel;
 
     @Column(name = "xp")
     private Integer pontosDeExperiencia;
@@ -36,7 +36,9 @@ public class Personagem {
     @Enumerated(EnumType.STRING)
     private Alinhamento alinhamento;
 
-    // --- RELACIONAMENTOS BASE ---
+    @Enumerated(EnumType.STRING)
+    private Tamanho tamanho;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "classe_id")
     private Classe classe;
@@ -45,16 +47,22 @@ public class Personagem {
     @JoinColumn(name = "subclasse_id")
     private Subclasse subclasse;
 
+    @Lob
+    @Column(name = "imagem", length = 10000000)
+    private byte[] imagem;
+
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "raca_id") // Ou especie_id conforme preferir
+    @JoinColumn(name = "raca_id")
     private Raca raca;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "subraca_id")
+    private Subraca subraca;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "origem_id")
     private Origem origem;
 
-    // --- ATRIBUTOS (Core Stats) ---
-    // O sistema calcula o modificador na hora de enviar pro Front/PDF
     private Integer forca;
     private Integer destreza;
     private Integer constituicao;
@@ -62,37 +70,29 @@ public class Personagem {
     private Integer sabedoria;
     private Integer carisma;
 
-    // --- ESTATÍSTICAS DE COMBATE (Snapshot) ---
-    // Mantemos salvo para permitir edits manuais do usuário
 
     private Integer vidaMax;
     private Integer vidaAtual;
     private Integer vidaTemp;
 
     @Column(name = "ca_total")
-    private Integer classeDeArmadura; // O Front sugere (10+DES...), o usuário confirma.
+    private Integer classeDeArmadura;
 
-    private Integer iniciativa;       // O Front sugere (DES), o usuário confirma.
-    private Integer deslocamento;     // Vem da Raça, mas o usuário pode ter botas mágicas.
-    private Integer percepcaoPassiva; // 10 + WIS + Prof.
+    private Integer iniciativa;
+    private Integer deslocamento;
+    private Integer percepcaoPassiva;
 
-    // --- RECURSOS ---
-    private Integer dadosDeVidaGastos; // O total é calculado pelo Nível + Classe
+    private Integer dadosDeVidaGastos;
     private boolean inspiracaoHeroica;
 
-    // --- PROFICIÊNCIAS (Strings simples para o PDF) ---
-    // Ex: "Acrobacia", "Furtividade"
     @ElementCollection
     @CollectionTable(name = "personagem_pericias", joinColumns = @JoinColumn(name = "personagem_id"))
     private Set<String> pericias;
 
-    // Ex: "FORCA", "CONSTITUICAO" (Vem da Classe, mas talentos podem dar mais)
     @ElementCollection
     @CollectionTable(name = "personagem_saves", joinColumns = @JoinColumn(name = "personagem_id"))
     private Set<String> salvaguardas;
 
-    // --- INVENTÁRIO & DINHEIRO ---
-    // Usa a classe Item Unificada que criamos
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "personagem_inventario",
@@ -101,9 +101,7 @@ public class Personagem {
     )
     private List<Item> inventario;
 
-    private Integer pc, pp, po, pl; // Moedas
-
-    // --- HABILIDADES & MAGIAS ---
+    private Integer pc, pp, po, pl;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "personagem_talentos")
@@ -113,18 +111,17 @@ public class Personagem {
     @JoinTable(name = "personagem_magias")
     private Set<Magia> magiasPreparadas;
 
-    // Para o cabeçalho da página de magias
+
+    @Column(length = 1)
+    private String escolhaEquipamentoClasse;
+
+    @Column(length = 1)
+    private String escolhaEquipamentoOrigem;
+
     @Enumerated(EnumType.STRING)
     private Atributo atributoChaveConjuracao;
 
-    // --- TEXTOS LIVRES (Opcional, mas útil pro PDF) ---
-    @Column(columnDefinition = "TEXT")
-    private String aparencia;
-
-    @Column(columnDefinition = "TEXT")
-    private String historia;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false) // Pode ser nulo (Sistema)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 }

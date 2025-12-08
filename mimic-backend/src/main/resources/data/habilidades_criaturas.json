@@ -1,0 +1,70 @@
+[
+  {
+    "nome": "Andar na Teia",
+    "descricao": "A criatura ignora restrições de movimento causadas por teias e sabe a localização de qualquer outra criatura em contato com a mesma teia."
+  },
+  {
+    "nome": "Escalada de Aranha",
+    "descricao": "A criatura pode escalar superfícies difíceis, inclusive ao longo de tetos, sem precisar realizar um teste de atributo."
+  },
+  {
+    "nome": "Anfíbio",
+    "descricao": "A criatura pode respirar ar e água."
+  },
+  {
+    "nome": "Respirar na Água",
+    "descricao": "A criatura só pode respirar debaixo d’água."
+  },
+  {
+    "nome": "Sobrevoo",
+    "descricao": "A criatura não provoca Ataques de Oportunidade ao voar para fora do alcance de um inimigo."
+  },
+  {
+    "nome": "Prender a Respiração",
+    "descricao": "A criatura pode prender a respiração por 1 hora."
+  },
+  {
+    "nome": "Resistência à Magia",
+    "descricao": "A criatura tem Vantagem em salvaguardas contra magias e outros efeitos mágicos."
+  },
+  {
+    "nome": "Mímica",
+    "descricao": "A criatura pode imitar sons simples que ouviu. Um ouvinte pode discernir que são imitações com um teste bem-sucedido de Sabedoria (Intuição) CD 10."
+  },
+  {
+    "nome": "Saltador",
+    "descricao": "A distância de salto da criatura é determinada usando a Destreza em vez da Força."
+  },
+  {
+    "nome": "Fúria Sangrenta",
+    "descricao": "Enquanto estiver Sangrando (metade da vida ou menos), a criatura tem Vantagem em jogadas de ataque."
+  },
+  {
+    "nome": "Salto com Impulso",
+    "descricao": "Ao se deslocar pelo menos 3 metros, a criatura pode realizar um Salto em Distância de até 7,5 metros."
+  },
+  {
+    "nome": "Táticas de Grupo",
+    "descricao": "A criatura tem Vantagem em uma jogada de ataque contra um alvo se pelo menos um dos aliados da criatura está a até 1,5 metro do alvo e não está Incapacitado."
+  },
+  {
+    "nome": "Animal de Carga",
+    "descricao": "A criatura conta como um tamanho maior para determinar sua capacidade de carga."
+  },
+  {
+    "nome": "Compressão",
+    "descricao": "A criatura pode se mover por um espaço tão estreito quanto 2,5 cm sem gastar movimento adicional."
+  },
+  {
+    "nome": "Ágil",
+    "descricao": "A criatura não provoca Ataques de Oportunidade ao se mover para fora do alcance de um inimigo."
+  },
+  {
+    "nome": "Salto Parado",
+    "descricao": "O Salto em Distância da criatura é de até 3 metros e o Salto em Altura é de até 1,5 metro com ou sem uma corrida inicial."
+  },
+  {
+    "nome": "Fortitude de Morto-Vivo",
+    "descricao": "Se o dano reduzir a criatura a 0 Pontos de Vida, ela deve realizar uma salvaguarda de Constituição CD 5 + dano sofrido (exceto se for Radiante ou Crítico). Em caso de sucesso, ela fica com 1 PV."
+  }
+]

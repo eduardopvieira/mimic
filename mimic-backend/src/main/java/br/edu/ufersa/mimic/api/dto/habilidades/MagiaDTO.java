@@ -37,7 +37,7 @@ public class MagiaDTO {
 
     private String alcance;
 
-    private Set<String> componentes;
+    private String componentes;
 
     @NotBlank(message = "A duração é obrigatória.")
     private String duracao;

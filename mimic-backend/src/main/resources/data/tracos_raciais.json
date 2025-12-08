@@ -1,0 +1,22 @@
+[
+  { "racaId": 1, "nome": "Versátil", "descricao": "Talento de Origem à escolha.", "magiaNome": null },
+  { "racaId": 1, "nome": "Hábil", "descricao": "Proficiência em 1 perícia.", "magiaNome": null },
+  { "racaId": 1, "nome": "Eficiente", "descricao": "Inspiração Heroica ao descansar.", "magiaNome": null },
+  { "racaId": 2, "nome": "Visão no Escuro", "descricao": "36m de alcance.", "magiaNome": null },
+  { "racaId": 2, "nome": "Resistência a Toxinas", "descricao": "Resistência a Veneno e Vantagem contra Envenenado.", "magiaNome": null },
+  { "racaId": 2, "nome": "Conhecimento de Pedras", "descricao": "Sismiconsciência na pedra.", "magiaNome": null },
+  { "racaId": 3, "nome": "Ancestralidade Feérica", "descricao": "Vantagem contra Enfeitiçado.", "magiaNome": null },
+  { "racaId": 3, "nome": "Transe", "descricao": "Descanso de 4h.", "magiaNome": null },
+  { "racaId": 4, "nome": "Sorte", "descricao": "Rola novamente o 1 no d20.", "magiaNome": null },
+  { "racaId": 4, "nome": "Corajoso", "descricao": "Vantagem contra Amedrontado.", "magiaNome": null },
+  { "racaId": 5, "nome": "Ataque de Sopro", "descricao": "Dano em área (Cone/Linha).", "magiaNome": null },
+  { "racaId": 5, "nome": "Resistência Dracônica", "descricao": "Resistência ao elemento do ancestral.", "magiaNome": null },
+  { "racaId": 6, "nome": "Astúcia de Gnomo", "descricao": "Vantagem em SG mentais.", "magiaNome": null },
+  { "racaId": 7, "nome": "Visão no Escuro", "descricao": "18m de alcance.", "magiaNome": null },
+  { "racaId": 7, "nome": "Presença Sobrenatural", "descricao": "Truque Taumaturgia.", "magiaNome": "Taumaturgia" },
+  { "racaId": 8, "nome": "Pico de Adrenalina", "descricao": "Correr como bônus + PV Temp.", "magiaNome": null },
+  { "racaId": 8, "nome": "Vigor Implacável", "descricao": "Evita cair a 0 PV (1/dia).", "magiaNome": null },
+  { "racaId": 9, "nome": "Forma Grande", "descricao": "Torna-se Grande, +velocidade, vantagem em Força.", "magiaNome": null },
+  { "racaId": 10, "nome": "Mãos Curativas", "descricao": "Cura com toque.", "magiaNome": null },
+  { "racaId": 10, "nome": "Revelação Celestial", "descricao": "Transformação de combate nv 3.", "magiaNome": null }
+]

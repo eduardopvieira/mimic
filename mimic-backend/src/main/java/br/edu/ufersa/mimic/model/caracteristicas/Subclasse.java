@@ -17,17 +17,12 @@ public class Subclasse {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String nome; // Vai para o campo "Subclasse" no cabeçalho da ficha
+    private String nome;
 
-    // RELACIONAMENTO COM CLASSE PAI
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "classe_id", nullable = false)
     private Classe classePai;
 
-    // RELACIONAMENTO UNIFICADO
-    // Ao invés de criar uma entidade nova para características de subclasse,
-    // reutilizamos a tabela padrão.
-    // O sistema vai buscar: "Características onde subclasse_id = ID desta subclasse"
     @OneToMany(mappedBy = "subclasse", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CaracteristicaDeClasse> caracteristicas;
 

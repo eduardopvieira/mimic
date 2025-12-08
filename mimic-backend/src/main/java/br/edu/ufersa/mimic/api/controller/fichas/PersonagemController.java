@@ -5,13 +5,16 @@ import br.edu.ufersa.mimic.service.fichas.PersonagemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/personagens")
+@CrossOrigin(origins = "*")
 public class PersonagemController {
 
     private final PersonagemService personagemService;
@@ -22,28 +25,57 @@ public class PersonagemController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonagemDTO> criarPersonagem(@Valid @RequestBody PersonagemDTO dto) {
-        return new ResponseEntity<>(personagemService.salvar(dto), HttpStatus.CREATED);
+    public ResponseEntity<PersonagemDTO> criarPersonagem(
+            @Valid @RequestBody PersonagemDTO dto,
+            @RequestParam Long usuarioId) {
+
+        return new ResponseEntity<>(personagemService.salvar(dto, usuarioId), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<PersonagemDTO>> listarPersonagens() {
-        return ResponseEntity.ok(personagemService.listarTodos());
+    public ResponseEntity<List<PersonagemDTO>> listarPersonagens(
+            @RequestParam Long usuarioId) {
+
+        return ResponseEntity.ok(personagemService.listarPorUsuario(usuarioId));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PersonagemDTO> buscarPersonagemPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(personagemService.buscarPorId(id));
+    public ResponseEntity<PersonagemDTO> buscarPersonagemPorId(
+            @PathVariable Long id,
+            @RequestParam Long usuarioId) {
+
+        return ResponseEntity.ok(personagemService.buscarPorId(id, usuarioId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonagemDTO> atualizarPersonagem(@PathVariable Long id, @Valid @RequestBody PersonagemDTO dto) {
-        return ResponseEntity.ok(personagemService.atualizar(id, dto));
+    public ResponseEntity<PersonagemDTO> atualizarPersonagem(
+            @PathVariable Long id,
+            @Valid @RequestBody PersonagemDTO dto,
+            @RequestParam Long usuarioId) {
+
+        return ResponseEntity.ok(personagemService.atualizar(id, dto, usuarioId));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPersonagem(@PathVariable Long id) {
-        personagemService.deletarPorId(id);
+    public ResponseEntity<Void> deletarPersonagem(
+            @PathVariable Long id,
+            @RequestParam Long usuarioId) {
+
+        personagemService.deletarPorId(id, usuarioId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/{id}/imagem", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> uploadImagem(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam Long usuarioId) {
+
+        try {
+            personagemService.salvarImagem(id, usuarioId, file);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
