@@ -12,21 +12,13 @@ const Sidebar = () => {
   ];
 
   const handleLogout = () => {
-    // 1. Remove o token (ajuste a chave 'token' se necessário)
     localStorage.removeItem('token'); 
-    
-    // Se você guarda dados do usuário também, limpe-os:
-    // localStorage.removeItem('user');
 
-    // 2. Redireciona para o login
     navigate('/login');
   };
 
   return (
-    // Adicionei 'flex flex-col' para permitir o posicionamento no fundo
     <aside className="w-64 bg-[#2D2D2D] h-full p-6 hidden md:flex flex-col shadow-xl border-r border-gray-700">
-      
-      {/* Adicionei 'flex-1' para que a nav ocupe todo o espaço disponível, empurrando o footer para baixo */}
       <nav className="space-y-4 flex-1">
         
         <div className="mb-6 pb-6 border-b border-gray-700">
@@ -56,7 +48,6 @@ const Sidebar = () => {
         })}
       </nav>
 
-      {/* Área do Botão Sair - Fixada no final */}
       <div className="mt-auto pt-6 border-t border-gray-700">
         <button 
           onClick={handleLogout}

@@ -4,14 +4,13 @@ import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import CharacterCard from '../components/ui/CharacterCard';
 
-// Interface alinhada com o PersonagemDTO do Java
 interface PersonagemListagem {
   id: number;
   nomePersonagem: string;
   nivel: number;
   racaNome?: string; 
   classeNome?: string;
-  imagem?: string; // String Base64 vinda do Java
+  imagem?: string;
 }
 
 const ManageCharacters = () => {
@@ -20,7 +19,7 @@ const ManageCharacters = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // --- CARREGAR PERSONAGENS ---
+
   useEffect(() => {
     const fetchMeusPersonagens = async () => {
       const token = localStorage.getItem('token');
@@ -58,12 +57,12 @@ const ManageCharacters = () => {
     fetchMeusPersonagens();
   }, []);
 
-  // --- FUNÇÃO VISUALIZAR ---
+
   const handleView = (id: number) => {
     navigate(`/personagem/${id}`);
   };
 
-  // --- FUNÇÃO DELETAR ---
+
   const handleDelete = async (id: number) => {
     if (!window.confirm("Tem certeza que deseja excluir este personagem? Essa ação não pode ser desfeita.")) {
         return;
@@ -81,7 +80,7 @@ const ManageCharacters = () => {
         });
 
         if (response.ok) {
-            // Remove da lista local para não precisar recarregar a página
+          
             setPersonagens(prev => prev.filter(p => p.id !== id));
         } else {
             alert("Erro ao excluir personagem. Tente novamente.");
@@ -92,20 +91,20 @@ const ManageCharacters = () => {
     }
   };
 
-  // --- FUNÇÃO EDITAR ---
+
   const handleEdit = (id: number) => {
       navigate(`/editar-personagem/${id}`);
   };
 
-  // --- HELPER IMAGEM ---
+
   const getImagemSrc = (imgData?: string) => {
     if (!imgData) return undefined; 
-    // Se o backend mandar apenas o base64 puro, adicionamos o prefixo
+  
     if (imgData.startsWith('data:image')) return imgData;
     return `data:image/jpeg;base64,${imgData}`;
   };
 
-  // --- RENDER ---
+
   return (
     <div className="bg-[#1A1A1A] w-full h-full flex flex-col font-sans text-gray-200 min-h-screen">
       
@@ -116,7 +115,6 @@ const ManageCharacters = () => {
         
         <main className="flex-1 p-8 overflow-y-auto">
           
-          {/* TÍTULO E BOTÃO NOVO */}
           <div className="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
             <div>
                 <h2 className="text-4xl font-bold text-white font-medieval">Minhas Fichas</h2>
@@ -129,28 +127,24 @@ const ManageCharacters = () => {
             </Link>
           </div>
 
-          {/* ESTADO DE LOADING */}
           {loading && (
             <div className="flex justify-center items-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
             </div>
           )}
 
-          {/* ESTADO DE ERRO */}
           {error && (
             <div className="bg-red-900/50 border border-red-500 p-4 rounded text-center text-white mb-6">
                 <p>{error}</p>
             </div>
           )}
 
-          {/* LISTA VAZIA */}
           {!loading && !error && personagens.length === 0 && (
             <div className="text-center py-20 bg-[#2D2D2D] rounded-lg border border-dashed border-gray-600">
                 <h3 className="text-2xl text-gray-300 font-semibold mb-2">Você ainda não tem personagens.</h3>
             </div>
           )}
 
-          {/* GRID DE CARDS */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {personagens.map((personagem) => (
               <CharacterCard

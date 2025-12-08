@@ -4,7 +4,7 @@ interface CharacterCardProps {
   race: string;
   charClass: string;
   image: string | undefined;
-  onView: (id: number) => void; // Nova prop para visualização
+  onView: (id: number) => void;
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
 }
@@ -13,12 +13,10 @@ const CharacterCard = ({ id, title, race, charClass, image, onView, onEdit, onDe
   return (
     <div className="relative block bg-[#2D2D2D] rounded-lg shadow-2xl overflow-hidden group transition-all duration-300 hover:shadow-red-500/30 border border-transparent hover:border-red-500/50">
       
-      {/* HEADER DO CARD */}
       <div className="p-4 bg-[#3a3a3a] border-b-2 border-red-600 flex justify-between items-center">
         <h3 className="text-2xl font-bold text-white truncate">{title}</h3>
       </div>
 
-      {/* CORPO DO CARD */}
       <div className="p-5 flex space-x-6 items-start pb-16">
         
         <div className="bg-[#444444] rounded-lg flex-shrink-0 ring-2 ring-gray-600 group-hover:ring-red-500 transition-all self-stretch w-32 h-32 overflow-hidden flex items-center justify-center text-gray-500">
@@ -43,10 +41,8 @@ const CharacterCard = ({ id, title, race, charClass, image, onView, onEdit, onDe
         </div>
       </div>
 
-      {/* BOTÕES DE AÇÃO */}
       <div className="absolute bottom-4 right-4 flex gap-3 z-10">
         
-        {/* --- NOVO: Botão Visualizar (Olho) --- */}
         <button 
             onClick={() => onView(id)}
             className="p-2 rounded-full bg-gray-700 text-gray-200 hover:bg-green-600 hover:text-white transition-colors shadow-lg"
@@ -58,7 +54,6 @@ const CharacterCard = ({ id, title, race, charClass, image, onView, onEdit, onDe
             </svg>
         </button>
 
-        {/* Botão Editar */}
         <button 
             onClick={() => onEdit(id)}
             className="p-2 rounded-full bg-gray-700 text-gray-200 hover:bg-blue-600 hover:text-white transition-colors shadow-lg"
@@ -69,7 +64,6 @@ const CharacterCard = ({ id, title, race, charClass, image, onView, onEdit, onDe
             </svg>
         </button>
 
-        {/* Botão Deletar */}
         <button 
             onClick={() => onDelete(id)}
             className="p-2 rounded-full bg-gray-700 text-gray-200 hover:bg-red-600 hover:text-white transition-colors shadow-lg"

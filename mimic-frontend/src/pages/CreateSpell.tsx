@@ -188,7 +188,6 @@ const CreateSpell = () => {
       <main className="container mx-auto p-8">
         <div className="max-w-4xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl">
 
-          {/* TÍTULO DINÂMICO */}
           <h2 className="text-3xl font-semibold text-white mb-2 font-medieval">
             {isEditMode ? 'Editar Magia' : 'Criar Magia'}
           </h2>
@@ -197,7 +196,6 @@ const CreateSpell = () => {
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
 
-              {/* LADO ESQUERDO */}
               <div className="grid grid-cols-[auto_1fr] gap-6 items-center">
                 <label className="text-lg font-medium text-gray-300">Nome</label>
                 <input type="text" name="nome" value={formData.nome} onChange={handleChange} className="p-2 rounded bg-[#444444] border border-gray-600 text-white w-full focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Ex: Bola de Fogo" />
@@ -219,7 +217,6 @@ const CreateSpell = () => {
                 </div>
               </div>
 
-              {/* LADO DIREITO */}
               <div className="grid grid-cols-[auto_1fr] gap-6 items-center">
                 <label className="text-lg font-medium text-gray-300">Nível</label>
                 <input type="number" name="nivel" min="0" max="9" value={formData.nivel} onChange={(e) => setFormData({...formData, nivel: parseInt(e.target.value)})} className="p-2 rounded bg-[#444444] border border-gray-600 text-white w-full focus:outline-none focus:ring-2 focus:ring-red-500" />

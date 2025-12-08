@@ -1,33 +1,39 @@
-import React from 'react';
-
 interface CreatureCardProps {
   id: number;
   title: string;
-  race: string; // Mapear para 'tipo'
-  size: string; // Mapear para 'tamanho'
-  image: string | null; 
-  onView: (id: number) => void;   // <--- Nova prop para visualizar
+  race: string; 
+  size: string; 
+  image: string | null | undefined;
+  onView: (id: number) => void;
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
 }
 
 const CreatureCard = ({ id, title, race, size, image, onView, onEdit, onDelete }: CreatureCardProps) => {
+  const getSafeImageSrc = (imgData: string) => {
+      if (imgData.startsWith('data:') || imgData.startsWith('http')) {
+          return imgData;
+      }
+      return `data:image/jpeg;base64,${imgData}`;
+  };
+
   return (
     <div className="relative block bg-[#2D2D2D] rounded-lg shadow-2xl overflow-hidden group transition-all duration-300 hover:shadow-red-500/30 border border-transparent hover:border-red-500/50">
       
-      {/* HEADER DO CARD */}
       <div className="p-4 bg-[#3a3a3a] border-b-2 border-red-600">
         <h3 className="text-2xl font-bold text-white truncate">{title}</h3>
       </div>
 
-      {/* CORPO DO CARD */}
       <div className="p-5 flex space-x-6 items-start pb-16">
         
-        <div className="bg-[#444444] rounded-lg flex-shrink-0 ring-2 ring-gray-600 group-hover:ring-red-500 transition-all self-stretch w-32 h-32 overflow-hidden flex items-center justify-center text-gray-500">
+        <div className="bg-[#444444] rounded-lg flex-shrink-0 ring-2 ring-gray-600 group-hover:ring-red-500 transition-all self-stretch w-32 h-32 overflow-hidden flex items-center justify-center text-gray-500 relative">
           {image ? (
-            <img src={image} alt={title} className="w-full h-full object-cover object-top" />
+            <img 
+                src={getSafeImageSrc(image)} 
+                alt={title} 
+                className="w-full h-full object-cover object-top" 
+            />
           ) : (
-            // Ícone Genérico
             <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
@@ -46,10 +52,8 @@ const CreatureCard = ({ id, title, race, size, image, onView, onEdit, onDelete }
         </div>
       </div>
 
-      {/* AÇÕES */}
       <div className="absolute bottom-4 right-4 flex gap-3 z-10">
         
-        {/* --- Botão Visualizar (Novo) --- */}
         <button 
             onClick={() => onView(id)}
             className="p-2 rounded-full bg-gray-700 text-gray-200 hover:bg-green-600 hover:text-white transition-colors shadow-lg"
@@ -61,7 +65,6 @@ const CreatureCard = ({ id, title, race, size, image, onView, onEdit, onDelete }
             </svg>
         </button>
 
-        {/* Botão Editar */}
         <button 
             onClick={() => onEdit(id)}
             className="p-2 rounded-full bg-gray-700 text-gray-200 hover:bg-blue-600 hover:text-white transition-colors shadow-lg"
@@ -70,7 +73,6 @@ const CreatureCard = ({ id, title, race, size, image, onView, onEdit, onDelete }
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
         </button>
 
-        {/* Botão Deletar */}
         <button 
             onClick={() => onDelete(id)}
             className="p-2 rounded-full bg-gray-700 text-gray-200 hover:bg-red-600 hover:text-white transition-colors shadow-lg"

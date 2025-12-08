@@ -4,11 +4,11 @@ import Sidebar from '../components/layout/Sidebar';
 import SpellCard from '../components/ui/SpellCard';
 import { Link, useNavigate } from 'react-router-dom';
 
-// Interface deve bater com o retorno do Java
+
 interface Spell {
   id: number;
-  nome: string; // Java manda 'nome', não 'name'
-  circulo: number; // Java manda 'circulo'
+  nome: string; 
+  circulo: number; 
   escola: string; 
   descricao: string;
 }
@@ -17,7 +17,7 @@ const ManageSpells = () => {
   const [spells, setSpells] = useState<Spell[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  // Carrega as magias ao abrir a página
+  
   useEffect(() => {
     fetchSpells();
   }, []);
@@ -26,7 +26,7 @@ const ManageSpells = () => {
     const token = localStorage.getItem('token');
     const usuarioId = localStorage.getItem('usuarioId');
 
-    if (!token || !usuarioId) return; // Talvez redirecionar p/ login
+    if (!token || !usuarioId) return; 
 
     try {
         const response = await fetch(`http://localhost:8080/api/magias?usuarioId=${usuarioId}`, {
@@ -97,8 +97,6 @@ const ManageSpells = () => {
                 {spells.map((spell) => (
                 <SpellCard
                     key={spell.id}
-                    // Mapeia os campos do Java para o que o SpellCard espera
-                    // Se o SpellCard esperar 'name', passamos 'name={spell.nome}'
                     id={spell.id}
                     name={spell.nome} 
                     level={spell.circulo}

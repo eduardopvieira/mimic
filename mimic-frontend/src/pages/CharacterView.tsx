@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
-import { Shield, Heart, Zap, Scroll, Backpack, Brain, Activity, Dna, Ruler } from 'lucide-react';
+import { Shield, Heart, Zap, Brain, Dna, Ruler } from 'lucide-react';
 import InfoBadge from '../components/ui/InfoBadge';
 import StatBox from '../components/ui/StatBox';
 import AttributeRow from '../components/ui/AttributeRow';
 
-// --- INTERFACES ---
 interface ItemLista { id: number; nome: string; descricao?: string; }
 interface Classe extends ItemLista { equipamentoA?: string; equipamentoB?: string; }
 interface Origem extends ItemLista { equipamentoA?: string; equipamentoB?: string; }
@@ -27,7 +26,6 @@ interface CharacterData {
   subclasseId?: number;
   origemId: number;
 
-  // Atributos
   forca: number;
   destreza: number;
   constituicao: number;
@@ -43,9 +41,7 @@ interface CharacterData {
 
   pericias: string[];
   
-  // --- CAMPO NOVO QUE VEM DO BACKEND ---
   salvaguardas: string[]; 
-  // -------------------------------------
 
   talentosIds: number[];
   magiasPreparadasIds: number[];
@@ -55,7 +51,6 @@ interface CharacterData {
   po: number;
 }
 
-// --- MAPEAMENTOS ---
 const SKILL_MAP = [
   { name: 'Acrobacia', attr: 'destreza' },
   { name: 'Arcanismo', attr: 'inteligencia' },
@@ -77,7 +72,6 @@ const SKILL_MAP = [
   { name: 'Sobrevivência', attr: 'sabedoria' },
 ] as const;
 
-// Mapeamento para Salvaguardas (Label deve ser igual ao que vem do Java)
 const SAVING_THROWS = [
     { attr: 'forca', label: 'Força' },
     { attr: 'destreza', label: 'Destreza' },
@@ -93,7 +87,6 @@ const CharacterView = () => {
   const [character, setCharacter] = useState<CharacterData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Estados para lookup
   const [listas, setListas] = useState({
     racas: [] as ItemLista[],
     subracas: [] as ItemLista[],
@@ -180,13 +173,12 @@ const CharacterView = () => {
       
       <main className="container mx-auto px-4 py-8 max-w-7xl">
         
-        {/* --- CABEÇALHO --- */}
         <div className="bg-[#2D2D2D] rounded-xl shadow-2xl overflow-hidden border border-gray-700 mb-8 flex flex-col-reverse md:flex-row">
             <div className="md:w-3/4 p-6 sm:p-8 flex flex-col justify-between">
                 <div>
                     <h1 className="text-4xl font-bold text-white mb-2">{character.nomePersonagem}</h1>
                     <p className="text-xl text-red-500 font-semibold mb-6 flex items-center gap-2">
-                        {raca} {subracaNome ? `(${subracaNome})` : ''} 
+                        {raca} {subracaNome ? `(${subracaNome})` : 'nao acho'} 
                         <span className="text-gray-600">•</span> 
                         {classe} {subclasse ? `- ${subclasse}` : ''}
                     </p>
@@ -228,13 +220,10 @@ const CharacterView = () => {
             </div>
         </div>
 
-        {/* --- CONTEÚDO PRINCIPAL --- */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            {/* COLUNA 1: ESTATÍSTICAS */}
             <div className="lg:col-span-1 space-y-6">
                 
-                {/* 1. ATRIBUTOS */}
                 <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                     <h3 className="text-xl font-bold text-gray-100 mb-6 border-b border-gray-600 pb-3 flex items-center gap-2">
                         Atributos
@@ -279,7 +268,6 @@ const CharacterView = () => {
                     </div>
                 </div>
 
-                {/* 3. LISTA COMPLETA DE PERÍCIAS */}
                 <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                     <h3 className="text-xl font-bold text-gray-100 mb-4 border-b border-gray-600 pb-3 flex justify-between items-center">
                         <span>Perícias</span>
@@ -310,10 +298,8 @@ const CharacterView = () => {
                 </div>
             </div>
 
-            {/* COLUNA 2: CONTEÚDO EXPANDIDO */}
             <div className="lg:col-span-2 space-y-6">
                 
-                {/* TALENTOS */}
                 <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                     <h3 className="text-xl font-bold text-gray-100 mb-6 flex items-center gap-2 border-b border-gray-600 pb-3">
                         Talentos
@@ -331,13 +317,11 @@ const CharacterView = () => {
                     </div>
                 </div>
 
-                {/* GRIMÓRIO */}
                 <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                     <h3 className="text-xl font-bold text-gray-100 mb-8 flex items-center gap-2 border-b border-gray-600 pb-3">
                         Truques e Magias
                     </h3>
                     
-                    {/* Truques */}
                     <div className="mb-8">
                         <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 border-l-2 border-gray-500 pl-3">
                             Truques (Nível 0)
@@ -360,7 +344,6 @@ const CharacterView = () => {
                         </div>
                     </div>
 
-                    {/* Magias */}
                     <div>
                         <h4 className="text-xs font-bold text-red-400 uppercase tracking-widest mb-4 border-l-2 border-red-500 pl-3">
                             Magias Preparadas
@@ -385,7 +368,6 @@ const CharacterView = () => {
                     </div>
                 </div>
 
-                {/* EQUIPAMENTO */}
                 <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                     <div className="flex justify-between items-center border-b border-gray-600 pb-3 mb-6">
                         <h3 className="text-xl font-bold text-gray-100 flex items-center gap-2">

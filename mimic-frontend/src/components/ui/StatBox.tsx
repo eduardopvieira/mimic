@@ -24,3 +24,4 @@ const StatBox = ({ icon, label, value, color }: StatBoxProps) => {
 };
 
 export default StatBox;
+

@@ -4,7 +4,7 @@ const AttributeCard = ({ label, value, onChange }: { label: string, value: numbe
   const [localValue, setLocalValue] = useState<string>(value.toString());
 
   React.useEffect(() => {
-    // Só atualiza se o número real for diferente do que está escrito (evita conflito de digitação)
+    
     if (parseInt(localValue) !== value) {
        setLocalValue(value.toString());
     }
@@ -12,9 +12,9 @@ const AttributeCard = ({ label, value, onChange }: { label: string, value: numbe
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVal = e.target.value;
-    setLocalValue(newVal); // Permite ficar vazio visualmente
+    setLocalValue(newVal);
 
-    // Atualiza o modificador pai em tempo real (se for número válido)
+    
     const parsed = parseInt(newVal);
     if (!isNaN(parsed)) {
       onChange(parsed);
@@ -22,9 +22,9 @@ const AttributeCard = ({ label, value, onChange }: { label: string, value: numbe
   };
 
   const handleBlur = () => {
-    // Ao perder o foco:
-    // 1. Se estiver vazio ou inválido -> vira 0
-    // 2. Se for "010" -> vira 10
+    
+    
+    
     let finalValue = 0;
     
     if (localValue !== '' && !isNaN(parseInt(localValue))) {
@@ -48,9 +48,9 @@ const AttributeCard = ({ label, value, onChange }: { label: string, value: numbe
       <div className="flex-1 flex items-center justify-center w-full">
         <input 
           type="number" 
-          value={localValue} // Usa o estado local (string)
+          value={localValue} 
           onChange={handleChange}
-          onBlur={handleBlur} // <--- A mágica acontece aqui
+          onBlur={handleBlur} 
           className="w-full text-center bg-transparent border-none p-0 focus:ring-0 text-7xl font-black text-gray-800 outline-none no-spinner font-medieval"
         />
       </div>

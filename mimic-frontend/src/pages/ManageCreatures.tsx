@@ -8,8 +8,8 @@ interface CriaturaListagem {
   id: number;
   nome: string;
   tipo: string;
-  tamanho: string; // Precisamos garantir que isso venha do DTO
-  // imagem: string; // Se um dia criaturas tiverem imagem
+  tamanho: string;
+  imagem?: string;
 }
 
 const ManageCreatures = () => {
@@ -18,7 +18,7 @@ const ManageCreatures = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // --- FETCH ---
+  
   useEffect(() => {
     const fetchCriaturas = async () => {
       const token = localStorage.getItem('token');
@@ -51,7 +51,7 @@ const ManageCreatures = () => {
     fetchCriaturas();
   }, []);
 
-  // --- ACTIONS ---
+  
   const handleDelete = async (id: number) => {
     if (!window.confirm("Tem certeza que deseja excluir esta criatura?")) return;
     
@@ -115,11 +115,11 @@ const ManageCreatures = () => {
                 id={criatura.id}
                 title={criatura.nome}
                 
-                // Mapeamento correto dos campos
+                
                 race={criatura.tipo || "Tipo Desconhecido"} 
                 size={criatura.tamanho || "Médio"} 
                 
-                image={null} // Passar imagem se tiver no futuro
+                image={criatura.imagem}
                 
                 onEdit={handleEdit}
                 onDelete={handleDelete}

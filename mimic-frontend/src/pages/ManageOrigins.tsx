@@ -4,7 +4,6 @@ import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import OriginCard from '../components/ui/OriginCard';
 
-// Interface deve bater com o retorno do OrigemDTO do Java
 interface Origin {
   id: number;
   nome: string;
@@ -25,7 +24,7 @@ const ManageOrigins = () => {
     const token = localStorage.getItem('token');
     const usuarioId = localStorage.getItem('usuarioId');
 
-    if (!token || !usuarioId) return; // Talvez redirecionar p/ login
+    if (!token || !usuarioId) return;
 
     try {
         const response = await fetch(`http://localhost:8080/api/origens?usuarioId=${usuarioId}`, {

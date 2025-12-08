@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/layout/Header';
 
-// --- CONSTANTES ---
 
 const skillOptions = [
     { val: "Acrobacia", label: "Acrobacia (Des)" },
@@ -25,7 +24,6 @@ const skillOptions = [
     { val: "Sobrevivencia", label: "Sobrevivência (Sab)" },
 ];
 
-// Valores devem bater com o Enum 'Atributo' do Java
 const atributosOptions = [
     { val: "FORCA", label: "Força" },
     { val: "DESTREZA", label: "Destreza" },
@@ -48,10 +46,10 @@ const CreateOrigin = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
-  // Lista de talentos carregada do backend para o select
+
   const [talentosDisponiveis, setTalentosDisponiveis] = useState<TalentoSimple[]>([]);
 
-  // State do Formulário
+
   const [formData, setFormData] = useState({
     nome: '',
     descricao: '',
@@ -61,10 +59,10 @@ const CreateOrigin = () => {
     pericia2: '',
     ferramenta: '',
     atributosPermitidos: [] as string[],
-    talentoInicialId: '' // String para o select, converte p/ number no submit
+    talentoInicialId: ''
   });
 
-  // --- CARGA INICIAL (Talentos e Dados se for Edição) ---
+
   useEffect(() => {
     const carregarDados = async () => {
         setLoading(true);
@@ -78,8 +76,8 @@ const CreateOrigin = () => {
         }
 
         try {
-            // 1. Busca Lista de Talentos (Endpoint: GET /api/talentos)
-            // Lembre-se de criar/liberar este endpoint no Backend (BibliotecaController)
+        
+        
             const resTalentos = await fetch(`http://localhost:8080/api/talentos`, {
                 headers: { 'Authorization': token }
             });
@@ -91,7 +89,7 @@ const CreateOrigin = () => {
                 console.error("Erro ao carregar talentos.");
             }
 
-            // 2. Se for edição, busca os dados da Origem
+        
             if (isEditMode) {
                 const resOrigem = await fetch(`http://localhost:8080/api/origens/${id}?usuarioId=${usuarioId}`, {
                     headers: { 'Authorization': token }
@@ -101,7 +99,7 @@ const CreateOrigin = () => {
                 
                 const data = await resOrigem.json();
                 
-                // Mapeia do DTO Java para o Form React
+            
                 setFormData({
                     nome: data.nome,
                     descricao: data.descricao || '',
@@ -125,13 +123,13 @@ const CreateOrigin = () => {
     carregarDados();
   }, [id, isEditMode]);
 
-  // --- HANDLERS ---
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Lógica para marcar/desmarcar os atributos (Checkboxes visuais)
+
   const handleAtributoToggle = (val: string) => {
     setFormData(prev => {
         const jaTem = prev.atributosPermitidos.includes(val);
@@ -140,7 +138,7 @@ const CreateOrigin = () => {
         if (jaTem) {
             novos = prev.atributosPermitidos.filter(a => a !== val);
         } else {
-            // Regra opcional: Limitar a 3 escolhas (padrão D&D)
+        
             if (prev.atributosPermitidos.length >= 3) return prev; 
             novos = [...prev.atributosPermitidos, val];
         }
@@ -153,13 +151,13 @@ const CreateOrigin = () => {
     e.preventDefault();
     setError('');
 
-    // Validações Básicas
+
     if (!formData.nome || !formData.pericia1 || !formData.pericia2 || !formData.equipamentoA || !formData.equipamentoB || !formData.talentoInicialId) {
         setError('Por favor, preencha todos os campos obrigatórios (*).');
         return;
     }
     
-    // Validação de Atributos (Geralmente Origens dão 3 opções)
+
     if (formData.atributosPermitidos.length < 3) {
         setError('Por favor, selecione 3 atributos para potencializar (Regra D&D 2024).');
         return;
@@ -179,7 +177,7 @@ const CreateOrigin = () => {
         talentoInicialId: parseInt(formData.talentoInicialId)
     };
 
-    // alert(JSON.stringify(payload, null, 2));
+
 
     try {
         const url = isEditMode 
@@ -233,7 +231,6 @@ const CreateOrigin = () => {
 
             <form onSubmit={handleSubmit}>
             
-                {/* LINHA 1: NOME E TALENTO */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
                     <div>
                         <label className="text-lg font-medium text-gray-300">Nome da Origem *</label>
@@ -256,11 +253,9 @@ const CreateOrigin = () => {
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                             </div>
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">D&D 2024: Toda origem concede um talento de Nível 1.</p>
                     </div>
                 </div> 
 
-                {/* ATRIBUTOS PERMITIDOS (CHECKBOXES VISUAIS) */}
                 <div className="mt-6">
                     <label className="text-lg font-medium text-gray-300 mb-2 block">
                         Atributos Permitidos (Escolha 3) *
@@ -274,7 +269,6 @@ const CreateOrigin = () => {
                                     ? 'bg-red-900/40 border-red-500 text-white'
                                     : 'bg-[#444444] border-gray-600 text-gray-400 hover:bg-[#505050]'
                                  }`}>
-                                {/* Bolinha indicadora */}
                                 <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${
                                     formData.atributosPermitidos.includes(attr.val) ? 'bg-red-500 border-red-500' : 'border-gray-400'
                                 }`}>
@@ -291,7 +285,6 @@ const CreateOrigin = () => {
                     </p>
                 </div>
 
-                {/* PERÍCIAS */}
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label className="block text-lg font-medium text-gray-300 mb-2">Perícia 1 *</label>
@@ -315,15 +308,13 @@ const CreateOrigin = () => {
                     </div>
                 </div>
                 
-                {/* FERRAMENTA */}
                 <div className="mt-6">
-                    <label className="block text-lg font-medium text-gray-300 mb-2">Ferramenta (Opcional)</label>
+                    <label className="block text-lg font-medium text-gray-300 mb-2">Ferramenta</label>
                     <input type="text" name="ferramenta" value={formData.ferramenta} onChange={handleChange}
                             className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                             placeholder="Ex: Kit de Disfarces" />
                 </div>
 
-                {/* EQUIPAMENTO */}
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label className="block text-lg font-medium text-gray-300 mb-2">Equipamento Inicial A *</label>
@@ -340,9 +331,8 @@ const CreateOrigin = () => {
                     </div>
                 </div>
 
-                {/* DESCRIÇÃO */}
                 <div className="mt-6">
-                    <label className="block text-lg font-medium text-gray-300 mb-2">Descrição (Flavor Text)</label>
+                    <label className="block text-lg font-medium text-gray-300 mb-2">Descrição</label>
                     <textarea name="descricao" rows={3} value={formData.descricao} onChange={handleChange}
                             className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-red-500 resize-y placeholder-gray-400"
                             placeholder="Descreva o passado do personagem..."></textarea>

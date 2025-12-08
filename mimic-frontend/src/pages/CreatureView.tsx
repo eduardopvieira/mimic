@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
-import { Shield, Heart, Zap, Skull, Activity, Eye, Brain, Sword, Star, Globe, Wind, Waves } from 'lucide-react';
+import { Shield, Heart, Zap, Skull, Activity, Brain, Sword, Star, Wind, Waves } from 'lucide-react';
 import InfoBadge from '../components/ui/InfoBadge';
 import StatBox from '../components/ui/StatBox';
 import AttributeRow from '../components/ui/AttributeRow';
 
-// --- IMPORTS DOS COMPONENTES VISUAIS ---
 
-// --- INTERFACES ---
 interface RecursoCreaturaDTO { id: number; nome: string; descricao: string; }
 
 interface CreatureData {
@@ -16,13 +14,16 @@ interface CreatureData {
   nome: string; tamanho: string; tipo: string; tag: string; alinhamento: string;
   ca: string; pv: string;
   
-  // --- DESLOCAMENTOS SEPARADOS ---
   deslBase: string; 
   deslVoo: string; 
   deslNatacao: string;
-  // -------------------------------
+  str: number; 
+  dex: number; 
+  con: number; 
+  intelligence: number;
+  wis: number; 
+  cha: number;
 
-  str: number; dex: number; con: number; int: number; wis: number; cha: number;
   saves: string; skills: string; resistDano: string; imunidDano: string; imunidCond: string; 
   sentidos: string; idiomas: string; nd: string;
   
@@ -48,7 +49,14 @@ const CreatureView = () => {
   const getMod = (valor: number) => Math.floor((valor - 10) / 2);
   const formatMod = (val: number) => (val >= 0 ? `+${val}` : `${val}`);
   const formatText = (text: string) => text ? text.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase()) : '-';
-  const initiativeMod = creature ? getMod(creature.dex) : 0;
+  
+  const getPBfromND = (ndString: string) => {
+      if (!ndString) return 2;
+      if (ndString.includes('/') || ndString === '0') return 2;
+      const nd = parseInt(ndString);
+      if (isNaN(nd)) return 2;
+      return Math.ceil(nd / 4) + 1;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,16 +93,16 @@ const CreatureView = () => {
 
   if (loading || !creature) return <div className="min-h-screen bg-[#1A1A1A] flex items-center justify-center text-white">Carregando Bestiário...</div>;
 
+  const initiativeMod = getMod(creature.dex);
+
   return (
     <div className="bg-[#1A1A1A] min-h-screen text-gray-200 font-sans pb-10">
       <Header />
       
       <main className="container mx-auto px-4 py-8 max-w-7xl">
         
-        {/* --- CABEÇALHO --- */}
         <div className="bg-[#2D2D2D] rounded-xl shadow-2xl overflow-hidden border border-gray-700 mb-8 flex flex-col-reverse md:flex-row">
             
-            {/* COLUNA ESQUERDA: DADOS */}
             <div className="md:w-3/4 p-6 sm:p-8 flex flex-col justify-between">
                 <div>
                     <h1 className="text-4xl font-bold text-white mb-2 font-medieval">{creature.nome}</h1>
@@ -102,7 +110,6 @@ const CreatureView = () => {
                         {formatText(creature.tamanho)} {creature.tipo} {creature.tag ? `(${creature.tag})` : ''}
                     </p>
 
-                    {/* Informações Básicas */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
                         <InfoBadge label="Desafio (ND)" value={creature.nd} highlight />
                         <InfoBadge label="Alinhamento" value={formatText(creature.alinhamento)} />
@@ -110,32 +117,13 @@ const CreatureView = () => {
                         <InfoBadge label="Idiomas" value={creature.idiomas || "-"} />
                     </div>
 
-                    {/* --- STATUS BAR (Modificada) --- */}
                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-4">
-                        {/* Status de Combate */}
                         <StatBox icon={<Shield size={24} />} label="CA" value={creature.ca} color="text-red-500" />
-                        <StatBox icon={<Heart size={24} />} label="PV Médio" value={creature.pv.split(' ')[0]} color="text-red-600" />
+                        <StatBox icon={<Heart size={24} />} label="PV Médio" value={creature.pv ? creature.pv.split(' ')[0] : '0'} color="text-red-600" />
                         <StatBox icon={<Zap size={24} />} label="Iniciativa" value={formatMod(initiativeMod)} color="text-yellow-500" />
-                        
-                        {/* Blocos de Deslocamento */}
-                        <StatBox 
-                            icon={<Activity size={24} />} 
-                            label="Desl. Chão" 
-                            value={creature.deslBase || "0m"} 
-                            color="text-gray-300" 
-                        />
-                        <StatBox 
-                            icon={<Wind size={24} />} 
-                            label="Voo" 
-                            value={creature.deslVoo || "-"} 
-                            color="text-cyan-400" 
-                        />
-                        <StatBox 
-                            icon={<Waves size={24} />} 
-                            label="Natação" 
-                            value={creature.deslNatacao || "-"} 
-                            color="text-blue-500" 
-                        />
+                        <StatBox icon={<Activity size={24} />} label="Chão" value={creature.deslBase || "0m"} color="text-gray-300" />
+                        <StatBox icon={<Wind size={24} />} label="Voo" value={creature.deslVoo || "-"} color="text-cyan-400" />
+                        <StatBox icon={<Waves size={24} />} label="Natação" value={creature.deslNatacao || "-"} color="text-blue-500" />
                     </div>
                 </div>
 
@@ -146,7 +134,6 @@ const CreatureView = () => {
                 </div>
             </div>
 
-            {/* COLUNA DIREITA: FOTO */}
             <div className="md:w-1/4 bg-[#222] relative group min-h-[250px] border-l border-gray-700">
                 {creature.imagem ? (
                     <img src={`data:image/jpeg;base64,${creature.imagem}`} alt={creature.nome} className="absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity" />
@@ -160,13 +147,10 @@ const CreatureView = () => {
             </div>
         </div>
 
-        {/* --- CONTEÚDO PRINCIPAL --- */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            {/* COLUNA 1: ATRIBUTOS E DEFESAS */}
             <div className="lg:col-span-1 space-y-6">
                 
-                {/* ATRIBUTOS */}
                 <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                     <h3 className="text-xl font-bold text-gray-100 mb-6 border-b border-gray-600 pb-3 flex items-center gap-2">
                         <Activity className="text-red-500" size={20} /> Atributos
@@ -175,13 +159,14 @@ const CreatureView = () => {
                         <AttributeRow label="Força" score={creature.str} />
                         <AttributeRow label="Destreza" score={creature.dex} />
                         <AttributeRow label="Constituição" score={creature.con} />
-                        <AttributeRow label="Inteligência" score={creature.int} />
+                        
+                        <AttributeRow label="Inteligência" score={creature.intelligence} />
+                        
                         <AttributeRow label="Sabedoria" score={creature.wis} />
                         <AttributeRow label="Carisma" score={creature.cha} />
                     </div>
                 </div>
 
-                {/* DETALHES TÉCNICOS */}
                 <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                     <h3 className="text-xl font-bold text-gray-100 mb-4 border-b border-gray-600 pb-3 flex justify-between items-center">
                          <span className="flex items-center gap-2">
@@ -198,7 +183,6 @@ const CreatureView = () => {
                     </div>
                 </div>
 
-                {/* DEFESAS (Resistências e Imunidades) */}
                 {(creature.resistDano || creature.imunidDano || creature.imunidCond) && (
                     <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                         <h3 className="text-xl font-bold text-gray-100 mb-4 border-b border-gray-600 pb-3 flex justify-between items-center">
@@ -215,10 +199,8 @@ const CreatureView = () => {
                 )}
             </div>
 
-            {/* COLUNA 2: HABILIDADES E AÇÕES */}
             <div className="lg:col-span-2 space-y-6">
                 
-                {/* HABILIDADES ESPECIAIS */}
                 {creature.habilidadesIds.length > 0 && (
                     <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                         <h3 className="text-xl font-bold text-gray-100 mb-6 flex items-center gap-2 border-b border-gray-600 pb-3">
@@ -238,7 +220,6 @@ const CreatureView = () => {
                     </div>
                 )}
 
-                {/* AÇÕES */}
                 {creature.acoesIds.length > 0 && (
                     <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                         <h3 className="text-xl font-bold text-gray-100 mb-6 flex items-center gap-2 border-b border-gray-600 pb-3">
@@ -261,7 +242,6 @@ const CreatureView = () => {
                     </div>
                 )}
 
-                {/* AÇÕES LENDÁRIAS */}
                 {creature.legendaryActions && (
                      <div className="bg-[#2D2D2D] p-6 rounded-lg border border-red-900/50 shadow-lg">
                         <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center gap-2 border-b border-red-900/50 pb-3">
@@ -273,7 +253,6 @@ const CreatureView = () => {
                     </div>
                 )}
 
-                {/* AÇÕES DE COVIL */}
                 {creature.lairActions && (
                      <div className="bg-[#2D2D2D] p-6 rounded-lg border border-gray-700 shadow-lg">
                         <h3 className="text-xl font-bold text-gray-100 mb-4 flex items-center gap-2 border-b border-gray-600 pb-3">
@@ -292,7 +271,6 @@ const CreatureView = () => {
   );
 };
 
-// --- COMPONENTE AUXILIAR LOCAL PARA DETALHES ---
 const DetailItem = ({ label, value, icon }: { label: string, value: string, icon?: React.ReactNode }) => (
     <div className="flex flex-col border-b border-gray-700 pb-2 last:border-0">
         <span className="text-xs uppercase font-bold text-gray-500 mb-1 flex items-center gap-2">

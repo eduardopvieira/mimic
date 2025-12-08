@@ -8,19 +8,9 @@ import DynamicSection from '../components/form/DynamicSection';
 import SelectField from '../components/form/SelectField';
 
 
-// --- INTERFACES ---
 
-interface RecursoCreaturaDTO {
-    id: number;
-    nome: string;
-    descricao: string;
-}
-
-interface DynamicItem {
-  id: number;
-  value: string | number;
-  description: string;
-}
+interface RecursoCreaturaDTO { id: number; nome: string; descricao: string; }
+interface DynamicItem { id: number; value: string | number; description: string; }
 
 interface CreatureData {
   nome: string; tamanho: string; tipo: string; tag: string; alinhamento: string;
@@ -32,19 +22,18 @@ interface CreatureData {
   actions: DynamicItem[];
   
   legendaryActions: string; lairActions: string;
+
+  foto: File | null;
+  fotoPreview: string | null;
 }
 
-// --- FUNÇÃO DE RECONSTRUÇÃO (CORE DA EDIÇÃO) ---
-// Pega [1, 2] e transforma em [{id:..., value:1, desc:...}, ...]
 const reconstruirLista = (ids: number[], listaCompleta: RecursoCreaturaDTO[]): DynamicItem[] => {
     if (!ids || ids.length === 0) return [];
-    
     return ids.map((idDoBanco, index) => {
-        // Encontra o objeto completo na lista de opções
         const itemOriginal = listaCompleta.find(i => i.id === idDoBanco);
         return {
-            id: Date.now() + index, // ID único para o React (key)
-            value: idDoBanco,       // ID real para o select
+            id: Date.now() + index,
+            value: idDoBanco,
             description: itemOriginal ? itemOriginal.descricao : ''
         };
     });
@@ -52,8 +41,8 @@ const reconstruirLista = (ids: number[], listaCompleta: RecursoCreaturaDTO[]): D
 
 const CreateCreature = () => {
   const navigate = useNavigate();
-  const { id } = useParams(); // ID da URL
-  const isEditMode = !!id;    // True se for edição
+  const { id } = useParams();
+  const isEditMode = !!id;
 
   const steps = [
     { id: 1, label: "Dados Básicos" },
@@ -68,7 +57,6 @@ const CreateCreature = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  // Listas de Opções (Vêm do Banco)
   const [listas, setListas] = useState({
       habilidades: [] as RecursoCreaturaDTO[],
       acoes: [] as RecursoCreaturaDTO[]
@@ -81,10 +69,11 @@ const CreateCreature = () => {
     saves: '', skills: '', resistDano: '', imunidDano: '', imunidCond: '', sentidos: '', idiomas: '', nd: '',
     specialAbilities: [], 
     actions: [],
-    legendaryActions: '', lairActions: ''
+    legendaryActions: '', lairActions: '',
+    foto: null, fotoPreview: null
   });
 
-  // --- 1. BUSCAR LISTAS DE REFERÊNCIA (Ao abrir) ---
+  
   useEffect(() => {
       const fetchListas = async () => {
           const token = localStorage.getItem('token');
@@ -97,25 +86,16 @@ const CreateCreature = () => {
                   fetch(`http://localhost:8080/api/habilidades_criatura`, { headers }),
                   fetch(`http://localhost:8080/api/acoes_criatura`, { headers })
               ]);
-
-              const habilidadesData = await resHabilidades.json();
-              const acoesData = await resAcoes.json();
-
-              setListas({ habilidades: habilidadesData, acoes: acoesData });
-          } catch (error) {
-              console.error("Erro ao carregar recursos:", error);
-          } finally {
-              setLoading(false);
-          }
+              setListas({ habilidades: await resHabilidades.json(), acoes: await resAcoes.json() });
+          } catch (error) { console.error(error); } 
+          finally { setLoading(false); }
       };
       fetchListas();
   }, []);
 
-  // --- 2. CARREGAR DADOS DA CRIATURA (SE FOR EDIÇÃO) ---
+  
   useEffect(() => {
-      // Só roda se for edição E se as listas já tiverem carregado (senão reconstruirLista falha)
       if (!isEditMode || loading) return;
-
       const fetchCriatura = async () => {
           const token = localStorage.getItem('token');
           const usuarioId = localStorage.getItem('usuarioId');
@@ -129,8 +109,11 @@ const CreateCreature = () => {
               if (res.ok) {
                   const data = await res.json();
                   
-                  // Tratamento de campos opcionais/nulos
-                  const deslBase = data.deslocamentoTotal || ""; 
+                  
+                  const deslTotal = data.deslocamentoTotal || "";
+                  const deslBase = deslTotal.split(',')[0] || ""; 
+                  const deslVoo = deslTotal.includes('Voo') ? deslTotal.match(/Voo\s([0-9]+m)/)?.[1] || "" : "";
+                  const deslNatacao = deslTotal.includes('Natação') ? deslTotal.match(/Natação\s([0-9]+m)/)?.[1] || "" : "";
 
                   setFormData(prev => ({
                       ...prev,
@@ -139,206 +122,269 @@ const CreateCreature = () => {
                       tipo: data.tipo,
                       tag: data.tag,
                       alinhamento: data.alinhamento || 'SEM_ALINHAMENTO',
-                      
                       ca: data.ca, pv: data.pv,
-                      deslBase: deslBase, deslVoo: '', deslNatacao: '', // Ajuste se tiver lógica de split
+                      
+                      deslBase: deslBase.replace("Voo", "").replace("Natação", "").trim(), 
+                      deslVoo: deslVoo, 
+                      deslNatacao: deslNatacao,
 
                       str: data.str, dex: data.dex, con: data.con,
                       int: data.intelligence, wis: data.wis, cha: data.cha,
-
                       saves: data.saves, skills: data.skills,
                       resistDano: data.resistDano, imunidDano: data.imunidDano,
                       imunidCond: data.imunidCond, sentidos: data.sentidos,
                       idiomas: data.idiomas, nd: data.nd,
-
                       legendaryActions: data.legendaryActions || '',
                       lairActions: data.lairActions || '',
-
-                      // AQUI ACONTECE A MÁGICA: Converte IDs [1, 2] -> Objetos visuais
                       specialAbilities: reconstruirLista(data.habilidadesIds, listas.habilidades),
-                      actions: reconstruirLista(data.acoesIds, listas.acoes)
+                      actions: reconstruirLista(data.acoesIds, listas.acoes),
+                      fotoPreview: data.imagem ? `data:image/jpeg;base64,${data.imagem}` : null,
+                      foto: null
                   }));
               }
-          } catch (err) {
-              console.error("Erro ao carregar criatura para edição:", err);
-          }
+          } catch (err) { console.error(err); }
       };
-
       fetchCriatura();
-  }, [id, isEditMode, loading]); // Roda quando ID muda ou quando loading termina
+  }, [id, isEditMode, loading]); 
 
-  // --- HANDLERS (Com Correção de Estado 'prev') ---
+  
 
   const updateData = (field: string, value: any) => setFormData(prev => ({ ...prev, [field]: value }));
   
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFormData(prev => ({ ...prev, foto: file, fotoPreview: URL.createObjectURL(file) }));
+    }
+  };
+
   const addDynamicItem = (field: keyof CreatureData) => {
       setFormData(prev => {
           const currentList = Array.isArray(prev[field]) ? (prev[field] as DynamicItem[]) : [];
-          const newItem: DynamicItem = { id: Date.now(), value: '', description: '' };
-          return { ...prev, [field]: [...currentList, newItem] };
+          return { ...prev, [field]: [...currentList, { id: Date.now(), value: '', description: '' }] };
       });
   };
-
   const removeDynamicItem = (field: keyof CreatureData, id: number) => {
       setFormData(prev => {
           const currentList = Array.isArray(prev[field]) ? (prev[field] as DynamicItem[]) : [];
           return { ...prev, [field]: currentList.filter(item => item.id !== id) };
       });
   };
-
   const updateDynamicItem = (field: keyof CreatureData, id: number, newValueStr: string, sourceOptions: any[]) => {
       const newValue = Number(newValueStr);
       const selectedOption = sourceOptions.find(opt => opt.value === newValue);
-      const newDesc = selectedOption ? selectedOption.desc : '';
-
       setFormData(prev => {
           const currentList = Array.isArray(prev[field]) ? (prev[field] as DynamicItem[]) : [];
-          const updatedList = currentList.map(item => 
-              item.id === id ? { ...item, value: newValue, description: newDesc } : item
-          );
-          return { ...prev, [field]: updatedList };
+          return { ...prev, [field]: currentList.map(item => item.id === id ? { ...item, value: newValue, description: selectedOption?.desc || '' } : item) };
       });
   };
 
-  // --- PREPARAÇÃO DE OPÇÕES ---
   const opcoesHabilidades = listas.habilidades.map(h => ({ value: h.id, label: h.nome, desc: h.descricao }));
   const opcoesAcoes = listas.acoes.map(a => ({ value: a.id, label: a.nome, desc: a.descricao }));
 
-  // --- SUBMIT ---
+  
+  const validateStep = (step: number) => {
+      if (step === 1) { 
+          if (!formData.nome.trim()) { alert("Nome é obrigatório."); return false; }
+          if (!formData.tamanho) { alert("Tamanho é obrigatório."); return false; }
+          if (!formData.tipo.trim()) { alert("Tipo é obrigatório."); return false; }
+          if (!formData.alinhamento) { alert("Alinhamento é obrigatório."); return false; }
+      }
+      if (step === 2) { 
+          if (!formData.ca.trim()) { alert("Classe de Armadura (CA) é obrigatória."); return false; }
+          if (!formData.pv.trim()) { alert("Pontos de Vida (PV) é obrigatório."); return false; }
+          if (!formData.deslBase.trim()) { alert("Deslocamento Base é obrigatório."); return false; }
+      }
+      if (step === 4) { 
+          if (!formData.nd.trim()) { alert("Nível de Desafio (ND) é obrigatório."); return false; }
+      }
+      return true;
+  };
+
+  const handleNextStep = () => {
+      if (validateStep(currentStep)) {
+          setCurrentStep(prev => Math.min(prev + 1, steps.length));
+      }
+  };
+
+  
   const handleSubmit = async () => {
+      if (!validateStep(1) || !validateStep(2) || !validateStep(4)) return;
+
       const token = localStorage.getItem('token');
       const usuarioId = localStorage.getItem('usuarioId');
       const tokenLimpo = token?.replace("Bearer ", "").trim();
       
+      
+      const partesDeslocamento = [];
+      if (formData.deslBase) partesDeslocamento.push(formData.deslBase);
+      if (formData.deslVoo) partesDeslocamento.push(`Voo ${formData.deslVoo}`);
+      if (formData.deslNatacao) partesDeslocamento.push(`Natação ${formData.deslNatacao}`);
+      const deslocamentoFinal = partesDeslocamento.join(", ");
+
       const payload = {
           ...formData,
-          // Mapeamento para DTO Java
           intelligence: formData.int, 
-          // Extrai apenas os IDs válidos das listas visuais
+          deslocamentoTotal: deslocamentoFinal, 
           habilidadesIds: formData.specialAbilities.map(i => Number(i.value)).filter(v => v > 0),
           acoesIds: formData.actions.map(i => Number(i.value)).filter(v => v > 0),
       };
 
       try {
           const urlBase = `http://localhost:8080/api/criaturas`;
-          // Se for edição, PUT na URL com ID. Se novo, POST.
           const url = isEditMode ? `${urlBase}/${id}?usuarioId=${usuarioId}` : `${urlBase}?usuarioId=${usuarioId}`;
           const method = isEditMode ? 'PUT' : 'POST';
 
           const res = await fetch(url, {
               method: method,
-              headers: { 
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${tokenLimpo}` 
-              },
+              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${tokenLimpo}` },
               body: JSON.stringify(payload)
           });
 
-          if (res.ok) {
-              alert(isEditMode ? "Criatura atualizada!" : "Criatura criada!");
-              navigate('/gerenciar-criaturas');
-          } else {
-              const txt = await res.text();
-              alert("Erro ao salvar: " + txt);
+          if (!res.ok) throw new Error(await res.text());
+
+          const savedCreature = await res.json();
+          const creatureId = savedCreature.id;
+
+          if (formData.foto && creatureId) {
+              const imgData = new FormData();
+              imgData.append('file', formData.foto);
+              await fetch(`${urlBase}/${creatureId}/imagem?usuarioId=${usuarioId}`, {
+                  method: 'POST',
+                  headers: { 'Authorization': `Bearer ${tokenLimpo}` }, 
+                  body: imgData
+              });
           }
-      } catch (err) {
-          console.error(err);
-          alert("Erro de conexão.");
+
+          alert(isEditMode ? "Criatura atualizada!" : "Criatura criada!");
+          navigate('/gerenciar-criaturas');
+      } catch (err: any) {
+          alert("Erro: " + err.message);
       }
   };
 
-  const handleStepClick = (id: number) => setCurrentStep(id);
-  const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, steps.length));
+  const handleStepClick = (id: number) => {
+      
+      if (id > currentStep && !validateStep(currentStep)) return;
+      setCurrentStep(id);
+  };
+  
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
   return (
     <div className="bg-[#1A1A1A] text-gray-200 min-h-screen font-sans">
       <Header />
       <main className="container mx-auto p-8">
-        <div className="max-w-5xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl min-h-[700px] flex flex-col">
+        <div className="max-w-6xl mx-auto bg-[#2D2D2D] p-6 sm:p-8 rounded-lg shadow-2xl min-h-[700px] flex flex-col">
           
           <div className="flex justify-between items-center mb-6">
-             <h1 className="text-2xl font-bold text-gray-400">
-                {isEditMode ? `Editando: ${formData.nome}` : "Nova Criatura"}
-             </h1>
+             <h1 className="text-2xl font-bold text-gray-400">{isEditMode ? `Editando: ${formData.nome}` : "Nova Criatura"}</h1>
           </div>
 
           <Stepper steps={steps} currentStep={currentStep} onStepClick={handleStepClick} />
 
           <form onSubmit={(e) => e.preventDefault()} className="flex-1 flex flex-col justify-between mt-8">
             
-            {/* ETAPA 1: DADOS BÁSICOS (Com Selects Corrigidos) */}
             {currentStep === 1 && (
                 <div className="animate-fade-in space-y-6">
                     <div className="flex justify-between items-center border-b border-gray-700 pb-4 mb-6">
                         <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 font-medieval">Identidade da Criatura</h2>
-                        {loading && <span className="text-yellow-500 animate-pulse text-sm">Carregando dados...</span>}
+                        {loading && <span className="text-yellow-500 animate-pulse text-sm">Carregando...</span>}
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="md:col-span-2">
-                             <InputField label="Nome da Criatura" value={formData.nome} onChange={(e: any) => updateData('nome', e.target.value)} placeholder="Ex: Dragão Vermelho Jovem" />
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="md:col-span-2">
+                                <label className="block text-gray-400 mb-1 text-sm font-bold uppercase">Nome <span className="text-red-500">*</span></label>
+                                <input type="text" value={formData.nome} onChange={e => updateData('nome', e.target.value)} placeholder="Ex: Dragão Vermelho Jovem" className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" />
+                            </div>
+                            
+                            <SelectField 
+                                required
+                                label="Tamanho" 
+                                value={formData.tamanho} 
+                                onChange={(e: any) => updateData('tamanho', e.target.value)} 
+                                options={[
+                                    { id: "MINUSCULO", nome: "Minúsculo" }, { id: "PEQUENO", nome: "Pequeno" }, 
+                                    { id: "MEDIO", nome: "Médio" }, { id: "GRANDE", nome: "Grande" }, 
+                                    { id: "ENORME", nome: "Enorme" }, { id: "COLOSSAL", nome: "Colossal" }
+                                ]} 
+                            />
+
+                            <div className="md:col-span-1">
+                                <label className="block text-gray-400 mb-1 text-sm font-bold uppercase">Tipo <span className="text-red-500">*</span></label>
+                                <input type="text" value={formData.tipo} onChange={e => updateData('tipo', e.target.value)} placeholder="Ex: Dragão" className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" />
+                            </div>
+
+                            <InputField label="Tag (Opcional)" value={formData.tag} onChange={(e: any) => updateData('tag', e.target.value)} placeholder="Ex: Metamorfo" />
+                            
+                            <SelectField 
+                                required
+                                label="Alinhamento" 
+                                value={formData.alinhamento} 
+                                onChange={(e: any) => updateData('alinhamento', e.target.value)} 
+                                options={[
+                                    { id: "LEAL_BOM", nome: "Leal e Bom" }, { id: "NEUTRO_BOM", nome: "Neutro e Bom" }, 
+                                    { id: "CAOTICO_BOM", nome: "Caótico e Bom" }, { id: "LEAL_NEUTRO", nome: "Leal e Neutro" }, 
+                                    { id: "VERDADEIRO_NEUTRO", nome: "Neutro" }, { id: "CAOTICO_NEUTRO", nome: "Caótico e Neutro" },
+                                    { id: "LEAL_MAU", nome: "Leal e Mau" }, { id: "NEUTRO_MAU", nome: "Neutro e Mau" }, 
+                                    { id: "CAOTICO_MAU", nome: "Caótico e Mau" }, { id: "SEM_ALINHAMENTO", nome: "Sem Alinhamento"}
+                                ]} 
+                            />
                         </div>
-                        
-                        {/* SELECT TAMANHO */}
-                        <SelectField 
-                            label="Tamanho" 
-                            value={formData.tamanho} 
-                            onChange={(e: any) => updateData('tamanho', e.target.value)} 
-                            options={[
-                                { id: "MINUSCULO", nome: "Minúsculo" }, 
-                                { id: "PEQUENO", nome: "Pequeno" }, 
-                                { id: "MEDIO", nome: "Médio" }, 
-                                { id: "GRANDE", nome: "Grande" }, 
-                                { id: "ENORME", nome: "Enorme" }, 
-                                { id: "COLOSSAL", nome: "Colossal" }
-                            ]} 
-                        />
 
-                        <InputField label="Tipo" value={formData.tipo} onChange={(e: any) => updateData('tipo', e.target.value)} placeholder="Ex: Dragão" />
-                        <InputField label="Tag (Opcional)" value={formData.tag} onChange={(e: any) => updateData('tag', e.target.value)} placeholder="Ex: Metamorfo" />
-                        
-                        {/* SELECT ALINHAMENTO */}
-                        <SelectField 
-                            label="Alinhamento" 
-                            value={formData.alinhamento} 
-                            onChange={(e: any) => updateData('alinhamento', e.target.value)} 
-                            options={[
-                                { id: "LEAL_BOM", nome: "Leal e Bom" }, 
-                                { id: "NEUTRO_BOM", nome: "Neutro e Bom" }, 
-                                { id: "CAOTICO_BOM", nome: "Caótico e Bom" },
-                                { id: "LEAL_NEUTRO", nome: "Leal e Neutro" }, 
-                                { id: "VERDADEIRO_NEUTRO", nome: "Neutro" }, 
-                                { id: "CAOTICO_NEUTRO", nome: "Caótico e Neutro" },
-                                { id: "LEAL_MAU", nome: "Leal e Mau" }, 
-                                { id: "NEUTRO_MAU", nome: "Neutro e Mau" }, 
-                                { id: "CAOTICO_MAU", nome: "Caótico e Mau" },
-                                { id: "SEM_ALINHAMENTO", nome: "Sem Alinhamento"}
-                            ]} 
-                        />
-                    </div>
-                </div>
-            )}
-
-            {/* ETAPA 2: COMBATE */}
-            {currentStep === 2 && (
-                <div className="animate-fade-in space-y-6">
-                    <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 mb-6 font-medieval">Estatísticas de Combate</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <InputField label="Classe de Armadura (CA)" value={formData.ca} onChange={(e: any) => updateData('ca', e.target.value)} placeholder="Ex: 17 (Natural)" />
-                        <InputField label="Pontos de Vida (PV)" value={formData.pv} onChange={(e: any) => updateData('pv', e.target.value)} placeholder="Ex: 136 (16d10 + 48)" />
-                        <div className="md:col-span-2 bg-[#333] p-4 rounded-lg border border-gray-600">
-                            <label className="block text-white font-bold mb-4 border-b border-gray-600 pb-2">Deslocamento</label>
-                            <div className="grid grid-cols-3 gap-4">
-                                <InputField label="Base" value={formData.deslBase} onChange={(e: any) => updateData('deslBase', e.target.value)} placeholder="9m" />
-                                <InputField label="Voo" value={formData.deslVoo} onChange={(e: any) => updateData('deslVoo', e.target.value)} placeholder="-" />
-                                <InputField label="Natação" value={formData.deslNatacao} onChange={(e: any) => updateData('deslNatacao', e.target.value)} placeholder="-" />
+                        <div className="lg:col-span-1 flex flex-col">
+                            <label className="block text-gray-400 mb-1 text-sm font-bold uppercase tracking-wider">Imagem</label>
+                            <div className="flex-1 bg-[#3a3a3a] rounded-lg border-2 border-dashed border-gray-600 flex flex-col items-center justify-center relative overflow-hidden group hover:border-red-500 transition-colors min-h-[300px]">
+                                {formData.fotoPreview ? (
+                                    <img src={formData.fotoPreview} alt="Preview" className="absolute inset-0 w-full h-full object-cover" />
+                                ) : (
+                                    <div className="text-center p-4">
+                                        <svg className="mx-auto h-12 w-12 text-gray-500" stroke="currentColor" fill="none" viewBox="0 0 48 48"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                        <p className="mt-1 text-sm text-gray-400">Clique para adicionar foto</p>
+                                    </div>
+                                )}
+                                <input type="file" accept="image/*" onChange={handleImageUpload} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* ETAPA 3: ATRIBUTOS */}
+            {currentStep === 2 && (
+                <div className="animate-fade-in space-y-6">
+                    <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 mb-6 font-medieval">Estatísticas de Combate</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-gray-400 mb-1 text-sm font-bold uppercase">Classe de Armadura (CA) <span className="text-red-500">*</span></label>
+                            <input type="text" value={formData.ca} onChange={e => updateData('ca', e.target.value)} placeholder="Ex: 17 (Natural)" className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" />
+                        </div>
+                        <div>
+                            <label className="block text-gray-400 mb-1 text-sm font-bold uppercase">Pontos de Vida (PV) <span className="text-red-500">*</span></label>
+                            <input type="text" value={formData.pv} onChange={e => updateData('pv', e.target.value)} placeholder="Ex: 136 (16d10 + 48)" className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" />
+                        </div>
+                        
+                        <div className="md:col-span-2 bg-[#333] p-4 rounded-lg border border-gray-600">
+                            <label className="block text-white font-bold mb-4 border-b border-gray-600 pb-2">Deslocamento <span className="text-red-500">*</span></label>
+                            <div className="grid grid-cols-3 gap-4">
+                                <div>
+                                    <label className="text-xs text-gray-400 block mb-1">Base <span className="text-red-500">*</span></label>
+                                    <input type="text" value={formData.deslBase} onChange={e => updateData('deslBase', e.target.value)} placeholder="9m" className="w-full p-2 rounded bg-[#444] border border-gray-600 text-white" />
+                                </div>
+                                <div>
+                                    <label className="text-xs text-gray-400 block mb-1">Voo</label>
+                                    <input type="text" value={formData.deslVoo} onChange={e => updateData('deslVoo', e.target.value)} placeholder="-" className="w-full p-2 rounded bg-[#444] border border-gray-600 text-white" />
+                                </div>
+                                <div>
+                                    <label className="text-xs text-gray-400 block mb-1">Natação</label>
+                                    <input type="text" value={formData.deslNatacao} onChange={e => updateData('deslNatacao', e.target.value)} placeholder="-" className="w-full p-2 rounded bg-[#444] border border-gray-600 text-white" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {currentStep === 3 && (
                 <div className="animate-fade-in">
                     <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 mb-8 font-medieval">Atributos</h2>
@@ -353,76 +399,39 @@ const CreateCreature = () => {
                 </div>
             )}
 
-            {/* ETAPA 4: PROFICIÊNCIAS */}
             {currentStep === 4 && (
                 <div className="animate-fade-in space-y-6">
                     <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 mb-6 font-medieval">Proficiências e Sentidos</h2>
                     <div className="space-y-4">
+                        <div>
+                            <label className="block text-gray-400 mb-1 text-sm font-bold uppercase">Nível de Desafio (ND) <span className="text-red-500">*</span></label>
+                            <input type="text" value={formData.nd} onChange={e => updateData('nd', e.target.value)} placeholder="Ex: 5" className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" />
+                        </div>
                         <InputField label="Testes de Resistência" value={formData.saves} onChange={(e: any) => updateData('saves', e.target.value)} placeholder="Ex: Des +4, Sab +2" />
                         <InputField label="Perícias" value={formData.skills} onChange={(e: any) => updateData('skills', e.target.value)} placeholder="Ex: Furtividade +6" />
                         <InputField label="Imunidade a Dano" value={formData.imunidDano} onChange={(e: any) => updateData('imunidDano', e.target.value)} placeholder="Ex: Fogo" />
                         <InputField label="Imunidade a Condição" value={formData.imunidCond} onChange={(e: any) => updateData('imunidCond', e.target.value)} placeholder="Ex: Enfeitiçado" />
                         <InputField label="Sentidos" value={formData.sentidos} onChange={(e: any) => updateData('sentidos', e.target.value)} placeholder="Ex: Visão no Escuro 18m" />
                         <InputField label="Idiomas" value={formData.idiomas} onChange={(e: any) => updateData('idiomas', e.target.value)} placeholder="Ex: Comum, Dracônico" />
-                        <InputField label="Nível de Desafio (ND)" value={formData.nd} onChange={(e: any) => updateData('nd', e.target.value)} placeholder="Ex: 5" />
+                        
                     </div>
                 </div>
             )}
 
-            {/* ETAPA 5: HABILIDADES */}
-            {currentStep === 5 && (
-                <DynamicSection 
-                    title="Habilidades Especiais" 
-                    itemName="Habilidade"
-                    items={formData.specialAbilities} 
-                    options={opcoesHabilidades} 
-                    onAdd={() => addDynamicItem('specialAbilities')} 
-                    onRemove={(id: number) => removeDynamicItem('specialAbilities', id)} 
-                    onUpdate={(id, val) => updateDynamicItem('specialAbilities', id, val, opcoesHabilidades)} 
-                />
-            )}
+            {currentStep === 5 && <DynamicSection title="Habilidades Especiais" itemName="Habilidade" items={formData.specialAbilities} options={opcoesHabilidades} onAdd={() => addDynamicItem('specialAbilities')} onRemove={(id) => removeDynamicItem('specialAbilities', id)} onUpdate={(id, val) => updateDynamicItem('specialAbilities', id, val, opcoesHabilidades)} />}
+            {currentStep === 6 && <DynamicSection title="Ações da Criatura" itemName="Ação" items={formData.actions} options={opcoesAcoes} onAdd={() => addDynamicItem('actions')} onRemove={(id) => removeDynamicItem('actions', id)} onUpdate={(id, val) => updateDynamicItem('actions', id, val, opcoesAcoes)} />}
 
-            {/* ETAPA 6: AÇÕES */}
-            {currentStep === 6 && (
-                <DynamicSection 
-                    title="Ações da Criatura" 
-                    itemName="Ação"
-                    items={formData.actions} 
-                    options={opcoesAcoes} 
-                    onAdd={() => addDynamicItem('actions')} 
-                    onRemove={(id: number) => removeDynamicItem('actions', id)} 
-                    onUpdate={(id, val) => updateDynamicItem('actions', id, val, opcoesAcoes)} 
-                />
-            )}
-
-            {/* ETAPA 7: LENDÁRIAS */}
             {currentStep === 7 && (
                 <div className="animate-fade-in space-y-6">
                     <h2 className="text-3xl font-semibold text-white border-l-4 border-red-500 pl-4 mb-6 font-medieval">Ações Lendárias e de Covil</h2>
-                    <div>
-                        <label className="block text-gray-400 mb-2 text-sm font-bold uppercase">Ações Lendárias</label>
-                        <textarea rows={5} value={formData.legendaryActions} onChange={(e) => updateData('legendaryActions', e.target.value)} className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:border-red-500 outline-none" placeholder="A criatura pode realizar 3 ações lendárias..." />
-                    </div>
-                    <div>
-                        <label className="block text-gray-400 mb-2 text-sm font-bold uppercase">Ações de Covil</label>
-                        <textarea rows={5} value={formData.lairActions} onChange={(e) => updateData('lairActions', e.target.value)} className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white focus:border-red-500 outline-none" placeholder="Na contagem de iniciativa 20..." />
-                    </div>
+                    <div><label className="block text-gray-400 mb-2 text-sm font-bold uppercase">Ações Lendárias</label><textarea rows={5} value={formData.legendaryActions} onChange={(e) => updateData('legendaryActions', e.target.value)} className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" /></div>
+                    <div><label className="block text-gray-400 mb-2 text-sm font-bold uppercase">Ações de Covil</label><textarea rows={5} value={formData.lairActions} onChange={(e) => updateData('lairActions', e.target.value)} className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" /></div>
                 </div>
             )}
 
-            {/* BOTÕES */}
             <div className="mt-10 flex justify-between pb-8 pt-6 border-t border-gray-700">
-                {currentStep > 1 ? (
-                    <button type="button" onClick={prevStep} className="px-6 py-3 rounded-lg bg-gray-600 hover:bg-gray-500 text-white font-semibold transition text-lg flex items-center gap-2">← Voltar</button>
-                ) : <button type="button" onClick={() => navigate('/gerenciar-criaturas')} className="px-6 py-3 rounded-lg bg-red-800 hover:bg-red-700 text-white font-semibold">Cancelar</button>}
-
-                {currentStep < steps.length ? (
-                    <button type="button" onClick={nextStep} className="px-8 py-3 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold transition text-lg shadow-lg shadow-red-900/50 flex items-center gap-2">Próximo →</button>
-                ) : (
-                    <button type="button" onClick={handleSubmit} className="px-8 py-3 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold transition text-lg shadow-lg shadow-green-900/50 flex items-center gap-2">
-                        {isEditMode ? 'Atualizar Criatura ✓' : 'Criar Criatura ✓'}
-                    </button>
-                )}
+                {currentStep > 1 ? <button type="button" onClick={prevStep} className="px-6 py-3 rounded-lg bg-gray-600 hover:bg-gray-500 text-white font-semibold">← Voltar</button> : <button type="button" onClick={() => navigate('/gerenciar-criaturas')} className="px-6 py-3 rounded-lg bg-red-800 hover:bg-red-700 text-white font-semibold">Cancelar</button>}
+                {currentStep < steps.length ? <button type="button" onClick={handleNextStep} className="px-8 py-3 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold">Próximo →</button> : <button type="button" onClick={handleSubmit} className="px-8 py-3 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold">{isEditMode ? 'Atualizar Criatura' : 'Criar Criatura'}</button>}
             </div>
           </form>
         </div>
