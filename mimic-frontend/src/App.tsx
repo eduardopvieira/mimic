@@ -56,9 +56,6 @@ function App() {
 
       <Route path="/editar-origem/:id" element={<CreateOrigin />} />
 
-
-
-
     </Routes>
   );
 }
