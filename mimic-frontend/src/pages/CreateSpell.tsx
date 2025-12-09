@@ -197,13 +197,13 @@ const CreateSpell = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
 
               <div className="grid grid-cols-[auto_1fr] gap-6 items-center">
-                <label className="text-lg font-medium text-gray-300">Nome</label>
+                <label className="text-lg font-medium text-gray-300">Nome*</label>
                 <input type="text" name="nome" value={formData.nome} onChange={handleChange} className="p-2 rounded bg-[#444444] border border-gray-600 text-white w-full focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Ex: Bola de Fogo" />
 
-                <label className="text-lg font-medium text-gray-300">Alcance</label>
+                <label className="text-lg font-medium text-gray-300">Alcance*</label>
                 <input type="text" name="alcance" value={formData.alcance} onChange={handleChange} className="p-2 rounded bg-[#444444] border border-gray-600 text-white w-full focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Ex: 30m / Toque" />
 
-                <label className="text-lg font-medium text-gray-300">Conjuração</label>
+                <label className="text-lg font-medium text-gray-300">Conjuração*</label>
                 <input type="text" name="conjuracao" value={formData.conjuracao} onChange={handleChange} className="p-2 rounded bg-[#444444] border border-gray-600 text-white w-full focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Ex: 1 Ação" />
                 
                 <label className="text-lg font-medium text-gray-300">Escola</label>
@@ -218,10 +218,10 @@ const CreateSpell = () => {
               </div>
 
               <div className="grid grid-cols-[auto_1fr] gap-6 items-center">
-                <label className="text-lg font-medium text-gray-300">Nível</label>
+                <label className="text-lg font-medium text-gray-300">Nível*</label>
                 <input type="number" name="nivel" min="0" max="9" value={formData.nivel} onChange={(e) => setFormData({...formData, nivel: parseInt(e.target.value)})} className="p-2 rounded bg-[#444444] border border-gray-600 text-white w-full focus:outline-none focus:ring-2 focus:ring-red-500" />
 
-                <label className="text-lg font-medium text-gray-300">Duração</label>
+                <label className="text-lg font-medium text-gray-300">Duração*</label>
                 <input type="text" name="duracao" value={formData.duracao} onChange={handleChange} className="p-2 rounded bg-[#444444] border border-gray-600 text-white w-full focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Ex: Instantânea" />
 
                 <label className="text-lg font-medium text-gray-300">Componentes</label>
@@ -256,7 +256,7 @@ const CreateSpell = () => {
             )}
 
             <div className="mt-6">
-              <label className="block text-lg font-medium text-gray-300 mb-2">Descrição da Magia</label>
+              <label className="block text-lg font-medium text-gray-300 mb-2">Descrição da Magia*</label>
               <textarea name="descricao" rows={8} value={formData.descricao} onChange={handleChange} className="w-full p-2 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 resize-y" placeholder="Efeito..." />
             </div>
 

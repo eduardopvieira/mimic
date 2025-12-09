@@ -178,7 +178,7 @@ const CharacterView = () => {
                 <div>
                     <h1 className="text-4xl font-bold text-white mb-2">{character.nomePersonagem}</h1>
                     <p className="text-xl text-red-500 font-semibold mb-6 flex items-center gap-2">
-                        {raca} {subracaNome ? `(${subracaNome})` : 'nao acho'} 
+                        {raca} {subracaNome ? `(${subracaNome})` : '(Sem Sub-Raça)'} 
                         <span className="text-gray-600">•</span> 
                         {classe} {subclasse ? `- ${subclasse}` : ''}
                     </p>

@@ -7,8 +7,6 @@ import AttributeCard from '../components/form/AttributeCard';
 import DynamicSection from '../components/form/DynamicSection'; 
 import SelectField from '../components/form/SelectField';
 
-
-
 interface RecursoCreaturaDTO { id: number; nome: string; descricao: string; }
 interface DynamicItem { id: number; value: string | number; description: string; }
 
@@ -357,11 +355,11 @@ const CreateCreature = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block text-gray-400 mb-1 text-sm font-bold uppercase">Classe de Armadura (CA) <span className="text-red-500">*</span></label>
-                            <input type="text" value={formData.ca} onChange={e => updateData('ca', e.target.value)} placeholder="Ex: 17 (Natural)" className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" />
+                            <input type="text" value={formData.ca} onChange={e => updateData('ca', e.target.value)} placeholder="Ex: 17" className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" />
                         </div>
                         <div>
                             <label className="block text-gray-400 mb-1 text-sm font-bold uppercase">Pontos de Vida (PV) <span className="text-red-500">*</span></label>
-                            <input type="text" value={formData.pv} onChange={e => updateData('pv', e.target.value)} placeholder="Ex: 136 (16d10 + 48)" className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" />
+                            <input type="text" value={formData.pv} onChange={e => updateData('pv', e.target.value)} placeholder="Ex: 136" className="w-full p-3 rounded bg-[#444] border border-gray-600 text-white outline-none focus:border-red-500" />
                         </div>
                         
                         <div className="md:col-span-2 bg-[#333] p-4 rounded-lg border border-gray-600">
@@ -373,11 +371,11 @@ const CreateCreature = () => {
                                 </div>
                                 <div>
                                     <label className="text-xs text-gray-400 block mb-1">Voo</label>
-                                    <input type="text" value={formData.deslVoo} onChange={e => updateData('deslVoo', e.target.value)} placeholder="-" className="w-full p-2 rounded bg-[#444] border border-gray-600 text-white" />
+                                    <input type="text" value={formData.deslVoo} onChange={e => updateData('deslVoo', e.target.value)} placeholder="6m" className="w-full p-2 rounded bg-[#444] border border-gray-600 text-white" />
                                 </div>
                                 <div>
                                     <label className="text-xs text-gray-400 block mb-1">Natação</label>
-                                    <input type="text" value={formData.deslNatacao} onChange={e => updateData('deslNatacao', e.target.value)} placeholder="-" className="w-full p-2 rounded bg-[#444] border border-gray-600 text-white" />
+                                    <input type="text" value={formData.deslNatacao} onChange={e => updateData('deslNatacao', e.target.value)} placeholder="3m" className="w-full p-2 rounded bg-[#444] border border-gray-600 text-white" />
                                 </div>
                             </div>
                         </div>
