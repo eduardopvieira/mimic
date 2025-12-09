@@ -4,20 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Remove as margens padrão do navegador e força altura total */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: #1A1A1A; /* Fundo base para evitar flash branco */
+  background-color: #1A1A1A;
 }
 
-/* O segredo: O React injeta tudo na div 'root', então ela também precisa ser 100% */
 #root {
   width: 100%;
   height: 100%;
-  display: flex;     /* Garante que o conteúdo interno possa expandir */
+  display: flex;
   flex-direction: column;
 }
 
