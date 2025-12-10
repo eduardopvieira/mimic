@@ -80,7 +80,7 @@ const Register = () => {
             <div>
               <label className="block text-lg font-medium text-gray-300 mb-2">Email</label>
               <input 
-                type="email" name="email" value={formData.email} onChange={handleChange}
+                type="email" name="email" value={formData.email} onChange={handleChange} placeholder='seu@email.com'
                 className="w-full p-3 rounded bg-[#444444] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"
                 required 
               />

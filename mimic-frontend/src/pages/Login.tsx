@@ -47,7 +47,7 @@ const Login = () => {
       localStorage.setItem('usuarioEmail', data.email);
 
       console.log("Login realizado com sucesso!", data);
-      navigate('/gerenciar-magias');
+      navigate('/gerenciar-personagens');
 
     } catch (err: any) {
       console.error(err);
